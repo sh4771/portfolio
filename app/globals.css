@@ -1,0 +1,217 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* 
+   * Contrast-Aware Theme System
+   * All text colors automatically maintain WCAG-compliant contrast ratios:
+   * - Primary text: ≥7:1 (optimal readability)
+   * - Secondary text: ≥4.5:1 (body text standard)
+   * - Muted text: ≥3:1 (large text / decorative)
+   */
+  
+  /* Core backgrounds */
+  --background: #faf7f0;
+  --surface: #f2ede3;
+  --card: #f2ede3;
+  --popover: #f2ede3;
+  --muted: #f2ede3;
+  
+  /* Text hierarchy with enforced contrast */
+  --foreground: #1c1a16;
+  --text-primary: #1c1a16;
+  --text-secondary: #3c3830;
+  --text-muted: #645f54;
+  
+  /* Component foregrounds */
+  --card-foreground: #1c1a16;
+  --popover-foreground: #1c1a16;
+  --muted-foreground: #645f54;
+  
+  /* Interactive elements */
+  --primary: #1c1a16;
+  --primary-foreground: #faf7f0;
+  --secondary: #f2ede3;
+  --secondary-foreground: #3c3830;
+  --accent: #645f54;
+  --accent-foreground: #1c1a16;
+  
+  /* States */
+  --destructive: #dc2626;
+  --destructive-foreground: #faf7f0;
+  
+  /* Borders & inputs */
+  --border: #dcd5c3;
+  --input: #dcd5c3;
+  --ring: #645f54;
+  
+  /* Layout */
+  --radius: 0.5rem;
+  
+  /* Filters */
+  --logo-filter: brightness(0.15);
+  --scribble-filter: invert(0) brightness(0.3);
+}
+
+/* Smooth transitions for theme color changes */
+html {
+  transition: background-color 0.15s ease-out;
+}
+
+body, 
+.bg-background,
+.bg-card,
+.bg-muted,
+.text-foreground,
+.text-muted-foreground,
+.border-border {
+  transition: background-color 0.15s ease-out, color 0.15s ease-out, border-color 0.15s ease-out;
+}
+
+@theme inline {
+  /* Typography - Helvetica */
+  --font-sans: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+  
+  /* Core color tokens */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  
+  /* Text hierarchy tokens (contrast-enforced) */
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  
+  /* Component colors */
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  
+  /* Borders & inputs */
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  
+  /* Radius scale */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Semantic text utility classes with contrast-enforced colors */
+@layer utilities {
+  .text-primary {
+    color: var(--text-primary);
+  }
+  .text-secondary {
+    color: var(--text-secondary);
+  }
+  .text-muted {
+    color: var(--text-muted);
+  }
+  .bg-surface {
+    background-color: var(--surface);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background-color: var(--accent, #6b6560);
+  color: var(--primary-foreground, #f8f5ee);
+}
+
+/* Scribble emphasis styles - available globally */
+.scribble-underline {
+  position: relative;
+  display: inline;
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+.scribble-underline::after {
+  content: "";
+  position: absolute;
+  left: -0.08em;
+  right: -0.08em;
+  bottom: -0.22em;
+  height: 8px;
+  opacity: 0.6;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 8' preserveAspectRatio='none'%3E%3Cpath d='M1 5.2 C10 1.5 22 7 35 4 C49 1.4 63 6.9 77 3.9 C91 1.2 104 6.1 119 3.8' fill='none' stroke='currentColor' stroke-width='1.35' stroke-linecap='round'/%3E%3C/svg%3E");
+  filter: var(--scribble-filter, none);
+}
+
+.scribble-circle {
+  position: relative;
+  display: inline;
+  padding: 0 0.04em;
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+.scribble-circle::after {
+  content: "";
+  position: absolute;
+  inset: -0.24em -0.26em -0.2em -0.26em;
+  opacity: 0.6;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 124 38' preserveAspectRatio='none'%3E%3Cpath d='M9 18 C11 8, 24 4, 42 5 L90 6 C108 7, 118 12, 116 20 C114 30, 102 33, 84 33 L34 32 C17 31, 7 27, 9 18 Z' fill='none' stroke='currentColor' stroke-width='1.35' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  pointer-events: none;
+  filter: var(--scribble-filter, none);
+}
+
+.scribble-highlight {
+  position: relative;
+  display: inline;
+  padding: 0 0.04em;
+  z-index: 0;
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+.scribble-highlight::before {
+  content: "";
+  position: absolute;
+  left: -0.1em;
+  right: -0.1em;
+  top: 46%;
+  bottom: 0.02em;
+  border-radius: 0.2em;
+  opacity: 0.3;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 34' preserveAspectRatio='none'%3E%3Cpath d='M2 14 C10 9, 20 18, 32 12 C48 6, 66 16, 82 11 C99 6, 118 17, 135 12 C145 9, 152 13, 158 11 L158 31 L2 31 Z' fill='currentColor'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: -1;
+  filter: var(--scribble-filter, none);
+}

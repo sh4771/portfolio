@@ -1,0 +1,108 @@
+"use client"
+
+import Image from "next/image"
+import Link from "next/link"
+
+export interface CaseStudy {
+  slug: string
+  title: string
+  description: string
+  tags: string[]
+  image: string
+}
+
+const projects: CaseStudy[] = [
+  {
+    slug: "passiton",
+    title: "Designing Traceable Garment Lifecycles",
+    description:
+      "Led research and end-to-end design of a blockchain-enabled fashion reuse app focused on extending garment lifecycle through traceability.",
+    tags: ["2024", "UI/UX Design", "Case Study"],
+    image: "/images/passiton.jpg",
+  },
+  {
+    slug: "games4peace",
+    title: "Turning Casual Play into Measurable Social Impact",
+    description:
+      "Designing an interactive system that transforms playful user interactions into measurable social impact.",
+    tags: ["2024–2025", "UI/UX Design", "Case Study"],
+    image: "/images/games4peace.jpg",
+  },
+  {
+    slug: "schedulink",
+    title: "Real-Time Availability for Social Planning",
+    description:
+      "Designing a social scheduling system that helps college students coordinate spontaneous plans.",
+    tags: ["2025", "Product Design", "UX Design", "Interaction Design"],
+    image: "/images/schedulink.jpg",
+  },
+  {
+    slug: "cast",
+    title: "Restoring Postural Control: A Cable-Activated Stabilizing Torso (C.A.S.T)",
+    description:
+      "Designing a wearable assistive device that helps restore postural stability for spinal cord injury patients.",
+    tags: ["2025", "Wearable Design", "UX Research", "Human-Centered Robotics"],
+    image: "/images/cast.jpg",
+  },
+]
+
+function CaseStudyCard({ project }: { project: CaseStudy }) {
+  return (
+    <Link href={`/work/${project.slug}`} className="group block">
+      <article>
+        {/* Image */}
+        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-card">
+          <Image
+            src={project.image}
+            alt={`${project.title} case study preview`}
+            fill
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+            sizes="(max-width: 768px) 100vw, 640px"
+          />
+        </div>
+
+        {/* Text below image */}
+        <div className="mt-5">
+          {/* Title */}
+          <h3 className="text-base font-semibold text-foreground leading-snug tracking-tight transition-colors group-hover:text-foreground/70">
+            {project.title}
+          </h3>
+
+          {/* Description */}
+          <p className="mt-2 text-sm leading-relaxed text-foreground/60">
+            {project.description}
+          </p>
+
+          {/* Tags */}
+          <div className="mt-3 flex flex-wrap items-center gap-x-1 text-xs text-foreground/40">
+            {project.tags.map((tag, index) => (
+              <span key={tag} className="flex items-center">
+                {tag}
+                {index < project.tags.length - 1 && (
+                  <span className="ml-1">•</span>
+                )}
+              </span>
+            ))}
+          </div>
+        </div>
+      </article>
+    </Link>
+  )
+}
+
+export function CaseStudyGrid() {
+  return (
+    <section id="work" className="pb-24 pt-6">
+      <div className="mx-auto w-full max-w-[640px] px-6">
+        {/* Stacked cards */}
+        <div className="flex flex-col gap-16">
+          {projects.map((project) => (
+            <CaseStudyCard key={project.slug} project={project} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+export { projects }
