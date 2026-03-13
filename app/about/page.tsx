@@ -55,8 +55,8 @@ export default function AboutPage() {
           <div className="max-w-[600px] mx-auto space-y-8 mb-24">
             <p className="text-xs tracking-[0.08em] text-foreground/85 leading-[1.8]">
               <em className="not-italic">Design is my language.</em> I{" "}
-              <span className="underline decoration-foreground/30 underline-offset-2">connect people</span> and{" "}
-              <span className="underline decoration-foreground/30 underline-offset-2">share stories</span> through my work.
+              <span className="scribble-underline">connect people</span> and{" "}
+              <span className="scribble-underline">share stories</span> through my work.
             </p>
 
             <p className="text-xs tracking-[0.08em] text-foreground/60 leading-[1.8]">
