@@ -222,6 +222,7 @@ export default function ThemeToggle() {
   })
   const [expanded, setExpanded] = useState(false)
   const [hasAnimated, setHasAnimated] = useState(false)
+  const [isAnimating, setIsAnimating] = useState(false)
   const trackRef = useRef<HTMLDivElement>(null)
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -241,33 +242,44 @@ export default function ThemeToggle() {
     // Start expanded quickly
     const openTimer = setTimeout(() => {
       setExpanded(true)
-    }, 600)
+      setIsAnimating(true)
+    }, 500)
     
-    // Animate the level change - fast and snappy
+    // Animate the level change with easing effect
     const animateTimer = setTimeout(() => {
       const steps = Math.abs(targetLevel - startLevel)
-      const stepDuration = 50 // 50ms per step = ~600ms total
+      const totalDuration = 800
+      const startTime = Date.now()
       
-      let currentStep = 0
-      const interval = setInterval(() => {
-        currentStep++
-        if (isNight) {
-          setLevel(Math.min(startLevel + currentStep, targetLevel))
-        } else {
-          setLevel(Math.max(startLevel - currentStep, targetLevel))
-        }
+      const animate = () => {
+        const elapsed = Date.now() - startTime
+        const progress = Math.min(elapsed / totalDuration, 1)
+        // Ease-out cubic for smooth deceleration
+        const eased = 1 - Math.pow(1 - progress, 3)
         
-        if (currentStep >= steps) {
-          clearInterval(interval)
+        const currentLevel = Math.round(
+          isNight 
+            ? startLevel + (targetLevel - startLevel) * eased
+            : startLevel - (startLevel - targetLevel) * eased
+        )
+        
+        setLevel(currentLevel)
+        
+        if (progress < 1) {
+          requestAnimationFrame(animate)
+        } else {
+          setIsAnimating(false)
         }
-      }, stepDuration)
-    }, 800)
+      }
+      
+      requestAnimationFrame(animate)
+    }, 700)
     
     // Close the toggle
     const closeTimer = setTimeout(() => {
       setExpanded(false)
       setHasAnimated(true)
-    }, 2000)
+    }, 2200)
     
     return () => {
       clearTimeout(openTimer)
@@ -311,11 +323,19 @@ export default function ThemeToggle() {
   const dotG = lerp(38, 248, t)
   const dotB = lerp(35, 242, t)
 
+  // Glow intensity during animation
+  const glowIntensity = isAnimating ? 0.4 : 0
+  const scaleValue = isAnimating ? 1.05 : 1
+
   return (
     <div
       className="fixed bottom-8 right-6 z-50 flex flex-col items-center"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      style={{
+        transform: `scale(${scaleValue})`,
+        transition: "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
+      }}
     >
       <div
         className="flex flex-col items-center rounded-full relative"
@@ -324,10 +344,14 @@ export default function ThemeToggle() {
           backdropFilter: "blur(20px) saturate(180%)",
           WebkitBackdropFilter: "blur(20px) saturate(180%)",
           border: `1px solid rgba(${pillBgR}, ${pillBgG}, ${pillBgB}, ${pillBorderAlpha})`,
-          boxShadow: `0 8px 32px rgba(0,0,0,${lerp(0.12, 0.28, t)}), inset 0 1px 0 rgba(255,255,255,${lerp(0.50, 0.10, t)})`,
+          boxShadow: `
+            0 8px 32px rgba(0,0,0,${lerp(0.12, 0.28, t)}), 
+            inset 0 1px 0 rgba(255,255,255,${lerp(0.50, 0.10, t)}),
+            0 0 ${isAnimating ? 30 : 0}px rgba(${dotR}, ${dotG}, ${dotB}, ${glowIntensity})
+          `,
           width: 44,
           height: expanded ? `${LEVELS * 22 + 20}px` : "52px",
-          transition: `height ${expanded ? "0.35s" : "0.7s"} cubic-bezier(0.4, 0, 0.2, 1)`,
+          transition: `height ${expanded ? "0.35s" : "0.7s"} cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease`,
           overflow: "hidden",
           justifyContent: "center",
         }}
@@ -384,7 +408,7 @@ export default function ThemeToggle() {
               width: 44,
               height: 22,
               top: Math.max(12, Math.min(12 + (LEVELS - 1) * 22, 12 + level * 22)) - 1,
-              transition: "top 0.15s ease",
+              transition: "top 0.1s ease-out",
               zIndex: 2,
             }}
           >
@@ -394,6 +418,8 @@ export default function ThemeToggle() {
                   width: 15,
                   height: 15,
                   color: `rgba(${dotR}, ${dotG}, ${dotB}, 0.9)`,
+                  transform: isAnimating ? `rotate(${level * 30}deg) scale(1.1)` : "rotate(0deg) scale(1)",
+                  transition: "transform 0.15s ease-out",
                 }}
               />
             ) : (
@@ -402,6 +428,8 @@ export default function ThemeToggle() {
                   width: 14,
                   height: 14,
                   color: `rgba(${dotR}, ${dotG}, ${dotB}, 0.9)`,
+                  transform: isAnimating ? `rotate(${(LEVELS - 1 - level) * -20}deg) scale(1.1)` : "rotate(0deg) scale(1)",
+                  transition: "transform 0.15s ease-out",
                 }}
               />
             )}
@@ -422,6 +450,7 @@ export default function ThemeToggle() {
         >
           {t < 0.5 ? (
             <Sun
+              className={isAnimating ? "animate-spin-slow" : ""}
               style={{
                 width: 15,
                 height: 15,
