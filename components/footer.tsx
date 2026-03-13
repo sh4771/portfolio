@@ -11,7 +11,7 @@ const navLinks = [
 export function Footer() {
   return (
     <footer className="border-t border-border/30">
-      <div className="mx-auto w-full max-w-[640px] px-6 py-12">
+      <div className="mx-auto w-full max-w-[900px] px-6 py-12">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Image

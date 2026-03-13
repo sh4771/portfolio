@@ -93,7 +93,7 @@ function CaseStudyCard({ project }: { project: CaseStudy }) {
 export function CaseStudyGrid() {
   return (
     <section id="work" className="pb-24 pt-6">
-      <div className="mx-auto w-full max-w-[640px] px-6">
+      <div className="mx-auto w-full max-w-[900px] px-6">
         {/* Stacked cards */}
         <div className="flex flex-col gap-16">
           {projects.map((project) => (

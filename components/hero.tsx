@@ -25,7 +25,7 @@ export function Hero() {
 
   return (
     <section className="relative flex min-h-svh flex-col justify-center">
-      <div ref={containerRef} className="mx-auto w-full max-w-[640px] px-6">
+      <div ref={containerRef} className="mx-auto w-full max-w-[680px] px-6">
         <h1
           data-animate
           className="text-[1.9rem] font-bold leading-[1.08] tracking-tight text-foreground"

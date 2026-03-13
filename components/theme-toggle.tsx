@@ -208,6 +208,7 @@ function applyTheme(t: number) {
 export default function ThemeToggle() {
   const [level, setLevel] = useState(0)
   const [expanded, setExpanded] = useState(false)
+  const [hasAnimated, setHasAnimated] = useState(false)
   const trackRef = useRef<HTMLDivElement>(null)
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -215,6 +216,25 @@ export default function ThemeToggle() {
     const t = level / (LEVELS - 1)
     applyTheme(t)
   }, [level])
+
+  // Initial "peek" animation on page load
+  useEffect(() => {
+    if (hasAnimated) return
+    
+    const openTimer = setTimeout(() => {
+      setExpanded(true)
+    }, 1500)
+    
+    const closeTimer = setTimeout(() => {
+      setExpanded(false)
+      setHasAnimated(true)
+    }, 3000)
+    
+    return () => {
+      clearTimeout(openTimer)
+      clearTimeout(closeTimer)
+    }
+  }, [hasAnimated])
 
   function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
     if (!trackRef.current) return

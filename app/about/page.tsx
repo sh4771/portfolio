@@ -35,7 +35,7 @@ export default function AboutPage() {
     <>
       <Navigation />
       <main className="pt-32 pb-20">
-        <div className="mx-auto w-full max-w-[800px] px-6">
+        <div className="mx-auto w-full max-w-[900px] px-6">
           
           {/* Profile Photo - Centered */}
           <div className="flex justify-center mb-16">

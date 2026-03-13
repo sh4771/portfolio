@@ -5,7 +5,7 @@ import { ArrowLeft, Hand, Lock, Move, Shield } from "lucide-react"
 export default function Page() {
   return (
     <main className="min-h-screen bg-background py-16 px-4 md:px-8 transition-colors duration-300">
-      <div className="max-w-4xl mx-auto space-y-20">
+      <div className="max-w-[900px] mx-auto space-y-20">
 
         {/* Back Button */}
         <Link 
