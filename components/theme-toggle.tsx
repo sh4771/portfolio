@@ -205,8 +205,21 @@ function applyTheme(t: number) {
   }
 }
 
+// Check if it's nighttime in EST (6pm - 6am)
+function isNightTimeEST(): boolean {
+  const now = new Date()
+  const estOffset = -5
+  const utc = now.getTime() + (now.getTimezoneOffset() * 60000)
+  const estTime = new Date(utc + (3600000 * estOffset))
+  const hour = estTime.getHours()
+  return hour >= 18 || hour < 6
+}
+
 export default function ThemeToggle() {
-  const [level, setLevel] = useState(0)
+  const [level, setLevel] = useState(() => {
+    // Start with opposite of target (will animate to correct mode)
+    return isNightTimeEST() ? 0 : LEVELS - 1
+  })
   const [expanded, setExpanded] = useState(false)
   const [hasAnimated, setHasAnimated] = useState(false)
   const trackRef = useRef<HTMLDivElement>(null)
@@ -217,21 +230,49 @@ export default function ThemeToggle() {
     applyTheme(t)
   }, [level])
 
-  // Initial "peek" animation on page load
+  // Initial animation: animate theme based on time of day
   useEffect(() => {
     if (hasAnimated) return
     
+    const isNight = isNightTimeEST()
+    const targetLevel = isNight ? LEVELS - 1 : 0
+    const startLevel = isNight ? 0 : LEVELS - 1
+    
+    // Start expanded after a brief delay
     const openTimer = setTimeout(() => {
       setExpanded(true)
-    }, 1500)
+    }, 1000)
     
+    // Animate the level change
+    const animateTimer = setTimeout(() => {
+      const duration = 1500
+      const steps = Math.abs(targetLevel - startLevel)
+      const stepDuration = duration / steps
+      
+      let currentStep = 0
+      const interval = setInterval(() => {
+        currentStep++
+        if (isNight) {
+          setLevel(Math.min(startLevel + currentStep, targetLevel))
+        } else {
+          setLevel(Math.max(startLevel - currentStep, targetLevel))
+        }
+        
+        if (currentStep >= steps) {
+          clearInterval(interval)
+        }
+      }, stepDuration)
+    }, 1200)
+    
+    // Close the toggle
     const closeTimer = setTimeout(() => {
       setExpanded(false)
       setHasAnimated(true)
-    }, 3000)
+    }, 3500)
     
     return () => {
       clearTimeout(openTimer)
+      clearTimeout(animateTimer)
       clearTimeout(closeTimer)
     }
   }, [hasAnimated])
