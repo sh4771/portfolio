@@ -407,7 +407,7 @@ export default function ThemeToggle() {
               right: 0,
               width: 44,
               height: 22,
-              top: Math.max(12, Math.min(12 + (LEVELS - 1) * 22, 12 + level * 22)) - 1,
+              top: 12 + Math.max(0, Math.min(LEVELS - 1, level)) * 22,
               transition: "top 0.1s ease-out",
               zIndex: 2,
             }}
