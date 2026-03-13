@@ -238,16 +238,15 @@ export default function ThemeToggle() {
     const targetLevel = isNight ? LEVELS - 1 : 0
     const startLevel = isNight ? 0 : LEVELS - 1
     
-    // Start expanded after a brief delay
+    // Start expanded quickly
     const openTimer = setTimeout(() => {
       setExpanded(true)
-    }, 1000)
+    }, 600)
     
-    // Animate the level change
+    // Animate the level change - fast and snappy
     const animateTimer = setTimeout(() => {
-      const duration = 1500
       const steps = Math.abs(targetLevel - startLevel)
-      const stepDuration = duration / steps
+      const stepDuration = 50 // 50ms per step = ~600ms total
       
       let currentStep = 0
       const interval = setInterval(() => {
@@ -262,13 +261,13 @@ export default function ThemeToggle() {
           clearInterval(interval)
         }
       }, stepDuration)
-    }, 1200)
+    }, 800)
     
     // Close the toggle
     const closeTimer = setTimeout(() => {
       setExpanded(false)
       setHasAnimated(true)
-    }, 3500)
+    }, 2000)
     
     return () => {
       clearTimeout(openTimer)
