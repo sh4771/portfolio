@@ -143,10 +143,22 @@ export default function BuyingMotivations() {
       </div>
 
       <p className="text-sm text-muted-foreground leading-relaxed max-w-2xl">
-        While practical replacement needs remain the primary driver, social and
-        emotional factors — trend-following, social influence, and retail
-        therapy — collectively outweigh functional purchasing decisions.
+        Most abandoned clothes are not worn out. They stop being worn because they no longer fit,
+        have already been posted on social media, or feel overexposed. They pile up in rooms, unworn but not unusable.
       </p>
+
+      <div className="border-l-2 border-foreground pl-6 py-1 space-y-2">
+        <span className="text-xs uppercase tracking-widest text-muted-foreground">
+          AHA Moment
+        </span>
+        <p className="text-base font-semibold leading-relaxed text-foreground/60">
+          People think new equals good, but{" "}
+          <span className="text-foreground/80">worn clothing often holds more value.</span>{" "}
+          This realization reshaped how I define value, shifting it toward the{" "}
+          <span className="text-foreground/80">stories and memories</span>{" "}
+          embedded in each piece, and how user experience can make that value visible and worth choosing.
+        </p>
+      </div>
     </div>
   )
 }

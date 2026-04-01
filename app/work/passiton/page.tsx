@@ -5,6 +5,7 @@ import WardrobeComposition from "@/components/infographics/wardrobe-composition"
 import DiscardReasons from "@/components/infographics/discard-reasons"
 import DisposalBehavior from "@/components/infographics/disposal-behavior"
 import BuyingMotivations from "@/components/infographics/buying-motivations"
+import StoriesAndMemories from "@/components/infographics/stories-and-memories"
 import CircularPricingModel from "@/components/infographics/circular-pricing-model"
 import ClothingLifecycle from "@/components/infographics/clothing-lifecycle"
 
@@ -42,7 +43,7 @@ export default function Page() {
                 </div>
                 <div>
                   <span className="block text-xs text-foreground/40 mb-1">Timeline</span>
-                  <span className="text-foreground/70">May 2024 – Dec 2024</span>
+                  <span className="text-foreground/70">May 2024 – Present</span>
                 </div>
                 <div>
                   <span className="block text-xs text-foreground/40 mb-1">What I did</span>
@@ -159,6 +160,10 @@ export default function Page() {
           <BuyingMotivations />
         </section>
 
+        <section>
+          <StoriesAndMemories />
+        </section>
+
         {/* Solutions */}
         <section className="space-y-16 md:space-y-20">
           {/* Section Header */}
@@ -172,101 +177,7 @@ export default function Page() {
             </p>
           </div>
 
-          {/* Feature 1: Item Tag Scanner & Material Information */}
-          <div 
-            className="relative mx-auto rounded-[32px] md:rounded-[40px] p-8 md:p-12 lg:p-16 overflow-hidden"
-            style={{
-              background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-              boxShadow: "0 4px 60px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04)",
-            }}
-          >
-            <div 
-              className="absolute inset-0 rounded-[32px] md:rounded-[40px] pointer-events-none"
-              style={{
-                background: "radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.4) 0%, transparent 50%)",
-              }}
-            />
-
-            <div className="relative z-10">
-              {/* Images Left + Text Right Layout */}
-              <div className="flex flex-col lg:flex-row items-center lg:items-start gap-10 lg:gap-14">
-                
-                {/* Two Images */}
-                <div className="flex flex-col sm:flex-row items-center gap-6 md:gap-8 shrink-0">
-                  {/* Scanner Screen */}
-                  <div className="flex flex-col items-center group">
-                    <div 
-                      className="rounded-[2rem] overflow-hidden transition-transform duration-300 group-hover:-translate-y-1"
-                      style={{
-                        boxShadow: "0 30px 70px rgba(0,0,0,0.35), 0 15px 35px rgba(0,0,0,0.25), 0 5px 15px rgba(0,0,0,0.2)",
-                        border: "3px solid rgba(0,0,0,0.12)",
-                      }}
-                    >
-                      <Image
-                        src="/images/passiton-scanner.png"
-                        alt="Item tag scanner interface"
-                        width={240}
-                        height={520}
-                        className="w-[180px] md:w-[200px] lg:w-[220px] h-auto"
-                      />
-                    </div>
-                    <p className="mt-3 text-xs text-foreground/40">Scanner Interface</p>
-                  </div>
-
-                  {/* Detail View (Zoomed) */}
-                  <div className="flex flex-col items-center group">
-                    <div 
-                      className="rounded-[2rem] overflow-hidden transition-transform duration-300 group-hover:-translate-y-1"
-                      style={{
-                        boxShadow: "0 30px 70px rgba(0,0,0,0.35), 0 15px 35px rgba(0,0,0,0.25), 0 5px 15px rgba(0,0,0,0.2)",
-                        border: "3px solid rgba(0,0,0,0.12)",
-                      }}
-                    >
-                      <Image
-                        src="/images/passiton-scanner-detail.png"
-                        alt="Material information detail view showing chemical impacts"
-                        width={240}
-                        height={520}
-                        className="w-[180px] md:w-[200px] lg:w-[220px] h-auto"
-                      />
-                    </div>
-                    <p className="mt-3 text-xs text-foreground/40">Material Detail View</p>
-                  </div>
-                </div>
-
-                {/* Feature Description - With Border */}
-                <div className="border border-foreground/10 rounded-2xl p-6 md:p-8 lg:self-center">
-                  {/* Level 1: Title */}
-                  <h3 className="text-base md:text-lg font-medium tracking-tight">
-                    Item Tag Scanner & Material Information
-                  </h3>
-                  
-                  {/* Level 2: Summary */}
-                  <p className="mt-3 text-sm text-foreground/60 leading-relaxed">
-                    Scans clothing tags to reveal <strong className="text-foreground/90 font-medium">hidden health and environmental impacts</strong> of garment materials.
-                  </p>
-                  
-                  {/* Level 3: Bullet Points */}
-                  <ul className="mt-4 space-y-2 text-sm text-foreground/60">
-                    <li className="flex items-start gap-2">
-                      <span className="w-1 h-1 rounded-full bg-foreground/40 mt-2 shrink-0" />
-                      <span>Identifies harmful chemicals such as <strong className="text-foreground/90 font-medium">formaldehyde</strong> and synthetic treatments</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="w-1 h-1 rounded-full bg-foreground/40 mt-2 shrink-0" />
-                      <span>Explains how materials affect <strong className="text-foreground/90 font-medium">human health</strong> and <strong className="text-foreground/90 font-medium">ecosystems</strong></span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="w-1 h-1 rounded-full bg-foreground/40 mt-2 shrink-0" />
-                      <span>Makes the <strong className="text-foreground/90 font-medium">hidden costs of fashion</strong> visible to the wearer</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Feature 2: Garment Journey & User Engagement */}
+          {/* Feature 1: Garment Journey & User Engagement */}
           <div 
             className="relative mx-auto rounded-[32px] md:rounded-[40px] p-8 md:p-12 lg:p-16 overflow-hidden"
             style={{
@@ -367,6 +278,100 @@ export default function Page() {
                       Displays ReLeaf points, rankings, and sustainability achievements
                     </p>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Feature 2: Item Tag Scanner & Material Information */}
+          <div 
+            className="relative mx-auto rounded-[32px] md:rounded-[40px] p-8 md:p-12 lg:p-16 overflow-hidden"
+            style={{
+              background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
+              boxShadow: "0 4px 60px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04)",
+            }}
+          >
+            <div 
+              className="absolute inset-0 rounded-[32px] md:rounded-[40px] pointer-events-none"
+              style={{
+                background: "radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.4) 0%, transparent 50%)",
+              }}
+            />
+
+            <div className="relative z-10">
+              {/* Images Left + Text Right Layout */}
+              <div className="flex flex-col lg:flex-row items-center lg:items-start gap-10 lg:gap-14">
+                
+                {/* Two Images */}
+                <div className="flex flex-col sm:flex-row items-center gap-6 md:gap-8 shrink-0">
+                  {/* Scanner Screen */}
+                  <div className="flex flex-col items-center group">
+                    <div 
+                      className="rounded-[2rem] overflow-hidden transition-transform duration-300 group-hover:-translate-y-1"
+                      style={{
+                        boxShadow: "0 30px 70px rgba(0,0,0,0.35), 0 15px 35px rgba(0,0,0,0.25), 0 5px 15px rgba(0,0,0,0.2)",
+                        border: "3px solid rgba(0,0,0,0.12)",
+                      }}
+                    >
+                      <Image
+                        src="/images/passiton-scanner.png"
+                        alt="Item tag scanner interface"
+                        width={240}
+                        height={520}
+                        className="w-[180px] md:w-[200px] lg:w-[220px] h-auto"
+                      />
+                    </div>
+                    <p className="mt-3 text-xs text-foreground/40">Scanner Interface</p>
+                  </div>
+
+                  {/* Detail View (Zoomed) */}
+                  <div className="flex flex-col items-center group">
+                    <div 
+                      className="rounded-[2rem] overflow-hidden transition-transform duration-300 group-hover:-translate-y-1"
+                      style={{
+                        boxShadow: "0 30px 70px rgba(0,0,0,0.35), 0 15px 35px rgba(0,0,0,0.25), 0 5px 15px rgba(0,0,0,0.2)",
+                        border: "3px solid rgba(0,0,0,0.12)",
+                      }}
+                    >
+                      <Image
+                        src="/images/passiton-scanner-detail.png"
+                        alt="Material information detail view showing chemical impacts"
+                        width={240}
+                        height={520}
+                        className="w-[180px] md:w-[200px] lg:w-[220px] h-auto"
+                      />
+                    </div>
+                    <p className="mt-3 text-xs text-foreground/40">Material Detail View</p>
+                  </div>
+                </div>
+
+                {/* Feature Description - With Border */}
+                <div className="border border-foreground/10 rounded-2xl p-6 md:p-8 lg:self-center">
+                  {/* Level 1: Title */}
+                  <h3 className="text-base md:text-lg font-medium tracking-tight">
+                    Item Tag Scanner & Material Information
+                  </h3>
+                  
+                  {/* Level 2: Summary */}
+                  <p className="mt-3 text-sm text-foreground/60 leading-relaxed">
+                    Scans clothing tags to reveal <strong className="text-foreground/90 font-medium">hidden health and environmental impacts</strong> of garment materials.
+                  </p>
+                  
+                  {/* Level 3: Bullet Points */}
+                  <ul className="mt-4 space-y-2 text-sm text-foreground/60">
+                    <li className="flex items-start gap-2">
+                      <span className="w-1 h-1 rounded-full bg-foreground/40 mt-2 shrink-0" />
+                      <span>Identifies harmful chemicals such as <strong className="text-foreground/90 font-medium">formaldehyde</strong> and synthetic treatments</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="w-1 h-1 rounded-full bg-foreground/40 mt-2 shrink-0" />
+                      <span>Explains how materials affect <strong className="text-foreground/90 font-medium">human health</strong> and <strong className="text-foreground/90 font-medium">ecosystems</strong></span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="w-1 h-1 rounded-full bg-foreground/40 mt-2 shrink-0" />
+                      <span>Makes the <strong className="text-foreground/90 font-medium">hidden costs of fashion</strong> visible to the wearer</span>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
