@@ -429,45 +429,39 @@ export default function Page() {
             </h2>
           </div>
 
-          {/* Final Screens Showcase */}
-          <div 
-            className="relative mx-auto rounded-[32px] md:rounded-[40px] p-8 md:p-12 lg:p-16 overflow-hidden"
+          {/* Final Screens Showcase — dark frame + white inner (matches low-fi showcase format) */}
+          <div
+            className="rounded-[24px] md:rounded-[32px] p-6 md:p-8 overflow-hidden"
             style={{
-              background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-              boxShadow: "0 4px 60px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04)",
+              background: "#1a1a1a",
+              boxShadow: "0 4px 40px rgba(0,0,0,0.35)",
             }}
           >
-            <div 
-              className="absolute inset-0 rounded-[32px] md:rounded-[40px] pointer-events-none"
-              style={{
-                background: "radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.4) 0%, transparent 50%)",
-              }}
-            />
-
-            <div className="relative z-10 space-y-8">
-              <div className="text-center space-y-2">
-                <h3 className="text-base md:text-lg font-medium tracking-tight">
-                  Complete Screen Collection
-                </h3>
-                <p className="text-sm text-foreground/60 max-w-2xl mx-auto">
-                  Home, Leaderboard, Daily Goals, Impact Tracking, and Profile screens
-                </p>
-              </div>
-
-              <div 
-                className="rounded-2xl overflow-hidden bg-white border-[3px] border-foreground/10"
-                style={{
-                  boxShadow: "0 20px 50px rgba(0,0,0,0.15)",
-                }}
+            <div className="flex items-center gap-3 mb-4">
+              <div
+                className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-mono text-white/90"
+                style={{ background: "#2d2d2d" }}
               >
-                <Image
-                  src="/images/games4peace-final-screens.png"
-                  alt="All Games4Peace high-fidelity screens including Home, Leaderboard, Daily Goals, Impact, and Profile"
-                  width={1600}
-                  height={600}
-                  className="w-full h-auto"
-                />
+                01
               </div>
+              <h3 className="text-base font-medium text-white tracking-tight">
+                Complete Screen Collection
+              </h3>
+            </div>
+            <p className="text-sm text-white/55 mb-6 leading-relaxed">
+              Home, Leaderboard, Daily Goals, Impact Tracking, and Profile screens
+            </p>
+            <div
+              className="rounded-xl overflow-hidden bg-white"
+              style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.25)" }}
+            >
+              <Image
+                src="/images/games4peace-final-screens.png"
+                alt="All Games4Peace high-fidelity screens including Home, Leaderboard, Daily Goals, Impact, and Profile"
+                width={1600}
+                height={600}
+                className="w-full h-auto"
+              />
             </div>
           </div>
 
@@ -535,15 +529,30 @@ export default function Page() {
             </div>
 
             <div
-              className="rounded-2xl p-4 md:p-6 overflow-hidden"
+              className="rounded-[24px] md:rounded-[32px] p-6 md:p-8 overflow-hidden"
               style={{
-                background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-                boxShadow: "0 4px 30px rgba(0,0,0,0.06)",
+                background: "#1a1a1a",
+                boxShadow: "0 4px 40px rgba(0,0,0,0.35)",
               }}
             >
+              <div className="flex items-center gap-3 mb-4">
+                <div
+                  className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-mono text-white/90"
+                  style={{ background: "#2d2d2d" }}
+                >
+                  02
+                </div>
+                <h3 className="text-base font-medium text-white tracking-tight">
+                  Gameplay demo
+                </h3>
+              </div>
+              <p className="text-sm text-white/55 mb-6 leading-relaxed">
+                Screen recording of gameplay and core flows in the high-fidelity prototype, made with
+                Figma Make.
+              </p>
               <div
-                className="rounded-xl overflow-hidden bg-white border-[3px] border-foreground/10"
-                style={{ boxShadow: "0 10px 30px rgba(0,0,0,0.12)" }}
+                className="rounded-xl overflow-hidden bg-white"
+                style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.25)" }}
               >
                 <video controls playsInline className="w-full h-auto">
                   <source src="/videos/games4peace-gamedemo.mov" type="video/quicktime" />
@@ -551,7 +560,6 @@ export default function Page() {
                   Your browser does not support the video tag.
                 </video>
               </div>
-              <p className="text-xs text-foreground/50 text-center mt-3">Gameplay demo</p>
             </div>
           </div>
         </section>
