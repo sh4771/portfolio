@@ -533,6 +533,26 @@ export default function Page() {
                 <p className="text-xs text-foreground/50 text-center">Available Games</p>
               </div>
             </div>
+
+            <div
+              className="rounded-2xl p-4 md:p-6 overflow-hidden"
+              style={{
+                background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
+                boxShadow: "0 4px 30px rgba(0,0,0,0.06)",
+              }}
+            >
+              <div
+                className="rounded-xl overflow-hidden bg-white border-[3px] border-foreground/10"
+                style={{ boxShadow: "0 10px 30px rgba(0,0,0,0.12)" }}
+              >
+                <video controls playsInline className="w-full h-auto">
+                  <source src="/videos/games4peace-gamedemo.mov" type="video/quicktime" />
+                  <source src="/videos/games4peace-gamedemo.mov" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              <p className="text-xs text-foreground/50 text-center mt-3">Gameplay demo</p>
+            </div>
           </div>
         </section>
 
