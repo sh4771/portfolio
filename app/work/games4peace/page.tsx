@@ -551,13 +551,18 @@ export default function Page() {
                 Figma Make.
               </p>
               <div
-                className="rounded-xl overflow-hidden bg-white"
+                className="mx-auto w-full md:max-w-[280px] rounded-xl overflow-hidden h-[280px] md:h-[320px] bg-white border-[3px] border-foreground/10"
                 style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.25)" }}
               >
-                <video controls playsInline className="w-full h-auto">
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover"
+                >
                   <source src="/videos/games4peace-gamedemo.mov" type="video/quicktime" />
                   <source src="/videos/games4peace-gamedemo.mov" type="video/mp4" />
-                  Your browser does not support the video tag.
                 </video>
               </div>
             </div>
