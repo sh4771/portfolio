@@ -478,7 +478,7 @@ export default function Page() {
                   boxShadow: "0 4px 30px rgba(0,0,0,0.06)",
                 }}
               >
-                <div className="rounded-xl overflow-hidden mb-3 h-[280px] md:h-[320px] bg-white border-[3px] border-foreground/10"
+                <div className="rounded-xl overflow-hidden mb-3 h-[280px] md:h-[320px] bg-white"
                   style={{ boxShadow: "0 10px 30px rgba(0,0,0,0.12)" }}
                 >
                   <video autoPlay loop muted playsInline className="w-full h-full object-cover">
@@ -497,7 +497,7 @@ export default function Page() {
                   boxShadow: "0 4px 30px rgba(0,0,0,0.06)",
                 }}
               >
-                <div className="rounded-xl overflow-hidden mb-3 h-[280px] md:h-[320px] bg-white border-[3px] border-foreground/10"
+                <div className="rounded-xl overflow-hidden mb-3 h-[280px] md:h-[320px] bg-white"
                   style={{ boxShadow: "0 10px 30px rgba(0,0,0,0.12)" }}
                 >
                   <video autoPlay loop muted playsInline className="w-full h-full object-cover">
@@ -516,7 +516,7 @@ export default function Page() {
                   boxShadow: "0 4px 30px rgba(0,0,0,0.06)",
                 }}
               >
-                <div className="rounded-xl overflow-hidden mb-3 h-[280px] md:h-[320px] bg-white border-[3px] border-foreground/10"
+                <div className="rounded-xl overflow-hidden mb-3 h-[280px] md:h-[320px] bg-white"
                   style={{ boxShadow: "0 10px 30px rgba(0,0,0,0.12)" }}
                 >
                   <video autoPlay loop muted playsInline className="w-full h-full object-cover">
@@ -551,7 +551,7 @@ export default function Page() {
                 Figma Make.
               </p>
               <div
-                className="mx-auto flex h-[280px] w-full max-w-full items-center justify-center overflow-hidden rounded-xl border-[3px] border-foreground/10 bg-black md:h-[320px] md:max-w-[280px]"
+                className="mx-auto w-full max-w-full overflow-hidden rounded-xl bg-black md:max-w-[280px]"
                 style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.25)" }}
               >
                 <video
@@ -559,8 +559,7 @@ export default function Page() {
                   loop
                   muted
                   playsInline
-                  className="block h-auto w-auto max-h-full max-w-full min-h-0 min-w-0"
-                  style={{ objectFit: "contain" }}
+                  className="block h-auto w-full"
                 >
                   <source src="/videos/games4peace-gamedemo.mov" type="video/quicktime" />
                   <source src="/videos/games4peace-gamedemo.mov" type="video/mp4" />
