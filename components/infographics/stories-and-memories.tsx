@@ -3,7 +3,7 @@ export default function StoriesAndMemories() {
     <div className="space-y-6">
 
       <span className="text-xs uppercase tracking-widest text-muted-foreground">
-        Stories and Memories
+        Insight — Stories and memories
       </span>
 
       <div className="flex flex-col md:flex-row gap-10 items-start">
@@ -15,17 +15,19 @@ export default function StoriesAndMemories() {
           </h2>
 
           <p className="text-sm text-foreground/90 font-medium leading-relaxed">
-            Clothing has always carried memory.
+            People think new equals good. I realized worn clothes can hold more value when
+            that history is visible—who owned them, where they&apos;ve been.
           </p>
 
           <p className="text-sm text-foreground/60 leading-relaxed">
-            Long before digital systems, people left their names inside
-            garments as they passed them on.
+            That shifted my focus from designing another &quot;shop new&quot; flow to designing
+            systems that make existing value legible—something people used to do by writing
+            their names inside pieces they passed on.
           </p>
 
           <p className="text-sm text-foreground/60 leading-relaxed">
-            <span className="text-foreground/90 font-medium">PASS IT ON</span> extends
-            this behavior into a visible chain of custody.
+            <span className="text-foreground/90 font-medium">PASSIT ON</span> is the product
+            direction that came out of that: a visible chain of custody, not a fresh SKU.
           </p>
         </div>
 

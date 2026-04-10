@@ -121,7 +121,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
 
   passiton: {
     slug: "passiton",
-    title: "PassItOn",
+    title: "PASSIT ON",
     subtitle:
       "Extending garment lifecycles through NFC-enabled chain-of-custody records",
     category: "Product Design",
@@ -131,7 +131,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
     tools: ["Figma", "Arduino", "NFC Tools", "Miro"],
     image: "/images/passiton.jpg",
     overview:
-      "PassItOn is a physical-digital system that uses NFC tags embedded in clothing to create transparent, traceable records of garment ownership. By making the lifecycle of a garment visible, the project challenges the opacity of fast fashion supply chains and encourages longer use, repair, and mindful passing-on of clothing.",
+      "PASSIT ON is a physical-digital system that uses NFC tags embedded in clothing to create transparent, traceable records of garment ownership. By making the lifecycle of a garment visible, the project challenges the opacity of fast fashion supply chains and encourages longer use, repair, and mindful passing-on of clothing.",
     problem: {
       title: "The Problem",
       body: "The fashion industry produces over 100 billion garments annually, yet the average garment is worn only seven times before being discarded. Consumers have almost no visibility into where their clothes come from, how they were made, or where they go after disposal. This opacity enables waste and disconnects people from the true cost of their clothing.",
@@ -195,7 +195,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
     },
     outcome: {
       title: "Outcome & Reflection",
-      body: "PassItOn was presented at Columbia University's design showcase and received recognition for its innovative approach to sustainability through interaction design. The project demonstrated that making invisible systems visible can meaningfully shift behavior around consumption and care.",
+      body: "PASSIT ON was presented at Columbia University's design showcase and received recognition for its innovative approach to sustainability through interaction design. The project demonstrated that making invisible systems visible can meaningfully shift behavior around consumption and care.",
       metrics: [
         { label: "Usability Score", value: "92/100" },
         { label: "Avg. Engagement", value: "4.2 min" },

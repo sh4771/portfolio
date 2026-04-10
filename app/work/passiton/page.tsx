@@ -60,7 +60,7 @@ export default function Page() {
               <div className="relative w-full mt-8 h-[280px] md:h-[360px] lg:h-[420px] rounded-2xl overflow-hidden">
                 <Image
                   src="/images/passiton-mockup.png"
-                  alt="PassItOn app mockup showing garment tracking interface"
+                  alt="PASSIT ON app mockup showing garment tracking interface"
                   width={1200}
                   height={800}
                   className="w-full h-full object-cover object-center"
@@ -71,19 +71,47 @@ export default function Page() {
 
             {/* The Problem Statement */}
             <div className="border border-border/50 rounded-2xl p-6 md:p-8 space-y-6">
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <h2 className="text-lg md:text-xl font-medium tracking-tight">
-                  What happens after clothing leaves our closets?
+                  Why clothes leave rotation while they&apos;re still wearable
                 </h2>
                 <p className="text-sm text-foreground/60 text-pretty max-w-3xl leading-relaxed">
-                  Ghana receives millions of unwanted clothes every week. Half of these items 
-                  are unsellable and non-biodegradable. They often end up in informal dumpsites 
-                  or are burned.
+                  A lot of people stop wearing pieces after only a few outings. Trends turn over
+                  quickly, and when nothing signals long-term worth, a garment starts to feel
+                  disposable—even if the fabric is fine.
+                </p>
+                <p className="text-sm text-foreground/60 text-pretty max-w-3xl leading-relaxed">
+                  Most apps and closets don&apos;t surface a clear story of where an item came
+                  from, who&apos;s had it, or what it took to make it. Without that, it&apos;s
+                  harder to weigh keeping or passing something on against the pull of something
+                  new.
+                </p>
+                <p className="text-sm text-foreground/60 text-pretty max-w-3xl leading-relaxed">
+                  Once those pieces leave the home, the scale shows up downstream: Ghana receives
+                  millions of unwanted clothes every week. Many are unsellable and
+                  non-biodegradable, and end up in informal dumpsites or burned.
                 </p>
               </div>
 
               {/* Animated Lifecycle Cycle */}
               <ClothingLifecycle />
+            </div>
+
+            {/* Approach */}
+            <div className="space-y-4 max-w-3xl">
+              <p className="text-xs text-foreground/40 uppercase tracking-wide">Approach</p>
+              <h2 className="text-lg md:text-xl font-medium tracking-tight">
+                How I approached the problem
+              </h2>
+              <p className="text-sm text-foreground/60 text-pretty leading-relaxed">
+                I ran research with 50 Gen Z users (ages 19–26) to understand how and why they
+                let clothes go—especially when the item was still wearable.
+              </p>
+              <p className="text-sm text-foreground/60 text-pretty leading-relaxed">
+                Most people were replacing pieces to keep up with trends, not because the clothing
+                had failed physically. That suggested the friction wasn&apos;t mainly wear and
+                tear; it was weak emotional attachment and little perceived long-term value.
+              </p>
             </div>
 
           {/* Survey Introduction */}
@@ -98,8 +126,7 @@ export default function Page() {
               </div>
               
               <p className="text-sm text-foreground/60 text-pretty leading-relaxed">
-                Since most fast fashion consumers are aged between 20 to 30, I ran a consumer 
-                behavior survey from 50 people ranging in this group.
+                The setup, raw responses, and charts from that survey are below.
               </p>
 
               <p className="text-xs text-foreground/40 pt-3 border-t border-border/50">
@@ -162,6 +189,17 @@ export default function Page() {
 
         <section>
           <StoriesAndMemories />
+        </section>
+
+        {/* Design intent */}
+        <section className="max-w-3xl space-y-4">
+          <p className="text-xs uppercase tracking-wide text-foreground/40">Design intent</p>
+          <h2 className="text-lg font-medium tracking-tight md:text-xl">What I set out to build</h2>
+          <p className="text-sm text-foreground/60 text-pretty leading-relaxed">
+            From there, I focused on a system that could raise the perceived value of garments
+            over time by making their history visible and shareable—so keeping or passing an
+            item on could compete more fairly with buying new.
+          </p>
         </section>
 
         {/* Solutions */}
