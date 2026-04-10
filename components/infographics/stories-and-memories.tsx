@@ -3,7 +3,7 @@ export default function StoriesAndMemories() {
     <div className="space-y-6">
 
       <span className="text-xs uppercase tracking-widest text-muted-foreground">
-        Insight — Stories and memories
+        Insight · Stories and memories
       </span>
 
       <div className="flex flex-col md:flex-row gap-10 items-start">
@@ -16,13 +16,13 @@ export default function StoriesAndMemories() {
 
           <p className="text-sm text-foreground/90 font-medium leading-relaxed">
             People think new equals good. I realized worn clothes can hold more value when
-            that history is visible—who owned them, where they&apos;ve been.
+            that history is visible: who owned them, where they&apos;ve been.
           </p>
 
           <p className="text-sm text-foreground/60 leading-relaxed">
             That shifted my focus from designing another &quot;shop new&quot; flow to designing
-            systems that make existing value legible—something people used to do by writing
-            their names inside pieces they passed on.
+            systems that make existing value legible, the way people used to write their names
+            inside pieces they passed on.
           </p>
 
           <p className="text-sm text-foreground/60 leading-relaxed">

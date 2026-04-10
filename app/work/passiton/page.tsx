@@ -78,7 +78,7 @@ export default function Page() {
                 <p className="text-sm text-foreground/60 text-pretty max-w-3xl leading-relaxed">
                   A lot of people stop wearing pieces after only a few outings. Trends turn over
                   quickly, and when nothing signals long-term worth, a garment starts to feel
-                  disposable—even if the fabric is fine.
+                  disposable, even if the fabric is fine.
                 </p>
                 <p className="text-sm text-foreground/60 text-pretty max-w-3xl leading-relaxed">
                   Most apps and closets don&apos;t surface a clear story of where an item came
@@ -105,7 +105,7 @@ export default function Page() {
               </h2>
               <p className="text-sm text-foreground/60 text-pretty leading-relaxed">
                 I ran research with 50 Gen Z users (ages 19–26) to understand how and why they
-                let clothes go—especially when the item was still wearable.
+                let clothes go, especially when the item was still wearable.
               </p>
               <p className="text-sm text-foreground/60 text-pretty leading-relaxed">
                 Most people were replacing pieces to keep up with trends, not because the clothing
@@ -197,7 +197,7 @@ export default function Page() {
           <h2 className="text-lg font-medium tracking-tight md:text-xl">What I set out to build</h2>
           <p className="text-sm text-foreground/60 text-pretty leading-relaxed">
             From there, I focused on a system that could raise the perceived value of garments
-            over time by making their history visible and shareable—so keeping or passing an
+            over time by making their history visible and shareable, so keeping or passing an
             item on could compete more fairly with buying new.
           </p>
         </section>

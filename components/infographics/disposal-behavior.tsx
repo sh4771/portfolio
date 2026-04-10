@@ -41,7 +41,7 @@ export default function DisposalBehavior() {
     <div className="space-y-8">
       <div className="space-y-2">
         <span className="text-xs uppercase tracking-widest text-muted-foreground">
-          03 — Disposal Behavior
+          03 · Disposal Behavior
         </span>
         <h2 className="text-2xl md:text-3xl font-light">
           Where does unwanted clothing go?
@@ -104,7 +104,7 @@ export default function DisposalBehavior() {
       </div>
 
       <p className="text-sm text-muted-foreground leading-relaxed max-w-2xl">
-        Most unwanted clothing never leaves the home — stored away rather than
+        Most unwanted clothing never leaves the home, stored away rather than
         recycled or donated. This &quot;closet purgatory&quot; represents a significant
         opportunity for sustainable fashion interventions.
       </p>

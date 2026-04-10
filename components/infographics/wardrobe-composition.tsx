@@ -11,7 +11,7 @@ export default function WardrobeComposition() {
     <div className="space-y-8">
       <div className="space-y-2">
         <span className="text-xs uppercase tracking-widest text-muted-foreground">
-          01 — Wardrobe Composition
+          01 · Wardrobe Composition
         </span>
         <h2 className="text-2xl md:text-3xl font-light">
           What fills the modern closet?

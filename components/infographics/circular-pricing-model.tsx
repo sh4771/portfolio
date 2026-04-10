@@ -102,7 +102,7 @@ export default function CircularPricingModel() {
         <div className="space-y-2">
           <h3 className="text-xl font-medium">Wear-Based Cost</h3>
           <p className="text-muted-foreground text-sm max-w-xl">
-            Users are not simply buying clothing outright — they pay for the time 
+            Users are not simply buying clothing outright. They pay for the time
             they wear it, then recover part of the value when they resell.
           </p>
         </div>
@@ -152,7 +152,7 @@ export default function CircularPricingModel() {
           <h3 className="text-xl font-medium">Partial Profit Rewards</h3>
           <p className="text-muted-foreground text-sm max-w-xl">
             When a garment is resold again, previous owners receive a small partial 
-            reward from future resale transactions — creating a chain-of-custody value flow.
+            reward from future resale transactions, which creates a chain-of-custody value flow.
           </p>
         </div>
 
