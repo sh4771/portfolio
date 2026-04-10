@@ -9,6 +9,7 @@ import StoriesAndMemories from "@/components/infographics/stories-and-memories"
 import CircularPricingModel from "@/components/infographics/circular-pricing-model"
 import ClothingLifecycle from "@/components/infographics/clothing-lifecycle"
 import PassitOnLivePrototypeSection from "@/components/passiton/live-prototype-nfc-section"
+import ProblemDownstreamImpact from "@/components/passiton/problem-downstream-impact"
 
 export default function Page() {
   return (
@@ -93,65 +94,7 @@ export default function Page() {
 
             {/* The Problem Statement */}
             <div className="border border-border/50 rounded-2xl p-6 md:p-8 space-y-6">
-              <div className="space-y-3 max-w-3xl">
-                <h2 className="text-lg font-medium tracking-tight text-pretty md:text-xl">
-                  Why clothes leave rotation while they&apos;re still wearable
-                </h2>
-                <p className="text-sm text-foreground/60 leading-relaxed">
-                  Someone stands at their closet.
-                </p>
-                <p className="text-sm text-foreground/60 leading-relaxed">
-                  A top they only wore a few times is right there.
-                </p>
-                <p className="text-sm text-foreground/60 leading-relaxed">
-                  It still fits. Nothing is wrong with it.
-                </p>
-                <p className="text-sm text-foreground/60 leading-relaxed">
-                  It already feels <strong className="text-foreground/90 font-medium">done</strong>.
-                </p>
-                <p className="text-sm text-foreground/60 leading-relaxed">
-                  There is no{" "}
-                  <strong className="text-foreground/90 font-medium">visible history</strong>.
-                </p>
-                <p className="text-sm text-foreground/60 leading-relaxed">
-                  No chain of owners.
-                </p>
-                <p className="text-sm text-foreground/60 leading-relaxed">
-                  No footprint of where it came from, or what it took to make.
-                </p>
-                <p className="text-sm text-foreground/60 leading-relaxed">
-                  Without that, there is no{" "}
-                  <strong className="text-foreground/90 font-medium">signal of value</strong>.
-                </p>
-                <p className="text-sm text-foreground/60 leading-relaxed">
-                  Nothing worth holding onto.
-                </p>
-                <p className="text-sm text-foreground/60 leading-relaxed">
-                  So they <strong className="text-foreground/90 font-medium">reach for something new</strong>.
-                </p>
-                <p className="text-sm text-foreground/60 leading-relaxed">
-                  <strong className="text-foreground/90 font-medium">
-                    Most closets and apps never surface that story.
-                  </strong>
-                </p>
-                <p className="text-sm text-foreground/60 leading-relaxed">
-                  Passing it on is hard to justify next to checkout.
-                </p>
-                <p className="text-sm text-foreground/60 leading-relaxed">
-                  When those pieces leave home, the scale shows up downstream.
-                </p>
-                <p className="text-sm text-foreground/60 leading-relaxed">
-                  <strong className="text-foreground/90 font-medium">
-                    Ghana receives millions of unwanted clothes every week.
-                  </strong>
-                </p>
-                <p className="text-sm text-foreground/60 leading-relaxed">
-                  Many are unsellable and non-biodegradable.
-                </p>
-                <p className="text-sm text-foreground/60 leading-relaxed">
-                  They end up in dumpsites or burned.
-                </p>
-              </div>
+              <ProblemDownstreamImpact />
 
               {/* Animated Lifecycle Cycle */}
               <ClothingLifecycle />

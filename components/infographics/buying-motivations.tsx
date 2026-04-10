@@ -179,26 +179,16 @@ export default function BuyingMotivations() {
           <span className="text-xs uppercase tracking-widest text-muted-foreground">
             Aha moment
           </span>
-          <div className="space-y-2 text-sm font-semibold leading-relaxed text-foreground/60 md:text-base">
+          <div className="space-y-3 text-sm font-semibold leading-relaxed text-foreground/60 md:text-base">
             <p>
-              <span className="text-foreground/80">People think new is better.</span>
-            </p>
-            <p>Still-wearable pieces kept piling up.</p>
-            <p>The friction was not only damage.</p>
-            <p>
-              It was that{" "}
-              <span className="text-foreground/80">reuse rarely feels as clear as checkout.</span>
-            </p>
-            <p>Then it clicked.</p>
-            <p>
-              <span className="text-foreground/80">Worn can hold more value</span> when{" "}
-              <span className="text-foreground/80">stories are visible</span>.
+              People replace still-wearable clothing because it{" "}
+              <span className="text-foreground/80">no longer feels valuable</span>, even when
+              nothing is wrong with it.
             </p>
             <p>
-              The work became{" "}
-              <span className="text-foreground/80">making existing value legible</span>.
+              I focused on making that value visible through{" "}
+              <span className="text-foreground/80">each garment&apos;s story</span>.
             </p>
-            <p>Not another way to shop new.</p>
           </div>
         </div>
       </div>

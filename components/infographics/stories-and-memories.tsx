@@ -15,19 +15,16 @@ export default function StoriesAndMemories() {
           </h2>
 
           <p className="text-sm text-foreground/90 font-medium leading-relaxed">
-            People think new equals good. I realized worn clothes can hold more value when
-            that history is visible: who owned them, where they&apos;ve been.
+            <span className="text-foreground/90 font-medium">PASSIT ON</span> is my bet that when a
+            garment&apos;s history is easy to see,{" "}
+            <span className="text-foreground/90 font-medium">worn can feel as compelling as new</span>
+            , so I design for a visible chain of custody instead of another shop-new funnel.
           </p>
 
           <p className="text-sm text-foreground/60 leading-relaxed">
-            That shifted my focus from designing another &quot;shop new&quot; flow to designing
-            systems that make existing value legible, the way people used to write their names
-            inside pieces they passed on.
-          </p>
-
-          <p className="text-sm text-foreground/60 leading-relaxed">
-            <span className="text-foreground/90 font-medium">PASSIT ON</span> is the product
-            direction that came out of that: a visible chain of custody, not a fresh SKU.
+            Part of the spark was hand-me-down Abercrombie kids&apos; clothes with names scribbled
+            inside: cousins and siblings signing in wobbly kid handwriting, which made each pass-down
+            feel human in a way a fresh tag never could.
           </p>
         </div>
 
