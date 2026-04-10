@@ -175,19 +175,29 @@ export default function BuyingMotivations() {
           ))}
         </div>
 
-        <div className="border-l-2 border-foreground pl-5 space-y-2">
+        <div className="border-l-2 border-foreground pl-5 space-y-4">
           <span className="text-xs uppercase tracking-widest text-muted-foreground">
             Aha moment
           </span>
-          <div className="space-y-3 text-sm font-semibold leading-relaxed text-foreground/60 md:text-base">
-            <p>
-              People replace still-wearable clothing because it{" "}
-              <span className="text-foreground/80">no longer feels valuable</span>, even when
-              nothing is wrong with it.
+          <p className="text-sm font-semibold leading-relaxed text-foreground/60 md:text-base">
+            People replace still-wearable clothing because it{" "}
+            <span className="text-foreground/80">no longer feels valuable</span>, even when nothing is
+            wrong with it.
+          </p>
+          <div
+            className="rounded-2xl border border-foreground/12 bg-gradient-to-br from-foreground/[0.04] to-muted/40 px-5 py-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] md:px-6 md:py-6"
+            style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06), 0 12px 40px -18px rgba(0,0,0,0.12)" }}
+          >
+            <p className="text-lg font-semibold leading-snug tracking-tight text-foreground sm:text-xl md:text-2xl">
+              What if clothing could{" "}
+              <span className="scribble-highlight">carry its memory</span>?
             </p>
-            <p>
-              I focused on making that value visible through{" "}
-              <span className="text-foreground/80">each garment&apos;s story</span>.
+            <p className="mt-3 text-lg font-semibold leading-snug tracking-tight text-foreground/90 sm:text-xl md:text-2xl">
+              Would that change{" "}
+              <span className="relative inline-block after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-full after:rounded-full after:bg-foreground/25">
+                how we value it
+              </span>
+              ?
             </p>
           </div>
         </div>
