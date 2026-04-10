@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowLeft } from "lucide-react"
+import { ArrowLeft, Github, Globe, Lightbulb, MessageCirclePlus, Rocket } from "lucide-react"
 import WardrobeComposition from "@/components/infographics/wardrobe-composition"
 import DiscardReasons from "@/components/infographics/discard-reasons"
 import DisposalBehavior from "@/components/infographics/disposal-behavior"
@@ -8,6 +8,7 @@ import BuyingMotivations from "@/components/infographics/buying-motivations"
 import StoriesAndMemories from "@/components/infographics/stories-and-memories"
 import CircularPricingModel from "@/components/infographics/circular-pricing-model"
 import ClothingLifecycle from "@/components/infographics/clothing-lifecycle"
+import PassitOnLivePrototypeSection from "@/components/passiton/live-prototype-nfc-section"
 
 export default function Page() {
   return (
@@ -56,6 +57,27 @@ export default function Page() {
                 focused on extending garment lifecycle through traceability.
               </p>
 
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-1">
+                <a
+                  href="https://github.com/sh4771/PassitOn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm text-foreground/60 transition-colors hover:text-foreground"
+                >
+                  <Github className="h-4 w-4 shrink-0 opacity-80" strokeWidth={1.75} />
+                  GitHub: PassitOn
+                </a>
+                <a
+                  href="https://passit-on-lac.vercel.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm text-foreground/60 transition-colors hover:text-foreground"
+                >
+                  <Globe className="h-4 w-4 shrink-0 opacity-80" strokeWidth={1.75} />
+                  Live: passit-on-lac.vercel.app
+                </a>
+              </div>
+
               {/* Hero Mockup Image */}
               <div className="relative w-full mt-8 h-[280px] md:h-[360px] lg:h-[420px] rounded-2xl overflow-hidden">
                 <Image
@@ -72,11 +94,14 @@ export default function Page() {
             {/* The Problem Statement */}
             <div className="border border-border/50 rounded-2xl p-6 md:p-8 space-y-6">
               <div className="space-y-3 max-w-3xl">
-                <h2 className="text-lg md:text-xl font-medium tracking-tight">
+                <h2 className="text-lg font-medium tracking-tight text-pretty md:text-xl">
                   Why clothes leave rotation while they&apos;re still wearable
                 </h2>
                 <p className="text-sm text-foreground/60 leading-relaxed">
-                  Someone stands at their closet and notices a top they only wore a few times.
+                  Someone stands at their closet.
+                </p>
+                <p className="text-sm text-foreground/60 leading-relaxed">
+                  A top they only wore a few times is right there.
                 </p>
                 <p className="text-sm text-foreground/60 leading-relaxed">
                   It still fits. Nothing is wrong with it.
@@ -89,11 +114,17 @@ export default function Page() {
                   <strong className="text-foreground/90 font-medium">visible history</strong>.
                 </p>
                 <p className="text-sm text-foreground/60 leading-relaxed">
-                  No chain of owners, no footprint of where it came from or what it took to make.
+                  No chain of owners.
                 </p>
                 <p className="text-sm text-foreground/60 leading-relaxed">
-                  Without that, there is no <strong className="text-foreground/90 font-medium">signal of value</strong>{" "}
-                  worth holding onto.
+                  No footprint of where it came from, or what it took to make.
+                </p>
+                <p className="text-sm text-foreground/60 leading-relaxed">
+                  Without that, there is no{" "}
+                  <strong className="text-foreground/90 font-medium">signal of value</strong>.
+                </p>
+                <p className="text-sm text-foreground/60 leading-relaxed">
+                  Nothing worth holding onto.
                 </p>
                 <p className="text-sm text-foreground/60 leading-relaxed">
                   So they <strong className="text-foreground/90 font-medium">reach for something new</strong>.
@@ -115,7 +146,10 @@ export default function Page() {
                   </strong>
                 </p>
                 <p className="text-sm text-foreground/60 leading-relaxed">
-                  Many are unsellable and non-biodegradable, and end up in dumpsites or burned.
+                  Many are unsellable and non-biodegradable.
+                </p>
+                <p className="text-sm text-foreground/60 leading-relaxed">
+                  They end up in dumpsites or burned.
                 </p>
               </div>
 
@@ -227,6 +261,8 @@ export default function Page() {
             item on could compete more fairly with buying new.
           </p>
         </section>
+
+        <PassitOnLivePrototypeSection />
 
         {/* Solutions */}
         <section className="space-y-16 md:space-y-20">
@@ -444,6 +480,106 @@ export default function Page() {
 
         <section>
           <CircularPricingModel />
+        </section>
+
+        {/* Reflection: learnings, time, next step */}
+        <section className="relative">
+          <div
+            className="pointer-events-none absolute -inset-x-8 -top-10 bottom-0 -z-10 rounded-[40px] opacity-90 blur-3xl"
+            style={{
+              background:
+                "radial-gradient(ellipse 80% 60% at 20% 30%, rgba(34, 197, 94, 0.12), transparent 50%), radial-gradient(ellipse 70% 50% at 85% 70%, rgba(59, 130, 246, 0.08), transparent 45%)",
+            }}
+          />
+          <div className="relative space-y-6 md:space-y-8">
+            <article className="group relative overflow-hidden rounded-[28px] border border-foreground/10 bg-gradient-to-br from-card/90 via-background to-muted/40 p-6 shadow-[0_20px_60px_-24px_rgba(0,0,0,0.15)] transition-[box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:shadow-[0_28px_70px_-20px_rgba(0,0,0,0.18)] md:p-8">
+              <span
+                className="pointer-events-none absolute -right-2 -top-4 select-none text-[5rem] font-light leading-none text-foreground/[0.07] transition-opacity group-hover:text-foreground/[0.09] md:text-[6.5rem]"
+                aria-hidden
+              >
+                01
+              </span>
+              <div className="relative flex flex-col gap-5 sm:flex-row sm:items-start">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-foreground/12 to-foreground/5 ring-2 ring-foreground/10 ring-offset-2 ring-offset-background">
+                  <Lightbulb className="h-6 w-6 text-foreground/80" strokeWidth={1.5} />
+                </div>
+                <div className="min-w-0 space-y-3">
+                  <h2 className="text-lg font-medium tracking-tight md:text-xl">What I learned</h2>
+                  <div className="space-y-3 text-sm leading-relaxed text-foreground/65">
+                    <p>
+                      I tested an early version of the flow and saw people lean in when a
+                      garment&apos;s <strong className="text-foreground/90 font-medium">story surfaced</strong>. Small
+                      details, like where it came from or who owned it before, started to{" "}
+                      <strong className="text-foreground/90 font-medium">reframe the piece</strong>.
+                    </p>
+                    <p>
+                      I also saw that <strong className="text-foreground/90 font-medium">information alone is not enough</strong>.
+                      How that story is experienced over time matters just as much as what is on the screen in one moment.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article className="group relative overflow-hidden rounded-[28px] border border-foreground/10 bg-gradient-to-br from-muted/50 via-background to-card/80 p-6 shadow-[0_20px_60px_-24px_rgba(0,0,0,0.12)] transition-[box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:shadow-[0_28px_70px_-20px_rgba(0,0,0,0.16)] md:ml-4 md:p-8 lg:ml-8">
+              <span
+                className="pointer-events-none absolute -right-2 -top-4 select-none text-[5rem] font-light leading-none text-foreground/[0.07] group-hover:text-foreground/[0.09] md:text-[6.5rem]"
+                aria-hidden
+              >
+                02
+              </span>
+              <div className="relative flex flex-col gap-5 sm:flex-row sm:items-start">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500/15 to-emerald-600/5 ring-2 ring-emerald-500/20 ring-offset-2 ring-offset-background">
+                  <MessageCirclePlus className="h-6 w-6 text-emerald-800/80 dark:text-emerald-200/90" strokeWidth={1.5} />
+                </div>
+                <div className="min-w-0 space-y-3">
+                  <h2 className="text-lg font-medium tracking-tight md:text-xl">If I had more time</h2>
+                  <div className="space-y-3 text-sm leading-relaxed text-foreground/65">
+                    <p>
+                      I would push the{" "}
+                      <strong className="text-foreground/90 font-medium">chain of custody</strong> to feel more
+                      active and ongoing, and test prompts for people to{" "}
+                      <strong className="text-foreground/90 font-medium">leave messages</strong> and keep the story moving.
+                    </p>
+                    <p>
+                      I&apos;m curious how{" "}
+                      <strong className="text-foreground/90 font-medium">small interactions</strong>, repeated over time,
+                      could reinforce value beyond a single reveal.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article className="group relative overflow-hidden rounded-[28px] border border-foreground/15 bg-gradient-to-tl from-background via-muted/30 to-foreground/[0.03] p-6 shadow-[0_24px_64px_-20px_rgba(0,0,0,0.2)] transition-[box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:border-foreground/25 md:mr-4 md:p-8 lg:mr-10">
+              <span
+                className="pointer-events-none absolute -right-2 -top-4 select-none text-[5rem] font-light leading-none text-foreground/[0.08] group-hover:text-foreground/[0.11] md:text-[6.5rem]"
+                aria-hidden
+              >
+                03
+              </span>
+              <div className="relative flex flex-col gap-5 sm:flex-row sm:items-start">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-500/15 to-sky-600/5 ring-2 ring-sky-500/25 ring-offset-2 ring-offset-background">
+                  <Rocket className="h-6 w-6 text-sky-800/85 dark:text-sky-200/90" strokeWidth={1.5} />
+                </div>
+                <div className="min-w-0 space-y-3">
+                  <h2 className="text-lg font-medium tracking-tight md:text-xl">Next step</h2>
+                  <div className="space-y-3 text-sm leading-relaxed text-foreground/65">
+                    <p>
+                      I want to move past the prototype and{" "}
+                      <strong className="text-foreground/90 font-medium">try this in a real setting</strong>, where I can
+                      watch how people live with garments over weeks, not minutes.
+                    </p>
+                    <p>
+                      The open question for me is whether this system can{" "}
+                      <strong className="text-foreground/90 font-medium">shift behavior</strong>, not only how the piece is
+                      perceived in the lab.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
         </section>
 
         </div>

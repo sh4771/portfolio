@@ -179,27 +179,26 @@ export default function BuyingMotivations() {
           <span className="text-xs uppercase tracking-widest text-muted-foreground">
             Aha moment
           </span>
-          <div className="space-y-2 text-base font-semibold leading-relaxed text-foreground/60">
+          <div className="space-y-2 text-sm font-semibold leading-relaxed text-foreground/60 md:text-base">
             <p>
               <span className="text-foreground/80">People think new is better.</span>
             </p>
-            <p>
-              Watching still-wearable pieces pile up, I realized the friction was not only damage.
-            </p>
+            <p>Still-wearable pieces kept piling up.</p>
+            <p>The friction was not only damage.</p>
             <p>
               It was that{" "}
               <span className="text-foreground/80">reuse rarely feels as clear as checkout.</span>
             </p>
+            <p>Then it clicked.</p>
             <p>
-              Then it clicked:{" "}
-              <span className="text-foreground/80">worn can hold more value</span> when{" "}
-              <span className="text-foreground/80">stories and memories are visible</span>.
+              <span className="text-foreground/80">Worn can hold more value</span> when{" "}
+              <span className="text-foreground/80">stories are visible</span>.
             </p>
             <p>
-              So the work became{" "}
-              <span className="text-foreground/80">making existing value legible in the product</span>
-              , not adding another way to shop new.
+              The work became{" "}
+              <span className="text-foreground/80">making existing value legible</span>.
             </p>
+            <p>Not another way to shop new.</p>
           </div>
         </div>
       </div>
