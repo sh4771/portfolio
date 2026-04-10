@@ -71,25 +71,51 @@ export default function Page() {
 
             {/* The Problem Statement */}
             <div className="border border-border/50 rounded-2xl p-6 md:p-8 space-y-6">
-              <div className="space-y-4">
+              <div className="space-y-3 max-w-3xl">
                 <h2 className="text-lg md:text-xl font-medium tracking-tight">
                   Why clothes leave rotation while they&apos;re still wearable
                 </h2>
-                <p className="text-sm text-foreground/60 text-pretty max-w-3xl leading-relaxed">
-                  A lot of people stop wearing pieces after only a few outings. Trends turn over
-                  quickly, and when nothing signals long-term worth, a garment starts to feel
-                  disposable, even if the fabric is fine.
+                <p className="text-sm text-foreground/60 leading-relaxed">
+                  Someone stands at their closet and notices a top they only wore a few times.
                 </p>
-                <p className="text-sm text-foreground/60 text-pretty max-w-3xl leading-relaxed">
-                  Most apps and closets don&apos;t surface a clear story of where an item came
-                  from, who&apos;s had it, or what it took to make it. Without that, it&apos;s
-                  harder to weigh keeping or passing something on against the pull of something
-                  new.
+                <p className="text-sm text-foreground/60 leading-relaxed">
+                  It still fits. Nothing is wrong with it.
                 </p>
-                <p className="text-sm text-foreground/60 text-pretty max-w-3xl leading-relaxed">
-                  Once those pieces leave the home, the scale shows up downstream: Ghana receives
-                  millions of unwanted clothes every week. Many are unsellable and
-                  non-biodegradable, and end up in informal dumpsites or burned.
+                <p className="text-sm text-foreground/60 leading-relaxed">
+                  It already feels <strong className="text-foreground/90 font-medium">done</strong>.
+                </p>
+                <p className="text-sm text-foreground/60 leading-relaxed">
+                  There is no{" "}
+                  <strong className="text-foreground/90 font-medium">visible history</strong>.
+                </p>
+                <p className="text-sm text-foreground/60 leading-relaxed">
+                  No chain of owners, no footprint of where it came from or what it took to make.
+                </p>
+                <p className="text-sm text-foreground/60 leading-relaxed">
+                  Without that, there is no <strong className="text-foreground/90 font-medium">signal of value</strong>{" "}
+                  worth holding onto.
+                </p>
+                <p className="text-sm text-foreground/60 leading-relaxed">
+                  So they <strong className="text-foreground/90 font-medium">reach for something new</strong>.
+                </p>
+                <p className="text-sm text-foreground/60 leading-relaxed">
+                  <strong className="text-foreground/90 font-medium">
+                    Most closets and apps never surface that story.
+                  </strong>
+                </p>
+                <p className="text-sm text-foreground/60 leading-relaxed">
+                  Passing it on is hard to justify next to checkout.
+                </p>
+                <p className="text-sm text-foreground/60 leading-relaxed">
+                  When those pieces leave home, the scale shows up downstream.
+                </p>
+                <p className="text-sm text-foreground/60 leading-relaxed">
+                  <strong className="text-foreground/90 font-medium">
+                    Ghana receives millions of unwanted clothes every week.
+                  </strong>
+                </p>
+                <p className="text-sm text-foreground/60 leading-relaxed">
+                  Many are unsellable and non-biodegradable, and end up in dumpsites or burned.
                 </p>
               </div>
 

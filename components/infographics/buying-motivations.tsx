@@ -179,14 +179,28 @@ export default function BuyingMotivations() {
           <span className="text-xs uppercase tracking-widest text-muted-foreground">
             Aha moment
           </span>
-          <p className="text-base font-semibold leading-relaxed text-foreground/60">
-            The friction is not only &quot;I need new jeans.&quot; It is that{" "}
-            <span className="text-foreground/80">reuse rarely feels as clear or rewarding as checkout.</span>{" "}
-            People think new equals good, but{" "}
-            <span className="text-foreground/80">worn pieces can carry more value</span> when
-            stories and memories are easy to see. That pushed me toward UX that makes that value
-            obvious enough to compete with buying new.
-          </p>
+          <div className="space-y-2 text-base font-semibold leading-relaxed text-foreground/60">
+            <p>
+              <span className="text-foreground/80">People think new is better.</span>
+            </p>
+            <p>
+              Watching still-wearable pieces pile up, I realized the friction was not only damage.
+            </p>
+            <p>
+              It was that{" "}
+              <span className="text-foreground/80">reuse rarely feels as clear as checkout.</span>
+            </p>
+            <p>
+              Then it clicked:{" "}
+              <span className="text-foreground/80">worn can hold more value</span> when{" "}
+              <span className="text-foreground/80">stories and memories are visible</span>.
+            </p>
+            <p>
+              So the work became{" "}
+              <span className="text-foreground/80">making existing value legible in the product</span>
+              , not adding another way to shop new.
+            </p>
+          </div>
         </div>
       </div>
     </div>
