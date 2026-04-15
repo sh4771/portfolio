@@ -13,12 +13,12 @@ export interface CaseStudy {
 
 const projects: CaseStudy[] = [
   {
-    slug: "altrovia",
-    title: "Altrovia — Trust-Forward Product Redesign",
+    slug: "clinical-trials",
+    title: "Designing Decision Clarity in Clinical Trial Systems",
     description:
-      "Columbia × NYU collaboration: visual system, flows, and UI for a calmer, more trustworthy experience.",
-    tags: ["2025", "UI/UX Design", "Case Study"],
-    image: "/images/altrovia-mockup.svg",
+      "Adobe Designathon: clinical trial intelligence platform for clearer decisions, transparent AI recommendations, and actionable dashboards.",
+    tags: ["2026", "UI/UX Design", "Case Study"],
+    image: "/images/clinical-trials-hero.svg",
   },
   {
     slug: "passiton",
