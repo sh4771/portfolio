@@ -45,13 +45,13 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
         <p className="text-xs font-bold uppercase tracking-wide text-[#578186]">UI/UX design · Adobe designathon</p>
         <p className="max-w-3xl text-sm leading-relaxed text-[#111111] md:text-[15px]">
           We redesigned a clinical intelligence workspace for faster, defensible decisions under time pressure. The sprint
-          centered trust, transparent AI signals, and a calmer hierarchy than typical enterprise dashboards. Built with
-          Hongxin Li under rapid critique loops and tight designathon time.
+          centered trust, transparent AI signals, and a calmer hierarchy than typical enterprise dashboards. The full
+          flow was built end-to-end in 10 hours with Hongxin Li under rapid critique loops.
         </p>
         <div className="flex flex-wrap gap-3">
           <Chip>
             <p className="text-[9px] font-bold uppercase tracking-wide text-[#578186]">Timeline</p>
-            <p className="mt-1 text-sm font-semibold text-[#111111]">April 2026</p>
+            <p className="mt-1 text-sm font-semibold text-[#111111]">10 hr build · April 2026</p>
           </Chip>
           <Chip>
             <p className="text-[9px] font-bold uppercase tracking-wide text-[#578186]">Role</p>
@@ -66,7 +66,14 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
             <p className="mt-1 text-sm font-semibold text-[#111111]">Violet Hyun · Hongxin Li</p>
           </Chip>
         </div>
-        <Placeholder label="[placeholder] Hero mockup" className="aspect-[16/9] w-full max-w-4xl" />
+        <div className="max-w-4xl space-y-2">
+          <Placeholder label="[placeholder] Hero mockup" className="aspect-[16/9] w-full" />
+          <p className="text-xs leading-relaxed text-[#6B7280]">
+            <span className="font-bold uppercase tracking-[0.15em] text-[#578186]">Mockup · </span>
+            The Figma mockup was attached with our original designathon submission; this page uses placeholders instead
+            of those exports.
+          </p>
+        </div>
       </section>
 
       {/* 2 — Problem discovery */}
