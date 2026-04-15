@@ -9,6 +9,8 @@ export interface CaseStudy {
   description: string
   tags: string[]
   image: string
+  /** When false, project stays routable at /work/[slug] but is omitted from the homepage grid. */
+  showOnHomepage?: boolean
 }
 
 const projects: CaseStudy[] = [
@@ -19,6 +21,7 @@ const projects: CaseStudy[] = [
       "Adobe Designathon: clinical trial intelligence platform for clearer decisions, transparent AI recommendations, and actionable dashboards.",
     tags: ["2026", "UI/UX Design", "Case Study"],
     image: "/images/clinical-trials-hero.png",
+    showOnHomepage: false,
   },
   {
     slug: "passiton",
@@ -98,13 +101,15 @@ function CaseStudyCard({ project }: { project: CaseStudy }) {
   )
 }
 
+const homepageProjects = projects.filter((p) => p.showOnHomepage !== false)
+
 export function CaseStudyGrid() {
   return (
     <section id="work" className="pb-24 pt-6">
       <div className="mx-auto w-full max-w-[900px] px-6">
         {/* Stacked cards */}
         <div className="flex flex-col gap-16">
-          {projects.map((project) => (
+          {homepageProjects.map((project) => (
             <CaseStudyCard key={project.slug} project={project} />
           ))}
         </div>
