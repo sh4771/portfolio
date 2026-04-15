@@ -10,6 +10,13 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "www.figma.com",
+        pathname: "/api/mcp/asset/**",
+      },
+    ],
   },
   turbopack: {
     root: projectRoot,
