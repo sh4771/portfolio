@@ -13,6 +13,14 @@ export interface CaseStudy {
 
 const projects: CaseStudy[] = [
   {
+    slug: "altrovia",
+    title: "Altrovia — Trust-Forward Product Redesign",
+    description:
+      "Columbia × NYU collaboration: visual system, flows, and UI for a calmer, more trustworthy experience.",
+    tags: ["2025", "UI/UX Design", "Case Study"],
+    image: "/images/altrovia-mockup.svg",
+  },
+  {
     slug: "passiton",
     title: "Designing Traceable Garment Lifecycles",
     description:
