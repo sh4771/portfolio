@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { cn } from "@/lib/utils"
 import { BarChart3, Database, EyeOff, ArrowRight } from "lucide-react"
 
@@ -67,11 +68,21 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
           </Chip>
         </div>
         <div className="max-w-4xl space-y-2">
-          <Placeholder label="[placeholder] Hero mockup" className="aspect-[16/9] w-full" />
+          <div className="overflow-hidden rounded-[8px] border border-[#111111]/12 bg-[#0a0a0a] shadow-sm">
+            <Image
+              src="/images/clinical-trials-hero-mockup.png"
+              alt="Altrovia clinical trial intelligence dashboard mockup on a Studio Display"
+              width={1024}
+              height={765}
+              className="h-auto w-full"
+              sizes="(max-width: 896px) 100vw, 896px"
+              priority
+            />
+          </div>
           <p className="text-xs leading-relaxed text-[#6B7280]">
             <span className="font-bold uppercase tracking-[0.15em] text-[#578186]">Mockup · </span>
-            The Figma mockup was attached with our original designathon submission; this page uses placeholders instead
-            of those exports.
+            High-fidelity hero from the designathon submission. Other sections on this page still use placeholders until
+            export assets are added.
           </p>
         </div>
       </section>
