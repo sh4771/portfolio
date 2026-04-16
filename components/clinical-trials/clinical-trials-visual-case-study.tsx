@@ -482,12 +482,20 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
               role: "NYU alum · Product designer, Palantir",
               quote: "Rounded corners feel too sales-y. A serious clinical product needs sharper borders for authority.",
               bullets: ["Sharpen corners and grid rhythm.", "Borrow analyst-grade density.", "Reduce decorative chrome."],
+              sessionSrc: "/images/clinical-trials-feedback-emily-shen.png",
+              sessionW: 372,
+              sessionH: 302,
+              sessionAlt: "Video call screenshot from feedback session with Emily Shen",
             },
             {
               name: "Christos",
               role: "Altrovia AI",
               quote: "The dashboard should read as a portfolio: clients see status and risk at a glance.",
               bullets: ["Stronger emphasis on active trials.", "More visual hierarchy than tables alone.", "Client-ready overview first."],
+              sessionSrc: "/images/clinical-trials-feedback-christos.png",
+              sessionW: 473,
+              sessionH: 302,
+              sessionAlt: "Video call screenshot from feedback session with Christos",
             },
           ].map((p) => (
             <div key={p.name} className="space-y-4">
@@ -498,7 +506,16 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
               <blockquote className="rounded-[8px] border border-[#578186]/25 bg-[#578186]/[0.07] px-4 py-4 text-sm italic leading-relaxed text-[#111111]">
                 &quot;{p.quote}&quot;
               </blockquote>
-              <Placeholder label={`[placeholder] ${p.name} session`} className="aspect-video w-full" />
+              <div className="overflow-hidden rounded-[8px] border border-[#111111]/10 bg-[#111111]/[0.04] shadow-sm">
+                <Image
+                  src={p.sessionSrc}
+                  alt={p.sessionAlt}
+                  width={p.sessionW}
+                  height={p.sessionH}
+                  className="h-auto w-full"
+                  sizes="(max-width: 768px) 100vw, 400px"
+                />
+              </div>
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-wide text-[#578186]">Key feedback</p>
                 <ul className="mt-2 space-y-2 text-sm text-[#111111]">
