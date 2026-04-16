@@ -529,68 +529,75 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
               name: "Workspace",
               cap: "Overview · trial cards · new trial CTA",
               src: "/images/clinical-trials-ui-01-workspace.png",
-              w: 380,
-              h: 192,
-              alt: "Trial portfolio workspace with KPI cards, enrollment chart, and amendment risk list",
+              w: 1024,
+              h: 640,
+              alt: "Altrovia workspace: trial table, search, filters, and pagination",
             },
             {
               n: "02",
               name: "Design parameters",
               cap: "AI badge · collapsible rows · label/value rhythm",
               src: "/images/clinical-trials-ui-02-design-parameters.png",
-              w: 380,
-              h: 192,
-              alt: "Design parameters screen with AI-extracted badge and expandable trial protocol fields",
+              w: 1024,
+              h: 640,
+              alt: "Design parameters for TALAPRO-2 with AI-extracted badge and expandable protocol sections",
             },
             {
               n: "03",
               name: "Run analysis",
               cap: "Saved runs · scope badges · timestamps",
               src: "/images/clinical-trials-ui-03-run-analysis.png",
-              w: 380,
-              h: 192,
-              alt: "Intelligence module showing saved analyses list with dates and scope tags",
+              w: 1024,
+              h: 640,
+              alt: "Trial analysis hub listing saved intelligence runs with scope tags and view actions",
             },
             {
               n: "04",
               name: "View results",
               cap: "Comparator table · amendment callouts",
               src: "/images/clinical-trials-ui-04-view-results.png",
-              w: 278,
-              h: 142,
-              alt: "Trial intelligence analysis with KPIs, enrollment curve, and benchmark comparison table",
+              w: 1024,
+              h: 640,
+              alt: "Trial intelligence analysis: KPIs, feasibility cards, enrollment curve, benchmark table",
             },
             {
               n: "05",
               name: "Generate protocol",
               cap: "Status bar · ten sections · readiness CTA",
               src: "/images/clinical-trials-ui-05-generate-protocol.png",
-              w: 278,
-              h: 142,
-              alt: "Protocol generation hub with readiness metrics and ten section cards",
+              w: 1024,
+              h: 640,
+              alt: "Generate protocol flow with readiness metrics and ten-section outline",
             },
             {
               n: "06",
               name: "Version gallery",
               cap: "Latest draft · history notes",
               src: "/images/clinical-trials-ui-06-version-gallery.png",
-              w: 278,
-              h: 142,
-              alt: "Protocols version gallery with current draft metrics and version history list",
+              w: 1024,
+              h: 640,
+              alt: "Version gallery with latest draft card and chronological protocol history",
             },
             {
               n: "07",
               name: "Complexity assessment",
               cap: "Wizard · review · score bar",
               src: "/images/clinical-trials-ui-07-complexity-assessment.png",
-              w: 278,
-              h: 142,
-              alt: "Review extracted data wizard with category sidebar and scoring footer",
+              w: 1024,
+              h: 640,
+              alt: "Review extracted data step: study basics form and live complexity score footer",
             },
           ].map((ui) => (
             <div key={ui.n} className="space-y-2">
               <div className="overflow-hidden rounded-[8px] border border-[#111111]/10 bg-white shadow-sm">
-                <Image src={ui.src} alt={ui.alt} width={ui.w} height={ui.h} className="h-auto w-full" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 320px" />
+                <Image
+                  src={ui.src}
+                  alt={ui.alt}
+                  width={ui.w}
+                  height={ui.h}
+                  className="h-auto w-full"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px"
+                />
               </div>
               <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#6B7280]">
                 {ui.n} · {ui.name}
