@@ -1,11 +1,4 @@
 import type { Metadata } from "next"
-import { Inria_Sans } from "next/font/google"
-
-const inriaSans = Inria_Sans({
-  subsets: ["latin"],
-  weight: ["300", "400", "700"],
-  display: "swap",
-})
 
 export const metadata: Metadata = {
   title: "Clinical Trial Systems — Violet Hyun",
@@ -14,5 +7,12 @@ export const metadata: Metadata = {
 }
 
 export default function ClinicalTrialsLayout({ children }: { children: React.ReactNode }) {
-  return <div className={`${inriaSans.className} antialiased`}>{children}</div>
+  return (
+    <div
+      className="antialiased"
+      style={{ fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif' }}
+    >
+      {children}
+    </div>
+  )
 }
