@@ -68,13 +68,13 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
           </Chip>
         </div>
         <div className="max-w-4xl space-y-2">
-          <div className="overflow-hidden rounded-[8px] border border-[#111111]/12 bg-[#0a0a0a] shadow-sm">
+          <div className="overflow-hidden rounded-[8px] border border-[#111111]/10 bg-[#E6E4DD] p-4 shadow-sm sm:p-6 md:p-8">
             <Image
               src="/images/clinical-trials-hero-mockup.png"
               alt="Altrovia clinical trial intelligence dashboard mockup on a Studio Display"
               width={1024}
               height={765}
-              className="h-auto w-full"
+              className="h-auto w-full rounded-[4px]"
               sizes="(max-width: 896px) 100vw, 896px"
               priority
             />
