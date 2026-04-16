@@ -663,8 +663,12 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
             &ldquo;
           </p>
           <p className="mx-auto mt-4 max-w-2xl text-sm font-normal italic leading-relaxed text-[#111111] md:text-base">
-            This was our first time shipping a real product under real time pressure. Working fast with AI is its own
-            craft—speed became a design competency we will carry into future briefs.
+            This was our first time pushing a designathon build past polished mocks into something you could actually
+            walk through—warts, loading states, and a few calls we made at hour nine just to keep the thing alive. AI sped
+            up parts of the loop, but the sticky work was still judgment: when to trust a generated screen, when to redraw
+            it by hand, and when to call it done for the night. We walk away believing speed with these tools is
+            something you only really rehearse under a stubborn deadline—and that stubbornness feels closer to a studio
+            week than any tidy classroom sprint.
           </p>
         </div>
       </section>
