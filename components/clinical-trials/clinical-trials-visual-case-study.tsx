@@ -670,12 +670,12 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
             &ldquo;
           </p>
           <p className="mx-auto mt-4 max-w-2xl text-sm font-normal italic leading-relaxed text-[#111111] md:text-base">
-            This was our first time pushing a designathon build past polished mocks into something you could actually
-            walk through—warts, loading states, and a few calls we made at hour nine just to keep the thing alive. AI sped
-            up parts of the loop, but the sticky work was still judgment: when to trust a generated screen, when to redraw
-            it by hand, and when to call it done for the night. We walk away believing speed with these tools is
-            something you only really rehearse under a stubborn deadline—and that stubbornness feels closer to a studio
-            week than any tidy classroom sprint.
+            This was our first time pushing a designathon build past polished mocks into something you could actually walk
+            through, rough edges and loading states included, with a few late calls at hour nine just to keep it running.
+            AI moved parts of the loop faster, but we still had to decide when to trust a generated screen, when to redraw
+            it, and when to stop for the night. I know there will be plenty more urgent wraps ahead, and
+            practicing speed with these tools under that kind of pressure felt like something that will carry over into
+            real work, not only in a neat classroom sprint.
           </p>
         </div>
       </section>
