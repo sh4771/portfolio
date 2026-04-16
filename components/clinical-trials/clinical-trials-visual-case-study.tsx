@@ -670,11 +670,10 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
             &ldquo;
           </p>
           <p className="mx-auto mt-4 max-w-2xl text-sm font-normal italic leading-relaxed text-[#111111] md:text-base">
-            We had very little time, but we worked really hard and still brought something we felt good showing. I am proud
-            of that. When everything moves that fast, you try to use AI in a careful, smart way, not just to skip the hard
-            thinking. It was also our first time taking a designathon from pretty mockups to something you could actually
-            click through, rough edges and all. I know more tight deadlines are coming, and this felt like good practice
-            for real work, not only for a class sprint.
+            It was also our first time taking a designathon from building wireframes to mockups, and we worked really hard
+            and I am proud that we still brought something we felt good showing. When everything moves this fast, you try to
+            use AI efficiently, not just to skip the hard thinking. I know more tight deadlines will come in real-life work
+            settings, and this felt like good practice for that.
           </p>
         </div>
       </section>
