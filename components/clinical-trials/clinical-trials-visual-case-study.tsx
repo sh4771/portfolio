@@ -636,10 +636,10 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
         </div>
       </section>
 
-      {/* 12 — If we had more time */}
+      {/* 12 — If we had more time... */}
       <section className="space-y-6">
         <SectionRule />
-        <SectionHeader label="Reflection" title="If we had more time" />
+        <SectionHeader label="Reflection" title="If we had more time..." />
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {[
             { t: "Design consistency", d: "Full grid audit for spacing and alignment across every screen." },
