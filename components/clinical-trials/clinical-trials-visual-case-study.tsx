@@ -1,19 +1,5 @@
 import Image from "next/image"
-import { cn } from "@/lib/utils"
 import { BarChart3, Database, EyeOff, ArrowDown, ArrowRight } from "lucide-react"
-
-function Placeholder({ label, className }: { label: string; className?: string }) {
-  return (
-    <div
-      className={cn(
-        "flex items-center justify-center rounded-[8px] border border-[#111111]/12 bg-[#111111]/[0.05] text-center",
-        className,
-      )}
-    >
-      <span className="px-3 py-6 text-[10px] font-bold uppercase tracking-[0.15em] text-[#6B7280]">{label}</span>
-    </div>
-  )
-}
 
 function SectionRule() {
   return <div className="h-px w-full bg-[#578186]" aria-hidden />
@@ -538,16 +524,74 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
         <SectionHeader label="Final UI" title="Seven core screens" />
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {[
-            { n: "01", name: "Workspace", cap: "Overview · trial cards · new trial CTA" },
-            { n: "02", name: "Design parameters", cap: "AI badge · collapsible rows · label/value rhythm" },
-            { n: "03", name: "Run analysis", cap: "Saved runs · scope badges · timestamps" },
-            { n: "04", name: "View results", cap: "Comparator table · amendment callouts" },
-            { n: "05", name: "Generate protocol", cap: "Status bar · ten sections · readiness CTA" },
-            { n: "06", name: "Version gallery", cap: "Latest draft · history notes" },
-            { n: "07", name: "Complexity assessment", cap: "Wizard · review · score bar" },
+            {
+              n: "01",
+              name: "Workspace",
+              cap: "Overview · trial cards · new trial CTA",
+              src: "/images/clinical-trials-ui-01-workspace.png",
+              w: 380,
+              h: 192,
+              alt: "Trial portfolio workspace with KPI cards, enrollment chart, and amendment risk list",
+            },
+            {
+              n: "02",
+              name: "Design parameters",
+              cap: "AI badge · collapsible rows · label/value rhythm",
+              src: "/images/clinical-trials-ui-02-design-parameters.png",
+              w: 380,
+              h: 192,
+              alt: "Design parameters screen with AI-extracted badge and expandable trial protocol fields",
+            },
+            {
+              n: "03",
+              name: "Run analysis",
+              cap: "Saved runs · scope badges · timestamps",
+              src: "/images/clinical-trials-ui-03-run-analysis.png",
+              w: 380,
+              h: 192,
+              alt: "Intelligence module showing saved analyses list with dates and scope tags",
+            },
+            {
+              n: "04",
+              name: "View results",
+              cap: "Comparator table · amendment callouts",
+              src: "/images/clinical-trials-ui-04-view-results.png",
+              w: 278,
+              h: 142,
+              alt: "Trial intelligence analysis with KPIs, enrollment curve, and benchmark comparison table",
+            },
+            {
+              n: "05",
+              name: "Generate protocol",
+              cap: "Status bar · ten sections · readiness CTA",
+              src: "/images/clinical-trials-ui-05-generate-protocol.png",
+              w: 278,
+              h: 142,
+              alt: "Protocol generation hub with readiness metrics and ten section cards",
+            },
+            {
+              n: "06",
+              name: "Version gallery",
+              cap: "Latest draft · history notes",
+              src: "/images/clinical-trials-ui-06-version-gallery.png",
+              w: 278,
+              h: 142,
+              alt: "Protocols version gallery with current draft metrics and version history list",
+            },
+            {
+              n: "07",
+              name: "Complexity assessment",
+              cap: "Wizard · review · score bar",
+              src: "/images/clinical-trials-ui-07-complexity-assessment.png",
+              w: 278,
+              h: 142,
+              alt: "Review extracted data wizard with category sidebar and scoring footer",
+            },
           ].map((ui) => (
             <div key={ui.n} className="space-y-2">
-              <Placeholder label={`[placeholder] Screen ${ui.n}`} className="aspect-[16/10] w-full" />
+              <div className="overflow-hidden rounded-[8px] border border-[#111111]/10 bg-white shadow-sm">
+                <Image src={ui.src} alt={ui.alt} width={ui.w} height={ui.h} className="h-auto w-full" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 320px" />
+              </div>
               <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#6B7280]">
                 {ui.n} · {ui.name}
               </p>
