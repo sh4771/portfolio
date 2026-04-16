@@ -242,33 +242,13 @@ html {
   }
 }
 
-@keyframes passiton-stat-glow {
-  0%,
-  100% {
-    opacity: 0.35;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.6;
-    transform: scale(1.06);
-  }
-}
-
 .passiton-stat-card {
   animation: passiton-stat-in 0.75s ease-out both;
 }
 
-.passiton-stat-glow {
-  animation: passiton-stat-glow 4.5s ease-in-out infinite;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .passiton-stat-card,
-  .passiton-stat-glow {
-    animation: none !important;
-  }
-
   .passiton-stat-card {
+    animation: none !important;
     opacity: 1;
     transform: none;
   }
