@@ -1,6 +1,6 @@
 import Image from "next/image"
 import { cn } from "@/lib/utils"
-import { BarChart3, Database, EyeOff, ArrowRight } from "lucide-react"
+import { BarChart3, Database, EyeOff, ArrowDown, ArrowRight } from "lucide-react"
 
 function Placeholder({ label, className }: { label: string; className?: string }) {
   return (
@@ -254,10 +254,74 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
             </div>
           ))}
         </div>
+        <div className="space-y-2">
+          <p className="text-[10px] font-bold uppercase tracking-wide text-[#578186]">Annotated boards</p>
+          <p className="text-xs text-[#6B7280]">
+            Two annotated scans—clinical enterprise vs. product-marketing references—were reorganized in Adobe Express into
+            the four-quadrant pros / cons chart.
+          </p>
+        </div>
+        <div className="grid gap-6 md:grid-cols-2">
+          <figure className="space-y-2">
+            <div className="overflow-hidden rounded-[8px] border border-[#111111]/10 bg-white p-2 shadow-sm">
+              <Image
+                src="/images/clinical-trials-ux-board-clinical-vendors.png"
+                alt="Annotated competitor scan: Medidata, Veeva, and Palantir marketing and product pages with green and red notes"
+                width={381}
+                height={152}
+                className="h-auto w-full"
+                sizes="(max-width: 768px) 100vw, 440px"
+              />
+            </div>
+            <figcaption className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#6B7280]">
+              01 · Clinical platforms · Medidata · Veeva · Palantir
+            </figcaption>
+          </figure>
+          <figure className="space-y-2">
+            <div className="overflow-hidden rounded-[8px] border border-[#111111]/10 bg-white p-2 shadow-sm">
+              <Image
+                src="/images/clinical-trials-ux-board-product-landings.png"
+                alt="Annotated references: Linear, Supabase, Anduril, Scale.ai, Bunker, Vercel, and Palantir AI landing heroes with notes"
+                width={381}
+                height={154}
+                className="h-auto w-full"
+                sizes="(max-width: 768px) 100vw, 440px"
+              />
+            </div>
+            <figcaption className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#6B7280]">
+              02 · Product / dev landings · Linear · Supabase · Anduril · Scale · Bunker · Vercel · Palantir AI
+            </figcaption>
+          </figure>
+        </div>
+        <div className="flex flex-col items-center gap-3 rounded-[8px] border border-dashed border-[#578186]/35 bg-[#578186]/[0.06] px-4 py-5 text-center md:flex-row md:justify-center md:gap-5">
+          <ArrowDown className="size-5 shrink-0 text-[#578186] md:hidden" strokeWidth={1.75} aria-hidden />
+          <span className="rounded-[4px] border border-[#578186]/40 bg-white/90 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-[#578186]">
+            Adobe Express
+          </span>
+          <p className="max-w-md text-xs leading-snug text-[#6B7280]">
+            Typography, crops, and callout colors were aligned so both boards could collapse into one legible comparison.
+          </p>
+          <ArrowRight className="hidden size-5 shrink-0 text-[#578186] md:block" strokeWidth={1.75} aria-hidden />
+        </div>
+        <figure className="space-y-2">
+          <div className="overflow-hidden rounded-[8px] border border-[#111111]/10 bg-white p-2 shadow-sm">
+            <Image
+              src="/images/clinical-trials-ux-pros-cons-synthesis.png"
+              alt="Pros and cons synthesis grid: branding mismatch, bad visual systems vs. readability, credibility, and related notes"
+              width={526}
+              height={294}
+              className="h-auto w-full"
+              sizes="(max-width: 1100px) 100vw, 900px"
+            />
+          </div>
+          <figcaption className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#6B7280]">
+            03 · Synthesis · Cons / pros matrix from both boards
+          </figcaption>
+        </figure>
         <div className="rounded-[8px] border border-[#111111]/10 bg-[#111111]/[0.04] p-4">
           <p className="mb-3 text-[10px] font-bold uppercase tracking-wide text-[#578186]">Reference set</p>
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
-            {["Medidata", "Veeva", "Palantir", "Linear.app", "Cursor", "Supabase", "Anduril", "Vercel", "Primer.ai", "Scale.ai"].map(
+            {["Medidata", "Veeva", "Palantir", "Linear.app", "Supabase", "Anduril", "Vercel", "Bunker", "Primer.ai", "Scale.ai"].map(
               (name) => (
                 <span
                   key={name}
@@ -269,7 +333,6 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
             )}
           </div>
         </div>
-        <Placeholder label="[placeholder] Pros / cons synthesis chart" className="aspect-[21/9] w-full" />
         <p className="max-w-3xl text-sm leading-relaxed text-[#111111]">
           <strong className="text-[#578186]">Takeaway:</strong> the most trusted products show their reasoning—so we
           tightened hierarchy, surfaced AI lineage, and borrowed navigation patterns from Linear and Palantir.
@@ -318,6 +381,21 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
       <section className="space-y-8">
         <SectionRule />
         <SectionHeader label="Process" title="How we built it" />
+        <figure className="space-y-2">
+          <div className="overflow-hidden rounded-[8px] border border-[#111111]/10 bg-[#F5F1E6] p-1 shadow-sm">
+            <Image
+              src="/images/clinical-trials-how-we-built-montage.png"
+              alt="Process montage: exploration thumbnails and wireframes, dashboard UI, and Cursor editor with code and diffs"
+              width={1024}
+              height={252}
+              className="h-auto w-full rounded-[4px]"
+              sizes="(max-width: 1100px) 100vw, 900px"
+            />
+          </div>
+          <figcaption className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#6B7280]">
+            From exploration grids and wireframes to dashboard UI and Cursor implementation
+          </figcaption>
+        </figure>
         <div className="overflow-x-auto pb-2">
           <div className="flex min-w-[640px] items-stretch gap-2 md:min-w-0 md:gap-3">
             {[
