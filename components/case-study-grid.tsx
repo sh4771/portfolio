@@ -21,7 +21,6 @@ const projects: CaseStudy[] = [
       "Adobe Designathon: clinical trial intelligence platform for clearer decisions, transparent AI recommendations, and actionable dashboards.",
     tags: ["2026", "UI/UX Design", "Case Study"],
     image: "/images/clinical-trials-hero.png",
-    showOnHomepage: false,
   },
   {
     slug: "passiton",
