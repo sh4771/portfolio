@@ -393,7 +393,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
     },
     research: {
       title: "Research",
-      body: "Research involved close collaboration with patients, clinicians, and rehabilitation specialists to understand the physical, emotional, and practical challenges of living with impaired postural control.",
+      body: "Research involved close collaboration with patients, clinicians, and rehabilitation specialists to understand the physical, emotional, and practical challenges of living with impaired postural control. For secondary synthesis and literature review, I also used mainstream AI assistants (ChatGPT, Perplexity, Gemini) to scan papers and terminology faster, then verified claims against primary sources and lab stakeholders.",
       methods: [
         "Observational studies with SCI patients during daily activities",
         "Interviews with occupational therapists and rehabilitation specialists",

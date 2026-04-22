@@ -68,7 +68,7 @@ const projects: CaseStudy[] = [
       "Designing a wearable assistive device that helps restore postural stability for spinal cord injury patients.",
     tags: ["2025", "Wearable Design", "UX Research", "Human-Centered Robotics"],
     image: "/images/cast.jpg",
-    aiTools: ["Cursor"],
+    aiTools: ["ChatGPT", "Perplexity", "Gemini"],
   },
 ]
 
