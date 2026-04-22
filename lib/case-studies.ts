@@ -462,28 +462,27 @@ export const caseStudies: Record<string, CaseStudyData> = {
   vendelux: {
     slug: "vendelux",
     title: "Vendelux",
-    subtitle:
-      "Product design internship on an AI-native B2B platform for event discovery, pre-event meetings, and pipeline attribution",
+    subtitle: "Product design internship (public notes are process- and tools-only; shipped work is confidential)",
     category: "Product design",
     year: "2026",
     role: "Product Design Intern",
     duration: "April 2026 – ongoing",
     tools: ["Figma", "Claude Code", "Claude Design", "Linear", "Figma MCP"],
-    image: "/images/vendelux-hero.svg",
+    image: "/images/vendelux-cover.png",
     overview:
-      "Vendelux helps revenue teams treat in-person events like a channel with a plan: map your ICP, match to high-ROI conferences and trade shows from a large proprietary event database, pre-book qualified meetings before day one, and connect outcomes to Salesforce or HubSpot so spend is easier to defend. I joined as a product design intern in April 2026. Day to day I work in Figma and Linear with design and product partners, and I use Claude Code, Claude Design, and Figma MCP to move faster on exploration and handoff polish without skipping critique.",
+      "I am a product design intern at Vendelux starting April 2026. My day-to-day work, roadmap details, and visuals are covered by confidentiality obligations, so nothing on this page describes product behavior, customers, metrics, or unreleased UI. What I can share here is how I collaborate in a fast B2B environment and which tools support that work: Figma for systems and UI, Linear for scope and handoffs, and Claude Code, Claude Design, and Figma MCP where they speed exploration and documentation without replacing critique.",
     problem: {
-      title: "The context",
-      body: "Event marketing is expensive and noisy. Marketing and sales leaders need software that makes it obvious where to show up, who to meet, and how pipeline ties back to a booth or a dinner. That means dense tables, multi-step flows, and a lot of trust in data quality. Designers have to keep those experiences legible while the product ships quickly next to engineering.",
+      title: "Designing under NDA",
+      body: "Internships in software often mean you learn a lot you cannot publish. The constraint is simple: protect trust and IP. Public writing has to stay at the level of craft, communication, and workflow, not screenshots of unreleased surfaces or narratives that reveal strategy.",
     },
     research: {
-      title: "How I learned the product",
-      body: "I learned the product by pairing with teammates, reading internal docs, walking flows in staging, and asking targeted questions in design and product reviews. I treated Linear tickets as the source of truth for scope, used Figma comments for async decisions, and leaned on MCP-assisted exports when I needed to pull references into files quickly.",
+      title: "How I ramped",
+      body: "I onboarded through internal documentation, design-system walkthroughs, and regular critique with teammates. Tickets in Linear kept scope legible; Figma comments carried async decisions. When helpful, I used MCP-assisted exports to move references into files faster, still checking everything against team guidance.",
       methods: [
-        "Shadowing product and customer calls where appropriate",
-        "Walking current flows end to end in staging with a note-taking template",
-        "Competitive scans for interaction patterns, not for copying visuals wholesale",
-        "Weekly design critique with async Loom follow-ups when timezone windows were tight",
+        "Design system and component walkthroughs with the design team",
+        "Structured notes while exploring internal staging builds",
+        "Weekly critique and async follow-ups when calendars did not overlap",
+        "Short pairing sessions with senior designers on file hygiene and variants",
       ],
     },
     insights: {
@@ -495,7 +494,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
         },
         {
           heading: "AI is best as a drafting partner",
-          body: "Claude Code and Claude Design helped me explore copy variants and layout ideas faster, but decisions still belonged in critique and in the constraints of the roadmap.",
+          body: "Claude Code and Claude Design helped me explore copy and layout ideas faster, but decisions still belonged in critique and in the constraints of the roadmap.",
         },
         {
           heading: "Linear keeps design honest",
@@ -504,38 +503,38 @@ export const caseStudies: Record<string, CaseStudyData> = {
       ],
     },
     designProcess: {
-      title: "Design process on the team",
-      body: "Work typically moved from problem framing to low-fidelity flows, then to higher fidelity in Figma with components aligned to the design system. I iterated with feedback from design and product partners, then prepared handoff notes and edge cases for engineering.",
+      title: "How the design team works (high level)",
+      body: "At a high level, work moves from framing to exploration, then refinement in Figma against the design system, followed by written handoff and short syncs. I am not listing specific flows, surfaces, or experiments here.",
       phases: [
         {
           label: "Align",
           description:
-            "Clarified the user goal, success metric, and constraints from product context before opening a blank frame.",
+            "Confirm goals and constraints with partners before exploring UI, without sharing proprietary details externally.",
         },
         {
           label: "Explore",
           description:
-            "Used Figma and AI-assisted brainstorming to sketch multiple directions, then cut aggressively based on feasibility.",
+            "Sketch directions in Figma and use AI where it helps ideation, then narrow based on feasibility and critique.",
         },
         {
           label: "Refine",
           description:
-            "Built states, empty cases, and responsive rules so engineering could implement without guesswork.",
+            "Build states, empty cases, and responsive rules so engineering can implement with fewer open questions.",
         },
         {
           label: "Hand off",
           description:
-            "Documented decisions in Linear, attached Figma links, and walked through open questions in short syncs.",
+            "Document decisions in Linear, attach Figma links, and resolve edge cases in short reviews.",
         },
       ],
     },
     prototype: {
       title: "Deliverables",
-      body: "Because the work is covered by confidentiality agreements, this page stays high level. In practice, deliverables included annotated Figma files, lightweight prototypes for alignment, and written notes that captured behavior for edge cases.",
+      body: "Deliverables exist inside the company’s private tools and repositories. This portfolio does not include screenshots, recordings, metrics, or narrative detail from unreleased work. Anything shown on the homepage is a generic cover image for identification only.",
     },
     outcome: {
       title: "Reflection",
-      body: "The internship reinforced that speed without clarity creates debt. The combination of Figma discipline, Linear hygiene, and selective use of Claude Code, Claude Design, and Figma MCP made it easier to keep momentum without losing traceability of decisions.",
+      body: "The internship is a reminder that speed without clarity creates debt. Figma discipline, Linear hygiene, and selective use of Claude Code, Claude Design, and Figma MCP help me keep momentum while still making decisions traceable for teammates.",
     },
   },
 }
