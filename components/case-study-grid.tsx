@@ -11,6 +11,8 @@ export interface CaseStudy {
   image: string
   /** When false, project stays routable at /work/[slug] but is omitted from the homepage grid. */
   showOnHomepage?: boolean
+  /** Optional AI-adjacent tools (shown as small chips under tags). */
+  aiTools?: string[]
 }
 
 const projects: CaseStudy[] = [
@@ -21,6 +23,16 @@ const projects: CaseStudy[] = [
       "Adobe Designathon: clinical trial intelligence platform for clearer decisions, transparent AI recommendations, and actionable dashboards.",
     tags: ["2026", "UI/UX Design", "Case Study"],
     image: "/images/clinical-trials-hero.png",
+    aiTools: ["Claude Code", "Cursor", "Vibe coding"],
+  },
+  {
+    slug: "vendelux",
+    title: "Product Design Intern, Vendlux",
+    description:
+      "Shipping B2B product work from discovery to spec-ready UI: Figma systems, eng handoff in Linear, and AI-assisted flows with Claude Code, Claude Design, and Figma MCP.",
+    tags: ["2026", "Product intern", "B2B"],
+    image: "/images/vendelux-hero.svg",
+    aiTools: ["Claude Code", "Claude Design", "Figma MCP", "Cursor"],
   },
   {
     slug: "passiton",
@@ -29,6 +41,7 @@ const projects: CaseStudy[] = [
       "Led research and end-to-end design of a blockchain-enabled fashion reuse app focused on extending garment lifecycle through traceability.",
     tags: ["2024", "UI/UX Design", "Case Study"],
     image: "/images/passiton.jpg",
+    aiTools: ["Claude Code", "Cursor"],
   },
   {
     slug: "games4peace",
@@ -37,6 +50,7 @@ const projects: CaseStudy[] = [
       "Designing an interactive system that transforms playful user interactions into measurable social impact.",
     tags: ["2024–2025", "UI/UX Design", "Case Study"],
     image: "/images/games4peace.jpg",
+    aiTools: ["Cursor", "Claude Code"],
   },
   {
     slug: "schedulink",
@@ -45,6 +59,7 @@ const projects: CaseStudy[] = [
       "Designing a social scheduling system that helps college students coordinate spontaneous plans.",
     tags: ["2025", "Product Design", "UX Design", "Interaction Design"],
     image: "/images/schedulink.jpg",
+    aiTools: ["Cursor", "Claude Code", "Vibe coding"],
   },
   {
     slug: "cast",
@@ -53,6 +68,7 @@ const projects: CaseStudy[] = [
       "Designing a wearable assistive device that helps restore postural stability for spinal cord injury patients.",
     tags: ["2025", "Wearable Design", "UX Research", "Human-Centered Robotics"],
     image: "/images/cast.jpg",
+    aiTools: ["Cursor"],
   },
 ]
 
@@ -94,6 +110,18 @@ function CaseStudyCard({ project }: { project: CaseStudy }) {
               </span>
             ))}
           </div>
+          {project.aiTools && project.aiTools.length > 0 ? (
+            <div className="mt-2.5 flex flex-wrap gap-1.5">
+              {project.aiTools.map((tool) => (
+                <span
+                  key={tool}
+                  className="rounded-md border border-foreground/10 bg-foreground/[0.04] px-2 py-0.5 text-[10px] font-medium text-foreground/60"
+                >
+                  {tool}
+                </span>
+              ))}
+            </div>
+          ) : null}
         </div>
       </article>
     </Link>

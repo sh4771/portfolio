@@ -48,7 +48,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
     year: "2024–2025",
     role: "UI/UX Designer",
     duration: "May 2024 – January 2025",
-    tools: ["Figma", "FigJam"],
+    tools: ["Figma", "FigJam", "Cursor", "Claude Code"],
     image: "/images/games4peace.jpg",
     overview:
       "Designed an interactive system that transforms playful user interactions into measurable social impact, bridging the gap between casual engagement and meaningful outcomes.",
@@ -128,7 +128,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
     year: "2025",
     role: "Lead Product Designer",
     duration: "4 months",
-    tools: ["Figma", "Arduino", "NFC Tools", "Miro"],
+    tools: ["Figma", "Arduino", "NFC Tools", "Miro", "Cursor", "Claude Code"],
     image: "/images/passiton.jpg",
     overview:
       "PASSIT ON is a physical-digital system that uses NFC tags embedded in clothing to create transparent, traceable records of garment ownership. By making the lifecycle of a garment visible, the project challenges the opacity of fast fashion supply chains and encourages longer use, repair, and mindful passing-on of clothing.",
@@ -213,7 +213,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
     year: "2025",
     role: "UX Designer & Researcher",
     duration: "3 months",
-    tools: ["Figma", "Maze", "Notion", "React Native"],
+    tools: ["Figma", "Maze", "Notion", "React Native", "Cursor", "Claude Code"],
     image: "/images/schedulink.jpg",
     overview:
       "ScheduLink is a mobile platform designed for college students who want to spend more time with close friends but struggle to coordinate schedules. By sharing real-time availability within trusted circles, the app removes the friction of planning and enables spontaneous connection.",
@@ -456,6 +456,85 @@ export const caseStudies: Record<string, CaseStudyData> = {
         { label: "User Comfort Rating", value: "4.5/5" },
         { label: "Donning Time", value: "<2 min" },
       ],
+    },
+  },
+
+  vendelux: {
+    slug: "vendelux",
+    title: "Vendlux",
+    subtitle: "Product design internship: shipping UI and systems thinking in a B2B product org",
+    category: "Product design",
+    year: "2026",
+    role: "Product Design Intern",
+    duration: "April 2026 – ongoing",
+    tools: ["Figma", "Claude Code", "Claude Design", "Linear", "Figma MCP"],
+    image: "/images/vendelux-hero.svg",
+    overview:
+      "I joined Vendlux as a product design intern in April 2026. The role sits at the intersection of interface craft and product operations: translating ambiguous problems into clear flows, keeping design files legible for cross-functional partners, and moving work through Linear with tight feedback loops. Much of the week lives in Figma, with AI tools used intentionally to speed exploration and tidy handoff artifacts, not to bypass design judgment.",
+    problem: {
+      title: "The context",
+      body: "B2B product work moves quickly and expects designers to keep pace with engineering and go-to-market calendars. The challenge is not only pixels, but clarity: specs, states, and edge cases need to be legible so partners can ship without constant back-and-forth. Interns have to ramp on domain language fast while still producing work that holds up in critique.",
+    },
+    research: {
+      title: "How I learned the product",
+      body: "I learned the product by pairing with teammates, reading internal docs, tracing live flows, and asking targeted questions in design and product reviews. I treated Linear tickets as the source of truth for scope and used Figma comments and MCP-assisted exports when I needed to pull references into files quickly.",
+      methods: [
+        "Shadowing product and customer calls where appropriate",
+        "Walking current flows end to end in staging with a note-taking template",
+        "Competitive scans for interaction patterns, not for copying visuals wholesale",
+        "Weekly design critique with async Loom follow-ups when timezone windows were tight",
+      ],
+    },
+    insights: {
+      title: "What stuck with me",
+      items: [
+        {
+          heading: "Files are a collaboration surface",
+          body: "Naming, components, and tidy variants saved more time than any single shortcut. Teammates read your judgment through file hygiene.",
+        },
+        {
+          heading: "AI is best as a drafting partner",
+          body: "Claude Code and Claude Design helped me explore copy variants and layout ideas faster, but decisions still belonged in critique and in the constraints of the roadmap.",
+        },
+        {
+          heading: "Linear keeps design honest",
+          body: "When scope is explicit, design work stays proportional. Clear tickets reduced thrash and made handoffs to engineering predictable.",
+        },
+      ],
+    },
+    designProcess: {
+      title: "Design process on the team",
+      body: "Work typically moved from problem framing to low-fidelity flows, then to higher fidelity in Figma with components aligned to the design system. I iterated with feedback from design and product partners, then prepared handoff notes and edge cases for engineering.",
+      phases: [
+        {
+          label: "Align",
+          description:
+            "Clarified the user goal, success metric, and constraints from product context before opening a blank frame.",
+        },
+        {
+          label: "Explore",
+          description:
+            "Used Figma and AI-assisted brainstorming to sketch multiple directions, then cut aggressively based on feasibility.",
+        },
+        {
+          label: "Refine",
+          description:
+            "Built states, empty cases, and responsive rules so engineering could implement without guesswork.",
+        },
+        {
+          label: "Hand off",
+          description:
+            "Documented decisions in Linear, attached Figma links, and walked through open questions in short syncs.",
+        },
+      ],
+    },
+    prototype: {
+      title: "Deliverables",
+      body: "Because the work is covered by confidentiality agreements, this page stays high level. In practice, deliverables included annotated Figma files, lightweight prototypes for alignment, and written notes that captured behavior for edge cases.",
+    },
+    outcome: {
+      title: "Reflection",
+      body: "The internship reinforced that speed without clarity creates debt. The combination of Figma discipline, Linear hygiene, and selective use of Claude Code, Claude Design, and Figma MCP made it easier to keep momentum without losing traceability of decisions.",
     },
   },
 }
