@@ -52,14 +52,14 @@ export function Hero() {
               Now
             </p>
             <p className="text-[13px] leading-relaxed text-foreground/60">
-              {"Design + research at "}
+              {"Product design intern at "}
               <a
-                href="https://roar.me.columbia.edu/"
+                href="https://www.vendelux.com/"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-block text-sky-600 dark:text-sky-400 transition-colors duration-200 ease-out hover:text-sky-500 dark:hover:text-sky-300"
               >
-                Robotics and Rehabilitation Lab at Columbia University
+                Vendelux
               </a>
               {"."}
             </p>
@@ -70,6 +70,16 @@ export function Hero() {
               Previous
             </p>
             <p className="text-[13px] leading-relaxed text-foreground/60">
+              {"Design + research at "}
+              <a
+                href="https://roar.me.columbia.edu/"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-block text-sky-600 dark:text-sky-400 transition-colors duration-200 ease-out hover:text-sky-500 dark:hover:text-sky-300"
+              >
+                Robotics and Rehabilitation Lab at Columbia University
+              </a>
+              {". "}
               <a
                 href="https://www.violethyun.com/portfolio/games4peace"
                 target="_blank"
