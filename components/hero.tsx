@@ -38,11 +38,13 @@ export function Hero() {
           className="mt-2 text-[0.82rem] font-medium leading-tight tracking-[-0.01em] text-foreground/60 md:whitespace-nowrap"
         >
           {"— a product designer working at the intersection of "}
-          <span className="scribble-underline font-semibold text-foreground/80">research</span>
+          <span className="scribble-underline font-semibold text-sky-800 dark:text-sky-300">research</span>
           {", "}
-          <span className="scribble-circle font-semibold text-foreground/80">storytelling</span>
+          <span className="scribble-circle font-semibold text-violet-800 dark:text-violet-300">storytelling</span>
           {", and "}
-          <span className="scribble-highlight font-semibold text-foreground/80">systems thinking</span>
+          <span className="scribble-highlight font-semibold text-emerald-900 dark:text-emerald-300">
+            systems thinking
+          </span>
           {"."}
         </p>
 
@@ -162,7 +164,6 @@ export function Hero() {
         .scribble-underline {
           position: relative;
           display: inline-block;
-          color: var(--foreground);
         }
 
         .scribble-underline::after {
@@ -198,7 +199,6 @@ export function Hero() {
           position: relative;
           display: inline-block;
           padding: 0 0.04em;
-          color: var(--foreground);
         }
 
         .scribble-circle::after {
@@ -220,7 +220,6 @@ export function Hero() {
           display: inline-block;
           padding: 0 0.04em;
           z-index: 0;
-          color: var(--foreground);
         }
 
         .scribble-highlight::before {
