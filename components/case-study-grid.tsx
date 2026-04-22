@@ -13,6 +13,8 @@ export interface CaseStudy {
   showOnHomepage?: boolean
   /** Optional AI-adjacent tools (shown as small chips under tags). */
   aiTools?: string[]
+  /** Logo-style artwork: white field + contain in the card frame */
+  cardTreatAsLogo?: boolean
 }
 
 const projects: CaseStudy[] = [
@@ -20,9 +22,10 @@ const projects: CaseStudy[] = [
     slug: "vendelux",
     title: "Product Design Intern, Vendelux",
     description:
-      "Vendelux is an AI-powered B2B event intelligence platform that helps teams identify high-ROI conferences, pre-book qualified meetings, and connect event spend to pipeline in Salesforce and HubSpot, where I support product UI and system design in Figma and Linear.",
+      "At Vendelux I support product UI and system design on an AI-powered B2B event intelligence platform that helps teams identify high-ROI conferences, pre-book qualified meetings, and connect event spend to pipeline in Salesforce and HubSpot.",
     tags: ["2026", "Product intern", "B2B"],
     image: "/images/vendelux-cover.png",
+    cardTreatAsLogo: true,
     aiTools: ["Claude Code", "Claude Design", "Figma MCP", "Cursor"],
   },
   {
@@ -77,14 +80,28 @@ function CaseStudyCard({ project }: { project: CaseStudy }) {
     <Link href={`/work/${project.slug}`} className="group block">
       <article>
         {/* Image */}
-        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-card">
-          <Image
-            src={project.image}
-            alt={`${project.title} case study preview`}
-            fill
-            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-            sizes="(max-width: 768px) 100vw, 640px"
-          />
+        <div
+          className={`relative aspect-[4/3] w-full overflow-hidden rounded-2xl ${project.cardTreatAsLogo ? "bg-white" : "bg-card"}`}
+        >
+          <div
+            className={
+              project.cardTreatAsLogo
+                ? "absolute inset-[10%]"
+                : "absolute inset-0"
+            }
+          >
+            <Image
+              src={project.image}
+              alt={`${project.title} case study preview`}
+              fill
+              className={
+                project.cardTreatAsLogo
+                  ? "object-contain"
+                  : "object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+              }
+              sizes="(max-width: 768px) 100vw, 640px"
+            />
+          </div>
         </div>
 
         {/* Text below image */}

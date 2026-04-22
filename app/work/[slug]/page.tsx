@@ -71,16 +71,28 @@ export default async function CaseStudyPage({
           </div>
 
           {/* Hero image */}
-          <div className="mt-10 overflow-hidden rounded-2xl">
+          <div
+            className={`mt-10 overflow-hidden rounded-2xl ${study.heroTreatAsLogo ? "bg-white" : ""}`}
+          >
             <div className="relative aspect-[16/9]">
-              <Image
-                src={study.image}
-                alt={`${study.title} project hero`}
-                fill
-                className="object-cover"
-                priority
-                sizes="640px"
-              />
+              <div
+                className={
+                  study.heroTreatAsLogo
+                    ? "absolute inset-[8%] sm:inset-[10%]"
+                    : "absolute inset-0"
+                }
+              >
+                <Image
+                  src={study.image}
+                  alt={`${study.title} project hero`}
+                  fill
+                  className={
+                    study.heroTreatAsLogo ? "object-contain" : "object-cover"
+                  }
+                  priority
+                  sizes="640px"
+                />
+              </div>
             </div>
           </div>
 
@@ -92,50 +104,56 @@ export default async function CaseStudyPage({
           </ContentBlock>
 
           {/* Problem */}
-          <ContentBlock label={study.problem.title}>
-            <p className="text-[13px] leading-relaxed text-foreground/70">
-              {study.problem.body}
-            </p>
-          </ContentBlock>
+          {study.problem ? (
+            <ContentBlock label={study.problem.title}>
+              <p className="text-[13px] leading-relaxed text-foreground/70">
+                {study.problem.body}
+              </p>
+            </ContentBlock>
+          ) : null}
 
           {/* Research */}
-          <ContentBlock label={study.research.title}>
-            <p className="text-[13px] leading-relaxed text-foreground/70">
-              {study.research.body}
-            </p>
-            <ul className="mt-5 flex flex-col gap-2.5">
-              {study.research.methods.map((method, i) => (
-                <li
-                  key={i}
-                  className="flex items-start gap-3 text-[13px] leading-relaxed text-muted-foreground"
-                >
-                  <span className="mt-1.5 block h-1 w-1 shrink-0 rounded-full bg-muted-foreground/40" />
-                  {method}
-                </li>
-              ))}
-            </ul>
-          </ContentBlock>
+          {study.research ? (
+            <ContentBlock label={study.research.title}>
+              <p className="text-[13px] leading-relaxed text-foreground/70">
+                {study.research.body}
+              </p>
+              <ul className="mt-5 flex flex-col gap-2.5">
+                {study.research.methods.map((method, i) => (
+                  <li
+                    key={i}
+                    className="flex items-start gap-3 text-[13px] leading-relaxed text-muted-foreground"
+                  >
+                    <span className="mt-1.5 block h-1 w-1 shrink-0 rounded-full bg-muted-foreground/40" />
+                    {method}
+                  </li>
+                ))}
+              </ul>
+            </ContentBlock>
+          ) : null}
 
           {/* Insights */}
-          <ContentBlock label={study.insights.title}>
-            <div className="flex flex-col gap-6">
-              {study.insights.items.map((item, i) => (
-                <div key={i} className="flex flex-col gap-1.5">
-                  <div className="flex items-center gap-3">
-                    <span className="text-[11px] tabular-nums text-muted-foreground/60">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <h4 className="text-[13px] font-medium text-foreground">
-                      {item.heading}
-                    </h4>
+          {study.insights ? (
+            <ContentBlock label={study.insights.title}>
+              <div className="flex flex-col gap-6">
+                {study.insights.items.map((item, i) => (
+                  <div key={i} className="flex flex-col gap-1.5">
+                    <div className="flex items-center gap-3">
+                      <span className="text-[11px] tabular-nums text-muted-foreground/60">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <h4 className="text-[13px] font-medium text-foreground">
+                        {item.heading}
+                      </h4>
+                    </div>
+                    <p className="pl-9 text-[13px] leading-relaxed text-muted-foreground">
+                      {item.body}
+                    </p>
                   </div>
-                  <p className="pl-9 text-[13px] leading-relaxed text-muted-foreground">
-                    {item.body}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </ContentBlock>
+                ))}
+              </div>
+            </ContentBlock>
+          ) : null}
 
           {/* Design Process */}
           <ContentBlock label={study.designProcess.title}>

@@ -8,17 +8,19 @@ export interface CaseStudyData {
   duration: string
   tools: string[]
   image: string
+  /** Wide logos: white field + contain so wordmarks are not cropped in the hero frame */
+  heroTreatAsLogo?: boolean
   overview: string
-  problem: {
+  problem?: {
     title: string
     body: string
   }
-  research: {
+  research?: {
     title: string
     body: string
     methods: string[]
   }
-  insights: {
+  insights?: {
     title: string
     items: { heading: string; body: string }[]
   }
@@ -470,39 +472,9 @@ export const caseStudies: Record<string, CaseStudyData> = {
     duration: "April 2026 – ongoing",
     tools: ["Figma", "Claude Code", "Claude Design", "Linear", "Figma MCP"],
     image: "/images/vendelux-cover.png",
+    heroTreatAsLogo: true,
     overview:
-      "Vendelux is an AI-powered B2B event intelligence platform that helps teams identify high-ROI conferences, pre-book qualified meetings, and connect event spend to pipeline in Salesforce and HubSpot, where I support product UI and system design in Figma and Linear. Unreleased screens, roadmap detail, and customer specifics stay off this page; the sections below focus on process, collaboration, and tools.",
-    problem: {
-      title: "Designing under NDA",
-      body: "Internships in software often mean you learn a lot you cannot publish. The constraint is simple: protect trust and IP. Public writing has to stay at the level of craft, communication, and workflow, not screenshots of unreleased surfaces or narratives that reveal strategy.",
-    },
-    research: {
-      title: "How I ramped",
-      body: "I onboarded through internal documentation, design-system walkthroughs, and regular critique with teammates. Tickets in Linear kept scope legible; Figma comments carried async decisions. When helpful, I used MCP-assisted exports to move references into files faster, still checking everything against team guidance.",
-      methods: [
-        "Design system and component walkthroughs with the design team",
-        "Structured notes while exploring internal staging builds",
-        "Weekly critique and async follow-ups when calendars did not overlap",
-        "Short pairing sessions with senior designers on file hygiene and variants",
-      ],
-    },
-    insights: {
-      title: "What stuck with me",
-      items: [
-        {
-          heading: "Files are a collaboration surface",
-          body: "Naming, components, and tidy variants saved more time than any single shortcut. Teammates read your judgment through file hygiene.",
-        },
-        {
-          heading: "AI is best as a drafting partner",
-          body: "Claude Code and Claude Design helped me explore copy and layout ideas faster, but decisions still belonged in critique and in the constraints of the roadmap.",
-        },
-        {
-          heading: "Linear keeps design honest",
-          body: "When scope is explicit, design work stays proportional. Clear tickets reduced thrash and made handoffs to engineering predictable.",
-        },
-      ],
-    },
+      "At Vendelux I support product UI and system design on an AI-powered B2B event intelligence platform that helps teams identify high-ROI conferences, pre-book qualified meetings, and connect event spend to pipeline in Salesforce and HubSpot. Unreleased screens, roadmap detail, and customer specifics stay off this page.",
     designProcess: {
       title: "How the design team works (high level)",
       body: "At a high level, work moves from framing to exploration, then refinement in Figma against the design system, followed by written handoff and short syncs. I am not listing specific flows, surfaces, or experiments here.",
@@ -531,7 +503,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
     },
     prototype: {
       title: "Deliverables",
-      body: "Deliverables exist inside the company’s private tools and repositories. This portfolio does not include screenshots, recordings, metrics, or narrative detail from unreleased work. Anything shown on the homepage is a generic cover image for identification only.",
+      body: "Deliverables exist inside the company’s private tools and repositories. This portfolio does not include screenshots, recordings, metrics, or narrative detail from unreleased work. The homepage uses the public wordmark for identification only.",
     },
     outcome: {
       title: "Reflection",
