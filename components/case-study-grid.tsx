@@ -27,9 +27,9 @@ const projects: CaseStudy[] = [
   },
   {
     slug: "vendelux",
-    title: "Product Design Intern, Vendlux",
+    title: "Product Design Intern, Vendelux",
     description:
-      "Shipping B2B product work from discovery to spec-ready UI: Figma systems, eng handoff in Linear, and AI-assisted flows with Claude Code, Claude Design, and Figma MCP.",
+      "Vendelux is an AI-native B2B platform for event marketing: discover high-ROI conferences, book qualified meetings before the show, and connect spend to pipeline in Salesforce or HubSpot. I support product UI and systems work in Figma and Linear, with Claude Code, Claude Design, and Figma MCP in the loop.",
     tags: ["2026", "Product intern", "B2B"],
     image: "/images/vendelux-hero.svg",
     aiTools: ["Claude Code", "Claude Design", "Figma MCP", "Cursor"],

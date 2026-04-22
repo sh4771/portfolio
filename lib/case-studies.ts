@@ -461,8 +461,9 @@ export const caseStudies: Record<string, CaseStudyData> = {
 
   vendelux: {
     slug: "vendelux",
-    title: "Vendlux",
-    subtitle: "Product design internship: shipping UI and systems thinking in a B2B product org",
+    title: "Vendelux",
+    subtitle:
+      "Product design internship on an AI-native B2B platform for event discovery, pre-event meetings, and pipeline attribution",
     category: "Product design",
     year: "2026",
     role: "Product Design Intern",
@@ -470,14 +471,14 @@ export const caseStudies: Record<string, CaseStudyData> = {
     tools: ["Figma", "Claude Code", "Claude Design", "Linear", "Figma MCP"],
     image: "/images/vendelux-hero.svg",
     overview:
-      "I joined Vendlux as a product design intern in April 2026. The role sits at the intersection of interface craft and product operations: translating ambiguous problems into clear flows, keeping design files legible for cross-functional partners, and moving work through Linear with tight feedback loops. Much of the week lives in Figma, with AI tools used intentionally to speed exploration and tidy handoff artifacts, not to bypass design judgment.",
+      "Vendelux helps revenue teams treat in-person events like a channel with a plan: map your ICP, match to high-ROI conferences and trade shows from a large proprietary event database, pre-book qualified meetings before day one, and connect outcomes to Salesforce or HubSpot so spend is easier to defend. I joined as a product design intern in April 2026. Day to day I work in Figma and Linear with design and product partners, and I use Claude Code, Claude Design, and Figma MCP to move faster on exploration and handoff polish without skipping critique.",
     problem: {
       title: "The context",
-      body: "B2B product work moves quickly and expects designers to keep pace with engineering and go-to-market calendars. The challenge is not only pixels, but clarity: specs, states, and edge cases need to be legible so partners can ship without constant back-and-forth. Interns have to ramp on domain language fast while still producing work that holds up in critique.",
+      body: "Event marketing is expensive and noisy. Marketing and sales leaders need software that makes it obvious where to show up, who to meet, and how pipeline ties back to a booth or a dinner. That means dense tables, multi-step flows, and a lot of trust in data quality. Designers have to keep those experiences legible while the product ships quickly next to engineering.",
     },
     research: {
       title: "How I learned the product",
-      body: "I learned the product by pairing with teammates, reading internal docs, tracing live flows, and asking targeted questions in design and product reviews. I treated Linear tickets as the source of truth for scope and used Figma comments and MCP-assisted exports when I needed to pull references into files quickly.",
+      body: "I learned the product by pairing with teammates, reading internal docs, walking flows in staging, and asking targeted questions in design and product reviews. I treated Linear tickets as the source of truth for scope, used Figma comments for async decisions, and leaned on MCP-assisted exports when I needed to pull references into files quickly.",
       methods: [
         "Shadowing product and customer calls where appropriate",
         "Walking current flows end to end in staging with a note-taking template",
