@@ -462,7 +462,8 @@ export const caseStudies: Record<string, CaseStudyData> = {
   vendelux: {
     slug: "vendelux",
     title: "Vendelux",
-    subtitle: "Product design internship (public notes are process- and tools-only; shipped work is confidential)",
+    subtitle:
+      "Product design intern on an AI-powered B2B event intelligence platform (public writeup stays high level on unreleased work)",
     category: "Product design",
     year: "2026",
     role: "Product Design Intern",
@@ -470,7 +471,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
     tools: ["Figma", "Claude Code", "Claude Design", "Linear", "Figma MCP"],
     image: "/images/vendelux-cover.png",
     overview:
-      "I am a product design intern at Vendelux starting April 2026. My day-to-day work, roadmap details, and visuals are covered by confidentiality obligations, so nothing on this page describes product behavior, customers, metrics, or unreleased UI. What I can share here is how I collaborate in a fast B2B environment and which tools support that work: Figma for systems and UI, Linear for scope and handoffs, and Claude Code, Claude Design, and Figma MCP where they speed exploration and documentation without replacing critique.",
+      "Vendelux is an AI-powered B2B event intelligence platform that helps teams identify high-ROI conferences, pre-book qualified meetings, and connect event spend to pipeline in Salesforce and HubSpot, where I support product UI and system design in Figma and Linear. Unreleased screens, roadmap detail, and customer specifics stay off this page; the sections below focus on process, collaboration, and tools.",
     problem: {
       title: "Designing under NDA",
       body: "Internships in software often mean you learn a lot you cannot publish. The constraint is simple: protect trust and IP. Public writing has to stay at the level of craft, communication, and workflow, not screenshots of unreleased surfaces or narratives that reveal strategy.",

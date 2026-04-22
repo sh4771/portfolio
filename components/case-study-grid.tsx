@@ -17,6 +17,15 @@ export interface CaseStudy {
 
 const projects: CaseStudy[] = [
   {
+    slug: "vendelux",
+    title: "Product Design Intern, Vendelux",
+    description:
+      "Vendelux is an AI-powered B2B event intelligence platform that helps teams identify high-ROI conferences, pre-book qualified meetings, and connect event spend to pipeline in Salesforce and HubSpot, where I support product UI and system design in Figma and Linear.",
+    tags: ["2026", "Product intern", "B2B"],
+    image: "/images/vendelux-cover.png",
+    aiTools: ["Claude Code", "Claude Design", "Figma MCP", "Cursor"],
+  },
+  {
     slug: "clinical-trials",
     title: "Designing Decision Clarity in Clinical Trial Systems",
     description:
@@ -24,15 +33,6 @@ const projects: CaseStudy[] = [
     tags: ["2026", "UI/UX Design", "Case Study"],
     image: "/images/clinical-trials-hero.png",
     aiTools: ["Claude Code", "Cursor", "Vibe coding"],
-  },
-  {
-    slug: "vendelux",
-    title: "Product Design Intern, Vendelux",
-    description:
-      "Product design intern (from April 2026). Ship work is under NDA, so this entry only reflects collaboration, craft, and tools: Figma, Linear, Claude Code, Claude Design, and Figma MCP.",
-    tags: ["2026", "Product intern", "NDA"],
-    image: "/images/vendelux-cover.png",
-    aiTools: ["Claude Code", "Claude Design", "Figma MCP", "Cursor"],
   },
   {
     slug: "passiton",
