@@ -5,8 +5,8 @@
       <stop offset="100%" stop-color="#151b2e" />
     </linearGradient>
     <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#38bdf8" />
-      <stop offset="100%" stop-color="#818cf8" />
+      <stop offset="0%" stop-color="#c084fc" />
+      <stop offset="100%" stop-color="#7c3aed" />
     </linearGradient>
   </defs>
   <rect width="1200" height="900" fill="url(#bg)" />
@@ -25,7 +25,7 @@
   <text
     x="72"
     y="448"
-    fill="#94a3b8"
+    fill="#cbd5e1"
     font-family="ui-sans-serif, system-ui, sans-serif"
     font-size="22"
     font-weight="400"
@@ -35,11 +35,11 @@
   <text
     x="72"
     y="488"
-    fill="#64748b"
+    fill="#cbd5e1"
     font-family="ui-sans-serif, system-ui, sans-serif"
     font-size="17"
     font-weight="400"
   >
-    Event discovery ù pre-event meetings ù CRM-connected ROI
+    Event discovery &#183; pre-event meetings &#183; CRM-connected ROI
   </text>
 </svg>

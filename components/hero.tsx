@@ -57,7 +57,7 @@ export function Hero() {
                 href="https://www.vendelux.com/"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-block text-sky-600 dark:text-sky-400 transition-colors duration-200 ease-out hover:text-sky-500 dark:hover:text-sky-300"
+                className="inline-block font-medium text-purple-900 transition-colors duration-200 ease-out hover:text-purple-950 dark:text-purple-200 dark:hover:text-purple-50"
               >
                 Vendelux
               </a>
@@ -75,7 +75,7 @@ export function Hero() {
                 href="https://roar.me.columbia.edu/"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-block text-sky-600 dark:text-sky-400 transition-colors duration-200 ease-out hover:text-sky-500 dark:hover:text-sky-300"
+                className="inline-block text-foreground/60 transition-colors duration-200 ease-out hover:text-foreground"
               >
                 Robotics and Rehabilitation Lab at Columbia University
               </a>
