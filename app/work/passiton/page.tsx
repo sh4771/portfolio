@@ -34,18 +34,20 @@ export default function Page() {
                   Designing Traceable Garment Lifecycles
                 </h1>
                 <p className="text-sm text-foreground/50">
-                  UI/UX Design @ Personal Project
+                  UI/UX Design · Columbia University Prototyping in Urban Tech
                 </p>
               </div>
               
               <div className="flex flex-wrap gap-x-12 gap-y-4 text-sm pt-4">
                 <div>
-                  <span className="block text-xs text-foreground/40 mb-1">Team</span>
-                  <span className="text-foreground/70">Personal Project</span>
+                  <span className="block text-xs text-foreground/40 mb-1">Context</span>
+                  <span className="text-foreground/70">
+                    Columbia University Prototyping in Urban Tech
+                  </span>
                 </div>
                 <div>
                   <span className="block text-xs text-foreground/40 mb-1">Timeline</span>
-                  <span className="text-foreground/70">May 2024 – Present</span>
+                  <span className="text-foreground/70">January 2026 – April 2026</span>
                 </div>
                 <div>
                   <span className="block text-xs text-foreground/40 mb-1">What I did</span>
@@ -57,6 +59,28 @@ export default function Page() {
                 Led research and end-to-end design of a blockchain-enabled fashion reuse app 
                 focused on extending garment lifecycle through traceability.
               </p>
+
+              <div className="grid max-w-2xl gap-8 border-t border-border/40 pt-8 sm:grid-cols-2 sm:gap-10">
+                <div className="space-y-2">
+                  <h2 className="text-lg font-medium tracking-tight md:text-xl">
+                    Product scope
+                  </h2>
+                  <p className="text-sm text-foreground/60 text-pretty leading-relaxed">
+                    NFC-backed garment identity, a companion app for reading and updating custody
+                    history, listing flows (condition, materials, pricing), and incentives that keep
+                    pieces in circulation rather than landfill.
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <h2 className="text-lg font-medium tracking-tight md:text-xl">Use case</h2>
+                  <p className="text-sm text-foreground/60 text-pretty leading-relaxed">
+                    Someone reselling or donating a tagged item needs a trustworthy handoff: show
+                    what the piece is made of, how worn it is, what it cost versus what it should
+                    list for next, and who has owned it before—so the next person can decide with
+                    confidence.
+                  </p>
+                </div>
+              </div>
 
               <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-1">
                 <a
@@ -219,6 +243,66 @@ export default function Page() {
               High-fidelity designs for extending garment lifecycles through transparency and engagement
             </p>
           </div>
+
+          {/* Columbia Urban Tech: high-fidelity screens */}
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <p className="text-xs text-foreground/40">Columbia Urban Tech</p>
+              <h3 className="text-base font-medium tracking-tight md:text-lg">
+                High-fidelity: condition &amp; materials
+              </h3>
+              <p className="max-w-2xl text-sm text-foreground/60 text-pretty leading-relaxed">
+                Course prototype frames for listing condition (with purchase vs. suggested resale)
+                and for material disclosures tied to the garment chain.
+              </p>
+            </div>
+            <div className="grid gap-8 sm:grid-cols-2 sm:gap-10">
+              <figure className="space-y-3">
+                <div
+                  className="overflow-hidden rounded-[2rem] border border-foreground/10 bg-muted/30"
+                  style={{
+                    boxShadow:
+                      "0 24px 60px rgba(0,0,0,0.12), 0 8px 24px rgba(0,0,0,0.08)",
+                  }}
+                >
+                  <Image
+                    src="/images/passiton-hifi-condition.png"
+                    alt="PASSIT ON high-fidelity condition screen with purchase price, suggested resale, and defect checklist"
+                    width={523}
+                    height={1024}
+                    className="h-auto w-full"
+                  />
+                </div>
+                <figcaption className="text-center text-xs text-foreground/50">
+                  Condition &amp; listing
+                </figcaption>
+              </figure>
+              <figure className="space-y-3">
+                <div
+                  className="overflow-hidden rounded-[2rem] border border-foreground/10 bg-muted/30"
+                  style={{
+                    boxShadow:
+                      "0 24px 60px rgba(0,0,0,0.12), 0 8px 24px rgba(0,0,0,0.08)",
+                  }}
+                >
+                  <Image
+                    src="/images/passiton-hifi-materials.png"
+                    alt="PASSIT ON high-fidelity materials screen with health and environmental callouts"
+                    width={523}
+                    height={1024}
+                    className="h-auto w-full"
+                  />
+                </div>
+                <figcaption className="text-center text-xs text-foreground/50">
+                  Materials &amp; chain context
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <section>
+            <CircularPricingModel />
+          </section>
 
           {/* Feature 1: Garment Journey & User Engagement */}
           <div 
@@ -419,10 +503,6 @@ export default function Page() {
               </div>
             </div>
           </div>
-        </section>
-
-        <section>
-          <CircularPricingModel />
         </section>
 
         {/* Reflection: learnings, time, next step */}

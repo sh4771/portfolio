@@ -127,9 +127,9 @@ export const caseStudies: Record<string, CaseStudyData> = {
     subtitle:
       "Extending garment lifecycles through NFC-enabled chain-of-custody records",
     category: "Product Design",
-    year: "2025",
+    year: "2026",
     role: "Lead Product Designer",
-    duration: "4 months",
+    duration: "January 2026 – April 2026",
     tools: ["Figma", "Arduino", "NFC Tools", "Miro", "Cursor", "Claude Code"],
     image: "/images/passiton.jpg",
     overview:

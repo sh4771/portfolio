@@ -42,7 +42,7 @@ const projects: CaseStudy[] = [
     title: "Designing Traceable Garment Lifecycles",
     description:
       "Led research and end-to-end design of a blockchain-enabled fashion reuse app focused on extending garment lifecycle through traceability.",
-    tags: ["2024", "UI/UX Design", "Case Study"],
+    tags: ["2026", "UI/UX Design", "Case Study"],
     image: "/images/passiton.jpg",
     aiTools: ["Claude Code", "Cursor"],
   },
