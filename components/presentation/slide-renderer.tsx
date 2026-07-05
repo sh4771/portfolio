@@ -278,6 +278,44 @@ export function SlideRenderer({ slide }: { slide: PresentationSlide }) {
         </SlideFrame>
       )
 
+    case "gallery": {
+      const columns = slide.columns ?? (slide.images.length >= 3 ? 3 : 2)
+      const gridClass =
+        columns === 3
+          ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+          : "grid-cols-1 sm:grid-cols-2"
+
+      return (
+        <SlideFrame className="py-10">
+          {slide.kicker ? <Kicker>{slide.kicker}</Kicker> : null}
+          <h2 className="mt-2 max-w-4xl text-lg font-semibold tracking-tight text-foreground md:text-xl">
+            {slide.title}
+          </h2>
+          <div className={`mt-4 grid gap-3 ${gridClass}`}>
+            {slide.images.map((image) => (
+              <div key={image.src} className="flex min-w-0 flex-col gap-1.5">
+                <div className="relative h-[24vh] min-h-[140px] overflow-hidden rounded-xl border border-border/50 bg-card">
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    className="object-contain p-1"
+                    sizes="(max-width: 768px) 100vw, 360px"
+                  />
+                </div>
+                {image.label ? (
+                  <p className="text-[10px] leading-snug text-foreground/50">{image.label}</p>
+                ) : null}
+              </div>
+            ))}
+          </div>
+          {slide.caption ? (
+            <p className="mt-3 text-sm text-foreground/50">{slide.caption}</p>
+          ) : null}
+        </SlideFrame>
+      )
+    }
+
     case "image": {
       const isScreenshot = slide.variant === "screenshot"
       return (

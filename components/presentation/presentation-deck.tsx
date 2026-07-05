@@ -176,7 +176,7 @@ export function PresentationDeck() {
 
       <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex items-center justify-between px-5 py-4">
         <p className="text-[10px] tracking-[0.18em] text-foreground/35 uppercase">
-          Interview deck
+          Presentation
         </p>
         <div className="pointer-events-auto flex items-center gap-2">
           <button

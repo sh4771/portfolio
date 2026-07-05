@@ -4,7 +4,7 @@ import { PresentationDeck } from "@/components/presentation/presentation-deck"
 
 export const metadata: Metadata = {
   title: "Presentation — Violet Hyun",
-  description: "Live interview walkthrough deck.",
+  description: "Presentation deck.",
   robots: {
     index: false,
     follow: false,
