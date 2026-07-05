@@ -34,6 +34,15 @@ export type PresentationSlide =
     }
   | {
       id: string
+      type: "subsection"
+      number?: string
+      title: string
+      subtitle?: string
+      tags?: string[]
+      note?: string
+    }
+  | {
+      id: string
       type: "statement"
       kicker?: string
       headline: string
@@ -81,6 +90,7 @@ export type PresentationSlide =
       alt: string
       caption?: string
       treatAsLogo?: boolean
+      variant?: "default" | "screenshot"
       note?: string
     }
   | {
@@ -132,7 +142,7 @@ export const presentationSlides: PresentationSlide[] = [
     kicker: "Today",
     title: "What we'll walk through",
     items: [
-      { label: "Vendelux", detail: "Current role · B2B product design" },
+      { label: "Vendelux", detail: "Segments redesign · site-wide UI · Event Organizer platform" },
       { label: "Clinical Trials", detail: "Adobe Designathon · decision clarity" },
       { label: "PASSIT ON", detail: "NFC garment lifecycle · research-led" },
       { label: "Games4Peace", detail: "Play → measurable social impact" },
@@ -146,35 +156,282 @@ export const presentationSlides: PresentationSlide[] = [
   {
     id: "vendelux-section",
     type: "section",
-    label: "Current role",
+    label: "Current role · Product Design Intern",
     title: vendelux.title,
     image: vendelux.image,
     treatAsLogo: vendelux.heroTreatAsLogo,
-    tags: ["2026", "Product Design Intern", "B2B SaaS"],
-    note: "High level only — unreleased work stays off the record.",
+    tags: ["2026", "B2B SaaS", "AI-powered event intelligence"],
+    note: "Three shipped projects in your first 30 days — this is the main interview story.",
   },
   {
-    id: "vendelux-context",
+    id: "vendelux-overview",
     type: "statement",
-    kicker: "Context",
-    headline: "AI-powered event intelligence for B2B teams",
-    body: vendelux.overview,
-    note: "Emphasize systems thinking: connecting event spend to pipeline in CRM.",
+    kicker: "First 30 days",
+    headline: "Three projects, one through-line: clarity at scale",
+    body: "Segments redesign, a site-wide UI refresh grounded in a new design system, and a new Event Organizer platform — each shipped in tight collaboration with PMs and engineers, with fast post-launch iteration from real user feedback.",
+    note: "Frame this as systems thinking: diagnose inconsistency, build foundations, ship, then iterate.",
+  },
+
+  // Project 1: Segments
+  {
+    id: "vendelux-segments",
+    type: "subsection",
+    number: "01",
+    title: "Segments (Clementine) Redesign",
+    subtitle: "Biggest project in my first 30 days — 1 PM, 2 software engineers",
+    tags: ["30 days", "Filter UI", "Component library"],
+    note: "This is the deepest project — spend the most time here if they ask about process.",
   },
   {
-    id: "vendelux-process",
-    type: "phases",
-    kicker: "How I work",
-    title: vendelux.designProcess.title,
-    phases: vendelux.designProcess.phases,
-    note: "Mention Figma MCP + Claude for speed without losing traceability.",
-  },
-  {
-    id: "vendelux-reflection",
+    id: "vendelux-segments-start",
     type: "statement",
+    kicker: "How I started",
+    headline: "Audited the current segment UI and annotated issues in Figma",
+    body: "Before proposing solutions, I mapped readability problems, inconsistent patterns, and confusing filter states — then used those annotations to align the team on what needed to change.",
+    note: "Emphasize diagnosis before design — you didn't jump to pixels.",
+  },
+  {
+    id: "vendelux-segments-annotated",
+    type: "image",
+    kicker: "Pre-launch · Discovery",
+    title: "Calling out readability and inconsistency in the current UI",
+    src: "/images/presentation/vendelux/segments-annotated-issues.png",
+    alt: "Figma annotations on the Segments filter UI highlighting readability and consistency issues",
+    variant: "screenshot",
+    caption: "Annotated filter states, color semantics, and contrast issues before redesigning",
+    note: "Point to the exclude-tag color feedback and the 'All | Clear' readability issue.",
+  },
+  {
+    id: "vendelux-segments-iterations",
+    type: "image",
+    kicker: "Pre-launch · Iterations",
+    title: "Drafting sidebar, column picker, and modal flows",
+    src: "/images/presentation/vendelux/segments-iterations-overview.png",
+    alt: "Figma board showing Segments redesign iterations from current version through final",
+    variant: "screenshot",
+    caption: "Current version → v1 → v2 → final, with interaction and dev specs alongside",
+  },
+  {
+    id: "vendelux-segments-components",
+    type: "image",
+    kicker: "Pre-launch · System",
+    title: "Built a component library for handoff",
+    src: "/images/presentation/vendelux/segments-component-library.png",
+    alt: "Component library spec for FilterToggle, SectionHeader, SaveView, Status, and toasts",
+    variant: "screenshot",
+    caption: "FilterToggle, SectionHeader, Footer, SelectedButton, Status, SaveView — with interaction specs",
+    note: "This maps to DEV-6912 — shows you think in systems, not one-off screens.",
+  },
+  {
+    id: "vendelux-segments-specs",
+    type: "image",
+    kicker: "Pre-launch · Handoff",
+    title: "Interaction, development, and content specs for engineers",
+    src: "/images/presentation/vendelux/segments-figma-specs.png",
+    alt: "Figma specs for sidebar filter state and column selection with tagged annotations",
+    variant: "screenshot",
+    caption: "Blue = interaction, green = development, orange = content — tagged for engineering clarity",
+  },
+  {
+    id: "vendelux-segments-shipped",
+    type: "metrics",
+    kicker: "Shipped in 12 days",
+    title: "What went to production",
+    metrics: [
+      { label: "Sidebar filter panel", value: "DEV-6909" },
+      { label: "Column picker", value: "DEV-6910" },
+      { label: "New Segment modal", value: "DEV-6911" },
+      { label: "Component library", value: "DEV-6912" },
+      { label: "Filter tooltips", value: "DEV-6913" },
+    ],
+    note: "Five tickets created in week one, all shipped within 12 days — mention this if they ask about velocity.",
+  },
+
+  // Project 2: Site-wide redesign
+  {
+    id: "vendelux-redesign",
+    type: "subsection",
+    number: "02",
+    title: "Site-wide UI Redesign",
+    subtitle: "Proposed during product & engineering standup",
+    tags: ["Design system", "UI consistency"],
+  },
+  {
+    id: "vendelux-redesign-origin",
+    type: "statement",
+    kicker: "How it started",
+    headline: "Flagged inconsistent UI in standup — proposed restarting with a design system",
+    body: "During a product and engineering standup, I raised that our interfaces had drifted — inconsistent typography, spacing, and component patterns. I proposed stepping back to build a shared design system, then redesigning the site on that foundation.",
+    note: "This shows initiative — you didn't wait to be asked. You identified the systemic problem.",
+  },
+  {
+    id: "vendelux-redesign-iterations",
+    type: "image",
+    kicker: "Pre-launch · Iterations",
+    title: "Typography, components, and page layouts rebuilt from scratch",
+    src: "/images/presentation/vendelux/redesign-iterations-overview.png",
+    alt: "Figma board showing site-wide redesign iterations including typography and component sheets",
+    variant: "screenshot",
+    caption: "Design system foundations → table layouts → page-level compositions",
+  },
+
+  // Project 3: Event Organizer platform
+  {
+    id: "vendelux-event-organizer",
+    type: "subsection",
+    number: "03",
+    title: "Event Organizer Platform",
+    subtitle: "30-day sprint from weekly standup",
+    tags: ["New product", "Goal-setting", "Campaign creation"],
+  },
+  {
+    id: "vendelux-event-organizer-brief",
+    type: "insights",
+    kicker: "The brief",
+    title: "A new platform for event organizers",
+    items: [
+      {
+        heading: "Target audience",
+        body: "Event organizers creating campaigns — they need to set specific goals when launching outreach.",
+      },
+      {
+        heading: "Biggest product shift",
+        body: "Users can now reach the right people — sponsors, event directors, marketing leads — when organizing, not just browse a static list.",
+      },
+      {
+        heading: "Timeline",
+        body: "Scoped and designed within a 30-day window, presented at weekly standup alongside Segments and the redesign.",
+      },
+    ],
+    note: "The goal-setting + stakeholder communication angle is the differentiator — lead with that.",
+  },
+  {
+    id: "vendelux-event-organizer-dashboard",
+    type: "image",
+    kicker: "Event Organizer · Events",
+    title: "Campaign dashboard with goal progress at a glance",
+    src: "/images/presentation/vendelux/event-organizer-events-dashboard.png",
+    alt: "Vendelux Events dashboard showing campaigns with meeting goals and pipeline metrics",
+    variant: "screenshot",
+    caption: "Status, meetings booked, goal progress, and pipeline — all visible per event",
+    note: "Start here to show the organizer's home base before diving into creation flow.",
+  },
+  {
+    id: "vendelux-event-organizer-campaign",
+    type: "image",
+    kicker: "Event Organizer · Create campaign",
+    title: "Goal-setting with live forecasted results",
+    src: "/images/presentation/vendelux/event-organizer-create-campaign.png",
+    alt: "Create campaign flow with goal and target inputs and live forecasted results sidebar",
+    variant: "screenshot",
+    caption: "Set a primary goal and target meetings — forecasted results update as you build the campaign",
+    note: "This is the core differentiator: organizers define goals upfront, not after the fact.",
+  },
+  {
+    id: "vendelux-event-organizer-messaging",
+    type: "image",
+    kicker: "Event Organizer · Messaging",
+    title: "Direct outreach to event directors, sponsors, and marketing leads",
+    src: "/images/presentation/vendelux/event-organizer-messaging.png",
+    alt: "Messaging interface to contact event organizers including event directors and sponsorship leads",
+    variant: "screenshot",
+    caption: "Message the right people — event directors, partnerships, sponsorship, marketing — from one place",
+    note: "Biggest product shift: users can actually talk to relevant stakeholders when organizing.",
+  },
+
+  // Post-launch iteration
+  {
+    id: "vendelux-postlaunch",
+    type: "subsection",
+    number: "↻",
+    title: "Post-launch iteration",
+    subtitle: "Real user feedback → Linear tickets → immediate changes",
+    tags: ["User feedback", "Linear", "AI-assisted workflow"],
+  },
+  {
+    id: "vendelux-postlaunch-linear",
+    type: "image",
+    kicker: "Post-launch",
+    title: "Turning feedback into shipped tickets",
+    src: "/images/presentation/vendelux/post-launch-linear-tickets.png",
+    alt: "Linear tickets for post-launch Segments iterations",
+    variant: "screenshot",
+    caption: "DEV-7042, DEV-6911, DEV-7062, DEV-7083 — rapid iteration after launch",
+  },
+  {
+    id: "vendelux-postlaunch-slack-keyword",
+    type: "image",
+    kicker: "Post-launch · User feedback",
+    title: "Engineering flagged keyword overload — I redesigned the filter pattern",
+    src: "/images/presentation/vendelux/segments-slack-keyword-feedback.png",
+    alt: "Slack thread about segment keyword limits and best practices for job title filters",
+    variant: "screenshot",
+    caption: "303 job titles in one segment → proposed fuzzy-match categories instead",
+    note: "Shows you respond to technical constraints, not just visual polish.",
+  },
+  {
+    id: "vendelux-postlaunch-slack-ai",
+    type: "image",
+    kicker: "Post-launch · AI workflow",
+    title: "PM used Claude to spin up UAT tickets from Slack — I designed the fixes",
+    src: "/images/presentation/vendelux/segments-slack-linear-tickets.png",
+    alt: "Slack thread where Claude creates Linear tickets for duplicate filter and dropdown UI issues",
+    variant: "screenshot",
+    caption: "Duplicate keyword bug → two Linear tickets with UAT labels, same day",
+    note: "Great example of AI accelerating the feedback loop — you own the design response.",
+  },
+  {
+    id: "vendelux-postlaunch-slack-segment",
+    type: "image",
+    kicker: "Post-launch · Customer feedback",
+    title: "Segment scope confusion surfaced in support — drove a reporting fix",
+    src: "/images/presentation/vendelux/post-launch-slack-segment-feedback.png",
+    alt: "Slack thread about event report including organizations outside the segment filter",
+    variant: "screenshot",
+    caption: "Customer segment didn't match report output — flagged for engineering follow-up",
+  },
+  {
+    id: "vendelux-postlaunch-slack-ui",
+    type: "image",
+    kicker: "Post-launch · Team feedback",
+    title: "Headcount range labels were confusing — iterated on the chip format",
+    src: "/images/presentation/vendelux/post-launch-slack-ui-feedback.png",
+    alt: "Slack feedback about employee range filter showing confusing numbers after headcount ranges",
+    variant: "screenshot",
+    caption: "'1k–5k 20' format caused confusion — refined how counts display in filter chips",
+  },
+
+  // Manager feedback
+  {
+    id: "vendelux-manager-review",
+    type: "image",
+    kicker: "30-day review",
+    title: "Manager feedback — what landed and what I'm building on",
+    src: "/images/presentation/vendelux/manager-30-day-review.png",
+    alt: "30-day performance review from manager Gina Bochis highlighting shipped work",
+    variant: "screenshot",
+    note: "She loved AI use and taking feedback. Growth area: speak more confidently in standups.",
+  },
+  {
+    id: "vendelux-manager-insights",
+    type: "insights",
     kicker: "Reflection",
-    headline: "Speed without clarity creates debt",
-    body: vendelux.outcome.body,
+    title: "What I'm carrying forward",
+    items: [
+      {
+        heading: "Strength: AI as a multiplier",
+        body: "Using Claude, Figma MCP, and Cursor to move faster without skipping specs — my manager called this out explicitly.",
+      },
+      {
+        heading: "Strength: Feedback → action",
+        body: "Post-launch Slack threads became Linear tickets and design updates within days, not weeks.",
+      },
+      {
+        heading: "Growth: Voice in the room",
+        body: "I'm working on speaking more confidently in standups — the redesign proposal is an example of doing that.",
+      },
+    ],
+    note: "End Vendelux here unless they want to go deeper on a specific ticket.",
   },
 
   // —— Clinical Trials ——

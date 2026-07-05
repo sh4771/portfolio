@@ -134,6 +134,41 @@ export function SlideRenderer({ slide }: { slide: PresentationSlide }) {
         </SlideFrame>
       )
 
+    case "subsection":
+      return (
+        <SlideFrame>
+          <div className="flex items-start gap-6">
+            {slide.number ? (
+              <span className="text-5xl font-light tabular-nums text-foreground/15 md:text-6xl">
+                {slide.number}
+              </span>
+            ) : null}
+            <div>
+              <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-5xl">
+                {slide.title}
+              </h2>
+              {slide.subtitle ? (
+                <p className="mt-4 max-w-2xl text-base leading-relaxed text-foreground/60 md:text-lg">
+                  {slide.subtitle}
+                </p>
+              ) : null}
+              {slide.tags ? (
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {slide.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full border border-foreground/10 px-3 py-1 text-[10px] tracking-[0.1em] text-foreground/50 uppercase"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          </div>
+        </SlideFrame>
+      )
+
     case "statement":
       return (
         <SlideFrame>
@@ -225,7 +260,7 @@ export function SlideRenderer({ slide }: { slide: PresentationSlide }) {
               {slide.title}
             </h2>
           ) : null}
-          <div className="mt-10 grid gap-5 sm:grid-cols-3">
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {slide.metrics.map((metric) => (
               <div
                 key={metric.label}
@@ -243,18 +278,29 @@ export function SlideRenderer({ slide }: { slide: PresentationSlide }) {
         </SlideFrame>
       )
 
-    case "image":
+    case "image": {
+      const isScreenshot = slide.variant === "screenshot"
       return (
-        <SlideFrame>
+        <SlideFrame className={isScreenshot ? "py-12" : undefined}>
           {slide.kicker ? <Kicker>{slide.kicker}</Kicker> : null}
           {slide.title ? (
-            <h2 className="mt-4 max-w-3xl text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
+            <h2
+              className={`max-w-3xl font-semibold tracking-tight text-foreground ${
+                isScreenshot
+                  ? "mt-2 text-lg md:text-xl"
+                  : "mt-4 text-2xl md:text-3xl"
+              }`}
+            >
               {slide.title}
             </h2>
           ) : null}
           <div
-            className={`relative mt-8 w-full overflow-hidden rounded-2xl ${
-              slide.treatAsLogo ? "aspect-[16/9] max-h-[55vh] bg-white" : "aspect-[16/10] max-h-[60vh] bg-card"
+            className={`relative w-full overflow-hidden rounded-2xl ${
+              slide.treatAsLogo
+                ? "aspect-[16/9] max-h-[55vh] bg-white"
+                : isScreenshot
+                  ? "mt-4 aspect-[16/10] max-h-[68vh] bg-card"
+                  : "mt-8 aspect-[16/10] max-h-[60vh] bg-card"
             }`}
           >
             <div className={slide.treatAsLogo ? "absolute inset-[8%]" : "absolute inset-0"}>
@@ -262,16 +308,19 @@ export function SlideRenderer({ slide }: { slide: PresentationSlide }) {
                 src={slide.src}
                 alt={slide.alt}
                 fill
-                className={slide.treatAsLogo ? "object-contain" : "object-contain"}
+                className="object-contain"
                 sizes="(max-width: 1100px) 100vw, 1100px"
               />
             </div>
           </div>
           {slide.caption ? (
-            <p className="mt-4 text-sm text-foreground/50">{slide.caption}</p>
+            <p className={`text-sm text-foreground/50 ${isScreenshot ? "mt-2" : "mt-4"}`}>
+              {slide.caption}
+            </p>
           ) : null}
         </SlideFrame>
       )
+    }
 
     case "video":
       return (
