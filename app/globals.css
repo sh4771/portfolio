@@ -253,3 +253,49 @@ html {
     transform: none;
   }
 }
+
+/* Presentation mode */
+html[data-presentation] [data-theme-toggle] {
+  display: none;
+}
+
+html[data-presentation] {
+  overflow: hidden;
+}
+
+@keyframes presentation-slide-in-forward {
+  from {
+    opacity: 0;
+    transform: translateX(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes presentation-slide-in-backward {
+  from {
+    opacity: 0;
+    transform: translateX(-1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.presentation-slide-enter-forward {
+  animation: presentation-slide-in-forward 0.32s ease-out both;
+}
+
+.presentation-slide-enter-backward {
+  animation: presentation-slide-in-backward 0.32s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .presentation-slide-enter-forward,
+  .presentation-slide-enter-backward {
+    animation: none;
+  }
+}

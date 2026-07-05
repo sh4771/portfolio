@@ -329,6 +329,7 @@ export default function ThemeToggle() {
 
   return (
     <div
+      data-theme-toggle
       className="fixed bottom-8 right-6 z-50 flex flex-col items-center"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
