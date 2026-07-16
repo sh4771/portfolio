@@ -20,13 +20,19 @@ const experiences = [
     image: "/images/experience-design-engineering.jpg",
     role: "Founder, President",
     organization: "Design & Engineering @ NYU",
-    link: "https://www.instagram.com/nyu.de/",
+    link: "https://www.instagram.com/de_nyu/",
   },
   {
     image: "/images/experience-louvre.jpg",
     role: "Team Lead, Visiting Artist",
     organization: "Louvre Abu Dhabi",
     link: "https://www.louvreabudhabi.ae/",
+  },
+  {
+    image: "/images/experience-chunhyang.jpg",
+    role: "Pageant 2025",
+    organization: "Miss Chunhyang",
+    link: "https://www.chunhyang.org/eng",
   },
 ]
 
@@ -54,13 +60,27 @@ export default function AboutPage() {
           {/* Bio Section - Below Photo */}
           <div className="max-w-[600px] mx-auto space-y-8 mb-24">
             <p className="text-xs tracking-[0.08em] text-foreground/85 leading-[1.8]">
-              <em className="not-italic">Design is my language.</em> I{" "}
-              <span className="scribble-underline">connect people</span> and{" "}
-              <span className="scribble-underline">share stories</span> through my work.
+              <em className="not-italic">Design is how I connect</em>{" "}
+              <span className="scribble-underline">people</span>,{" "}
+              <span className="scribble-underline">systems</span>, and{" "}
+              <span className="scribble-underline">stories</span>.
             </p>
 
             <p className="text-xs tracking-[0.08em] text-foreground/60 leading-[1.8]">
-              I currently design and research at{" "}
+              I currently work as a Product Designer at{" "}
+              <a
+                href="https://www.vendelux.com/"
+                target="_blank"
+                rel="noreferrer"
+                className="underline decoration-foreground/40 underline-offset-2 hover:text-foreground transition-colors"
+              >
+                Vendelux
+              </a>
+              .
+            </p>
+
+            <p className="text-xs tracking-[0.08em] text-foreground/60 leading-[1.8]">
+              Before Vendelux, I led web design and research at Columbia University's{" "}
               <a
                 href="https://roar.me.columbia.edu/"
                 target="_blank"
@@ -68,21 +88,12 @@ export default function AboutPage() {
                 className="underline decoration-foreground/40 underline-offset-2 hover:text-foreground transition-colors"
               >
                 Robotics and Rehabilitation Lab
-              </a>{" "}
-              at Columbia University, actively interacting with patients, researchers, and students through the website I am rebuilding.
+              </a>
+              , collaborating with researchers, students, and people with spinal cord injuries to rebuild the lab's digital experience.
             </p>
 
             <p className="text-xs tracking-[0.08em] text-foreground/60 leading-[1.8]">
-              In previous internships, I designed at{" "}
-              <a
-                href="https://www.violethyun.com/portfolio/games4peace"
-                target="_blank"
-                rel="noreferrer"
-                className="underline decoration-foreground/40 underline-offset-2 hover:text-foreground transition-colors"
-              >
-                Games4Peace
-              </a>
-              ,{" "}
+              My previous experience also includes design roles at{" "}
               <a
                 href="https://misskcosmetics.com/"
                 target="_blank"
@@ -90,8 +101,8 @@ export default function AboutPage() {
                 className="underline decoration-foreground/40 underline-offset-2 hover:text-foreground transition-colors"
               >
                 Miss K Cosmetics
-              </a>
-              , and{" "}
+              </a>{" "}
+              and{" "}
               <a
                 href="https://www.kmcaseoul.org/"
                 target="_blank"
@@ -99,8 +110,8 @@ export default function AboutPage() {
                 className="underline decoration-foreground/40 underline-offset-2 hover:text-foreground transition-colors"
               >
                 K Museum of Contemporary Art
-              </a>{" "}
-              and merchandised at{" "}
+              </a>
+              , as well as merchandising at{" "}
               <a
                 href="https://www.chloe.com/"
                 target="_blank"
@@ -114,7 +125,7 @@ export default function AboutPage() {
           </div>
 
           {/* Experience Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-32">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 mb-32">
             {experiences.map((exp, i) => (
               <div key={i} className="flex flex-col items-center text-center">
                 {/* Image */}

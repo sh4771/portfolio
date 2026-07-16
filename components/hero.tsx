@@ -63,7 +63,7 @@ export function Hero() {
               >
                 Vendelux
               </a>
-              {", currently designing internal platform experiences, including meeting administration tools. Previously worked on customer-facing products, including the Organizer Platform MVP and Segments."}
+              {", currently designing internal platform tools, including meeting administration. Previously built customer-facing products like the Organizer Platform MVP and Segments."}
             </p>
           </div>
 
@@ -119,7 +119,7 @@ export function Hero() {
             <p className="text-[13px] leading-relaxed text-foreground/60">
               {"M.S. in Computational Design Practices at "}
               <a
-                href="https://www.columbia.edu/"
+                href="https://gsapp-cdp.github.io/archive/projects/2026/pass-it-on/"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-block text-sky-600 dark:text-sky-400 transition-colors duration-200 ease-out hover:text-sky-500 dark:hover:text-sky-300"
