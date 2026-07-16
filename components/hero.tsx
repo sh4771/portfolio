@@ -37,15 +37,15 @@ export function Hero() {
           data-animate
           className="mt-2 text-[0.82rem] font-medium leading-tight tracking-[-0.01em] text-foreground/60 md:whitespace-nowrap"
         >
-          {"— a product designer working at the intersection of "}
-          <span className="scribble-underline font-semibold text-sky-800 dark:text-sky-300">research</span>
+          {"— a product designer exploring how "}
+          <span className="scribble-underline font-semibold text-sky-800 dark:text-sky-300">digital interfaces</span>
           {", "}
-          <span className="scribble-circle font-semibold text-violet-800 dark:text-violet-300">storytelling</span>
+          <span className="scribble-circle font-semibold text-violet-800 dark:text-violet-300">physical environments</span>
           {", and "}
           <span className="scribble-highlight font-semibold text-emerald-900 dark:text-emerald-300">
-            systems thinking
+            emerging technologies
           </span>
-          {"."}
+          {" shape human experiences."}
         </p>
 
         <div data-animate className="mt-6 space-y-4">
@@ -54,7 +54,7 @@ export function Hero() {
               Now
             </p>
             <p className="text-[13px] leading-relaxed text-foreground/60">
-              {"Product design intern at "}
+              {"Product Designer at "}
               <a
                 href="https://www.vendelux.com/"
                 target="_blank"
@@ -63,16 +63,16 @@ export function Hero() {
               >
                 Vendelux
               </a>
-              {"."}
+              {", currently designing internal platform experiences, including meeting administration tools. Previously worked on customer-facing products, including the Organizer Platform MVP and Segments."}
             </p>
           </div>
 
           <div className="grid grid-cols-[78px_1fr] gap-x-5">
             <p className="text-[11px] tracking-[0.14em] text-foreground/40 uppercase">
-              Previous
+              Previously
             </p>
             <p className="text-[13px] leading-relaxed text-foreground/60">
-              {"Design + research at "}
+              {"Design and research at "}
               <a
                 href="https://roar.me.columbia.edu/"
                 target="_blank"
@@ -80,15 +80,6 @@ export function Hero() {
                 className="inline-block text-foreground/60 transition-colors duration-200 ease-out hover:text-foreground"
               >
                 Robotics and Rehabilitation Lab at Columbia University
-              </a>
-              {". "}
-              <a
-                href="https://www.violethyun.com/portfolio/games4peace"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-block text-foreground/60 transition-colors duration-200 ease-out hover:text-foreground"
-              >
-                Games4Peace
               </a>
               {", "}
               <a
@@ -126,16 +117,16 @@ export function Hero() {
               Education
             </p>
             <p className="text-[13px] leading-relaxed text-foreground/60">
-              {"Design student at "}
+              {"M.S. in Computational Design Practices at "}
               <a
                 href="https://www.columbia.edu/"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-block text-sky-600 dark:text-sky-400 transition-colors duration-200 ease-out hover:text-sky-500 dark:hover:text-sky-300"
               >
-                Columbia University
+                Columbia University GSAPP
               </a>
-              {"; previously at "}
+              {"; previously studied Interactive Media Arts at "}
               <a
                 href="https://tisch.nyu.edu/"
                 target="_blank"
