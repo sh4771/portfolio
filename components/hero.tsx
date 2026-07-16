@@ -63,7 +63,7 @@ export function Hero() {
               >
                 Vendelux
               </a>
-              {", currently designing internal platform tools, including meeting administration. Previously built customer-facing products like the Organizer Platform MVP and Segments."}
+              {", currently designing internal platform tools. Previously built customer-facing products."}
             </p>
           </div>
 
