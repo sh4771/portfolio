@@ -30,9 +30,10 @@ const experiences = [
   },
   {
     image: "/images/experience-chunhyang.jpg",
-    role: "Pageant 2025",
-    organization: "Miss Chunhyang",
+    role: "Contestant, Miss Chunhyang 2025",
+    organization: "Chunhyang Pageant",
     link: "https://www.chunhyang.org/eng",
+    imagePosition: "object-top",
   },
 ]
 
@@ -135,7 +136,7 @@ export default function AboutPage() {
                     alt={exp.organization}
                     width={400}
                     height={400}
-                    className="w-full h-full object-cover"
+                    className={`w-full h-full object-cover ${exp.imagePosition ?? "object-center"}`}
                   />
                 </div>
                 
