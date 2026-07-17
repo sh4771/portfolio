@@ -120,8 +120,8 @@ function CaseStudyCard({ project }: { project: CaseStudy }) {
             </div>
           ) : null}
 
-          {/* Title — secondary */}
-          <h3 className="mt-3 text-sm font-normal text-foreground/55 leading-snug tracking-tight transition-colors group-hover:text-foreground/70">
+          {/* Title — secondary but distinguishable from description */}
+          <h3 className="mt-3 text-sm font-medium text-foreground/80 leading-snug tracking-tight transition-colors group-hover:text-foreground">
             {project.title}
           </h3>
 

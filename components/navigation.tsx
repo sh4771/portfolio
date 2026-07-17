@@ -17,7 +17,7 @@ export function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false)
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b border-border/60 bg-card/80 backdrop-blur-md">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-card/70 backdrop-blur-md shadow-[0_1px_24px_-8px_rgba(0,0,0,0.15)] after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-gradient-to-r after:from-transparent after:via-border/50 after:to-transparent">
       <nav className="flex w-full items-center justify-between px-6 py-4">
         {/* Left: logo, name, contact icons */}
         <div className="flex items-center gap-4">
@@ -29,9 +29,6 @@ export function Navigation() {
               height={32}
               className="h-8 w-8 rounded-full object-cover"
             />
-            <span className="text-sm font-medium tracking-tight text-foreground">
-              Violet Hyun
-            </span>
           </Link>
 
           <div className="flex items-center gap-2">

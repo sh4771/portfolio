@@ -17,13 +17,7 @@ export function Footer() {
         />
 
         <p className="text-lg text-foreground">
-          Thanks for visiting.{" "}
-          <span
-            className="text-2xl"
-            style={{ fontFamily: "var(--font-caveat)" }}
-          >
-            Let&apos;s get in touch!
-          </span>
+          Thanks for visiting. Let&apos;s get in touch!
         </p>
 
         <div className="flex items-center gap-6 text-sm text-muted-foreground">
