@@ -17,6 +17,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-sans antialiased">
+        <div
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: '<!-- this site is agent-readable { "about": "/llms.txt" } -->',
+          }}
+        />
         {children}
         <ThemeToggle />
         <Analytics />

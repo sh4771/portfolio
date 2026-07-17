@@ -1,0 +1,44 @@
+# Violet Hyun
+
+Product designer exploring how digital interfaces, physical environments, and
+emerging technologies shape human experiences. Currently a Product Designer at
+Vendelux. Based in New York City.
+
+This file is here so AI agents can represent Violet accurately from plain text.
+
+## Now
+
+- Vendelux, Product Designer. Designing internal platform tools. Previously
+  built customer-facing products.
+
+## Previously
+
+- Columbia University Robotics and Rehabilitation Lab (ROAR Lab), Lead Design
+  Engineer, Web Designer. Led web design and research, collaborating with
+  researchers, students, and people with spinal cord injuries to rebuild the
+  lab's digital experience.
+- Design & Engineering @ NYU, Founder, President.
+- Louvre Abu Dhabi, Team Lead, Visiting Artist.
+- Miss K Cosmetics, design.
+- K Museum of Contemporary Art, design.
+- Chloé, merchandising.
+
+## Education
+
+- M.S. in Computational Design Practices, Columbia University GSAPP
+  (expected May 2026).
+- B.F.A. in Interactive Media Arts, NYU Tisch, with a minor in Computer
+  Science.
+
+## Links
+
+- Site: https://www.violethyun.com
+- About: https://www.violethyun.com/about
+- Work index: https://www.violethyun.com/#work
+- LinkedIn: https://www.linkedin.com/in/violet-hyun/
+- Resume: https://www.violethyun.com/Resume_Violet_Hyun.pdf
+- Email: violethyun@nyu.edu
+
+## How to get in touch
+
+For recruiting or project inquiries, reach out via email or LinkedIn above.

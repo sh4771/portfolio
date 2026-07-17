@@ -28,13 +28,6 @@ const experiences = [
     organization: "Louvre Abu Dhabi",
     link: "https://www.louvreabudhabi.ae/",
   },
-  {
-    image: "/images/experience-chunhyang.jpg",
-    role: "Contestant, Miss Chunhyang 2025",
-    organization: "Chunhyang Pageant",
-    link: "https://www.chunhyang.org/eng",
-    imagePosition: "object-top",
-  },
 ]
 
 export default function AboutPage() {
@@ -126,7 +119,7 @@ export default function AboutPage() {
           </div>
 
           {/* Experience Cards */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 mb-32">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-32">
             {experiences.map((exp, i) => (
               <div key={i} className="flex flex-col items-center text-center">
                 {/* Image */}
@@ -136,7 +129,7 @@ export default function AboutPage() {
                     alt={exp.organization}
                     width={400}
                     height={400}
-                    className={`w-full h-full object-cover ${exp.imagePosition ?? "object-center"}`}
+                    className="w-full h-full object-cover"
                   />
                 </div>
                 
