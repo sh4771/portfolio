@@ -1,7 +1,72 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { ChevronDown } from "lucide-react"
+
+const TYPEWRITER_PHRASES = [
+  { text: "digital interfaces", effect: "scribble-underline" },
+  { text: "spatial computing", effect: "scribble-circle" },
+  { text: "emerging technologies", effect: "scribble-highlight" },
+]
+
+const TYPE_SPEED_MS = 55
+const DELETE_SPEED_MS = 30
+const HOLD_MS = 1400
+const PAUSE_MS = 350
+
+function TypewriterWords() {
+  const [phraseIndex, setPhraseIndex] = useState(0)
+  const [subIndex, setSubIndex] = useState(0)
+  const [deleting, setDeleting] = useState(false)
+  const [reducedMotion, setReducedMotion] = useState(false)
+
+  useEffect(() => {
+    const mql = window.matchMedia("(prefers-reduced-motion: reduce)")
+    setReducedMotion(mql.matches)
+  }, [])
+
+  useEffect(() => {
+    if (reducedMotion) return
+
+    const current = TYPEWRITER_PHRASES[phraseIndex].text
+
+    if (!deleting && subIndex === current.length) {
+      const holdTimeout = setTimeout(() => setDeleting(true), HOLD_MS)
+      return () => clearTimeout(holdTimeout)
+    }
+
+    if (deleting && subIndex === 0) {
+      const pauseTimeout = setTimeout(() => {
+        setDeleting(false)
+        setPhraseIndex((prev) => (prev + 1) % TYPEWRITER_PHRASES.length)
+      }, PAUSE_MS)
+      return () => clearTimeout(pauseTimeout)
+    }
+
+    const stepTimeout = setTimeout(
+      () => setSubIndex((prev) => prev + (deleting ? -1 : 1)),
+      deleting ? DELETE_SPEED_MS : TYPE_SPEED_MS
+    )
+    return () => clearTimeout(stepTimeout)
+  }, [subIndex, deleting, phraseIndex, reducedMotion])
+
+  const current = TYPEWRITER_PHRASES[phraseIndex]
+  const shownText = reducedMotion ? current.text : current.text.slice(0, subIndex)
+
+  return (
+    <span
+      className={`${current.effect} font-semibold text-foreground`}
+      style={{ display: "inline-block", minWidth: "1ch" }}
+    >
+      {shownText}
+      {!reducedMotion && (
+        <span className="typewriter-cursor" aria-hidden="true">
+          |
+        </span>
+      )}
+    </span>
+  )
+}
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -37,15 +102,9 @@ export function Hero() {
           data-animate
           className="mt-2 text-sm font-medium leading-tight tracking-[-0.01em] text-foreground/60 md:whitespace-nowrap"
         >
-          {"— a product designer exploring how "}
-          <span className="scribble-underline font-semibold text-foreground">digital interfaces</span>
-          {", "}
-          <span className="scribble-circle font-semibold text-foreground">physical environments</span>
-          {", and "}
-          <span className="scribble-highlight font-semibold text-foreground">
-            emerging technologies
-          </span>
-          {" shape human experiences."}
+          {"— a product designer working across "}
+          <TypewriterWords />
+          {" to shape human experience."}
         </p>
 
         <div data-animate className="mt-6 space-y-4">
@@ -277,6 +336,21 @@ export function Hero() {
           }
           50% {
             transform: translateY(6px);
+          }
+        }
+
+        .typewriter-cursor {
+          display: inline-block;
+          margin-left: 1px;
+          animation: cursorBlink 0.9s step-end infinite;
+        }
+
+        @keyframes cursorBlink {
+          0%, 49% {
+            opacity: 1;
+          }
+          50%, 100% {
+            opacity: 0;
           }
         }
 
