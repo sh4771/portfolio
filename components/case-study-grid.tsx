@@ -20,10 +20,10 @@ export interface CaseStudy {
 const projects: CaseStudy[] = [
   {
     slug: "vendelux",
-    title: "Product Design Intern, Vendelux",
+    title: "Product Designer, Vendelux",
     description:
       "At Vendelux I support product UI and system design on an AI-powered B2B event intelligence platform that helps teams identify high-ROI conferences, pre-book qualified meetings, and connect event spend to pipeline in Salesforce and HubSpot.",
-    tags: ["2026", "Product intern", "B2B"],
+    tags: ["2026", "Product Design", "B2B"],
     image: "/images/vendelux-cover.png",
     cardTreatAsLogo: true,
     aiTools: ["Claude Code", "Claude Design", "Figma MCP", "Cursor"],
@@ -106,18 +106,32 @@ function CaseStudyCard({ project }: { project: CaseStudy }) {
 
         {/* Text below image */}
         <div className="mt-5">
-          {/* Title */}
-          <h3 className="text-base font-semibold text-foreground leading-snug tracking-tight transition-colors group-hover:text-foreground/70">
+          {/* Tools — primary visual element */}
+          {project.aiTools && project.aiTools.length > 0 ? (
+            <div className="flex flex-wrap gap-1.5">
+              {project.aiTools.map((tool) => (
+                <span
+                  key={tool}
+                  className="rounded-full border border-foreground/15 bg-foreground/[0.04] px-3 py-1 text-sm font-semibold text-foreground transition-colors group-hover:border-foreground/30"
+                >
+                  {tool}
+                </span>
+              ))}
+            </div>
+          ) : null}
+
+          {/* Title — secondary */}
+          <h3 className="mt-3 text-sm font-normal text-foreground/55 leading-snug tracking-tight transition-colors group-hover:text-foreground/70">
             {project.title}
           </h3>
 
           {/* Description */}
-          <p className="mt-2 text-sm leading-relaxed text-foreground/60">
+          <p className="mt-2 text-sm leading-relaxed text-foreground/50">
             {project.description}
           </p>
 
           {/* Tags */}
-          <div className="mt-3 flex flex-wrap items-center gap-x-1 text-xs text-foreground/40">
+          <div className="mt-3 flex flex-wrap items-center gap-x-1 text-xs text-foreground/35">
             {project.tags.map((tag, index) => (
               <span key={tag} className="flex items-center">
                 {tag}
@@ -127,18 +141,6 @@ function CaseStudyCard({ project }: { project: CaseStudy }) {
               </span>
             ))}
           </div>
-          {project.aiTools && project.aiTools.length > 0 ? (
-            <div className="mt-2.5 flex flex-wrap gap-1.5">
-              {project.aiTools.map((tool) => (
-                <span
-                  key={tool}
-                  className="rounded-md border border-foreground/10 bg-foreground/[0.04] px-2 py-0.5 text-[10px] font-medium text-foreground/60"
-                >
-                  {tool}
-                </span>
-              ))}
-            </div>
-          ) : null}
         </div>
       </article>
     </Link>
@@ -150,9 +152,9 @@ const homepageProjects = projects.filter((p) => p.showOnHomepage !== false)
 export function CaseStudyGrid() {
   return (
     <section id="work" className="pb-24 pt-6">
-      <div className="mx-auto w-full max-w-[900px] px-11">
-        {/* Stacked cards */}
-        <div className="flex flex-col gap-16">
+      <div className="mx-auto w-full max-w-[900px] px-6">
+        {/* Two-up grid */}
+        <div className="grid grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2">
           {homepageProjects.map((project) => (
             <CaseStudyCard key={project.slug} project={project} />
           ))}

@@ -1,0 +1,110 @@
+Violet Hyun
+Full-Stack and AI-Native Product Designer based in New York City
+Phone: (646) 887-4330
+Email: violethyun@nyu.edu
+Site: https://www.violethyun.com
+LinkedIn: https://www.linkedin.com/in/violet-hyun
+
+This file is a plain-text version of Violet's resume, formatted for AI agents
+and applicant tracking systems. A designed PDF version is also available at
+https://www.violethyun.com/Resume_Violet_Hyun.pdf
+
+EDUCATION
+
+Columbia University — New York, NY
+M.S. in Computational Design Practices, Human-Computer Interaction
+Graduated May 2026
+Relevant coursework: Mapping Systems, Computational Modeling, Spatial UX,
+Prototyping in Urban Tech
+
+New York University — New York, NY
+B.F.A. in Interactive Media Arts, Minor in Computer Science
+December 2024
+Relevant coursework: Web Design, Computer Programming, Creative Computing,
+Physical Computation
+
+EXPERIENCE
+
+Vendelux — New York, NY
+Product Designer | B2B SaaS, Series B Startup
+March 2026 – Present
+- Led the end-to-end design of Segments, a real-time audience-building
+  platform, from concept through company-wide launch across all customer
+  accounts, replacing hours-long manual list workflows with reusable dynamic
+  filtering; drove 7.4K weekly API interactions, nearly 2,000 audience-result
+  queries, and 38 customer-created segments in the first observed post-launch
+  week.
+- Launched Event Organizer MVP in 3 weeks, a new product built on Segments
+  that gives event organizers real-time visibility into attendee data and
+  event goals; used rapid prototyping and experimentation to iterate on the
+  filtering model, nearly doubling condition requests per query from 0.44 to
+  0.79.
+- Designed and shipped a unified design system across 5 platform surfaces
+  (Attendees, Organizations, Segments, Event Organizer MVP, shared
+  components), building a reusable icon framework (80 icons across 20
+  filters), a 3-state status system, and a 4-variant Toast component library.
+  Built an agentic AI workflow (Figma MCP plugin API) that autonomously
+  scripted component variants and design tokens.
+
+Columbia Robotics and Rehabilitation Lab — New York, NY
+Web Designer & Graduate Researcher
+May 2025 – March 2026
+- Led user-centered research end-to-end across 40+ hours with 8 SCI patients
+  and 4 physical therapists, synthesizing findings into affinity maps that
+  directly shaped the engineering team's hardware priorities and delivered a
+  25% increase in force consistency and 30% higher user-reported comfort in
+  usability testing.
+- Designed, built, and shipped the lab's public-facing site end-to-end with
+  custom HTML/CSS, crafting distinct user flows and content architecture for
+  four audiences (clinicians, funding agencies, patients, academic
+  collaborators) from a single content system.
+
+Stealth Startup — New York, NY
+User Experience Designer | Early-stage AI product
+November 2025 – January 2026
+- Designed 200+ screens from concept to high-fidelity prototype for an
+  early-stage AI product on a 4-person team, building an agentic AI workflow
+  that let the team move from concept to shipped MVP screens autonomously in
+  3 weeks.
+- Owned the interaction design for weekly releases, collaborating directly
+  with the CTO and front-end engineers to translate technical constraints
+  into design decisions and ship pixel-accurate experiences through Figma
+  Dev Mode.
+
+Richemont (Chloé) — Seoul, South Korea
+Assistant Merchandiser
+September 2023 – December 2023
+- Led the design and presentation of the A/W24 and S/S24 capsule collection
+  strategy to Chloé's Managing Director and Korea executive team, translating
+  product vision into a narrative that won alignment across every Chloé
+  boutique in the region.
+- Owned daily sell-through analytics in SAP and BEx Web for regional offices
+  and built the training system 100+ boutique managers nationwide used to
+  launch seasonal collections.
+
+LEADERSHIP
+
+Design and Engineering Club — NYU
+Founder & President
+May 2023 – December 2024
+- Led design and engineering initiatives for a cross-disciplinary student
+  community founded from zero, setting strategy, mission, and programming
+  for 50+ members.
+
+Women in Computing — NYU
+Event Coordinator
+May 2023 – December 2024
+- Organized on-campus recruiting events with Meta, Google, and Goldman
+  Sachs; supported 30+ women through portfolio reviews and networking,
+  contributing to their successful job placement.
+
+SKILLS & INTERESTS
+
+Agentic AI & Technical: Claude Code, Claude MCP, Cursor, Codex, Figma Make,
+V0, Figma Plugin API, HTML/CSS, Python
+
+Design & Research: Figma, Principle, Adobe CS (Ae, Pr, Ai), User Flows,
+Wireframing, High-Fidelity Prototyping, Visual Design, User Interviews,
+Usability Testing, A/B Testing, Affinity Mapping, Squarespace, Framer, Vercel
+
+Languages: English, Korean (native)

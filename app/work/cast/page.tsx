@@ -306,7 +306,7 @@ export default function Page() {
 
         {/* Back to Portfolio */}
         <div className="border-t border-border/30 pt-12 text-center">
-          <p className="text-[10px] tracking-[0.15em] text-muted-foreground/40 uppercase">
+          <p className="text-xs tracking-[0.15em] text-muted-foreground/40 uppercase">
             Continue
           </p>
           <Link

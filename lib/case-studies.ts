@@ -10,7 +10,7 @@ export interface CaseStudyData {
   image: string
   /** Wide logos: white field + contain so wordmarks are not cropped in the hero frame */
   heroTreatAsLogo?: boolean
-  overview: string
+  overview?: string
   problem?: {
     title: string
     body: string
@@ -24,16 +24,16 @@ export interface CaseStudyData {
     title: string
     items: { heading: string; body: string }[]
   }
-  designProcess: {
+  designProcess?: {
     title: string
     body: string
     phases: { label: string; description: string }[]
   }
-  prototype: {
+  prototype?: {
     title: string
     body: string
   }
-  outcome: {
+  outcome?: {
     title: string
     body: string
     metrics?: { label: string; value: string }[]
@@ -297,9 +297,9 @@ export const caseStudies: Record<string, CaseStudyData> = {
     subtitle:
       "Improving digital access and communication in clinical research",
     category: "Research",
-    year: "2024",
-    role: "UX Researcher & Designer",
-    duration: "Ongoing",
+    year: "2025",
+    role: "Web Designer & Graduate Researcher",
+    duration: "May 2025 – March 2026",
     tools: ["Figma", "Qualtrics", "ATLAS.ti", "Miro"],
     image: "/images/robotics-lab.jpg",
     overview:
@@ -465,49 +465,13 @@ export const caseStudies: Record<string, CaseStudyData> = {
     slug: "vendelux",
     title: "Vendelux",
     subtitle:
-      "Product design intern on an AI-powered B2B event intelligence platform (public writeup stays high level on unreleased work)",
+      "Product Designer on an AI-powered B2B event intelligence platform (public writeup stays high level on unreleased work)",
     category: "Product design",
     year: "2026",
-    role: "Product Design Intern",
-    duration: "April 2026 – ongoing",
+    role: "Product Designer",
+    duration: "March 2026 – ongoing",
     tools: ["Figma", "Claude Code", "Claude Design", "Linear", "Figma MCP"],
     image: "/images/vendelux-cover.png",
     heroTreatAsLogo: true,
-    overview:
-      "At Vendelux I support product UI and system design on an AI-powered B2B event intelligence platform that helps teams identify high-ROI conferences, pre-book qualified meetings, and connect event spend to pipeline in Salesforce and HubSpot. Unreleased screens, roadmap detail, and customer specifics stay off this page.",
-    designProcess: {
-      title: "How the design team works (high level)",
-      body: "At a high level, work moves from framing to exploration, then refinement in Figma against the design system, followed by written handoff and short syncs. I am not listing specific flows, surfaces, or experiments here.",
-      phases: [
-        {
-          label: "Align",
-          description:
-            "Confirm goals and constraints with partners before exploring UI, without sharing proprietary details externally.",
-        },
-        {
-          label: "Explore",
-          description:
-            "Sketch directions in Figma and use AI where it helps ideation, then narrow based on feasibility and critique.",
-        },
-        {
-          label: "Refine",
-          description:
-            "Build states, empty cases, and responsive rules so engineering can implement with fewer open questions.",
-        },
-        {
-          label: "Hand off",
-          description:
-            "Document decisions in Linear, attach Figma links, and resolve edge cases in short reviews.",
-        },
-      ],
-    },
-    prototype: {
-      title: "Deliverables",
-      body: "Deliverables exist inside the company’s private tools and repositories. This portfolio does not include screenshots, recordings, metrics, or narrative detail from unreleased work. The homepage uses the public wordmark for identification only.",
-    },
-    outcome: {
-      title: "Reflection",
-      body: "The internship is a reminder that speed without clarity creates debt. Figma discipline, Linear hygiene, and selective use of Claude Code, Claude Design, and Figma MCP help me keep momentum while still making decisions traceable for teammates.",
-    },
   },
 }

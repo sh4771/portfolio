@@ -1,7 +1,13 @@
 import type { Metadata } from 'next'
+import { Caveat } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import ThemeToggle from '@/components/theme-toggle'
 import './globals.css'
+
+const caveat = Caveat({
+  subsets: ['latin'],
+  variable: '--font-caveat',
+})
 
 export const metadata: Metadata = {
   title: 'Violet Hyun — Product Designer',
@@ -16,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="font-sans antialiased">
+      <body className={`font-sans antialiased ${caveat.variable}`}>
         <div
           suppressHydrationWarning
           dangerouslySetInnerHTML={{

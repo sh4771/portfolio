@@ -25,24 +25,24 @@ export function Hero() {
 
   return (
     <section className="relative flex min-h-svh flex-col justify-center">
-      <div ref={containerRef} className="mx-auto w-full max-w-[680px] px-11">
+      <div ref={containerRef} className="mx-auto w-full max-w-[680px] px-6">
         <h1
           data-animate
-          className="text-[1.9rem] font-bold leading-[1.08] tracking-tight text-foreground"
+          className="text-3xl font-bold leading-[1.08] tracking-tight text-foreground"
         >
           {"Hello, I'm Violet Hyun!"}
         </h1>
 
         <p
           data-animate
-          className="mt-2 text-[0.82rem] font-medium leading-tight tracking-[-0.01em] text-foreground/60 md:whitespace-nowrap"
+          className="mt-2 text-sm font-medium leading-tight tracking-[-0.01em] text-foreground/60 md:whitespace-nowrap"
         >
           {"— a product designer exploring how "}
-          <span className="scribble-underline font-semibold text-sky-800 dark:text-sky-300">digital interfaces</span>
+          <span className="scribble-underline font-semibold text-foreground">digital interfaces</span>
           {", "}
-          <span className="scribble-circle font-semibold text-violet-800 dark:text-violet-300">physical environments</span>
+          <span className="scribble-circle font-semibold text-foreground">physical environments</span>
           {", and "}
-          <span className="scribble-highlight font-semibold text-emerald-900 dark:text-emerald-300">
+          <span className="scribble-highlight font-semibold text-foreground">
             emerging technologies
           </span>
           {" shape human experiences."}
@@ -50,10 +50,10 @@ export function Hero() {
 
         <div data-animate className="mt-6 space-y-4">
           <div className="grid grid-cols-[78px_1fr] gap-x-5">
-            <p className="text-[11px] tracking-[0.14em] text-foreground/40 uppercase">
+            <p className="text-xs tracking-[0.14em] text-foreground/40 uppercase">
               Now
             </p>
-            <p className="text-[13px] leading-relaxed text-foreground/60">
+            <p className="text-sm leading-relaxed text-foreground/60">
               {"Product Designer at "}
               <a
                 href="https://www.vendelux.com/"
@@ -68,10 +68,10 @@ export function Hero() {
           </div>
 
           <div className="grid grid-cols-[78px_1fr] gap-x-5">
-            <p className="text-[11px] tracking-[0.14em] text-foreground/40 uppercase">
+            <p className="text-xs tracking-[0.14em] text-foreground/40 uppercase">
               Previously
             </p>
-            <p className="text-[13px] leading-relaxed text-foreground/60">
+            <p className="text-sm leading-relaxed text-foreground/60">
               {"Design and research at "}
               <a
                 href="https://roar.me.columbia.edu/"
@@ -113,10 +113,10 @@ export function Hero() {
           </div>
 
           <div className="grid grid-cols-[78px_1fr] gap-x-5">
-            <p className="text-[11px] tracking-[0.14em] text-foreground/40 uppercase">
+            <p className="text-xs tracking-[0.14em] text-foreground/40 uppercase">
               Education
             </p>
-            <p className="text-[13px] leading-relaxed text-foreground/60">
+            <p className="text-sm leading-relaxed text-foreground/60">
               {"M.S. in Computational Design Practices at "}
               <a
                 href="https://gsapp-cdp.github.io/archive/projects/2026/pass-it-on/"
@@ -143,7 +143,7 @@ export function Hero() {
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 scroll-indicator">
-        <span className="text-[10px] uppercase tracking-[0.2em] text-foreground/40">
+        <span className="text-xs uppercase tracking-[0.2em] text-foreground/40">
           Scroll
         </span>
         <div className="scroll-arrow">

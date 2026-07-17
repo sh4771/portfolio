@@ -1,53 +1,72 @@
 import Image from "next/image"
-import Link from "next/link"
-
-const navLinks = [
-  { href: "/about", label: "ABOUT", external: false },
-  { href: "https://www.linkedin.com/in/violet-hyun/", label: "LINKEDIN", external: true },
-  { href: "mailto:violethyun@nyu.edu", label: "EMAIL", external: true },
-  { href: "/Resume_Violet_Hyun.pdf", label: "RESUME", external: true },
-]
 
 export function Footer() {
+  const year = new Date().getFullYear()
+
   return (
     <footer className="border-t border-border/30">
-      <div className="mx-auto w-full max-w-[900px] px-6 py-12">
-        <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Image
-            src="/vh_logo.png"
-            alt="VH logo"
-            width={36}
-            height={36}
-            className="h-9 w-9 rounded-full object-cover"
-          />
+      <div className="mx-auto flex w-full max-w-[900px] flex-col items-center gap-6 px-6 py-16 text-center">
+        <Image
+          src="/vh_logo.png"
+          alt="VH logo"
+          width={64}
+          height={64}
+          className="h-16 w-16 rounded-full object-cover footer-float"
+        />
 
-          {/* Nav Links - Round Buttons with Glass Effect */}
-          <div className="flex items-center justify-between flex-1 max-w-[400px] ml-8">
-            {navLinks.map((link) => (
-              link.external ? (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target={link.href.startsWith("mailto") ? undefined : "_blank"}
-                  rel={link.href.startsWith("mailto") ? undefined : "noopener noreferrer"}
-                  className="px-4 py-2 rounded-full border-2 border-border text-[11px] tracking-[0.08em] text-muted-foreground transition-all hover:text-foreground hover:border-foreground/40 bg-card/50 backdrop-blur-md"
-                >
-                  {link.label}
-                </a>
-              ) : (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  className="px-4 py-2 rounded-full border-2 border-border text-[11px] tracking-[0.08em] text-muted-foreground transition-all hover:text-foreground hover:border-foreground/40 bg-card/50 backdrop-blur-md"
-                >
-                  {link.label}
-                </Link>
-              )
-            ))}
-          </div>
+        <p className="text-lg text-foreground">
+          Thanks for visiting.{" "}
+          <span
+            className="text-2xl"
+            style={{ fontFamily: "var(--font-caveat)" }}
+          >
+            Let&apos;s get in touch!
+          </span>
+        </p>
+
+        <div className="flex items-center gap-6 text-sm text-muted-foreground">
+          <a
+            href="mailto:violethyun@nyu.edu"
+            className="transition-colors hover:text-foreground"
+          >
+            violethyun@nyu.edu
+          </a>
+          <a
+            href="https://www.linkedin.com/in/violet-hyun/"
+            target="_blank"
+            rel="noreferrer"
+            className="transition-colors hover:text-foreground"
+          >
+            LinkedIn
+          </a>
         </div>
+
+        <p className="text-xs text-muted-foreground/60">
+          © Violet Hyun {year}
+        </p>
       </div>
+
+      <style jsx>{`
+        .footer-float {
+          animation: footerFloat 3.2s ease-in-out infinite;
+        }
+
+        @keyframes footerFloat {
+          0%,
+          100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-8px);
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .footer-float {
+            animation: none;
+          }
+        }
+      `}</style>
     </footer>
   )
 }
