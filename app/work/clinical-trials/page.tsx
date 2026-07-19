@@ -1,9 +1,28 @@
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import { ClinicalTrialsVisualCaseStudy } from "@/components/clinical-trials/clinical-trials-visual-case-study"
+import { SectionTracker } from "@/components/section-tracker"
+
+const sections = [
+  { id: "overview", label: "Project overview" },
+  { id: "problem", label: "Problem discovery" },
+  { id: "approach", label: "Our approach" },
+  { id: "trust", label: "Building trust" },
+  { id: "research", label: "UX research" },
+  { id: "visual", label: "Visual system" },
+  { id: "build", label: "How we built it" },
+  { id: "challenges", label: "Design challenges" },
+  { id: "feedback", label: "User feedback" },
+  { id: "final", label: "Final UI" },
+  { id: "fixed", label: "What we fixed" },
+  { id: "more-time", label: "If we had more time" },
+  { id: "note", label: "Personal note" },
+]
 
 export default function Page() {
   return (
+    <>
+    <SectionTracker sections={sections} />
     <main className="min-h-screen bg-[#F2EDE2] px-4 py-12 text-[#111111] md:px-8 md:py-16">
       <div className="mx-auto max-w-[1100px] space-y-14">
         <Link
@@ -28,5 +47,6 @@ export default function Page() {
         </div>
       </div>
     </main>
+    </>
   )
 }

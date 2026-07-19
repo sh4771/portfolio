@@ -2,9 +2,23 @@ import Link from "next/link"
 import Image from "next/image"
 import { ArrowLeft } from "lucide-react"
 import SwotAnalysis from "@/components/infographics/swot-analysis"
+import { SectionTracker } from "@/components/section-tracker"
+
+const sections = [
+  { id: "overview", label: "Overview" },
+  { id: "problem", label: "The Problem" },
+  { id: "research", label: "Competitive Analysis" },
+  { id: "positioning", label: "SWOT" },
+  { id: "ia", label: "IA & Wireframes" },
+  { id: "wireframes", label: "Wireframe Iterations" },
+  { id: "screens", label: "High-Fidelity Screens" },
+  { id: "reflection", label: "Reflection" },
+]
 
 export default function Page() {
   return (
+    <>
+    <SectionTracker sections={sections} />
     <main className="min-h-screen bg-background py-16 px-4 md:px-8 transition-colors duration-300">
       <div className="max-w-[900px] mx-auto space-y-24">
 
@@ -71,7 +85,8 @@ export default function Page() {
 
           {/* Overview */}
           <div 
-            className="rounded-[24px] md:rounded-[32px] p-6 md:p-8 space-y-4"
+            id="overview"
+            className="rounded-[24px] md:rounded-[32px] p-6 md:p-8 space-y-4 scroll-mt-32"
             style={{
               background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
               boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
@@ -91,7 +106,7 @@ export default function Page() {
           </div>
 
           {/* The Problem */}
-          <div className="space-y-6">
+          <div id="problem" className="space-y-6 scroll-mt-32">
             <div className="space-y-2">
               <p className="text-xs text-foreground/40 uppercase tracking-wide">01 — THE PROBLEM</p>
               <h2 className="text-lg md:text-xl font-medium tracking-tight">
@@ -168,7 +183,7 @@ export default function Page() {
         </header>
 
         {/* Competitive Analysis */}
-        <section className="space-y-6">
+        <section id="research" className="space-y-6 scroll-mt-32">
           <div className="space-y-2">
             <p className="text-xs text-foreground/40 uppercase tracking-wide">02 — COMPETITIVE ANALYSIS</p>
             <h2 className="text-lg md:text-xl font-medium tracking-tight">
@@ -249,7 +264,7 @@ export default function Page() {
         </section>
 
         {/* SWOT Analysis */}
-        <section className="space-y-6">
+        <section id="positioning" className="space-y-6 scroll-mt-32">
           <div className="space-y-2">
             <p className="text-xs text-foreground/40 uppercase tracking-wide">03 — SWOT ANALYSIS</p>
             <h2 className="text-lg md:text-xl font-medium tracking-tight">
@@ -263,7 +278,7 @@ export default function Page() {
         </section>
 
         {/* Information Architecture & Early Wireframes - Side by Side */}
-        <section className="space-y-6">
+        <section id="ia" className="space-y-6 scroll-mt-32">
           <div className="space-y-2">
             <p className="text-xs text-foreground/40 uppercase tracking-wide">04 — STRUCTURE</p>
             <h2 className="text-lg md:text-xl font-medium tracking-tight">
@@ -325,7 +340,7 @@ export default function Page() {
         </section>
 
         {/* Design Process */}
-        <section className="space-y-12">
+        <section id="wireframes" className="space-y-12 scroll-mt-32">
           {/* Section Header */}
           <div className="space-y-2">
             <p className="text-xs text-foreground/40 uppercase tracking-wide">05 — LOW-FIDELITY</p>
@@ -420,7 +435,7 @@ export default function Page() {
         </section>
 
         {/* High-Fidelity Designs */}
-        <section className="space-y-16 md:space-y-20">
+        <section id="screens" className="space-y-16 md:space-y-20 scroll-mt-32">
           {/* Section Header */}
           <div className="space-y-2">
             <p className="text-xs text-foreground/40 uppercase tracking-wide">06 — FINAL DESIGNS</p>
@@ -570,7 +585,7 @@ export default function Page() {
         </section>
 
         {/* Reflection */}
-        <section className="space-y-8">
+        <section id="reflection" className="space-y-8 scroll-mt-32">
           <div 
             className="rounded-[24px] md:rounded-[32px] p-8 md:p-10 space-y-6"
             style={{
@@ -613,5 +628,6 @@ export default function Page() {
 
       </div>
     </main>
+    </>
   )
 }

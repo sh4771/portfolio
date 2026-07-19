@@ -4,8 +4,18 @@ import Link from "next/link"
 import Image from "next/image"
 import { ArrowLeft, Calendar, Lock, Circle } from "lucide-react"
 import { useState, useEffect } from "react"
+import { SectionTracker } from "@/components/section-tracker"
 
 const themeImages = Array.from({ length: 24 }, (_, i) => `/images/schedulink-themes/theme-${i + 1}.png`)
+
+const sections = [
+  { id: "overview", label: "Overview" },
+  { id: "framing", label: "Framing" },
+  { id: "wireframes", label: "Wireframe Exploration" },
+  { id: "design-system", label: "Design System" },
+  { id: "screens", label: "High-Fidelity Screens" },
+  { id: "reflection", label: "Reflection" },
+]
 
 export default function Page() {
   const [currentTheme, setCurrentTheme] = useState(0)
@@ -17,6 +27,8 @@ export default function Page() {
     return () => clearInterval(interval)
   }, [])
   return (
+    <>
+    <SectionTracker sections={sections} />
     <main className="min-h-screen bg-background py-16 px-4 md:px-8 transition-colors duration-300">
       <div className="max-w-[900px] mx-auto space-y-24">
 
@@ -30,7 +42,7 @@ export default function Page() {
         </Link>
 
         {/* Hero Section */}
-        <header className="space-y-12">
+        <header id="overview" className="space-y-12 scroll-mt-32">
           {/* Project Title & Meta */}
           <div className="space-y-6">
             <div className="space-y-2">
@@ -176,7 +188,7 @@ export default function Page() {
         </header>
 
         {/* Solutions */}
-        <section className="space-y-8">
+        <section id="framing" className="space-y-8 scroll-mt-32">
           <div className="space-y-2">
             <p className="text-xs text-foreground/40 uppercase tracking-wide">02 — FRAMING</p>
             <h2 className="text-lg md:text-xl font-medium tracking-tight">
@@ -186,7 +198,7 @@ export default function Page() {
         </section>
 
         {/* Wireframe Exploration */}
-        <section className="space-y-8">
+        <section id="wireframes" className="space-y-8 scroll-mt-32">
           <div className="space-y-3">
             <p className="text-xs text-foreground/40 uppercase tracking-wide">03 — IDEATION</p>
             <h2 className="text-lg md:text-xl font-medium tracking-tight">
@@ -321,7 +333,7 @@ export default function Page() {
         </section>
 
         {/* Calendar as Personal Expression */}
-        <section className="space-y-6">
+        <section id="design-system" className="space-y-6 scroll-mt-32">
           <div className="space-y-2">
             <p className="text-xs text-foreground/40 uppercase tracking-wide">04 — DESIGN SYSTEM</p>
             <h2 className="text-lg md:text-xl font-medium tracking-tight">
@@ -368,7 +380,7 @@ export default function Page() {
         </section>
 
         {/* High-Fidelity Screens */}
-        <section className="space-y-12">
+        <section id="screens" className="space-y-12 scroll-mt-32">
           <div className="space-y-2">
             <p className="text-xs text-foreground/40 uppercase tracking-wide">05 — FINAL DESIGNS</p>
             <h2 className="text-lg md:text-xl font-medium tracking-tight">
@@ -434,7 +446,7 @@ export default function Page() {
         </section>
 
         {/* Reflection */}
-        <section className="space-y-6">
+        <section id="reflection" className="space-y-6 scroll-mt-32">
           <div className="space-y-2">
             <p className="text-xs text-foreground/40 uppercase tracking-wide">06 — TAKEAWAY</p>
             <h2 className="text-lg md:text-xl font-medium tracking-tight">
@@ -478,5 +490,6 @@ export default function Page() {
 
       </div>
     </main>
+    </>
   )
 }

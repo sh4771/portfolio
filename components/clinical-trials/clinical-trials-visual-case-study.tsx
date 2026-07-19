@@ -34,7 +34,7 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
   return (
     <div className="space-y-16 md:space-y-20">
       {/* 1 — Project overview */}
-      <section className="space-y-6">
+      <section id="overview" className="space-y-6 scroll-mt-32">
         <SectionRule />
         <SectionHeader label="Project overview" title="Designing decision clarity in clinical trial systems" />
         <p className="text-xs font-bold uppercase tracking-wide text-[#578186]">UI/UX design · Adobe designathon</p>
@@ -82,7 +82,7 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
       </section>
 
       {/* 2 — Problem discovery */}
-      <section className="space-y-8">
+      <section id="problem" className="space-y-8 scroll-mt-32">
         <SectionRule />
         <SectionHeader label="Problem discovery" title="Amendments cost teams before protocols ship" />
         <div className="grid gap-4 sm:grid-cols-3">
@@ -121,7 +121,7 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
       </section>
 
       {/* 3 — Our approach */}
-      <section className="space-y-8">
+      <section id="approach" className="space-y-8 scroll-mt-32">
         <SectionRule />
         <SectionHeader label="Our approach" title="From problem list to design principles" />
         <div className="grid gap-8 lg:grid-cols-2">
@@ -168,7 +168,7 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
       </section>
 
       {/* 4 — How do we build trust */}
-      <section className="space-y-8">
+      <section id="trust" className="space-y-8 scroll-mt-32">
         <SectionRule />
         <SectionHeader label="Strategy" title="How do we build the trust?" />
         <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
@@ -227,7 +227,7 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
       </section>
 
       {/* 5 — UX research */}
-      <section className="space-y-8">
+      <section id="research" className="space-y-8 scroll-mt-32">
         <SectionRule />
         <SectionHeader label="UX research" title="From scan to synthesis to wires" />
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -334,7 +334,7 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
       </section>
 
       {/* 6 — Visual system */}
-      <section className="space-y-8">
+      <section id="visual" className="space-y-8 scroll-mt-32">
         <SectionRule />
         <SectionHeader label="Visual system" title="Color and type" />
         <div>
@@ -374,7 +374,7 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
       </section>
 
       {/* 7 — How we built it */}
-      <section className="space-y-8">
+      <section id="build" className="space-y-8 scroll-mt-32">
         <SectionRule />
         <SectionHeader label="Process" title="How we built it" />
         <figure className="space-y-2">
@@ -424,7 +424,7 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
       </section>
 
       {/* 8 — Design challenges */}
-      <section className="space-y-8">
+      <section id="challenges" className="space-y-8 scroll-mt-32">
         <SectionRule />
         <SectionHeader label="Design challenges" title="Where the sprint got hard" />
         <div className="grid gap-6 md:grid-cols-2">
@@ -468,7 +468,7 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
       </section>
 
       {/* 9 — User feedback */}
-      <section className="space-y-8">
+      <section id="feedback" className="space-y-8 scroll-mt-32">
         <SectionRule />
         <SectionHeader label="User feedback" title="What we heard" />
         <div className="grid gap-8 md:grid-cols-2">
@@ -529,7 +529,7 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
       </section>
 
       {/* 10 — Final UI */}
-      <section className="space-y-6">
+      <section id="final" className="space-y-6 scroll-mt-32">
         <SectionRule />
         <SectionHeader label="Final UI" title="Seven core screens" />
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -631,7 +631,7 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
       </section>
 
       {/* 11 — What we fixed */}
-      <section className="space-y-6">
+      <section id="fixed" className="space-y-6 scroll-mt-32">
         <SectionRule />
         <SectionHeader label="Reflection" title="What we fixed" />
         <p className="max-w-3xl text-sm leading-relaxed text-[#6B7280]">
@@ -654,7 +654,7 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
       </section>
 
       {/* 12 — If we had more time... */}
-      <section className="space-y-6">
+      <section id="more-time" className="space-y-6 scroll-mt-32">
         <SectionRule />
         <SectionHeader label="Reflection" title="If we had more time..." />
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -673,7 +673,7 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
       </section>
 
       {/* 13 — Personal note */}
-      <section>
+      <section id="note" className="scroll-mt-32">
         <SectionRule />
         <div className="rounded-[8px] bg-[#578186]/12 px-6 py-10 text-center md:px-12 md:py-12">
           <p className="text-4xl font-light leading-none text-[#578186]/50" aria-hidden>

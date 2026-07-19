@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react"
 import { caseStudies } from "@/lib/case-studies"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
+import { SectionTracker } from "@/components/section-tracker"
 
 export function generateStaticParams() {
   return Object.keys(caseStudies).map((slug) => ({ slug }))
@@ -34,9 +35,21 @@ export default async function CaseStudyPage({
 
   if (!study) notFound()
 
+  const sections = [
+    { id: "overview", label: "Overview" },
+    study.problem && { id: "problem", label: study.problem.title },
+    study.research && { id: "research", label: study.research.title },
+    study.insights && { id: "insights", label: study.insights.title },
+    study.designProcess && { id: "process", label: study.designProcess.title },
+    study.prototype && { id: "prototype", label: study.prototype.title },
+    study.outcome && { id: "outcome", label: study.outcome.title },
+    study.gallery && study.gallery.length > 0 && { id: "gallery", label: "Gallery" },
+  ].filter(Boolean) as { id: string; label: string }[]
+
   return (
     <>
       <Navigation />
+      <SectionTracker sections={sections} />
       <main className="pt-32 pb-12">
         <div className="mx-auto w-full max-w-[900px] px-6">
           {/* Back link */}
@@ -49,12 +62,25 @@ export default async function CaseStudyPage({
           </Link>
 
           {/* Header */}
-          <div className="space-y-6">
+          <div id="overview" className="space-y-6 scroll-mt-32">
             <div className="space-y-2">
               <h1 className="text-2xl md:text-3xl font-normal tracking-tight text-foreground">
                 {study.title}
               </h1>
               <p className="text-sm text-foreground/50">{study.subtitle}</p>
+              {study.credit ? (
+                <p className="text-xs text-foreground/40">
+                  {study.credit.text}{" "}
+                  <a
+                    href={study.credit.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline decoration-foreground/30 underline-offset-2 hover:text-foreground/70"
+                  >
+                    {study.credit.name}
+                  </a>
+                </p>
+              ) : null}
             </div>
 
             <div className="flex flex-wrap gap-x-12 gap-y-4 pt-4 text-sm">
@@ -99,7 +125,7 @@ export default async function CaseStudyPage({
 
           {/* Problem */}
           {study.problem ? (
-            <ContentBlock label={study.problem.title}>
+            <ContentBlock id="problem" label={study.problem.title}>
               <p className="text-sm leading-relaxed text-foreground/70">
                 {study.problem.body}
               </p>
@@ -108,7 +134,7 @@ export default async function CaseStudyPage({
 
           {/* Research */}
           {study.research ? (
-            <ContentBlock label={study.research.title}>
+            <ContentBlock id="research" label={study.research.title}>
               <p className="text-sm leading-relaxed text-foreground/70">
                 {study.research.body}
               </p>
@@ -128,7 +154,7 @@ export default async function CaseStudyPage({
 
           {/* Insights */}
           {study.insights ? (
-            <ContentBlock label={study.insights.title}>
+            <ContentBlock id="insights" label={study.insights.title}>
               <div className="flex flex-col gap-6">
                 {study.insights.items.map((item, i) => (
                   <div key={i} className="flex flex-col gap-1.5">
@@ -151,7 +177,7 @@ export default async function CaseStudyPage({
 
           {/* Design Process */}
           {study.designProcess ? (
-            <ContentBlock label={study.designProcess.title}>
+            <ContentBlock id="process" label={study.designProcess.title}>
               <p className="mb-6 text-sm leading-relaxed text-foreground/70">
                 {study.designProcess.body}
               </p>
@@ -178,7 +204,7 @@ export default async function CaseStudyPage({
 
           {/* Prototype */}
           {study.prototype ? (
-            <ContentBlock label={study.prototype.title}>
+            <ContentBlock id="prototype" label={study.prototype.title}>
               <p className="text-sm leading-relaxed text-foreground/70">
                 {study.prototype.body}
               </p>
@@ -187,7 +213,7 @@ export default async function CaseStudyPage({
 
           {/* Outcome */}
           {study.outcome ? (
-            <ContentBlock label={study.outcome.title}>
+            <ContentBlock id="outcome" label={study.outcome.title}>
               <p className="text-sm leading-relaxed text-foreground/70">
                 {study.outcome.body}
               </p>
@@ -205,6 +231,30 @@ export default async function CaseStudyPage({
                   ))}
                 </div>
               )}
+            </ContentBlock>
+          ) : null}
+
+          {/* Gallery */}
+          {study.gallery && study.gallery.length > 0 ? (
+            <ContentBlock id="gallery" label="Gallery">
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                {study.gallery.map((item, i) => (
+                  <div key={i} className="space-y-2">
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-border/30 bg-muted/30">
+                      <Image
+                        src={item.image}
+                        alt={item.caption ?? `${study.title} gallery image ${i + 1}`}
+                        fill
+                        className="object-cover"
+                        sizes="450px"
+                      />
+                    </div>
+                    {item.caption ? (
+                      <p className="text-xs text-foreground/40">{item.caption}</p>
+                    ) : null}
+                  </div>
+                ))}
+              </div>
             </ContentBlock>
           ) : null}
 
@@ -237,14 +287,19 @@ function MetaItem({ label, value }: { label: string; value: string }) {
 }
 
 function ContentBlock({
+  id,
   label,
   children,
 }: {
+  id?: string
   label: string
   children: React.ReactNode
 }) {
   return (
-    <section className="mt-12 border-t border-border/30 pt-6">
+    <section
+      id={id}
+      className="mt-12 scroll-mt-32 border-t border-border/30 pt-6"
+    >
       <p className="mb-4 text-xs tracking-[0.15em] text-muted-foreground/40 uppercase">
         {label}
       </p>

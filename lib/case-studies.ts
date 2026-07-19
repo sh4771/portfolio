@@ -10,6 +10,8 @@ export interface CaseStudyData {
   image: string
   /** Wide logos: white field + contain so wordmarks are not cropped in the hero frame */
   heroTreatAsLogo?: boolean
+  credit?: { text: string; name: string; url: string }
+  gallery?: { image: string; caption?: string }[]
   overview?: string
   problem?: {
     title: string
@@ -473,5 +475,95 @@ export const caseStudies: Record<string, CaseStudyData> = {
     tools: ["Figma", "Claude Code", "Claude Design", "Linear", "Figma MCP"],
     image: "/images/vendelux-cover.png",
     heroTreatAsLogo: true,
+  },
+
+  "greener-routes": {
+    slug: "greener-routes",
+    title: "Greener Walking Routes",
+    subtitle:
+      "A walking-navigation prototype that recommends routes with higher green exposure",
+    category: "Columbia GSAPP, Computational Modeling",
+    year: "2026",
+    role: "Spatial Analysis, Grasshopper Scripting, Prototyping",
+    duration: "July 2026 (in progress)",
+    tools: ["Rhino", "Grasshopper", "Claude Design", "NYC Parks Open Data"],
+    image: "/images/greener-routes/screen-route-choice.png",
+    credit: {
+      text: "Course project for Computational Modeling, taught by",
+      name: "Meli Harvey",
+      url: "https://www.arch.columbia.edu/faculty/2411-meli-harvey",
+    },
+    overview:
+      "Is there a way to find a more enjoyable walking route that lets me experience more nature without adding too much extra time? Most navigation tools optimize for the shortest or fastest route, even when that route feels stressful or disconnected from green space. This project imagines a walking tool that recommends the route with the highest green exposure while limiting the detour to no more than 15% longer than the shortest route.",
+    problem: {
+      title: "The question",
+      body: "Most navigation tools prioritize the shortest or fastest route. But the fastest route can feel stressful or disconnected from green space, especially on a walk you'd otherwise enjoy taking your time on. I wanted to see whether that tradeoff could be measured and offered as a real choice instead of an afterthought.",
+    },
+    research: {
+      title: "Method",
+      body: "I used NYC Parks open spatial data to identify green space along candidate routes, then compared route efficiency against green exposure in Grasshopper.",
+      methods: [
+        "Used Google Maps to select start and destination points and review possible walking routes",
+        "Downloaded NYC Parks spatial data and imported park boundaries into Grasshopper",
+        "Measured each route's total length and used it to compare route efficiency against green exposure",
+      ],
+    },
+    insights: {
+      title: "Open questions",
+      items: [
+        {
+          heading: "Technical",
+          body: "How can I automatically generate and compare multiple valid walking routes instead of drawing each route manually?",
+        },
+        {
+          heading: "Conceptual",
+          body: "Is being within 20 meters of a park an accurate measure of how much nature a pedestrian actually experiences?",
+        },
+      ],
+    },
+    designProcess: {
+      title: "From spatial analysis to interface",
+      body: "I'm interested in turning spatial systems into accessible digital experiences, so I translated this routing logic into a mobile navigation prototype. Instead of only showing time and distance, the interface communicates the tradeoff directly, e.g. \"walk 2 minutes longer for 35% more green exposure.\"",
+      phases: [
+        {
+          label: "Analyze",
+          description:
+            "Import NYC Parks boundaries into Grasshopper and measure route length against proximity to green space.",
+        },
+        {
+          label: "Script",
+          description:
+            "Generate and compare multiple valid walking routes computationally instead of drawing each one by hand.",
+        },
+        {
+          label: "Prototype",
+          description:
+            "Translate the routing logic into a mobile flow where someone enters a destination and compares route options.",
+        },
+        {
+          label: "Communicate tradeoffs",
+          description:
+            "Surface the time-for-greenery tradeoff directly in the interface rather than hiding it behind raw stats.",
+        },
+      ],
+    },
+    prototype: {
+      title: "Prototype",
+      body: "Built in Claude Design: a walking-navigation flow where someone can search a destination, set route preferences (max detour, green-space priority), and compare a shortest, balanced, and greenest route before getting turn-by-turn directions.",
+    },
+    outcome: {
+      title: "Status",
+      body: "This is an active two-week project for Computational Modeling, due end of July 2026. Both the Rhino/Grasshopper spatial analysis and the mobile prototype are still in progress, this page reflects where the project stands right now.",
+    },
+    gallery: [
+      { image: "/images/greener-routes/screen-search.png", caption: "Search and recent destinations" },
+      { image: "/images/greener-routes/screen-destination.png", caption: "Setting a destination" },
+      { image: "/images/greener-routes/screen-preferences.png", caption: "Route preferences" },
+      { image: "/images/greener-routes/screen-route-choice.png", caption: "Choosing a route" },
+      { image: "/images/greener-routes/screen-compare.png", caption: "Comparing routes" },
+      { image: "/images/greener-routes/screen-directions.png", caption: "Turn-by-turn directions" },
+      { image: "/images/greener-routes/rhino-perspective.png", caption: "Rhino: route geometry against park boundaries" },
+      { image: "/images/greener-routes/grasshopper-script.png", caption: "Grasshopper: route generation script" },
+    ],
   },
 }

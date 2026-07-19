@@ -1,9 +1,20 @@
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowLeft, Hand, Lock, Move, Shield } from "lucide-react"
+import { SectionTracker } from "@/components/section-tracker"
+
+const sections = [
+  { id: "overview", label: "Overview" },
+  { id: "role", label: "My Role" },
+  { id: "problem", label: "Vest Design" },
+  { id: "modes", label: "Control Modes" },
+  { id: "priorities", label: "Design Priorities" },
+]
 
 export default function Page() {
   return (
+    <>
+    <SectionTracker sections={sections} />
     <main className="min-h-screen bg-background py-16 px-4 md:px-8 transition-colors duration-300">
       <div className="max-w-[900px] mx-auto space-y-20">
 
@@ -17,7 +28,7 @@ export default function Page() {
         </Link>
 
         {/* Header */}
-        <header className="space-y-6">
+        <header id="overview" className="space-y-6 scroll-mt-32">
           <div className="space-y-2">
             <p className="text-xs text-foreground/40 tracking-wide">Columbia University ROAR Lab • 2025</p>
             <h1 className="text-2xl md:text-3xl font-normal tracking-tight">
@@ -50,7 +61,7 @@ export default function Page() {
         </header>
 
         {/* My Role */}
-        <section className="space-y-6">
+        <section id="role" className="space-y-6 scroll-mt-32">
           <div className="space-y-2">
             <p className="text-xs text-foreground/40 uppercase tracking-wide">01 — MY ROLE</p>
             <h2 className="text-lg md:text-xl font-medium tracking-tight">What I contributed</h2>
@@ -117,7 +128,7 @@ export default function Page() {
         </section>
 
         {/* Vest Design Improvements */}
-        <section className="space-y-6">
+        <section id="problem" className="space-y-6 scroll-mt-32">
           <div className="space-y-2">
             <p className="text-xs text-foreground/40 uppercase tracking-wide">02 — VEST DESIGN</p>
             <h2 className="text-lg md:text-xl font-medium tracking-tight">Problem → Solution</h2>
@@ -183,7 +194,7 @@ export default function Page() {
         </section>
 
         {/* Interaction Design */}
-        <section className="space-y-6">
+        <section id="modes" className="space-y-6 scroll-mt-32">
           <div className="space-y-2">
             <p className="text-xs text-foreground/40 uppercase tracking-wide">03 — INTERACTION DESIGN</p>
             <h2 className="text-lg md:text-xl font-medium tracking-tight">Three Control Modes</h2>
@@ -253,7 +264,7 @@ export default function Page() {
         </section>
 
         {/* Design Focus */}
-        <section className="space-y-6">
+        <section id="priorities" className="space-y-6 scroll-mt-32">
           <div className="space-y-2">
             <p className="text-xs text-foreground/40 uppercase tracking-wide">04 — DESIGN PRINCIPLES</p>
             <h2 className="text-lg md:text-xl font-medium tracking-tight">Key Design Priorities</h2>
@@ -319,5 +330,6 @@ export default function Page() {
 
       </div>
     </main>
+    </>
   )
 }

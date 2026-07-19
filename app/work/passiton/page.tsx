@@ -10,9 +10,21 @@ import CircularPricingModel from "@/components/infographics/circular-pricing-mod
 import ClothingLifecycle from "@/components/infographics/clothing-lifecycle"
 import PassitOnLivePrototypeSection from "@/components/passiton/live-prototype-nfc-section"
 import ProblemDownstreamImpact from "@/components/passiton/problem-downstream-impact"
+import { SectionTracker } from "@/components/section-tracker"
+
+const sections = [
+  { id: "overview", label: "Overview" },
+  { id: "research", label: "Research" },
+  { id: "design-intent", label: "Design intent" },
+  { id: "prototype", label: "Prototype" },
+  { id: "solutions", label: "Solutions" },
+  { id: "reflection", label: "Reflection" },
+]
 
 export default function Page() {
   return (
+      <>
+      <SectionTracker sections={sections} />
       <main className="min-h-screen bg-background py-16 px-4 md:px-8 transition-colors duration-300">
         <div className="max-w-[900px] mx-auto space-y-24">
 
@@ -26,7 +38,7 @@ export default function Page() {
           </Link>
 
           {/* Hero Section */}
-          <header className="space-y-12">
+          <header id="overview" className="space-y-12 scroll-mt-32">
             {/* Project Title & Meta */}
             <div className="space-y-6">
               <div className="space-y-2">
@@ -198,6 +210,7 @@ export default function Page() {
           </div>
         </header>
 
+        <div id="research" className="scroll-mt-32 space-y-0">
         <section>
           <WardrobeComposition />
         </section>
@@ -217,9 +230,10 @@ export default function Page() {
         <section>
           <StoriesAndMemories />
         </section>
+        </div>
 
         {/* Design intent */}
-        <section className="max-w-3xl space-y-4">
+        <section id="design-intent" className="max-w-3xl space-y-4 scroll-mt-32">
           <p className="text-xs uppercase tracking-wide text-foreground/40">Design intent</p>
           <h2 className="text-lg font-medium tracking-tight md:text-xl">What I set out to build</h2>
           <p className="text-sm text-foreground/60 text-pretty leading-relaxed">
@@ -229,10 +243,12 @@ export default function Page() {
           </p>
         </section>
 
-        <PassitOnLivePrototypeSection />
+        <div id="prototype" className="scroll-mt-32">
+          <PassitOnLivePrototypeSection />
+        </div>
 
         {/* Solutions */}
-        <section className="space-y-16 md:space-y-20">
+        <section id="solutions" className="space-y-16 md:space-y-20 scroll-mt-32">
           {/* Section Header */}
           <div className="space-y-2">
             <p className="text-xs text-foreground/40">01</p>
@@ -506,7 +522,7 @@ export default function Page() {
         </section>
 
         {/* Reflection: learnings, time, next step */}
-        <section className="relative">
+        <section id="reflection" className="relative scroll-mt-32">
           <div
             className="pointer-events-none absolute -inset-x-8 -top-10 bottom-0 -z-10 rounded-[40px] opacity-90 blur-3xl"
             style={{
@@ -607,5 +623,6 @@ export default function Page() {
 
         </div>
       </main>
+      </>
   )
 }
