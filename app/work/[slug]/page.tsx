@@ -98,23 +98,21 @@ export default async function CaseStudyPage({
 
           {/* Hero image */}
           <div
-            className={`mt-10 overflow-hidden rounded-2xl border-t border-border/40 pt-10 ${study.heroTreatAsLogo ? "bg-white" : ""}`}
+            className={`mt-10 overflow-hidden rounded-2xl border-t border-border/40 pt-10 ${study.heroTreatAsLogo ? "bg-white" : "bg-muted/30"}`}
           >
             <div className="relative aspect-[16/9]">
               <div
                 className={
                   study.heroTreatAsLogo
                     ? "absolute inset-[8%] sm:inset-[10%]"
-                    : "absolute inset-0"
+                    : "absolute inset-[4%]"
                 }
               >
                 <Image
                   src={study.image}
                   alt={`${study.title} project hero`}
                   fill
-                  className={
-                    study.heroTreatAsLogo ? "object-contain" : "object-cover"
-                  }
+                  className="object-contain"
                   priority
                   sizes="900px"
                 />
@@ -241,13 +239,15 @@ export default async function CaseStudyPage({
                 {study.gallery.map((item, i) => (
                   <div key={i} className="space-y-2">
                     <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-border/30 bg-muted/30">
-                      <Image
-                        src={item.image}
-                        alt={item.caption ?? `${study.title} gallery image ${i + 1}`}
-                        fill
-                        className="object-cover"
-                        sizes="450px"
-                      />
+                      <div className="absolute inset-[6%]">
+                        <Image
+                          src={item.image}
+                          alt={item.caption ?? `${study.title} gallery image ${i + 1}`}
+                          fill
+                          className="object-contain"
+                          sizes="450px"
+                        />
+                      </div>
                     </div>
                     {item.caption ? (
                       <p className="text-xs text-foreground/40">{item.caption}</p>

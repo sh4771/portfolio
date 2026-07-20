@@ -83,22 +83,12 @@ function CaseStudyCard({ project }: { project: CaseStudy }) {
         <div
           className={`relative aspect-[4/3] w-full overflow-hidden rounded-2xl ${project.cardTreatAsLogo ? "bg-white" : "bg-card"}`}
         >
-          <div
-            className={
-              project.cardTreatAsLogo
-                ? "absolute inset-[10%]"
-                : "absolute inset-0"
-            }
-          >
+          <div className="absolute inset-[6%]">
             <Image
               src={project.image}
               alt={`${project.title} case study preview`}
               fill
-              className={
-                project.cardTreatAsLogo
-                  ? "object-contain"
-                  : "object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-              }
+              className="object-contain transition-transform duration-700 ease-out group-hover:scale-[1.03]"
               sizes="(max-width: 768px) 100vw, 640px"
             />
           </div>
