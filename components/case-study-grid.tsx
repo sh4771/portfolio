@@ -23,18 +23,6 @@ export interface CaseStudy {
 
 const projects: CaseStudy[] = [
   {
-    slug: "clinical-trials",
-    title: "Designing Decision Clarity in Clinical Trial Systems",
-    description:
-      "Adobe Designathon: clinical trial intelligence platform for clearer decisions, transparent AI recommendations, and actionable dashboards.",
-    tags: ["2026", "UI/UX Design", "Case Study"],
-    image: "/images/clinical-trials/monitor-mockup-static.png",
-    aiTools: ["Claude Code", "Cursor", "Vibe coding"],
-    video: "/videos/clinical-trials-prototype.mov",
-    mockupFrame: "/images/clinical-trials/monitor-mockup.png",
-    mockupBounds: { left: 8.18, right: 8.18, top: 0.3, bottom: 1.8 },
-  },
-  {
     slug: "vendelux",
     title: "Product Designer, Vendelux",
     description:
@@ -80,6 +68,18 @@ const projects: CaseStudy[] = [
     image: "/images/cast.jpg",
     aiTools: ["ChatGPT", "Perplexity", "Gemini"],
   },
+  {
+    slug: "clinical-trials",
+    title: "Designing Decision Clarity in Clinical Trial Systems",
+    description:
+      "Adobe Designathon: clinical trial intelligence platform for clearer decisions, transparent AI recommendations, and actionable dashboards.",
+    tags: ["2026", "UI/UX Design", "Case Study"],
+    image: "/images/clinical-trials/monitor-mockup-static.png",
+    aiTools: ["Claude Code", "Cursor", "Vibe coding"],
+    video: "/videos/clinical-trials-prototype.mov",
+    mockupFrame: "/images/clinical-trials/monitor-mockup.png",
+    mockupBounds: { left: 8.18, right: 8.18, top: 0.3, bottom: 1.8 },
+  },
 ]
 
 function CaseStudyCard({ project }: { project: CaseStudy }) {
@@ -115,7 +115,7 @@ function CaseStudyCard({ project }: { project: CaseStudy }) {
                     loop
                     playsInline
                     preload="auto"
-                    className="h-full w-full object-contain"
+                    className="h-full w-full object-cover"
                   >
                     <source src={project.video} type="video/quicktime" />
                     <source src={project.video} type="video/mp4" />
