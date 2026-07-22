@@ -27,7 +27,7 @@ export function Navigation() {
               alt="VH logo"
               width={32}
               height={32}
-              className="h-8 w-8 rounded-full object-cover"
+              className="h-8 w-8 object-contain"
             />
           </Link>
 

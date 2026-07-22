@@ -13,7 +13,7 @@ export function Footer() {
           alt="VH logo"
           width={64}
           height={64}
-          className="h-16 w-16 rounded-full object-cover footer-float"
+          className="h-16 w-16 object-contain footer-float"
         />
 
         <p className="text-lg text-foreground">

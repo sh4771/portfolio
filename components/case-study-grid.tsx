@@ -23,16 +23,6 @@ export interface CaseStudy {
 
 const projects: CaseStudy[] = [
   {
-    slug: "vendelux",
-    title: "Product Designer, Vendelux",
-    description:
-      "At Vendelux I support product UI and system design on an AI-powered B2B event intelligence platform that helps teams identify high-ROI conferences, pre-book qualified meetings, and connect event spend to pipeline in Salesforce and HubSpot.",
-    tags: ["2026", "Product Design", "B2B"],
-    image: "/images/vendelux-cover.png",
-    cardTreatAsLogo: true,
-    aiTools: ["Claude Code", "Claude Design", "Figma MCP", "Cursor"],
-  },
-  {
     slug: "clinical-trials",
     title: "Designing Decision Clarity in Clinical Trial Systems",
     description:
@@ -43,6 +33,16 @@ const projects: CaseStudy[] = [
     video: "/videos/clinical-trials-prototype.mov",
     mockupFrame: "/images/clinical-trials/monitor-mockup.png",
     mockupBounds: { left: 8.18, right: 8.18, top: 0.3, bottom: 1.8 },
+  },
+  {
+    slug: "vendelux",
+    title: "Product Designer, Vendelux",
+    description:
+      "At Vendelux I support product UI and system design on an AI-powered B2B event intelligence platform that helps teams identify high-ROI conferences, pre-book qualified meetings, and connect event spend to pipeline in Salesforce and HubSpot.",
+    tags: ["2026", "Product Design", "B2B"],
+    image: "/images/vendelux-cover.png",
+    cardTreatAsLogo: true,
+    aiTools: ["Claude Code", "Claude Design", "Figma MCP", "Cursor"],
   },
   {
     slug: "passiton",
@@ -115,7 +115,7 @@ function CaseStudyCard({ project }: { project: CaseStudy }) {
                     loop
                     playsInline
                     preload="auto"
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-contain"
                   >
                     <source src={project.video} type="video/quicktime" />
                     <source src={project.video} type="video/mp4" />

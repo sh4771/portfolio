@@ -76,7 +76,7 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
               controls
               playsInline
               preload="auto"
-              className="h-full w-full object-cover"
+              className="h-full w-full object-contain"
             >
               <source src={prototypeVideoSrc} type="video/quicktime" />
               <source src={prototypeVideoSrc} type="video/mp4" />
