@@ -26,7 +26,7 @@ export default function Page() {
     <SectionTracker
       sections={sections}
       activeClass="text-[#111111] opacity-100"
-      dotActiveClass="bg-[#578186]"
+      dotActiveClass="bg-[#3D6469]"
       mutedClass="text-[#111111]/60"
       dotMutedClass="bg-[#111111]/25"
     />
@@ -34,7 +34,7 @@ export default function Page() {
       <div className="mx-auto max-w-[1100px] space-y-14">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-sm font-medium text-[#6B7280] transition-colors hover:text-[#578186]"
+          className="inline-flex items-center gap-2 text-sm font-medium text-[#5F6672] transition-colors hover:text-[#3D6469]"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to Portfolio
@@ -42,12 +42,12 @@ export default function Page() {
 
         <ClinicalTrialsVisualCaseStudy prototypeVideoSrc="/videos/clinical-trials-prototype.mov" />
 
-        <div className="h-px w-full bg-[#578186]" />
+        <div className="h-px w-full bg-[#3D6469]" />
         <div className="pt-4 text-center">
-          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#6B7280]">Continue</p>
+          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#5F6672]">Continue</p>
           <Link
             href="/#work"
-            className="mt-2 inline-block text-sm font-semibold text-[#111111] transition-colors hover:text-[#578186]"
+            className="mt-2 inline-block text-sm font-semibold text-[#111111] transition-colors hover:text-[#3D6469]"
           >
             View all projects
           </Link>

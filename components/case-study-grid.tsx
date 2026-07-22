@@ -15,6 +15,10 @@ export interface CaseStudy {
   aiTools?: string[]
   /** Logo-style artwork: white field + contain in the card frame */
   cardTreatAsLogo?: boolean
+  /** Optional: play a looping video inside a device mockup frame instead of a static image */
+  video?: string
+  mockupFrame?: string
+  mockupBounds?: { left: number; right: number; top: number; bottom: number }
 }
 
 const projects: CaseStudy[] = [
@@ -36,6 +40,9 @@ const projects: CaseStudy[] = [
     tags: ["2026", "UI/UX Design", "Case Study"],
     image: "/images/clinical-trials/monitor-mockup-static.png",
     aiTools: ["Claude Code", "Cursor", "Vibe coding"],
+    video: "/videos/clinical-trials-prototype.mov",
+    mockupFrame: "/images/clinical-trials/monitor-mockup.png",
+    mockupBounds: { left: 8.18, right: 8.18, top: 0.3, bottom: 1.8 },
   },
   {
     slug: "passiton",
@@ -79,19 +86,54 @@ function CaseStudyCard({ project }: { project: CaseStudy }) {
   return (
     <Link href={`/work/${project.slug}`} className="group block">
       <article>
-        {/* Image */}
+        {/* Image / video mockup */}
         <div
           className={`relative aspect-[4/3] w-full overflow-hidden rounded-2xl ${project.cardTreatAsLogo ? "bg-white" : "bg-card"}`}
         >
-          <div className="absolute inset-[6%]">
-            <Image
-              src={project.image}
-              alt={`${project.title} case study preview`}
-              fill
-              className="object-contain transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-              sizes="(max-width: 768px) 100vw, 640px"
-            />
-          </div>
+          {project.video && project.mockupFrame && project.mockupBounds ? (
+            <div className="absolute inset-[6%]">
+              <div className="relative h-full w-full">
+                <Image
+                  src={project.mockupFrame}
+                  alt={`${project.title} device mockup`}
+                  fill
+                  className="object-contain transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                  sizes="(max-width: 768px) 100vw, 640px"
+                />
+                <div
+                  className="absolute overflow-hidden rounded-[2px] bg-black"
+                  style={{
+                    left: `${project.mockupBounds.left}%`,
+                    right: `${project.mockupBounds.right}%`,
+                    top: `${project.mockupBounds.top}%`,
+                    bottom: `${project.mockupBounds.bottom}%`,
+                  }}
+                >
+                  <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                    className="h-full w-full object-cover"
+                  >
+                    <source src={project.video} type="video/quicktime" />
+                    <source src={project.video} type="video/mp4" />
+                  </video>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="absolute inset-[6%]">
+              <Image
+                src={project.image}
+                alt={`${project.title} case study preview`}
+                fill
+                className="object-contain transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                sizes="(max-width: 768px) 100vw, 640px"
+              />
+            </div>
+          )}
         </div>
 
         {/* Text below image */}
@@ -121,7 +163,7 @@ function CaseStudyCard({ project }: { project: CaseStudy }) {
           </p>
 
           {/* Tags */}
-          <div className="mt-3 flex flex-wrap items-center gap-x-1 text-xs text-foreground/35">
+          <div className="mt-3 flex flex-wrap items-center gap-x-1 text-xs text-foreground/60">
             {project.tags.map((tag, index) => (
               <span key={tag} className="flex items-center">
                 {tag}

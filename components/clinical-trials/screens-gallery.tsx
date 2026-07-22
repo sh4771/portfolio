@@ -73,7 +73,7 @@ export function ScreensGallery({ screens }: { screens: Screen[] }) {
       </div>
 
       <div>
-        <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#6B7280]">
+        <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#5F6672]">
           {current.n} · {current.name}
         </p>
         <p className="text-xs leading-snug text-[#111111]">{current.cap}</p>
@@ -89,8 +89,8 @@ export function ScreensGallery({ screens }: { screens: Screen[] }) {
             aria-current={i === index}
             className={`rounded-[4px] border px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-wide transition-colors ${
               i === index
-                ? "border-[#578186] bg-[#578186] text-white"
-                : "border-[#111111]/10 bg-white text-[#6B7280] hover:border-[#578186]/40"
+                ? "border-[#3D6469] bg-[#3D6469] text-white"
+                : "border-[#111111]/10 bg-white text-[#5F6672] hover:border-[#3D6469]/40"
             }`}
           >
             {s.n}

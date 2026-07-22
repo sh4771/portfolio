@@ -311,17 +311,24 @@ export default function ThemeToggle() {
   }
 
   const t = level / (LEVELS - 1)
-  
-  const pillBgR = lerp(0, 255, t)
-  const pillBgG = lerp(0, 255, t)
-  const pillBgB = lerp(0, 255, t)
-  const pillBgAlpha = lerp(0.06, 0.08, t)
-  
-  const pillBorderAlpha = lerp(0.10, 0.14, t)
-  
-  const dotR = lerp(40, 250, t)
-  const dotG = lerp(38, 248, t)
-  const dotB = lerp(35, 242, t)
+
+  // Solid pill background (not a translucent tint) so contrast is guaranteed
+  // regardless of what page background sits behind it.
+  const pillBgLightR = 234, pillBgLightG = 230, pillBgLightB = 220
+  const pillBgDarkR = 38, pillBgDarkG = 36, pillBgDarkB = 33
+  const pillBgR = lerp(pillBgLightR, pillBgDarkR, t)
+  const pillBgG = lerp(pillBgLightG, pillBgDarkG, t)
+  const pillBgB = lerp(pillBgLightB, pillBgDarkB, t)
+  const pillBg: RGB = { r: pillBgR, g: pillBgG, b: pillBgB }
+
+  const pillBorderAlpha = lerp(0.14, 0.18, t)
+
+  // Icon/dot color: contrast-checked against the actual pill background above.
+  const dotSeed: RGB = { r: lerp(30, 235, t), g: lerp(28, 233, t), b: lerp(24, 228, t) }
+  const dotColorAdj = adjustColorForContrast(dotSeed, pillBg, CONTRAST_PRIMARY, t > 0.5)
+  const dotR = dotColorAdj.r
+  const dotG = dotColorAdj.g
+  const dotB = dotColorAdj.b
 
   // Glow intensity during animation
   const glowIntensity = isAnimating ? 0.4 : 0
@@ -341,10 +348,10 @@ export default function ThemeToggle() {
       <div
         className="flex flex-col items-center rounded-full relative"
         style={{
-          background: `rgba(${pillBgR}, ${pillBgG}, ${pillBgB}, ${pillBgAlpha})`,
+          background: `rgba(${pillBgR}, ${pillBgG}, ${pillBgB}, 0.92)`,
           backdropFilter: "blur(20px) saturate(180%)",
           WebkitBackdropFilter: "blur(20px) saturate(180%)",
-          border: `1px solid rgba(${pillBgR}, ${pillBgG}, ${pillBgB}, ${pillBorderAlpha})`,
+          border: `1px solid rgba(${dotR}, ${dotG}, ${dotB}, ${pillBorderAlpha})`,
           boxShadow: `
             0 8px 32px rgba(0,0,0,${lerp(0.12, 0.28, t)}), 
             inset 0 1px 0 rgba(255,255,255,${lerp(0.50, 0.10, t)}),
@@ -418,7 +425,7 @@ export default function ThemeToggle() {
                 style={{
                   width: 15,
                   height: 15,
-                  color: `rgba(${dotR}, ${dotG}, ${dotB}, 0.9)`,
+                  color: `rgb(${dotR}, ${dotG}, ${dotB})`,
                   transform: isAnimating ? `rotate(${level * 30}deg) scale(1.1)` : "rotate(0deg) scale(1)",
                   transition: "transform 0.15s ease-out",
                 }}
@@ -428,7 +435,7 @@ export default function ThemeToggle() {
                 style={{
                   width: 14,
                   height: 14,
-                  color: `rgba(${dotR}, ${dotG}, ${dotB}, 0.9)`,
+                  color: `rgb(${dotR}, ${dotG}, ${dotB})`,
                   transform: isAnimating ? `rotate(${(LEVELS - 1 - level) * -20}deg) scale(1.1)` : "rotate(0deg) scale(1)",
                   transition: "transform 0.15s ease-out",
                 }}
@@ -455,7 +462,7 @@ export default function ThemeToggle() {
               style={{
                 width: 15,
                 height: 15,
-                color: `rgba(${dotR}, ${dotG}, ${dotB}, 0.85)`,
+                color: `rgb(${dotR}, ${dotG}, ${dotB})`,
               }}
             />
           ) : (
@@ -463,7 +470,7 @@ export default function ThemeToggle() {
               style={{
                 width: 14,
                 height: 14,
-                color: `rgba(${dotR}, ${dotG}, ${dotB}, 0.85)`,
+                color: `rgb(${dotR}, ${dotG}, ${dotB})`,
               }}
             />
           )}

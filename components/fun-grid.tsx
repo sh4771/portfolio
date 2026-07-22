@@ -48,7 +48,7 @@ export function FunGrid() {
               <p className="mt-2 text-sm leading-relaxed text-foreground/50">
                 {project.description}
               </p>
-              <div className="mt-3 flex flex-wrap items-center gap-x-1 text-xs text-foreground/35">
+              <div className="mt-3 flex flex-wrap items-center gap-x-1 text-xs text-foreground/60">
                 {project.tags.map((tag, index) => (
                   <span key={tag} className="flex items-center">
                     {tag}

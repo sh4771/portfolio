@@ -11,13 +11,13 @@ const clinicalTypographySamples = Inter({
 })
 
 function SectionRule() {
-  return <div className="h-px w-full bg-[#578186]" aria-hidden />
+  return <div className="h-px w-full bg-[#3D6469]" aria-hidden />
 }
 
 function SectionHeader({ label, title }: { label: string; title: string }) {
   return (
     <div className="space-y-3">
-      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#578186]">{label}</p>
+      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#3D6469]">{label}</p>
       <h2 className="text-xl font-bold leading-tight tracking-tight text-[#111111] md:text-2xl lg:text-[1.65rem]">{title}</h2>
     </div>
   )
@@ -31,7 +31,7 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
       <section id="overview" className="space-y-6 scroll-mt-32">
         <SectionRule />
         <SectionHeader label="Project overview" title="Designing decision clarity in clinical trial systems" />
-        <p className="text-xs font-bold uppercase tracking-wide text-[#578186]">UI/UX design · Adobe designathon</p>
+        <p className="text-xs font-bold uppercase tracking-wide text-[#3D6469]">UI/UX design · Adobe designathon</p>
         <p className="max-w-3xl text-sm leading-relaxed text-[#111111] md:text-[15px]">
           We redesigned a clinical intelligence workspace for faster, defensible decisions under time pressure. The sprint
           centered trust, transparent AI signals, and a calmer hierarchy than typical enterprise dashboards. The full
@@ -39,15 +39,15 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
         </p>
         <div className="flex flex-wrap gap-x-12 gap-y-4 text-sm pt-2">
           <div>
-            <span className="mb-1 block text-xs text-[#6B7280]">Context</span>
+            <span className="mb-1 block text-xs text-[#5F6672]">Context</span>
             <span className="text-[#111111]">Adobe Designathon, with Hongxin Li</span>
           </div>
           <div>
-            <span className="mb-1 block text-xs text-[#6B7280]">Timeline</span>
+            <span className="mb-1 block text-xs text-[#5F6672]">Timeline</span>
             <span className="text-[#111111]">10 hr build · April 2026</span>
           </div>
           <div>
-            <span className="mb-1 block text-xs text-[#6B7280]">What I did</span>
+            <span className="mb-1 block text-xs text-[#5F6672]">What I did</span>
             <span className="text-[#111111]">UX / UI, Strategy</span>
           </div>
         </div>
@@ -55,22 +55,19 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
 
       {/* Demo video — compact, visual, moved to the top */}
       <section id="demo" className="space-y-4 scroll-mt-32">
-        <SectionRule />
-        <SectionHeader label="Demo" title="Prototype walkthrough" />
-
         {/* Monitor mockup */}
-        <div className="group relative mx-auto w-full max-w-2xl">
+        <div className="relative mx-auto w-full max-w-2xl">
           <Image
             src="/images/clinical-trials/monitor-mockup.png"
             alt="Studio Display monitor mockup"
             width={672}
-            height={527}
+            height={331}
             className="h-auto w-full select-none"
             priority={false}
           />
           <div
             className="absolute overflow-hidden rounded-[3px] bg-black"
-            style={{ left: "8.2%", right: "8.2%", top: "0.4%", bottom: "38.4%" }}
+            style={{ left: "8.2%", right: "8.2%", top: "0.3%", bottom: "1.8%" }}
           >
             <video
               autoPlay
@@ -79,7 +76,7 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
               controls
               playsInline
               preload="auto"
-              className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
+              className="h-full w-full object-cover"
             >
               <source src={prototypeVideoSrc} type="video/quicktime" />
               <source src={prototypeVideoSrc} type="video/mp4" />
@@ -91,37 +88,70 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
       {/* 2 — Problem discovery */}
       <section id="problem" className="space-y-8 scroll-mt-32">
         <SectionRule />
-        <SectionHeader label="Problem discovery" title="Amendments cost teams before protocols ship" />
-        <div className="grid gap-4 sm:grid-cols-3">
+        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#3D6469]">Problem discovery</p>
+
+        <div className="mx-auto max-w-2xl space-y-1 text-center">
+          <h2 className="text-xl font-bold leading-tight tracking-tight text-[#111111] md:text-2xl lg:text-[1.65rem]">
+            Why do clinical teams keep getting caught off guard?
+          </h2>
+        </div>
+
+        <div className="mx-auto max-w-2xl divide-y divide-[#111111]/10">
           {[
-            { stat: "$43M", sub: "avg amendment cost per trial" },
-            { stat: "$20M", sub: "estimated preventable exposure" },
-            { stat: "75%", sub: "of trials require amendments" },
-          ].map((s) => (
+            {
+              q: "How often does this even happen?",
+              a: "More often than teams plan for.",
+              stat: "75%",
+              sub: "of trials require amendments",
+            },
+            {
+              q: "What does it cost when it does?",
+              a: "Enough to change a trial's budget.",
+              stat: "$43M",
+              sub: "avg amendment cost per trial",
+            },
+            {
+              q: "How much of that is preventable?",
+              a: "Nearly half of it, if caught early.",
+              stat: "$20M",
+              sub: "estimated preventable exposure",
+            },
+          ].map((row) => (
             <div
-              key={s.stat}
-              className="rounded-[4px] border border-[#578186]/30 bg-white/70 px-4 py-6 text-center shadow-sm md:py-8"
+              key={row.q}
+              className="flex flex-col items-center gap-4 py-6 first:pt-0 last:pb-0 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:text-left"
             >
-              <p className="text-3xl font-bold tabular-nums text-[#578186] md:text-4xl">{s.stat}</p>
-              <p className="mt-2 text-xs leading-snug text-[#6B7280]">{s.sub}</p>
+              <div className="text-center sm:text-left">
+                <p className="text-base font-bold leading-snug text-[#111111] md:text-lg">{row.q}</p>
+                <p className="mt-1 text-sm italic text-[#5F6672]">{row.a}</p>
+              </div>
+              <div className="shrink-0 rounded-[4px] border border-[#3D6469]/30 bg-white/70 px-6 py-4 text-center shadow-sm">
+                <p className="text-2xl font-bold tabular-nums text-[#3D6469] md:text-3xl">{row.stat}</p>
+                <p className="mt-1 max-w-[9rem] text-[10px] leading-snug text-[#5F6672]">{row.sub}</p>
+              </div>
             </div>
           ))}
         </div>
+
+        <p className="mx-auto max-w-xl text-center text-sm font-semibold leading-relaxed text-[#111111]">
+          Most clinical dashboards can't show any of this early enough to matter. Here's why:
+        </p>
+
         <div className="grid gap-4 md:grid-cols-3">
           {[
-            { Icon: BarChart3, title: "Poor benchmarking", body: "Weak baselines inflate risk signals." },
-            { Icon: Database, title: "No precedent data", body: "Teams guess instead of comparing cohorts." },
-            { Icon: EyeOff, title: "Opaque AI", body: "Outputs arrive without lineage or confidence." },
+            { Icon: BarChart3, title: "Why do baselines lie?", body: "Poor benchmarking inflates risk signals." },
+            { Icon: Database, title: "Why do teams guess?", body: "No precedent data to compare cohorts against." },
+            { Icon: EyeOff, title: "Why trust the AI?", body: "Outputs arrive without lineage or confidence." },
           ].map(({ Icon, title, body }) => (
             <div
               key={title}
               className="flex flex-col items-center rounded-[8px] border border-[#111111]/10 bg-white/50 px-4 py-6 text-center"
             >
-              <div className="flex size-12 items-center justify-center rounded-[4px] bg-[#578186]/15 text-[#578186]">
+              <div className="flex size-12 items-center justify-center rounded-[4px] bg-[#3D6469]/15 text-[#3D6469]">
                 <Icon className="size-6" strokeWidth={1.75} />
               </div>
               <p className="mt-3 text-sm font-bold text-[#111111]">{title}</p>
-              <p className="mt-1 max-w-[14rem] text-xs leading-relaxed text-[#6B7280]">{body}</p>
+              <p className="mt-1 max-w-[14rem] text-xs leading-relaxed text-[#5F6672]">{body}</p>
             </div>
           ))}
         </div>
@@ -133,22 +163,22 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
         <SectionHeader label="Our approach" title="From problem list to design principles" />
         <div className="grid gap-8 lg:grid-cols-2">
           <div className="rounded-[8px] border border-[#111111]/10 bg-white/40 p-5">
-            <p className="text-[10px] font-bold uppercase tracking-wide text-[#578186]">Problems</p>
+            <p className="text-[10px] font-bold uppercase tracking-wide text-[#3D6469]">Problems</p>
             <ol className="mt-4 space-y-3 text-sm font-semibold leading-relaxed text-[#111111]">
               <li className="flex gap-3">
-                <span className="font-bold text-[#578186]">1</span>
+                <span className="font-bold text-[#3D6469]">1</span>
                 No defined target user
               </li>
               <li className="flex gap-3">
-                <span className="font-bold text-[#578186]">2</span>
+                <span className="font-bold text-[#3D6469]">2</span>
                 Unclear goals per workflow stage
               </li>
               <li className="flex gap-3">
-                <span className="font-bold text-[#578186]">3</span>
+                <span className="font-bold text-[#3D6469]">3</span>
                 Weak product differentiation
               </li>
               <li className="flex gap-3">
-                <span className="font-bold text-[#578186]">4</span>
+                <span className="font-bold text-[#3D6469]">4</span>
                 Visual system lacked clinical authority
               </li>
             </ol>
@@ -160,16 +190,16 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
               { n: "03", t: "Right signal, right moment", d: "Surface what matters now; guide the next action." },
               { n: "04", t: "Clinical structure", d: "A disciplined system that reads as serious, not consumer." },
             ].map((c) => (
-              <div key={c.n} className="rounded-[4px] border border-[#578186]/25 bg-[#578186]/[0.08] px-4 py-3">
-                <p className="text-xs font-bold text-[#578186]">{c.n}</p>
+              <div key={c.n} className="rounded-[4px] border border-[#3D6469]/25 bg-[#3D6469]/[0.08] px-4 py-3">
+                <p className="text-xs font-bold text-[#3D6469]">{c.n}</p>
                 <p className="mt-1 text-sm font-bold text-[#111111]">{c.t}</p>
-                <p className="mt-1 text-xs leading-relaxed text-[#6B7280]">{c.d}</p>
+                <p className="mt-1 text-xs leading-relaxed text-[#5F6672]">{c.d}</p>
               </div>
             ))}
           </div>
         </div>
-        <blockquote className="rounded-[8px] border border-[#578186]/30 bg-white/60 px-6 py-5 text-center text-sm font-normal italic leading-relaxed text-[#111111] md:text-base">
-          &quot;Design for decision <strong className="not-italic text-[#578186]">clarity and trust</strong>, not for more
+        <blockquote className="rounded-[8px] border border-[#3D6469]/30 bg-white/60 px-6 py-5 text-center text-sm font-normal italic leading-relaxed text-[#111111] md:text-base">
+          &quot;Design for decision <strong className="not-italic text-[#3D6469]">clarity and trust</strong>, not for more
           features or more information.&quot;
         </blockquote>
       </section>
@@ -214,17 +244,17 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
             },
           ].map((col) => (
             <div key={col.n} className="rounded-[8px] border border-[#111111]/10 bg-white/50 p-4">
-              <p className="text-2xl font-bold text-[#578186]">{col.n}</p>
+              <p className="text-2xl font-bold text-[#3D6469]">{col.n}</p>
               <p className="mt-2 text-sm font-bold text-[#111111]">{col.t}</p>
               {col.lines.map((line) => (
-                <p key={line} className="mt-2 text-xs leading-relaxed text-[#6B7280]">
+                <p key={line} className="mt-2 text-xs leading-relaxed text-[#5F6672]">
                   {line}
                 </p>
               ))}
             </div>
           ))}
         </div>
-        <div className="rounded-[8px] bg-[#578186] px-5 py-4 text-white shadow-md">
+        <div className="rounded-[8px] bg-[#3D6469] px-5 py-4 text-white shadow-md">
           <p className="text-[10px] font-bold uppercase tracking-wide text-white/90">Outcome</p>
           <p className="mt-2 text-sm leading-relaxed text-white/95">
             A shared strategy: build trust through <strong>structure, transparency, and control</strong>—validated with
@@ -244,20 +274,20 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
             { step: "03", title: "Wireframes", sub: "Clinical patterns" },
           ].map((s, i) => (
             <div key={s.step} className="flex flex-1 items-center gap-3">
-              <div className="min-w-0 flex-1 rounded-[8px] border border-[#578186]/30 bg-white/60 px-4 py-3 text-center">
-                <p className="text-xs font-bold text-[#578186]">{s.step}</p>
+              <div className="min-w-0 flex-1 rounded-[8px] border border-[#3D6469]/30 bg-white/60 px-4 py-3 text-center">
+                <p className="text-xs font-bold text-[#3D6469]">{s.step}</p>
                 <p className="mt-1 text-sm font-bold text-[#111111]">{s.title}</p>
-                <p className="mt-0.5 text-[11px] text-[#6B7280]">{s.sub}</p>
+                <p className="mt-0.5 text-[11px] text-[#5F6672]">{s.sub}</p>
               </div>
               {i < 2 ? (
-                <ArrowRight className="hidden shrink-0 text-[#578186] md:block" strokeWidth={1.5} aria-hidden />
+                <ArrowRight className="hidden shrink-0 text-[#3D6469] md:block" strokeWidth={1.5} aria-hidden />
               ) : null}
             </div>
           ))}
         </div>
         <div className="space-y-2">
-          <p className="text-[10px] font-bold uppercase tracking-wide text-[#578186]">Annotated boards</p>
-          <p className="text-xs text-[#6B7280]">
+          <p className="text-[10px] font-bold uppercase tracking-wide text-[#3D6469]">Annotated boards</p>
+          <p className="text-xs text-[#5F6672]">
             Two annotated scans—clinical enterprise vs. product-marketing references—were reorganized in Adobe Express into
             the four-quadrant pros / cons chart.
           </p>
@@ -274,7 +304,7 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
                 sizes="(max-width: 768px) 100vw, 440px"
               />
             </div>
-            <figcaption className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#6B7280]">
+            <figcaption className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#5F6672]">
               01 · Clinical platforms · Medidata · Veeva · Palantir
             </figcaption>
           </figure>
@@ -289,19 +319,19 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
                 sizes="(max-width: 768px) 100vw, 440px"
               />
             </div>
-            <figcaption className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#6B7280]">
+            <figcaption className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#5F6672]">
               02 · Product / dev landings · Linear · Supabase · Anduril · Scale.ai · Cursor · Vercel · Primer.ai
             </figcaption>
           </figure>
         </div>
         <div className="rounded-[8px] border border-[#111111]/10 bg-[#111111]/[0.04] p-4">
-          <p className="mb-3 text-[10px] font-bold uppercase tracking-wide text-[#578186]">Reference set</p>
+          <p className="mb-3 text-[10px] font-bold uppercase tracking-wide text-[#3D6469]">Reference set</p>
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
             {["Medidata", "Veeva", "Palantir", "Linear.app", "Supabase", "Anduril", "Vercel", "Bunker", "Primer.ai", "Scale.ai"].map(
               (name) => (
                 <span
                   key={name}
-                  className="rounded-[4px] border border-[#578186]/20 bg-white/70 py-2 text-center text-[11px] font-semibold text-[#111111]"
+                  className="rounded-[4px] border border-[#3D6469]/20 bg-white/70 py-2 text-center text-[11px] font-semibold text-[#111111]"
                 >
                   {name}
                 </span>
@@ -310,7 +340,7 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
           </div>
         </div>
         <p className="max-w-3xl text-sm leading-relaxed text-[#111111]">
-          <strong className="text-[#578186]">Takeaway:</strong> the most trusted products show their reasoning—so we
+          <strong className="text-[#3D6469]">Takeaway:</strong> the most trusted products show their reasoning—so we
           tightened hierarchy, surfaced AI lineage, and borrowed navigation patterns from Linear and Palantir.
         </p>
       </section>
@@ -320,37 +350,37 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
         <SectionRule />
         <SectionHeader label="Visual system" title="Color and type" />
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-wide text-[#578186]">Palette</p>
+          <p className="text-[10px] font-bold uppercase tracking-wide text-[#3D6469]">Palette</p>
           <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-3">
             {[
-              { hex: "#578186", name: "Altrovia teal", use: "Primary actions" },
+              { hex: "#3D6469", name: "Altrovia teal", use: "Primary actions" },
               { hex: "#EAEFF0", name: "Teal light", use: "Nav / hover" },
               { hex: "#F7F8FA", name: "Surface", use: "Cards" },
               { hex: "#151819", name: "Dark", use: "Primary text" },
-              { hex: "#6B7280", name: "Mid", use: "Secondary text" },
+              { hex: "#5F6672", name: "Mid", use: "Secondary text" },
               { hex: "#E5E7EA", name: "Border", use: "Dividers" },
             ].map((sw) => (
               <div key={sw.hex} className="flex items-center gap-3 rounded-[4px] border border-[#111111]/10 bg-white/60 p-3">
                 <div className="size-10 shrink-0 rounded-[4px] border border-[#111111]/10 shadow-inner" style={{ backgroundColor: sw.hex }} />
                 <div className="min-w-0">
                   <p className="text-xs font-bold text-[#111111]">{sw.hex}</p>
-                  <p className="text-[11px] font-semibold text-[#578186]">{sw.name}</p>
-                  <p className="text-[10px] text-[#6B7280]">{sw.use}</p>
+                  <p className="text-[11px] font-semibold text-[#3D6469]">{sw.name}</p>
+                  <p className="text-[10px] text-[#5F6672]">{sw.use}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-wide text-[#578186]">Typography</p>
+          <p className="text-[10px] font-bold uppercase tracking-wide text-[#3D6469]">Typography</p>
           <div
             className={`${clinicalTypographySamples.className} mt-3 space-y-4 rounded-[8px] border border-[#111111]/10 bg-white/50 p-5`}
           >
             <p className="text-3xl font-bold leading-tight text-[#111111]">Display — trial overview</p>
             <p className="text-lg font-semibold text-[#111111]">Section header · active module</p>
             <p className="text-sm font-medium text-[#111111]">Button · AI badge · table label</p>
-            <p className="text-sm font-normal leading-relaxed text-[#6B7280]">Body copy for dense tables and helper text.</p>
-            <p className="text-xs font-light text-[#6B7280]">Caption · meta · timestamps</p>
+            <p className="text-sm font-normal leading-relaxed text-[#5F6672]">Body copy for dense tables and helper text.</p>
+            <p className="text-xs font-light text-[#5F6672]">Caption · meta · timestamps</p>
           </div>
         </div>
       </section>
@@ -370,7 +400,7 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
               sizes="(max-width: 1100px) 100vw, 900px"
             />
           </div>
-          <figcaption className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#6B7280]">
+          <figcaption className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#5F6672]">
             From exploration grids and wireframes to dashboard UI and Cursor implementation
           </figcaption>
         </figure>
@@ -384,22 +414,22 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
               { n: "05", t: "AI assist", tag: "AI" },
             ].map((s, i) => (
               <div key={s.n} className="flex flex-1 items-center gap-2">
-                <div className="min-w-0 flex-1 rounded-[4px] border border-[#578186]/35 bg-[#578186]/10 px-3 py-3 text-center">
-                  <p className="text-[11px] font-bold text-[#578186]">{s.n}</p>
+                <div className="min-w-0 flex-1 rounded-[4px] border border-[#3D6469]/35 bg-[#3D6469]/10 px-3 py-3 text-center">
+                  <p className="text-[11px] font-bold text-[#3D6469]">{s.n}</p>
                   <p className="mt-1 text-xs font-bold text-[#111111]">{s.t}</p>
-                  <span className="mt-2 inline-block rounded-[4px] bg-white/80 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-[#578186]">
+                  <span className="mt-2 inline-block rounded-[4px] bg-white/80 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-[#3D6469]">
                     {s.tag}
                   </span>
                 </div>
-                {i < 4 ? <ArrowRight className="hidden shrink-0 text-[#578186] sm:block" size={16} strokeWidth={1.5} /> : null}
+                {i < 4 ? <ArrowRight className="hidden shrink-0 text-[#3D6469] sm:block" size={16} strokeWidth={1.5} /> : null}
               </div>
             ))}
           </div>
         </div>
         <div className="rounded-[8px] border border-[#111111]/15 bg-[#111111]/[0.06] px-5 py-4">
-          <p className="text-[10px] font-bold uppercase tracking-wide text-[#578186]">Challenge</p>
+          <p className="text-[10px] font-bold uppercase tracking-wide text-[#3D6469]">Challenge</p>
           <p className="mt-2 text-sm font-semibold text-[#111111]">UI rules drifted across eight pages.</p>
-          <p className="mt-1 text-xs leading-relaxed text-[#6B7280]">
+          <p className="mt-1 text-xs leading-relaxed text-[#5F6672]">
             We cleaned up manually in Figma and Cursor—fast, but not perfectly consistent without a final audit pass.
           </p>
         </div>
@@ -433,13 +463,13 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
             },
           ].map((card) => (
             <div key={card.n} className="rounded-[8px] border border-[#111111]/10 bg-white/60 p-5">
-              <p className="text-xs font-bold text-[#578186]">{card.n}</p>
+              <p className="text-xs font-bold text-[#3D6469]">{card.n}</p>
               <p className="mt-2 text-lg font-bold text-[#111111]">{card.title}</p>
-              <p className="mt-1 text-sm text-[#6B7280]">{card.sum}</p>
+              <p className="mt-1 text-sm text-[#5F6672]">{card.sum}</p>
               <ul className="mt-4 space-y-2 text-sm text-[#111111]">
                 {card.bullets.map((b) => (
                   <li key={b} className="flex gap-2">
-                    <span className="mt-2 size-1.5 shrink-0 rounded-full bg-[#578186]" />
+                    <span className="mt-2 size-1.5 shrink-0 rounded-full bg-[#3D6469]" />
                     {b}
                   </li>
                 ))}
@@ -479,27 +509,26 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
             <div key={p.name} className="space-y-4">
               <div>
                 <p className="text-lg font-bold text-[#111111]">{p.name}</p>
-                <p className="text-xs font-semibold text-[#578186]">{p.role}</p>
+                <p className="text-xs font-semibold text-[#3D6469]">{p.role}</p>
               </div>
-              <blockquote className="rounded-[8px] border border-[#578186]/25 bg-[#578186]/[0.07] px-4 py-4 text-sm italic leading-relaxed text-[#111111]">
+              <blockquote className="rounded-[8px] border border-[#3D6469]/25 bg-[#3D6469]/[0.07] px-4 py-4 text-sm italic leading-relaxed text-[#111111]">
                 &quot;{p.quote}&quot;
               </blockquote>
-              <div className="overflow-hidden rounded-[8px] border border-[#111111]/10 bg-[#111111]/[0.04] shadow-sm">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[8px] border border-[#111111]/10 bg-[#111111]/[0.04] shadow-sm">
                 <Image
                   src={p.sessionSrc}
                   alt={p.sessionAlt}
-                  width={p.sessionW}
-                  height={p.sessionH}
-                  className="h-auto w-full"
+                  fill
+                  className="object-cover"
                   sizes="(max-width: 768px) 100vw, 400px"
                 />
               </div>
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-wide text-[#578186]">Key feedback</p>
+                <p className="text-[10px] font-bold uppercase tracking-wide text-[#3D6469]">Key feedback</p>
                 <ul className="mt-2 space-y-2 text-sm text-[#111111]">
                   {p.bullets.map((b) => (
                     <li key={b} className="flex gap-2">
-                      <span className="mt-2 size-1.5 shrink-0 rounded-full bg-[#578186]" />
+                      <span className="mt-2 size-1.5 shrink-0 rounded-full bg-[#3D6469]" />
                       {b}
                     </li>
                   ))}
@@ -513,71 +542,80 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
       {/* 10 — Final UI */}
       <section id="final" className="space-y-6 scroll-mt-32">
         <SectionRule />
-        <SectionHeader label="Final UI" title="Seven core screens" />
+        <SectionHeader label="Final UI" title="Eight core screens" />
         <ScreensGallery
           screens={[
             {
               n: "01",
               name: "Workspace",
               cap: "Overview · trial cards · new trial CTA",
-              src: "/images/clinical-trials-ui-01-workspace.png",
-              w: 1024,
-              h: 640,
-              alt: "Altrovia workspace: trial table, search, filters, and pagination",
+              src: "/images/clinical-trials/screens/workspace.png",
+              w: 5760,
+              h: 3600,
+              alt: "Altrovia workspace: overview stats, subject status chart, trial portfolio, and amendment risk trials",
             },
             {
               n: "02",
               name: "Design parameters",
               cap: "AI badge · collapsible rows · label/value rhythm",
-              src: "/images/clinical-trials-ui-02-design-parameters.png",
-              w: 1024,
-              h: 640,
+              src: "/images/clinical-trials/screens/design-parameters.png",
+              w: 5760,
+              h: 3600,
               alt: "Design parameters for TALAPRO-2 with AI-extracted badge and expandable protocol sections",
             },
             {
               n: "03",
               name: "Run analysis",
               cap: "Saved runs · scope badges · timestamps",
-              src: "/images/clinical-trials-ui-03-run-analysis.png",
-              w: 1024,
-              h: 640,
+              src: "/images/clinical-trials/screens/run-analysis.png",
+              w: 5760,
+              h: 3600,
               alt: "Trial analysis hub listing saved intelligence runs with scope tags and view actions",
             },
             {
               n: "04",
               name: "View results",
-              cap: "Comparator table · amendment callouts",
-              src: "/images/clinical-trials-ui-04-view-results.png",
-              w: 1024,
-              h: 640,
-              alt: "Trial intelligence analysis: KPIs, feasibility cards, enrollment curve, benchmark table",
+              cap: "Amendment risk · feasibility check · enrollment trajectory",
+              src: "/images/clinical-trials/screens/view-results.png",
+              w: 5760,
+              h: 3600,
+              alt: "Trial intelligence analysis: amendment risk, feasibility reality check, enrollment trajectory, benchmark table",
             },
             {
               n: "05",
               name: "Generate protocol",
-              cap: "Status bar · ten sections · readiness CTA",
-              src: "/images/clinical-trials-ui-05-generate-protocol.png",
-              w: 1024,
-              h: 640,
-              alt: "Generate protocol flow with readiness metrics and ten-section outline",
+              cap: "Complexity score · ten sections · readiness CTA",
+              src: "/images/clinical-trials/screens/generate-protocol.png",
+              w: 5760,
+              h: 3600,
+              alt: "Generate protocol flow with complexity score and ten-section outline",
             },
             {
               n: "06",
               name: "Version gallery",
-              cap: "Latest draft · history notes",
-              src: "/images/clinical-trials-ui-06-version-gallery.png",
-              w: 1024,
-              h: 640,
-              alt: "Version gallery with latest draft card and chronological protocol history",
+              cap: "Latest draft · version history",
+              src: "/images/clinical-trials/screens/version-gallery.png",
+              w: 5760,
+              h: 3600,
+              alt: "Version gallery with latest draft card and chronological protocol version history",
             },
             {
               n: "07",
               name: "Complexity assessment",
-              cap: "Wizard · review · score bar",
-              src: "/images/clinical-trials-ui-07-complexity-assessment.png",
-              w: 1024,
-              h: 640,
-              alt: "Review extracted data step: study basics form and live complexity score footer",
+              cap: "Wizard · review · score breakdown",
+              src: "/images/clinical-trials/screens/complexity-assessment.png",
+              w: 5760,
+              h: 3600,
+              alt: "Review extracted data step: study basics form and live complexity score breakdown",
+            },
+            {
+              n: "08",
+              name: "Protocol view",
+              cap: "Generated sections · export · edit",
+              src: "/images/clinical-trials/screens/protocol-view.png",
+              w: 5760,
+              h: 3600,
+              alt: "Generated protocol document view with section navigation and export action",
             },
           ]}
         />
@@ -588,7 +626,7 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
       <section id="fixed" className="space-y-6 scroll-mt-32">
         <SectionRule />
         <SectionHeader label="Reflection" title="What we fixed" />
-        <p className="max-w-3xl text-sm leading-relaxed text-[#6B7280]">
+        <p className="max-w-3xl text-sm leading-relaxed text-[#5F6672]">
           We closed the biggest trust and layout gaps first: clearer AI provenance, consistent sidebars, and scanning
           patterns that felt clinical instead of consumer.
         </p>
@@ -601,7 +639,7 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
           ].map((x) => (
             <div key={x.t} className="rounded-[4px] border border-[#111111]/10 bg-white/70 p-4 shadow-sm">
               <p className="text-sm font-bold text-[#111111]">{x.t}</p>
-              <p className="mt-2 text-xs leading-relaxed text-[#6B7280]">{x.f}</p>
+              <p className="mt-2 text-xs leading-relaxed text-[#5F6672]">{x.f}</p>
             </div>
           ))}
         </div>
@@ -618,9 +656,9 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
             { t: "User testing", d: "Sessions with trial ops to validate AI trust patterns." },
             { t: "Dashboard visuals", d: "More emphasis on active trials and status, beyond tables." },
           ].map((w) => (
-            <div key={w.t} className="rounded-[8px] border border-dashed border-[#578186]/35 bg-white/40 p-4">
+            <div key={w.t} className="rounded-[8px] border border-dashed border-[#3D6469]/35 bg-white/40 p-4">
               <p className="text-sm font-bold text-[#111111]">{w.t}</p>
-              <p className="mt-2 text-xs leading-relaxed text-[#6B7280]">{w.d}</p>
+              <p className="mt-2 text-xs leading-relaxed text-[#5F6672]">{w.d}</p>
             </div>
           ))}
         </div>
@@ -629,8 +667,8 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
       {/* 13 — Personal note */}
       <section id="note" className="scroll-mt-32">
         <SectionRule />
-        <div className="rounded-[8px] bg-[#578186]/12 px-6 py-10 text-center md:px-12 md:py-12">
-          <p className="text-4xl font-light leading-none text-[#578186]/50" aria-hidden>
+        <div className="rounded-[8px] bg-[#3D6469]/12 px-6 py-10 text-center md:px-12 md:py-12">
+          <p className="text-4xl font-light leading-none text-[#3D6469]/50" aria-hidden>
             &ldquo;
           </p>
           <p className="mx-auto mt-4 max-w-2xl text-sm font-normal italic leading-relaxed text-[#111111] md:text-base">
