@@ -30,12 +30,29 @@ export default function Page() {
         {/* Header */}
         <header id="overview" className="space-y-6 scroll-mt-32">
           <div className="space-y-2">
-            <p className="text-xs text-foreground/40 tracking-wide">Columbia University ROAR Lab • 2025</p>
             <h1 className="text-2xl md:text-3xl font-normal tracking-tight">
               C.A.S.T — Cable-Activated Stabilizing Torso
             </h1>
+            <p className="text-sm text-foreground/50">
+              Columbia Robotics and Rehabilitation Lab
+            </p>
           </div>
-          
+
+          <div className="flex flex-wrap gap-x-12 gap-y-4 text-sm pt-4">
+            <div>
+              <span className="block text-xs text-foreground/40 mb-1">Context</span>
+              <span className="text-foreground/70">Columbia GSAPP, ROAR Lab</span>
+            </div>
+            <div>
+              <span className="block text-xs text-foreground/40 mb-1">Timeline</span>
+              <span className="text-foreground/70">May 2025 – March 2026</span>
+            </div>
+            <div>
+              <span className="block text-xs text-foreground/40 mb-1">What I did</span>
+              <span className="text-foreground/70">Interaction Design, Wearable Design</span>
+            </div>
+          </div>
+
           {/* Project Overview - 2-3 lines max */}
           <p className="text-sm text-foreground/60 max-w-2xl leading-relaxed">
             A wearable assistive device that restores postural stability for spinal cord injury patients 

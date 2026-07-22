@@ -6,7 +6,7 @@ const funProjects = [
     slug: "greener-routes",
     title: "Greener Walking Routes",
     description:
-      "A walking-navigation prototype that recommends routes with higher green exposure, built for Computational Modeling at Columbia GSAPP.",
+      "A walking-navigation prototype that recommends routes with higher green exposure, built for Computational Modeling at Columbia GSAPP, advised by Luc Wilson and Meli Harvey.",
     tags: ["2026", "In progress"],
     image: "/images/greener-routes/screen-route-choice.png",
   },

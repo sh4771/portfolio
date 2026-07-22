@@ -34,7 +34,7 @@ const projects: CaseStudy[] = [
     description:
       "Adobe Designathon: clinical trial intelligence platform for clearer decisions, transparent AI recommendations, and actionable dashboards.",
     tags: ["2026", "UI/UX Design", "Case Study"],
-    image: "/images/clinical-trials-hero.png",
+    image: "/images/clinical-trials/monitor-mockup-static.png",
     aiTools: ["Claude Code", "Cursor", "Vibe coding"],
   },
   {

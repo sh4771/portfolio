@@ -22,13 +22,6 @@ function SectionHeader({ label, title }: { label: string; title: string }) {
   )
 }
 
-function Chip({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="rounded-[4px] border border-[#578186]/35 bg-white/60 px-3 py-2 text-left shadow-sm">
-      {children}
-    </div>
-  )
-}
 
 export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototypeVideoSrc: string }) {
   return (
@@ -43,23 +36,19 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
           centered trust, transparent AI signals, and a calmer hierarchy than typical enterprise dashboards. The full
           flow was built end-to-end in 10 hours with Hongxin Li under rapid critique loops.
         </p>
-        <div className="flex flex-wrap gap-3">
-          <Chip>
-            <p className="text-[9px] font-bold uppercase tracking-wide text-[#578186]">Timeline</p>
-            <p className="mt-1 text-sm font-semibold text-[#111111]">10 hr build · April 2026</p>
-          </Chip>
-          <Chip>
-            <p className="text-[9px] font-bold uppercase tracking-wide text-[#578186]">Role</p>
-            <p className="mt-1 text-sm font-semibold text-[#111111]">UX / UI · Strategy</p>
-          </Chip>
-          <Chip>
-            <p className="text-[9px] font-bold uppercase tracking-wide text-[#578186]">Tools</p>
-            <p className="mt-1 text-sm font-semibold text-[#111111]">Figma · Adobe Express · Cursor</p>
-          </Chip>
-          <Chip>
-            <p className="text-[9px] font-bold uppercase tracking-wide text-[#578186]">Team</p>
-            <p className="mt-1 text-sm font-semibold text-[#111111]">Violet Hyun · Hongxin Li</p>
-          </Chip>
+        <div className="flex flex-wrap gap-x-12 gap-y-4 text-sm pt-2">
+          <div>
+            <span className="mb-1 block text-xs text-[#6B7280]">Context</span>
+            <span className="text-[#111111]">Adobe Designathon, with Hongxin Li</span>
+          </div>
+          <div>
+            <span className="mb-1 block text-xs text-[#6B7280]">Timeline</span>
+            <span className="text-[#111111]">10 hr build · April 2026</span>
+          </div>
+          <div>
+            <span className="mb-1 block text-xs text-[#6B7280]">What I did</span>
+            <span className="text-[#111111]">UX / UI, Strategy</span>
+          </div>
         </div>
         <div className="max-w-4xl space-y-2">
           <div className="overflow-hidden rounded-[8px] border border-[#111111]/10 bg-[#E6E4DD] p-4 shadow-sm sm:p-6 md:p-8">
@@ -78,6 +67,33 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
             High-fidelity hero from the designathon submission. Other sections on this page still use placeholders until
             export assets are added.
           </p>
+        </div>
+      </section>
+
+      {/* Demo video — compact, visual, moved to the top */}
+      <section id="demo" className="space-y-4 scroll-mt-32">
+        <SectionRule />
+        <SectionHeader label="Demo" title="Prototype walkthrough" />
+
+        {/* Monitor mockup */}
+        <div className="relative mx-auto w-full max-w-2xl">
+          <Image
+            src="/images/clinical-trials/monitor-mockup.png"
+            alt="Studio Display monitor mockup"
+            width={877}
+            height={527}
+            className="h-auto w-full select-none"
+            priority={false}
+          />
+          <div
+            className="absolute overflow-hidden rounded-[3px] bg-black"
+            style={{ left: "18.4%", right: "17.6%", top: "0.4%", bottom: "38.4%" }}
+          >
+            <video controls playsInline preload="metadata" className="h-full w-full object-cover">
+              <source src={prototypeVideoSrc} type="video/quicktime" />
+              <source src={prototypeVideoSrc} type="video/mp4" />
+            </video>
+          </div>
         </div>
       </section>
 
@@ -261,8 +277,8 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
               <Image
                 src="/images/clinical-trials-ux-board-clinical-vendors.png"
                 alt="Annotated competitor scan: Medidata, Veeva, and Palantir marketing and product pages with green and red notes"
-                width={381}
-                height={152}
+                width={1143}
+                height={456}
                 className="h-auto w-full"
                 sizes="(max-width: 768px) 100vw, 440px"
               />
@@ -275,15 +291,15 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
             <div className="overflow-hidden rounded-[8px] border border-[#111111]/10 bg-white p-2 shadow-sm">
               <Image
                 src="/images/clinical-trials-ux-board-product-landings.png"
-                alt="Annotated references: Linear, Supabase, Anduril, Scale.ai, Bunker, Vercel, and Palantir AI landing heroes with notes"
-                width={381}
-                height={154}
+                alt="Annotated references: Linear, Supabase, Anduril, Scale.ai, Cursor, Vercel, and Primer.ai landing heroes with notes"
+                width={1143}
+                height={462}
                 className="h-auto w-full"
                 sizes="(max-width: 768px) 100vw, 440px"
               />
             </div>
             <figcaption className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#6B7280]">
-              02 · Product / dev landings · Linear · Supabase · Anduril · Scale · Bunker · Vercel · Palantir AI
+              02 · Product / dev landings · Linear · Supabase · Anduril · Scale.ai · Cursor · Vercel · Primer.ai
             </figcaption>
           </figure>
         </div>
@@ -618,17 +634,6 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
         </div>
       </section>
 
-      {/* Demo video — compact, visual */}
-      <section className="space-y-4">
-        <SectionRule />
-        <SectionHeader label="Demo" title="Prototype walkthrough" />
-        <div className="overflow-hidden rounded-[8px] border border-[#111111]/15 bg-black shadow-lg">
-          <video controls playsInline preload="metadata" className="aspect-video w-full object-contain">
-            <source src={prototypeVideoSrc} type="video/quicktime" />
-            <source src={prototypeVideoSrc} type="video/mp4" />
-          </video>
-        </div>
-      </section>
 
       {/* 11 — What we fixed */}
       <section id="fixed" className="space-y-6 scroll-mt-32">

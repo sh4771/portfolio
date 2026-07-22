@@ -46,20 +46,16 @@ export default function Page() {
             
             <div className="flex flex-wrap gap-x-12 gap-y-4 text-sm pt-4">
               <div>
-                <span className="block text-xs text-foreground/40 mb-1">Role</span>
-                <span className="text-foreground/70">UI/UX Designer</span>
+                <span className="block text-xs text-foreground/40 mb-1">Context</span>
+                <span className="text-foreground/70">Web, personal project</span>
               </div>
               <div>
                 <span className="block text-xs text-foreground/40 mb-1">Timeline</span>
                 <span className="text-foreground/70">May 2024 – January 2025</span>
               </div>
               <div>
-                <span className="block text-xs text-foreground/40 mb-1">Platform</span>
-                <span className="text-foreground/70">Web (Concept → High-Fidelity Prototype)</span>
-              </div>
-              <div>
-                <span className="block text-xs text-foreground/40 mb-1">Tools</span>
-                <span className="text-foreground/70">Figma, FigJam</span>
+                <span className="block text-xs text-foreground/40 mb-1">What I did</span>
+                <span className="text-foreground/70">UI/UX Designer</span>
               </div>
             </div>
 

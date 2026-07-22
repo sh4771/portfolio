@@ -56,16 +56,16 @@ export default function Page() {
             
             <div className="flex flex-wrap gap-x-12 gap-y-4 text-sm pt-4">
               <div>
-                <span className="block text-xs text-foreground/40 mb-1">Role</span>
+                <span className="block text-xs text-foreground/40 mb-1">Context</span>
+                <span className="text-foreground/70">Stealth startup, iOS beta (pre-launch)</span>
+              </div>
+              <div>
+                <span className="block text-xs text-foreground/40 mb-1">Timeline</span>
+                <span className="text-foreground/70">2025 – 2026 (pre-launch)</span>
+              </div>
+              <div>
+                <span className="block text-xs text-foreground/40 mb-1">What I did</span>
                 <span className="text-foreground/70">UX Director / Product Designer</span>
-              </div>
-              <div>
-                <span className="block text-xs text-foreground/40 mb-1">Status</span>
-                <span className="text-foreground/70">Stealth startup | iOS beta (pre-launch)</span>
-              </div>
-              <div>
-                <span className="block text-xs text-foreground/40 mb-1">Scope</span>
-                <span className="text-foreground/70">Onboarding | Friends | Schedule | Profile | Calendar Design</span>
               </div>
             </div>
 

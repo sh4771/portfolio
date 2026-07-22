@@ -48,6 +48,9 @@ export default function Page() {
                 <p className="text-sm text-foreground/50">
                   UI/UX Design · Columbia University Prototyping in Urban Tech
                 </p>
+                <p className="text-xs text-foreground/40">
+                  Capstone, advised by Michael Krisch
+                </p>
               </div>
               
               <div className="flex flex-wrap gap-x-12 gap-y-4 text-sm pt-4">

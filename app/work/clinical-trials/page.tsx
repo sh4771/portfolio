@@ -5,6 +5,7 @@ import { SectionTracker } from "@/components/section-tracker"
 
 const sections = [
   { id: "overview", label: "Project overview" },
+  { id: "demo", label: "Demo" },
   { id: "problem", label: "Problem discovery" },
   { id: "approach", label: "Our approach" },
   { id: "trust", label: "Building trust" },

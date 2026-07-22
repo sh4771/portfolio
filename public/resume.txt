@@ -1,5 +1,5 @@
 Violet Hyun
-Full-Stack and AI-Native Product Designer based in New York City
+Data-Driven and AI-Native Product Designer based in New York City
 Phone: (646) 887-4330
 Email: violethyun@nyu.edu
 Site: https://www.violethyun.com
@@ -11,76 +11,81 @@ https://www.violethyun.com/Resume_Violet_Hyun.pdf
 
 EDUCATION
 
-Columbia University — New York, NY
+Columbia University, Graduate School of Architecture, Planning, and Preservation — New York, NY
 M.S. in Computational Design Practices, Human-Computer Interaction
 Graduated May 2026
-Relevant coursework: Mapping Systems, Computational Modeling, Spatial UX,
-Prototyping in Urban Tech
+Relevant coursework: Mapping Systems, Mapping and Data, Spatial UX,
+Computational Drawing, Prototyping in Urban Tech
 
-New York University — New York, NY
-B.F.A. in Interactive Media Arts, Minor in Computer Science
+New York University, Tisch School of the Arts — New York, NY
+B.F.A., Interactive Media Arts; Minor in Computer Science
 December 2024
-Relevant coursework: Web Design, Computer Programming, Creative Computing,
-Physical Computation
+Relevant coursework: Creative Robotics and Tech, Physical Computing,
+Machine Learning for the Arts, Creative Computing
 
 EXPERIENCE
 
 Vendelux — New York, NY
-Product Designer | B2B SaaS, Series B Startup
+Product Designer | Prev. Customer-facing products, Now. Internal Platform Tools (B2B SaaS)
 March 2026 – Present
-- Led the end-to-end design of Segments, a real-time audience-building
-  platform, from concept through company-wide launch across all customer
-  accounts, replacing hours-long manual list workflows with reusable dynamic
-  filtering; drove 7.4K weekly API interactions, nearly 2,000 audience-result
-  queries, and 38 customer-created segments in the first observed post-launch
-  week.
-- Launched Event Organizer MVP in 3 weeks, a new product built on Segments
-  that gives event organizers real-time visibility into attendee data and
-  event goals; used rapid prototyping and experimentation to iterate on the
-  filtering model, nearly doubling condition requests per query from 0.44 to
-  0.79.
-- Designed and shipped a unified design system across 5 platform surfaces
-  (Attendees, Organizations, Segments, Event Organizer MVP, shared
-  components), building a reusable icon framework (80 icons across 20
-  filters), a 3-state status system, and a 4-variant Toast component library.
-  Built an agentic AI workflow (Figma MCP plugin API) that autonomously
-  scripted component variants and design tokens.
+- Owned end-to-end design for Segments, a real-time audience-building
+  platform, from concept through company-wide launch, replacing hours-long
+  manual list workflows with reusable dynamic filtering. Drove 7.4K weekly
+  API interactions, 2,000 audience queries, and 38 customer-created segments
+  in the first post-launch week.
+- Designed Event Organizer MVP using an AI-first workflow: Claude to spec,
+  Figma to prototype, V0 to finalize. This improvement doubled condition
+  requests per query, from 0.44 to 0.79, within weeks of launch.
+- Built the design system from the ground up across 4 product surfaces,
+  treating it as a modular, structured system (an 80-icon framework across
+  20 filters, a 3-state status system, a 4-variant Toast library) that could
+  scale as the product grew. Used the Figma MCP plugin API to script
+  components and tokens directly, cutting creation time from 2 days to 1
+  hour, introduced Storybook.js to document and stress-test component
+  states, and shared the system with a 15-person cross-functional team.
 
 Columbia Robotics and Rehabilitation Lab — New York, NY
 Web Designer & Graduate Researcher
 May 2025 – March 2026
-- Led user-centered research end-to-end across 40+ hours with 8 SCI patients
-  and 4 physical therapists, synthesizing findings into affinity maps that
-  directly shaped the engineering team's hardware priorities and delivered a
-  25% increase in force consistency and 30% higher user-reported comfort in
-  usability testing.
-- Designed, built, and shipped the lab's public-facing site end-to-end with
-  custom HTML/CSS, crafting distinct user flows and content architecture for
-  four audiences (clinicians, funding agencies, patients, academic
-  collaborators) from a single content system.
+- Designed the interaction model and vest garment for C.A.S.T., a
+  cable-driven postural support wearable for SCI patients: defined 3
+  gesture-based control modes (Neutral Lock, Free Mode, Stabilize Mode) and
+  diagnosed and resolved 3 fit and tension failures in an early prototype
+  through a non-stretch nylon redesign with shoulder anchors and symmetrical
+  cable clips.
+- Designed and shipped the lab's public-facing site end-to-end with custom
+  HTML/CSS, indexing on simplicity and clarity to serve 4 distinct audiences
+  (clinicians, funding agencies, patients, academic collaborators) from a
+  single content system.
 
 Stealth Startup — New York, NY
 User Experience Designer | Early-stage AI product
 November 2025 – January 2026
-- Designed 200+ screens from concept to high-fidelity prototype for an
-  early-stage AI product on a 4-person team, building an agentic AI workflow
-  that let the team move from concept to shipped MVP screens autonomously in
-  3 weeks.
-- Owned the interaction design for weekly releases, collaborating directly
-  with the CTO and front-end engineers to translate technical constraints
-  into design decisions and ship pixel-accurate experiences through Figma
-  Dev Mode.
+- Worked as a full-stack designer on a 4-person team, using Claude Code and
+  Cursor to prototype flows and Figma to finalize 200+ shipped screens, from
+  concept to launch, in an ambiguous, fast-moving environment.
+- Partnered with the CTO and front-end engineers to take the MVP from
+  concept to shipped in 2 weeks, running 10+ rounds of prototyping and
+  iteration while translating technical constraints into design decisions.
 
-Richemont (Chloé) — Seoul, South Korea
-Assistant Merchandiser
-September 2023 – December 2023
-- Led the design and presentation of the A/W24 and S/S24 capsule collection
-  strategy to Chloé's Managing Director and Korea executive team, translating
-  product vision into a narrative that won alignment across every Chloé
-  boutique in the region.
-- Owned daily sell-through analytics in SAP and BEx Web for regional offices
-  and built the training system 100+ boutique managers nationwide used to
-  launch seasonal collections.
+PROJECTS
+
+PASSIT ON
+Capstone, Advised by Michael Krisch
+Link: https://www.violethyun.com/work/passiton
+- Designed and built an NFC-based, peer-to-peer garment tracking platform
+  addressing textile waste flowing from the Global North into Ghana's
+  Kantamanto Market, using UN Comtrade trade data and Kantamanto field
+  research to visualize the scale of fast fashion waste, and shipping the
+  prototype with Figma MCP, Claude Code, and Cursor on Vercel.
+
+Greener Walking Routes
+Computational Modeling, Advised by Meli Harvey, Luc Wilson
+Link: https://www.violethyun.com/work/greener-routes
+- Modeled a walking-navigation prototype in Rhino and Grasshopper, with
+  Claude assisting the design process, to recommend routes with higher green
+  exposure while limiting detours to under 15% of the shortest-route
+  distance, reframing navigation around enjoyment rather than pure speed.
 
 LEADERSHIP
 
@@ -100,11 +105,14 @@ May 2023 – December 2024
 
 SKILLS & INTERESTS
 
-Agentic AI & Technical: Claude Code, Claude MCP, Cursor, Codex, Figma Make,
-V0, Figma Plugin API, HTML/CSS, Python
+Agentic AI: Claude Design, Claude Code, Claude MCP, Cursor, Codex, Manus,
+Figma Make, V0, Google Stitch
 
-Design & Research: Figma, Principle, Adobe CS (Ae, Pr, Ai), User Flows,
-Wireframing, High-Fidelity Prototyping, Visual Design, User Interviews,
-Usability Testing, A/B Testing, Affinity Mapping, Squarespace, Framer, Vercel
+Design & Development: Figma, Figma Plugin API, Adobe CS (Ae, Pr, Ai),
+Framer, Squarespace, HTML/CSS, Python, Vercel
 
-Languages: English, Korean (native)
+Productivity & References: Linear, Granola, ClickUp, Miro, Mobbin, Page
+Flows, Cosmos, Awwwards, Dribbble
+
+Research: User Interviews, Usability Testing, A/B Testing, Affinity
+Mapping, User Flows, Qualitative & Quantitative Synthesis

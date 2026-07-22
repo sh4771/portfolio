@@ -489,7 +489,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
     tools: ["Rhino", "Grasshopper", "Claude Design", "NYC Parks Open Data"],
     image: "/images/greener-routes/screen-route-choice.png",
     credit: {
-      text: "Course project for Computational Modeling, taught by",
+      text: "Course project for Computational Modeling, advised by Luc Wilson and",
       name: "Meli Harvey",
       url: "https://www.arch.columbia.edu/faculty/2411-meli-harvey",
     },
