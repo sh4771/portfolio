@@ -23,7 +23,13 @@ const sections = [
 export default function Page() {
   return (
     <>
-    <SectionTracker sections={sections} />
+    <SectionTracker
+      sections={sections}
+      activeClass="text-[#111111] opacity-100"
+      dotActiveClass="bg-[#578186]"
+      mutedClass="text-[#111111]/60"
+      dotMutedClass="bg-[#111111]/25"
+    />
     <main className="min-h-screen bg-[#F2EDE2] px-4 py-12 text-[#111111] md:px-8 md:py-16">
       <div className="mx-auto max-w-[1100px] space-y-14">
         <Link

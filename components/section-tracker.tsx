@@ -7,7 +7,20 @@ interface Section {
   label: string
 }
 
-export function SectionTracker({ sections }: { sections: Section[] }) {
+export function SectionTracker({
+  sections,
+  activeClass = "text-foreground opacity-100",
+  dotActiveClass = "bg-foreground",
+  mutedClass = "text-foreground/60",
+  dotMutedClass = "bg-foreground/25",
+}: {
+  sections: Section[]
+  /** Override for pages with a fixed (non-theme-reactive) background, e.g. text-[#111111] */
+  activeClass?: string
+  dotActiveClass?: string
+  mutedClass?: string
+  dotMutedClass?: string
+}) {
   const [activeId, setActiveId] = useState(sections[0]?.id)
 
   useEffect(() => {
@@ -47,16 +60,14 @@ export function SectionTracker({ sections }: { sections: Section[] }) {
           >
             <span
               className={`whitespace-nowrap text-xs transition-opacity ${
-                isActive
-                  ? "text-foreground opacity-100"
-                  : "text-foreground/60 opacity-0 group-hover:opacity-70"
+                isActive ? activeClass : `${mutedClass} opacity-0 group-hover:opacity-70`
               }`}
             >
               {section.label}
             </span>
             <span
               className={`block h-1.5 w-1.5 shrink-0 rounded-full transition-all ${
-                isActive ? "scale-125 bg-foreground" : "bg-foreground/25"
+                isActive ? `scale-125 ${dotActiveClass}` : dotMutedClass
               }`}
             />
           </a>

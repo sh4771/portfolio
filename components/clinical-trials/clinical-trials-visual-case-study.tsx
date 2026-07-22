@@ -1,6 +1,7 @@
 import Image from "next/image"
 import { Inter } from "next/font/google"
-import { BarChart3, Database, EyeOff, ArrowDown, ArrowRight } from "lucide-react"
+import { BarChart3, Database, EyeOff, ArrowRight } from "lucide-react"
+import { ScreensGallery } from "./screens-gallery"
 
 /** Inter: used only in the Visual system typography samples (product UI type). */
 const clinicalTypographySamples = Inter({
@@ -50,24 +51,6 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
             <span className="text-[#111111]">UX / UI, Strategy</span>
           </div>
         </div>
-        <div className="max-w-4xl space-y-2">
-          <div className="overflow-hidden rounded-[8px] border border-[#111111]/10 bg-[#E6E4DD] p-4 shadow-sm sm:p-6 md:p-8">
-            <Image
-              src="/images/clinical-trials-hero-mockup.png"
-              alt="Altrovia clinical trial intelligence dashboard mockup on a Studio Display"
-              width={1024}
-              height={765}
-              className="h-auto w-full rounded-[4px]"
-              sizes="(max-width: 896px) 100vw, 896px"
-              priority
-            />
-          </div>
-          <p className="text-xs leading-relaxed text-[#6B7280]">
-            <span className="font-bold uppercase tracking-[0.15em] text-[#578186]">Mockup · </span>
-            High-fidelity hero from the designathon submission. Other sections on this page still use placeholders until
-            export assets are added.
-          </p>
-        </div>
       </section>
 
       {/* Demo video — compact, visual, moved to the top */}
@@ -76,20 +59,28 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
         <SectionHeader label="Demo" title="Prototype walkthrough" />
 
         {/* Monitor mockup */}
-        <div className="relative mx-auto w-full max-w-2xl">
+        <div className="group relative mx-auto w-full max-w-2xl">
           <Image
             src="/images/clinical-trials/monitor-mockup.png"
             alt="Studio Display monitor mockup"
-            width={877}
+            width={672}
             height={527}
             className="h-auto w-full select-none"
             priority={false}
           />
           <div
             className="absolute overflow-hidden rounded-[3px] bg-black"
-            style={{ left: "18.4%", right: "17.6%", top: "0.4%", bottom: "38.4%" }}
+            style={{ left: "8.2%", right: "8.2%", top: "0.4%", bottom: "38.4%" }}
           >
-            <video controls playsInline preload="metadata" className="h-full w-full object-cover">
+            <video
+              autoPlay
+              muted
+              loop
+              controls
+              playsInline
+              preload="auto"
+              className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
+            >
               <source src={prototypeVideoSrc} type="video/quicktime" />
               <source src={prototypeVideoSrc} type="video/mp4" />
             </video>
@@ -303,31 +294,6 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
             </figcaption>
           </figure>
         </div>
-        <div className="flex flex-col items-center gap-3 rounded-[8px] border border-dashed border-[#578186]/35 bg-[#578186]/[0.06] px-4 py-5 text-center md:flex-row md:justify-center md:gap-5">
-          <ArrowDown className="size-5 shrink-0 text-[#578186] md:hidden" strokeWidth={1.75} aria-hidden />
-          <span className="rounded-[4px] border border-[#578186]/40 bg-white/90 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-[#578186]">
-            Adobe Express
-          </span>
-          <p className="max-w-md text-xs leading-snug text-[#6B7280]">
-            Typography, crops, and callout colors were aligned so both boards could collapse into one legible comparison.
-          </p>
-          <ArrowRight className="hidden size-5 shrink-0 text-[#578186] md:block" strokeWidth={1.75} aria-hidden />
-        </div>
-        <figure className="space-y-2">
-          <div className="overflow-hidden rounded-[8px] border border-[#111111]/10 bg-white p-2 shadow-sm">
-            <Image
-              src="/images/clinical-trials-ux-pros-cons-synthesis.png"
-              alt="Pros and cons synthesis grid: branding mismatch, bad visual systems vs. readability, credibility, and related notes"
-              width={526}
-              height={294}
-              className="h-auto w-full"
-              sizes="(max-width: 1100px) 100vw, 900px"
-            />
-          </div>
-          <figcaption className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#6B7280]">
-            03 · Synthesis · Cons / pros matrix from both boards
-          </figcaption>
-        </figure>
         <div className="rounded-[8px] border border-[#111111]/10 bg-[#111111]/[0.04] p-4">
           <p className="mb-3 text-[10px] font-bold uppercase tracking-wide text-[#578186]">Reference set</p>
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
@@ -548,8 +514,8 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
       <section id="final" className="space-y-6 scroll-mt-32">
         <SectionRule />
         <SectionHeader label="Final UI" title="Seven core screens" />
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {[
+        <ScreensGallery
+          screens={[
             {
               n: "01",
               name: "Workspace",
@@ -613,25 +579,8 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
               h: 640,
               alt: "Review extracted data step: study basics form and live complexity score footer",
             },
-          ].map((ui) => (
-            <div key={ui.n} className="space-y-2">
-              <div className="overflow-hidden rounded-[8px] border border-[#111111]/10 bg-white shadow-sm">
-                <Image
-                  src={ui.src}
-                  alt={ui.alt}
-                  width={ui.w}
-                  height={ui.h}
-                  className="h-auto w-full"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px"
-                />
-              </div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#6B7280]">
-                {ui.n} · {ui.name}
-              </p>
-              <p className="text-xs leading-snug text-[#111111]">{ui.cap}</p>
-            </div>
-          ))}
-        </div>
+          ]}
+        />
       </section>
 
 
