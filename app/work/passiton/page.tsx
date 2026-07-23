@@ -45,17 +45,25 @@ export default function Page() {
                 <h1 className="text-2xl md:text-3xl font-normal tracking-tight">
                   Designing Traceable Garment Lifecycles
                 </h1>
-                <p className="text-sm text-foreground/50">
+                <p className="text-sm text-text-secondary">
                   UI/UX Design · Columbia University Prototyping in Urban Tech
                 </p>
-                <p className="text-xs text-foreground/40">
-                  Capstone, advised by Michael Krisch
+                <p className="text-xs text-text-secondary">
+                  {"Capstone, advised by Michael Krisch — featured on "}
+                  <a
+                    href="https://gsapp-cdp.github.io/archive/projects/2026/pass-it-on/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline decoration-text-muted underline-offset-2 hover:text-foreground"
+                  >
+                    Columbia GSAPP&apos;s thesis archive
+                  </a>
                 </p>
               </div>
               
               <div className="flex flex-wrap gap-x-12 gap-y-4 text-sm pt-4">
                 <div>
-                  <span className="block text-xs text-foreground/40 mb-1">Context</span>
+                  <span className="block text-xs text-text-secondary mb-1">Context</span>
                   <span className="text-foreground/70">
                     Columbia University Prototyping in Urban Tech
                   </span>

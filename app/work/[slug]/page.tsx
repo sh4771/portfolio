@@ -99,7 +99,7 @@ export default async function CaseStudyPage({
           {/* Hero: live embed or static image */}
           {study.embedUrl ? (
             <div className="mt-10 overflow-hidden rounded-2xl border-t border-border/40 pt-10">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-border/30 bg-black sm:aspect-video">
+              <div className="relative mx-auto aspect-[3/4] max-w-md overflow-hidden rounded-xl border border-border/30 bg-black sm:aspect-[4/5]">
                 <iframe
                   src={study.embedUrl}
                   title={`${study.title} live demo`}

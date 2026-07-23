@@ -100,24 +100,31 @@ export function Hero() {
 
         <p
           data-animate
-          className="mt-3 text-sm font-medium leading-tight tracking-[-0.01em] text-foreground/70 md:whitespace-nowrap"
+          className="mt-3 text-sm font-medium leading-tight tracking-[-0.01em] text-text-secondary md:whitespace-nowrap"
         >
           {"— a product designer working across "}
           <TypewriterWords />
           {" to shape human experience."}
         </p>
 
-        <div data-animate className="mt-14 space-y-12">
+        <p
+          data-animate
+          className="mt-3 max-w-lg text-sm leading-relaxed text-text-secondary"
+        >
+          {"I bridge artistic imagination and practical, buildable reality through spatial thinking."}
+        </p>
+
+        <div data-animate className="mt-10 space-y-8">
           <div className="relative flex gap-5">
             <div className="flex flex-col items-center">
               <span className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full bg-foreground" />
-              <span className="mt-1.5 w-px flex-1 bg-foreground/20" />
+              <span className="mt-1.5 w-px flex-1 bg-text-muted" />
             </div>
             <div className="pb-1">
-              <p className="text-xs font-semibold tracking-[0.14em] text-foreground/60 uppercase">
+              <p className="text-xs font-semibold tracking-[0.14em] text-text-secondary uppercase">
                 Now
               </p>
-              <p className="mt-2.5 max-w-lg text-sm leading-relaxed text-foreground/70">
+              <p className="mt-2.5 max-w-lg text-sm leading-relaxed text-text-secondary">
                 {"Product Designer at "}
                 <a
                   href="https://www.vendelux.com/"
@@ -134,20 +141,20 @@ export function Hero() {
 
           <div className="relative flex gap-5">
             <div className="flex flex-col items-center">
-              <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full border border-foreground/50 bg-background" />
-              <span className="mt-1.5 w-px flex-1 bg-foreground/20" />
+              <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full border border-text-muted bg-background" />
+              <span className="mt-1.5 w-px flex-1 bg-text-muted" />
             </div>
             <div className="pb-1">
-              <p className="text-xs font-semibold tracking-[0.14em] text-foreground/60 uppercase">
+              <p className="text-xs font-semibold tracking-[0.14em] text-text-secondary uppercase">
                 Previously
               </p>
-              <p className="mt-2.5 max-w-lg text-sm leading-relaxed text-foreground/70">
+              <p className="mt-2.5 max-w-lg text-sm leading-relaxed text-text-secondary">
                 {"Design and research at "}
                 <a
                   href="https://roar.me.columbia.edu/"
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-block text-foreground/70 underline decoration-foreground/30 underline-offset-2 transition-colors duration-200 ease-out hover:text-foreground"
+                  className="inline-block text-text-secondary underline decoration-text-muted underline-offset-2 transition-colors duration-200 ease-out hover:text-foreground"
                 >
                   Robotics and Rehabilitation Lab at Columbia University
                 </a>
@@ -156,7 +163,7 @@ export function Hero() {
                   href="https://misskcosmetics.com/"
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-block text-foreground/70 underline decoration-foreground/30 underline-offset-2 transition-colors duration-200 ease-out hover:text-foreground"
+                  className="inline-block text-text-secondary underline decoration-text-muted underline-offset-2 transition-colors duration-200 ease-out hover:text-foreground"
                 >
                   Miss K Cosmetics
                 </a>
@@ -165,7 +172,7 @@ export function Hero() {
                   href="https://www.kmcaseoul.org/"
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-block text-foreground/70 underline decoration-foreground/30 underline-offset-2 transition-colors duration-200 ease-out hover:text-foreground"
+                  className="inline-block text-text-secondary underline decoration-text-muted underline-offset-2 transition-colors duration-200 ease-out hover:text-foreground"
                 >
                   K Museum of Contemporary Art
                 </a>
@@ -174,7 +181,7 @@ export function Hero() {
                   href="https://www.chloe.com/en-us"
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-block text-foreground/70 underline decoration-foreground/30 underline-offset-2 transition-colors duration-200 ease-out hover:text-foreground"
+                  className="inline-block text-text-secondary underline decoration-text-muted underline-offset-2 transition-colors duration-200 ease-out hover:text-foreground"
                 >
                   Chloé
                 </a>
@@ -185,16 +192,16 @@ export function Hero() {
 
           <div className="relative flex gap-5">
             <div className="flex flex-col items-center">
-              <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full border border-foreground/50 bg-background" />
+              <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full border border-text-muted bg-background" />
             </div>
             <div>
-              <p className="text-xs font-semibold tracking-[0.14em] text-foreground/60 uppercase">
+              <p className="text-xs font-semibold tracking-[0.14em] text-text-secondary uppercase">
                 Education
               </p>
-              <p className="mt-2.5 max-w-lg text-sm leading-relaxed text-foreground/70">
+              <p className="mt-2.5 max-w-lg text-sm leading-relaxed text-text-secondary">
                 {"M.S. in Computational Design Practices at "}
                 <a
-                  href="https://gsapp-cdp.github.io/archive/projects/2026/pass-it-on/"
+                  href="https://www.arch.columbia.edu/programs/33-m-s-computational-design-practices"
                   target="_blank"
                   rel="noreferrer"
                   className="inline-block text-sky-600 dark:text-sky-400 transition-colors duration-200 ease-out hover:text-sky-500 dark:hover:text-sky-300"
@@ -219,7 +226,7 @@ export function Hero() {
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 scroll-indicator">
-        <span className="text-xs uppercase tracking-[0.2em] text-foreground/40">
+        <span className="text-xs uppercase tracking-[0.2em] text-text-muted">
           Scroll
         </span>
         <div className="scroll-arrow">
