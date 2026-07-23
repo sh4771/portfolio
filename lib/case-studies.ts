@@ -12,6 +12,8 @@ export interface CaseStudyData {
   heroTreatAsLogo?: boolean
   /** Optional: embed a live interactive demo (e.g. a p5.js sketch) instead of a static hero image */
   embedUrl?: string
+  /** Optional: autoplay a demo video instead of (or alongside a link to) a live embed */
+  video?: string
   credit?: { text: string; name: string; url: string }
   gallery?: { image: string; caption?: string }[]
   overview?: string
@@ -580,6 +582,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
     tools: ["p5.js", "JavaScript", "HTML/CSS"],
     image: "/images/restaurant-bot-cover.png",
     embedUrl: "https://editor.p5js.org/sh6363/full/mnrKWZok0",
+    video: "/videos/restaurant-bot-demo.mov",
     credit: {
       text: "Course project for Chatbots for Art's Sake, advised by",
       name: "Carrie Wang",

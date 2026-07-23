@@ -96,8 +96,39 @@ export default async function CaseStudyPage({
             ) : null}
           </div>
 
-          {/* Hero: live embed or static image */}
-          {study.embedUrl ? (
+          {/* Hero: demo video, live embed, or static image */}
+          {study.video ? (
+            <div className="mt-10 overflow-hidden rounded-2xl border-t border-border/40 pt-10">
+              <div className="relative mx-auto aspect-[3/4] max-w-md overflow-hidden rounded-xl border border-border/30 bg-black sm:aspect-[4/5]">
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  controls
+                  playsInline
+                  preload="auto"
+                  className="absolute inset-0 h-full w-full object-contain"
+                >
+                  <source src={study.video} type="video/quicktime" />
+                  <source src={study.video} type="video/mp4" />
+                </video>
+              </div>
+              {study.embedUrl ? (
+                <p className="mt-3 text-xs text-foreground/40">
+                  {"Want to try it yourself? "}
+                  <a
+                    href={study.embedUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline decoration-foreground/30 underline-offset-2 hover:text-foreground"
+                  >
+                    Open the live sketch
+                  </a>
+                  {" and ask for a restaurant recommendation."}
+                </p>
+              ) : null}
+            </div>
+          ) : study.embedUrl ? (
             <div className="mt-10 overflow-hidden rounded-2xl border-t border-border/40 pt-10">
               <div className="relative mx-auto aspect-[3/4] max-w-md overflow-hidden rounded-xl border border-border/30 bg-black sm:aspect-[4/5]">
                 <iframe

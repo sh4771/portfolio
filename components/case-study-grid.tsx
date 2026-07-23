@@ -76,7 +76,7 @@ const projects: CaseStudy[] = [
     tags: ["2026", "UI/UX Design", "Case Study"],
     image: "/images/clinical-trials/monitor-mockup-static.png",
     aiTools: ["Claude Code", "Cursor", "Figma MCP"],
-    video: "/videos/clinical-trials-prototype.mov",
+    video: "/videos/clinical-trials-prototype.mov#t=3",
     mockupFrame: "/images/clinical-trials/monitor-mockup.png",
     mockupBounds: { left: 8.18, right: 8.18, top: 0.3, bottom: 1.8 },
   },

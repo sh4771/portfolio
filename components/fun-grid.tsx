@@ -7,6 +7,7 @@ interface FunProject {
   description: string
   tags: string[]
   image: string
+  video?: string
   embedUrl?: string
   tools?: string[]
 }
@@ -28,6 +29,7 @@ const funProjects: FunProject[] = [
       "A live p5.js chatbot sketch built for Chatbots for Art's Sake at NYU, advised by Carrie Wang.",
     tags: ["2026"],
     image: "/images/restaurant-bot-cover.png",
+    video: "/videos/restaurant-bot-demo.mov",
     embedUrl: "https://editor.p5js.org/sh6363/full/mnrKWZok0",
     tools: ["p5.js"],
   },
@@ -53,15 +55,20 @@ export function FunGrid() {
               className="group block"
             >
               <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/30 bg-muted/30">
-                {project.embedUrl ? (
-                  <iframe
-                    src={project.embedUrl}
-                    title={`${project.title} preview`}
-                    loading="lazy"
-                    className="pointer-events-none absolute inset-0 h-full w-full transition-transform duration-300 group-hover:scale-[1.02]"
-                  />
-                ) : (
-                  <div className="absolute inset-[6%]">
+                <div className="absolute inset-[6%]">
+                  {project.video ? (
+                    <video
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="auto"
+                      className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+                    >
+                      <source src={project.video} type="video/quicktime" />
+                      <source src={project.video} type="video/mp4" />
+                    </video>
+                  ) : (
                     <Image
                       src={project.image}
                       alt={`${project.title} preview`}
@@ -69,8 +76,8 @@ export function FunGrid() {
                       className="object-contain transition-transform duration-300 group-hover:scale-[1.02]"
                       sizes="450px"
                     />
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
               <h3 className="mt-3 text-sm font-medium text-foreground/80 leading-snug tracking-tight transition-colors group-hover:text-foreground">
                 {project.title}

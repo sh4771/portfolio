@@ -41,7 +41,7 @@ export default function Page() {
           Back to Portfolio
         </Link>
 
-        <ClinicalTrialsVisualCaseStudy prototypeVideoSrc="/videos/clinical-trials-prototype.mov" />
+        <ClinicalTrialsVisualCaseStudy prototypeVideoSrc="/videos/clinical-trials-prototype.mov#t=3" />
 
         <div className="h-px w-full bg-[#3D6469]" />
         <div className="pt-4 text-center">
