@@ -57,7 +57,7 @@ const projects: CaseStudy[] = [
       "Designing a social scheduling system that helps college students coordinate spontaneous plans.",
     tags: ["2025", "Product Design", "UX Design", "Interaction Design"],
     image: "/images/schedulink.jpg",
-    aiTools: ["Cursor", "Claude Code", "Vibe coding"],
+    aiTools: ["Cursor", "Claude Code", "V0"],
   },
   {
     slug: "cast",
@@ -75,7 +75,7 @@ const projects: CaseStudy[] = [
       "Adobe Designathon: clinical trial intelligence platform for clearer decisions, transparent AI recommendations, and actionable dashboards.",
     tags: ["2026", "UI/UX Design", "Case Study"],
     image: "/images/clinical-trials/monitor-mockup-static.png",
-    aiTools: ["Claude Code", "Cursor", "Vibe coding"],
+    aiTools: ["Claude Code", "Cursor", "Figma MCP"],
     video: "/videos/clinical-trials-prototype.mov",
     mockupFrame: "/images/clinical-trials/monitor-mockup.png",
     mockupBounds: { left: 8.18, right: 8.18, top: 0.3, bottom: 1.8 },

@@ -1,7 +1,17 @@
 import Image from "next/image"
 import Link from "next/link"
 
-const funProjects = [
+interface FunProject {
+  slug: string
+  title: string
+  description: string
+  tags: string[]
+  image: string
+  embedUrl?: string
+  tools?: string[]
+}
+
+const funProjects: FunProject[] = [
   {
     slug: "greener-routes",
     title: "Greener Walking Routes",
@@ -9,6 +19,17 @@ const funProjects = [
       "A walking-navigation prototype that recommends routes with higher green exposure, built for Computational Modeling at Columbia GSAPP, advised by Luc Wilson and Meli Harvey.",
     tags: ["2026", "In progress"],
     image: "/images/greener-routes/screen-route-choice.png",
+    tools: ["Rhino", "Grasshopper"],
+  },
+  {
+    slug: "restaurant-bot",
+    title: "Restaurant Bot",
+    description:
+      "A live p5.js chatbot sketch built for Chatbots for Art's Sake at NYU, advised by Carrie Wang.",
+    tags: ["2026"],
+    image: "/images/restaurant-bot-cover.png",
+    embedUrl: "https://editor.p5js.org/sh6363/full/mnrKWZok0",
+    tools: ["p5.js"],
   },
 ]
 
@@ -32,15 +53,24 @@ export function FunGrid() {
               className="group block"
             >
               <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/30 bg-muted/30">
-                <div className="absolute inset-[6%]">
-                  <Image
-                    src={project.image}
-                    alt={`${project.title} preview`}
-                    fill
-                    className="object-contain transition-transform duration-300 group-hover:scale-[1.02]"
-                    sizes="450px"
+                {project.embedUrl ? (
+                  <iframe
+                    src={project.embedUrl}
+                    title={`${project.title} preview`}
+                    loading="lazy"
+                    className="pointer-events-none absolute inset-0 h-full w-full transition-transform duration-300 group-hover:scale-[1.02]"
                   />
-                </div>
+                ) : (
+                  <div className="absolute inset-[6%]">
+                    <Image
+                      src={project.image}
+                      alt={`${project.title} preview`}
+                      fill
+                      className="object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+                      sizes="450px"
+                    />
+                  </div>
+                )}
               </div>
               <h3 className="mt-3 text-sm font-medium text-foreground/80 leading-snug tracking-tight transition-colors group-hover:text-foreground">
                 {project.title}
@@ -48,6 +78,18 @@ export function FunGrid() {
               <p className="mt-2 text-sm leading-relaxed text-foreground/50">
                 {project.description}
               </p>
+              {project.tools && project.tools.length > 0 ? (
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {project.tools.map((tool) => (
+                    <span
+                      key={tool}
+                      className="rounded-full border border-foreground/15 bg-foreground/[0.04] px-3 py-1 text-sm font-semibold text-foreground transition-colors group-hover:border-foreground/30"
+                    >
+                      {tool}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
               <div className="mt-3 flex flex-wrap items-center gap-x-1 text-xs text-foreground/60">
                 {project.tags.map((tag, index) => (
                   <span key={tag} className="flex items-center">

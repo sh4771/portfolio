@@ -29,6 +29,7 @@ export default function Page() {
       dotActiveClass="bg-[#3D6469]"
       mutedClass="text-[#111111]/60"
       dotMutedClass="bg-[#111111]/25"
+      jumpButtonClass="border-[#111111]/15 bg-white/80 text-[#111111]/70 hover:text-[#111111] hover:border-[#3D6469]/40"
     />
     <main className="min-h-screen bg-[#F2EDE2] px-4 py-12 text-[#111111] md:px-8 md:py-16">
       <div className="mx-auto max-w-[1100px] space-y-14">

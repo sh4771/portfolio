@@ -90,112 +90,129 @@ export function Hero() {
 
   return (
     <section className="relative flex min-h-svh flex-col justify-center">
-      <div ref={containerRef} className="mx-auto w-full max-w-[680px] px-6">
+      <div ref={containerRef} className="mx-auto w-full max-w-[760px] px-6">
         <h1
           data-animate
-          className="text-3xl font-bold leading-[1.08] tracking-tight text-foreground"
+          className="text-4xl font-bold leading-[1.08] tracking-tight text-foreground"
         >
           {"Hello, I'm Violet Hyun!"}
         </h1>
 
         <p
           data-animate
-          className="mt-2 text-sm font-medium leading-tight tracking-[-0.01em] text-foreground/60 md:whitespace-nowrap"
+          className="mt-3 text-sm font-medium leading-tight tracking-[-0.01em] text-foreground/70 md:whitespace-nowrap"
         >
           {"— a product designer working across "}
           <TypewriterWords />
           {" to shape human experience."}
         </p>
 
-        <div data-animate className="mt-6 space-y-4">
-          <div className="grid grid-cols-[78px_1fr] gap-x-5">
-            <p className="text-xs tracking-[0.14em] text-foreground/40 uppercase">
-              Now
-            </p>
-            <p className="text-sm leading-relaxed text-foreground/60">
-              {"Product Designer at "}
-              <a
-                href="https://www.vendelux.com/"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-block font-medium text-purple-900 transition-colors duration-200 ease-out hover:text-purple-950 dark:text-purple-200 dark:hover:text-purple-50"
-              >
-                Vendelux
-              </a>
-              {", currently designing internal platform tools. Previously built customer-facing products."}
-            </p>
+        <div data-animate className="mt-14 space-y-12">
+          <div className="relative flex gap-5">
+            <div className="flex flex-col items-center">
+              <span className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full bg-foreground" />
+              <span className="mt-1.5 w-px flex-1 bg-foreground/20" />
+            </div>
+            <div className="pb-1">
+              <p className="text-xs font-semibold tracking-[0.14em] text-foreground/60 uppercase">
+                Now
+              </p>
+              <p className="mt-2.5 max-w-lg text-sm leading-relaxed text-foreground/70">
+                {"Product Designer at "}
+                <a
+                  href="https://www.vendelux.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-block font-medium text-purple-900 transition-colors duration-200 ease-out hover:text-purple-950 dark:text-purple-200 dark:hover:text-purple-50"
+                >
+                  Vendelux
+                </a>
+                {", currently designing internal platform tools. Previously built customer-facing products."}
+              </p>
+            </div>
           </div>
 
-          <div className="grid grid-cols-[78px_1fr] gap-x-5">
-            <p className="text-xs tracking-[0.14em] text-foreground/40 uppercase">
-              Previously
-            </p>
-            <p className="text-sm leading-relaxed text-foreground/60">
-              {"Design and research at "}
-              <a
-                href="https://roar.me.columbia.edu/"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-block text-foreground/60 transition-colors duration-200 ease-out hover:text-foreground"
-              >
-                Robotics and Rehabilitation Lab at Columbia University
-              </a>
-              {", "}
-              <a
-                href="https://misskcosmetics.com/"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-block text-foreground/60 transition-colors duration-200 ease-out hover:text-foreground"
-              >
-                Miss K Cosmetics
-              </a>
-              {", "}
-              <a
-                href="https://www.kmcaseoul.org/"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-block text-foreground/60 transition-colors duration-200 ease-out hover:text-foreground"
-              >
-                K Museum of Contemporary Art
-              </a>
-              {", and "}
-              <a
-                href="https://www.chloe.com/en-us"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-block text-foreground/60 transition-colors duration-200 ease-out hover:text-foreground"
-              >
-                Chloé
-              </a>
-              {"."}
-            </p>
+          <div className="relative flex gap-5">
+            <div className="flex flex-col items-center">
+              <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full border border-foreground/50 bg-background" />
+              <span className="mt-1.5 w-px flex-1 bg-foreground/20" />
+            </div>
+            <div className="pb-1">
+              <p className="text-xs font-semibold tracking-[0.14em] text-foreground/60 uppercase">
+                Previously
+              </p>
+              <p className="mt-2.5 max-w-lg text-sm leading-relaxed text-foreground/70">
+                {"Design and research at "}
+                <a
+                  href="https://roar.me.columbia.edu/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-block text-foreground/70 underline decoration-foreground/30 underline-offset-2 transition-colors duration-200 ease-out hover:text-foreground"
+                >
+                  Robotics and Rehabilitation Lab at Columbia University
+                </a>
+                {", "}
+                <a
+                  href="https://misskcosmetics.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-block text-foreground/70 underline decoration-foreground/30 underline-offset-2 transition-colors duration-200 ease-out hover:text-foreground"
+                >
+                  Miss K Cosmetics
+                </a>
+                {", "}
+                <a
+                  href="https://www.kmcaseoul.org/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-block text-foreground/70 underline decoration-foreground/30 underline-offset-2 transition-colors duration-200 ease-out hover:text-foreground"
+                >
+                  K Museum of Contemporary Art
+                </a>
+                {", and "}
+                <a
+                  href="https://www.chloe.com/en-us"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-block text-foreground/70 underline decoration-foreground/30 underline-offset-2 transition-colors duration-200 ease-out hover:text-foreground"
+                >
+                  Chloé
+                </a>
+                {"."}
+              </p>
+            </div>
           </div>
 
-          <div className="grid grid-cols-[78px_1fr] gap-x-5">
-            <p className="text-xs tracking-[0.14em] text-foreground/40 uppercase">
-              Education
-            </p>
-            <p className="text-sm leading-relaxed text-foreground/60">
-              {"M.S. in Computational Design Practices at "}
-              <a
-                href="https://gsapp-cdp.github.io/archive/projects/2026/pass-it-on/"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-block text-sky-600 dark:text-sky-400 transition-colors duration-200 ease-out hover:text-sky-500 dark:hover:text-sky-300"
-              >
-                Columbia University GSAPP
-              </a>
-              {"; previously studied Interactive Media Arts at "}
-              <a
-                href="https://tisch.nyu.edu/"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-block text-violet-600 dark:text-violet-400 transition-colors duration-200 ease-out hover:text-violet-500 dark:hover:text-violet-300"
-              >
-                NYU Tisch
-              </a>
-              {"."}
-            </p>
+          <div className="relative flex gap-5">
+            <div className="flex flex-col items-center">
+              <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full border border-foreground/50 bg-background" />
+            </div>
+            <div>
+              <p className="text-xs font-semibold tracking-[0.14em] text-foreground/60 uppercase">
+                Education
+              </p>
+              <p className="mt-2.5 max-w-lg text-sm leading-relaxed text-foreground/70">
+                {"M.S. in Computational Design Practices at "}
+                <a
+                  href="https://gsapp-cdp.github.io/archive/projects/2026/pass-it-on/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-block text-sky-600 dark:text-sky-400 transition-colors duration-200 ease-out hover:text-sky-500 dark:hover:text-sky-300"
+                >
+                  Columbia University GSAPP
+                </a>
+                {"; previously studied Interactive Media Arts at "}
+                <a
+                  href="https://tisch.nyu.edu/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-block text-violet-600 dark:text-violet-400 transition-colors duration-200 ease-out hover:text-violet-500 dark:hover:text-violet-300"
+                >
+                  NYU Tisch
+                </a>
+                {"."}
+              </p>
+            </div>
           </div>
         </div>
       </div>

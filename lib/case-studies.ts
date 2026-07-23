@@ -10,6 +10,8 @@ export interface CaseStudyData {
   image: string
   /** Wide logos: white field + contain so wordmarks are not cropped in the hero frame */
   heroTreatAsLogo?: boolean
+  /** Optional: embed a live interactive demo (e.g. a p5.js sketch) instead of a static hero image */
+  embedUrl?: string
   credit?: { text: string; name: string; url: string }
   gallery?: { image: string; caption?: string }[]
   overview?: string
@@ -565,5 +567,25 @@ export const caseStudies: Record<string, CaseStudyData> = {
       { image: "/images/greener-routes/rhino-perspective.png", caption: "Rhino: route geometry against park boundaries" },
       { image: "/images/greener-routes/grasshopper-script.png", caption: "Grasshopper: route generation script" },
     ],
+  },
+
+  "restaurant-bot": {
+    slug: "restaurant-bot",
+    title: "Restaurant Bot",
+    subtitle: "A p5.js chatbot sketch built for a course on chatbots as an artistic medium",
+    category: "NYU, Chatbots for Art's Sake",
+    year: "2026",
+    role: "Frontend Development, p5.js",
+    duration: "2026",
+    tools: ["p5.js", "JavaScript", "HTML/CSS"],
+    image: "/images/restaurant-bot-cover.png",
+    embedUrl: "https://editor.p5js.org/sh6363/full/mnrKWZok0",
+    credit: {
+      text: "Course project for Chatbots for Art's Sake, advised by",
+      name: "Carrie Wang",
+      url: "https://carriesijiawang.com/chatbots-syllabus/",
+    },
+    overview:
+      "A live, playable p5.js sketch exploring what a chatbot feels like when it's treated as an artistic medium rather than a pure utility. Built for Chatbots for Art's Sake at NYU.",
   },
 }

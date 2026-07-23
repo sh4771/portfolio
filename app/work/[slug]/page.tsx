@@ -96,29 +96,45 @@ export default async function CaseStudyPage({
             ) : null}
           </div>
 
-          {/* Hero image */}
-          <div
-            className={`mt-10 overflow-hidden rounded-2xl border-t border-border/40 pt-10 ${study.heroTreatAsLogo ? "bg-white" : "bg-muted/30"}`}
-          >
-            <div className="relative aspect-[16/9]">
-              <div
-                className={
-                  study.heroTreatAsLogo
-                    ? "absolute inset-[8%] sm:inset-[10%]"
-                    : "absolute inset-[4%]"
-                }
-              >
-                <Image
-                  src={study.image}
-                  alt={`${study.title} project hero`}
-                  fill
-                  className="object-contain"
-                  priority
-                  sizes="900px"
+          {/* Hero: live embed or static image */}
+          {study.embedUrl ? (
+            <div className="mt-10 overflow-hidden rounded-2xl border-t border-border/40 pt-10">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-border/30 bg-black sm:aspect-video">
+                <iframe
+                  src={study.embedUrl}
+                  title={`${study.title} live demo`}
+                  className="absolute inset-0 h-full w-full"
+                  loading="lazy"
                 />
               </div>
+              <p className="mt-3 text-xs text-foreground/40">
+                Live, interactive sketch — try clicking around.
+              </p>
             </div>
-          </div>
+          ) : (
+            <div
+              className={`mt-10 overflow-hidden rounded-2xl border-t border-border/40 pt-10 ${study.heroTreatAsLogo ? "bg-white" : "bg-muted/30"}`}
+            >
+              <div className="relative aspect-[16/9]">
+                <div
+                  className={
+                    study.heroTreatAsLogo
+                      ? "absolute inset-[8%] sm:inset-[10%]"
+                      : "absolute inset-[4%]"
+                  }
+                >
+                  <Image
+                    src={study.image}
+                    alt={`${study.title} project hero`}
+                    fill
+                    className="object-contain"
+                    priority
+                    sizes="900px"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
 
 
           {/* Problem */}
