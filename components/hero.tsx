@@ -70,6 +70,8 @@ function TypewriterWords() {
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null)
+  const sectionRef = useRef<HTMLElement>(null)
+  const [showScrollHint, setShowScrollHint] = useState(true)
 
   useEffect(() => {
     const children = containerRef.current?.querySelectorAll("[data-animate]")
@@ -88,8 +90,23 @@ export function Hero() {
     })
   }, [])
 
+  useEffect(() => {
+    const onScroll = () => {
+      const section = sectionRef.current
+      if (!section) return
+      const { bottom } = section.getBoundingClientRect()
+      setShowScrollHint(bottom > window.innerHeight * 0.5)
+    }
+    onScroll()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
+  }, [])
+
   return (
-    <section className="relative flex min-h-svh flex-col justify-center">
+    <section
+      ref={sectionRef}
+      className="relative flex min-h-svh flex-col justify-center pt-28 pb-20"
+    >
       <div ref={containerRef} className="mx-auto w-full max-w-[760px] px-6">
         <h1
           data-animate
@@ -225,7 +242,9 @@ export function Hero() {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 scroll-indicator">
+      <div
+        className={`fixed bottom-6 left-1/2 z-30 -translate-x-1/2 flex flex-col items-center gap-2 scroll-indicator transition-opacity duration-300 ${showScrollHint ? "opacity-100" : "pointer-events-none opacity-0"}`}
+      >
         <span className="text-xs uppercase tracking-[0.2em] text-text-muted">
           Scroll
         </span>
@@ -317,8 +336,6 @@ export function Hero() {
         }
 
         .scroll-indicator {
-          animation: fadeInUp 1s ease 0.8s forwards;
-          opacity: 0;
         }
 
         .scroll-arrow {
@@ -396,7 +413,6 @@ export function Hero() {
 
           .scroll-indicator {
             animation: none;
-            opacity: 1;
           }
 
           .scroll-arrow {
