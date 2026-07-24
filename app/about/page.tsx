@@ -173,7 +173,7 @@ export default function AboutPage() {
                   <div className="aspect-square rounded-xl overflow-hidden">
                     <Image
                       src="/images/about-food-1.jpg"
-                      alt="Beli food tracker"
+                      alt="Beli Top 5% New York restaurant ranker badge"
                       width={300}
                       height={300}
                       className="w-full h-full object-cover"
@@ -205,7 +205,16 @@ export default function AboutPage() {
                     Food is my biggest love language.
                   </p>
                   <p className="text-xs tracking-[0.08em] text-foreground/50 leading-[1.8]">
-                    I even made a little{" "}
+                    {"I'm in the "}
+                    <a
+                      href="https://beliapp.co/"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="underline decoration-foreground/40 underline-offset-2 hover:text-foreground transition-colors"
+                    >
+                      top 5% of restaurant rankers on Beli in NYC
+                    </a>
+                    {". I even made a little"}{" "}
                     <a
                       href="https://editor.p5js.org/sh6363/full/mnrKWZok0"
                       target="_blank"
