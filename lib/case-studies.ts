@@ -555,10 +555,6 @@ export const caseStudies: Record<string, CaseStudyData> = {
       title: "Prototype",
       body: "Built in Claude Design: a walking-navigation flow where someone can search a destination, set route preferences (max detour, green-space priority), and compare a shortest, balanced, and greenest route before getting turn-by-turn directions.",
     },
-    outcome: {
-      title: "Status",
-      body: "This is an active two-week project for Computational Modeling, due end of July 2026. Both the Rhino/Grasshopper spatial analysis and the mobile prototype are still in progress, this page reflects where the project stands right now.",
-    },
     gallery: [
       { image: "/images/greener-routes/screen-search.png", caption: "Search and recent destinations" },
       { image: "/images/greener-routes/screen-destination.png", caption: "Setting a destination" },
