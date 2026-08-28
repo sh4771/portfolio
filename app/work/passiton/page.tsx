@@ -542,7 +542,7 @@ export default function Page() {
             }}
           />
           <div className="relative space-y-6 md:space-y-8">
-            <article className="group relative overflow-hidden rounded-[28px] border border-foreground/10 bg-gradient-to-br from-card/90 via-background to-muted/40 p-6 shadow-[0_20px_60px_-24px_rgba(0,0,0,0.15)] transition-[box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:shadow-[0_28px_70px_-20px_rgba(0,0,0,0.18)] md:p-8">
+            <article className="group relative overflow-hidden rounded-[28px] bg-gradient-to-br from-card via-background to-muted/60 p-6 shadow-[0_20px_60px_-24px_rgba(0,0,0,0.15)] transition-[box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:shadow-[0_28px_70px_-20px_rgba(0,0,0,0.18)] md:p-8">
               <span
                 className="pointer-events-none absolute -right-2 -top-4 select-none text-[5rem] font-light leading-none text-foreground/[0.07] transition-opacity group-hover:text-foreground/[0.09] md:text-[6.5rem]"
                 aria-hidden
@@ -571,7 +571,7 @@ export default function Page() {
               </div>
             </article>
 
-            <article className="group relative overflow-hidden rounded-[28px] border border-foreground/10 bg-gradient-to-br from-muted/50 via-background to-card/80 p-6 shadow-[0_20px_60px_-24px_rgba(0,0,0,0.12)] transition-[box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:shadow-[0_28px_70px_-20px_rgba(0,0,0,0.16)] md:ml-4 md:p-8 lg:ml-8">
+            <article className="group relative overflow-hidden rounded-[28px] bg-gradient-to-br from-muted/70 via-background to-card p-6 shadow-[0_20px_60px_-24px_rgba(0,0,0,0.12)] transition-[box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:shadow-[0_28px_70px_-20px_rgba(0,0,0,0.16)] md:ml-4 md:p-8 lg:ml-8">
               <span
                 className="pointer-events-none absolute -right-2 -top-4 select-none text-[5rem] font-light leading-none text-foreground/[0.07] group-hover:text-foreground/[0.09] md:text-[6.5rem]"
                 aria-hidden
@@ -601,7 +601,7 @@ export default function Page() {
               </div>
             </article>
 
-            <article className="group relative overflow-hidden rounded-[28px] border border-foreground/15 bg-gradient-to-tl from-background via-muted/30 to-foreground/[0.03] p-6 shadow-[0_24px_64px_-20px_rgba(0,0,0,0.2)] transition-[box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:border-foreground/25 md:mr-4 md:p-8 lg:mr-10">
+            <article className="group relative overflow-hidden rounded-[28px] bg-gradient-to-tl from-background via-muted/50 to-foreground/[0.06] p-6 shadow-[0_24px_64px_-20px_rgba(0,0,0,0.2)] transition-[box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:to-foreground/[0.09] md:mr-4 md:p-8 lg:mr-10">
               <span
                 className="pointer-events-none absolute -right-2 -top-4 select-none text-[5rem] font-light leading-none text-foreground/[0.08] group-hover:text-foreground/[0.11] md:text-[6.5rem]"
                 aria-hidden

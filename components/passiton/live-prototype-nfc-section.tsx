@@ -1,4 +1,6 @@
-import { Fragment } from "react"
+"use client"
+
+import { Fragment, useEffect, useRef, useState } from "react"
 import {
   ArrowRight,
   ExternalLink,
@@ -12,6 +14,12 @@ import {
 
 const REPO_URL = "https://github.com/sh4771/PassitOn"
 const LIVE_URL = "https://passit-on-lac.vercel.app"
+
+// The embedded app is built for a real mobile viewport. Rendering the iframe
+// narrower than this causes its own responsive layout to overlap, so we
+// render it at native width and scale the whole thing down visually instead.
+const NATIVE_WIDTH = 390
+const NATIVE_HEIGHT = 780
 
 const storyboardSteps = [
   {
@@ -41,6 +49,19 @@ const storyboardSteps = [
 ] as const
 
 export default function PassitOnLivePrototypeSection() {
+  const frameRef = useRef<HTMLDivElement>(null)
+  const [scale, setScale] = useState(1)
+
+  useEffect(() => {
+    const el = frameRef.current
+    if (!el) return
+    const update = () => setScale(el.offsetWidth / NATIVE_WIDTH)
+    update()
+    const observer = new ResizeObserver(update)
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <section className="space-y-12">
       <div className="space-y-4">
@@ -128,14 +149,27 @@ export default function PassitOnLivePrototypeSection() {
               className="rounded-[2.25rem] border-[10px] border-foreground/85 bg-foreground/90 p-2 shadow-[0_32px_80px_-20px_rgba(0,0,0,0.35)]"
               style={{ boxShadow: "0 32px 80px -20px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.12)" }}
             >
-              <div className="relative aspect-[9/18] w-full overflow-hidden rounded-[1.35rem] bg-muted">
-                <iframe
-                  src={LIVE_URL}
-                  title="PASSIT ON live prototype at passit-on-lac.vercel.app"
-                  className="absolute inset-0 h-full w-full border-0"
-                  loading="lazy"
-                  allow="clipboard-read; clipboard-write; fullscreen"
-                />
+              <div
+                ref={frameRef}
+                className="relative aspect-[9/18] w-full overflow-hidden rounded-[1.35rem] bg-muted"
+              >
+                <div
+                  style={{
+                    width: NATIVE_WIDTH,
+                    height: NATIVE_HEIGHT,
+                    transform: `scale(${scale})`,
+                    transformOrigin: "top left",
+                  }}
+                >
+                  <iframe
+                    src={LIVE_URL}
+                    title="PASSIT ON live prototype at passit-on-lac.vercel.app"
+                    className="border-0"
+                    style={{ width: NATIVE_WIDTH, height: NATIVE_HEIGHT }}
+                    loading="lazy"
+                    allow="clipboard-read; clipboard-write; fullscreen"
+                  />
+                </div>
               </div>
             </div>
             <p className="mt-3 text-center text-xs text-muted-foreground">
