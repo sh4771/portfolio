@@ -7,9 +7,9 @@ import { useState } from "react"
 import { Mail, Linkedin } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-const navLinks = [
+const navLinks: { href: string; label: string; external?: boolean }[] = [
   { href: "/about", label: "About" },
-  { href: "/resume", label: "Resume" },
+  { href: "/Resume_Violet_Hyun.pdf", label: "Resume", external: true },
 ]
 
 export function Navigation() {
@@ -57,6 +57,8 @@ export function Navigation() {
             <li key={link.label}>
               <Link
                 href={link.href}
+                target={link.external ? "_blank" : undefined}
+                rel={link.external ? "noreferrer" : undefined}
                 className={cn(
                   "text-sm font-medium transition-colors hover:text-foreground",
                   pathname === link.href
@@ -100,6 +102,8 @@ export function Navigation() {
               <li key={link.label}>
                 <Link
                   href={link.href}
+                  target={link.external ? "_blank" : undefined}
+                  rel={link.external ? "noreferrer" : undefined}
                   onClick={() => setMobileOpen(false)}
                   className={cn(
                     "text-sm font-medium transition-colors hover:text-foreground",

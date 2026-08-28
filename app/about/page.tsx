@@ -276,6 +276,25 @@ export default function AboutPage() {
           </div>
 
         </div>
+
+        {/* Claw machine - fun little prize game at the very bottom */}
+        <div className="mx-auto mt-24 w-full max-w-[1100px] px-6 text-center">
+          <p className="text-sm leading-relaxed text-foreground/60">
+            {"If you made it this far and enjoyed my portfolio, "}
+            <span className="font-medium text-foreground">
+              try your luck at the claw machine below
+            </span>
+            {" — see if you can win a prize!"}
+          </p>
+          <div className="mt-6 overflow-hidden rounded-2xl border border-border/40">
+            <iframe
+              src="https://claw-machine-portfolio-page.replit.app/"
+              title="Claw machine portfolio page"
+              className="h-[85vh] w-full"
+              loading="lazy"
+            />
+          </div>
+        </div>
       </main>
       <Footer />
     </>

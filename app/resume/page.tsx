@@ -32,17 +32,6 @@ export default function ResumePage() {
             </a>
           </div>
         </div>
-
-        <div className="mx-auto mt-20 w-full max-w-[1100px] px-6">
-          <div className="overflow-hidden rounded-2xl border border-border/40">
-            <iframe
-              src="https://claw-machine-portfolio-page.replit.app/"
-              title="Claw machine portfolio page"
-              className="h-[85vh] w-full"
-              loading="lazy"
-            />
-          </div>
-        </div>
       </main>
       <Footer />
     </>
