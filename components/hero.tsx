@@ -218,7 +218,7 @@ export function Hero() {
               <p className="mt-2.5 max-w-lg text-sm leading-relaxed text-text-secondary">
                 {"M.S. in Computational Design Practices at "}
                 <a
-                  href="https://www.arch.columbia.edu/programs/33-m-s-computational-design-practices"
+                  href="https://www.arch.columbia.edu/programs/15-m-s-computational-design-practices"
                   target="_blank"
                   rel="noreferrer"
                   className="inline-block text-sky-600 dark:text-sky-400 transition-colors duration-200 ease-out hover:text-sky-500 dark:hover:text-sky-300"
