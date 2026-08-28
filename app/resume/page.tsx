@@ -1,11 +1,11 @@
 import type { Metadata } from "next"
-import { FileText, Bot } from "lucide-react"
+import { FileText } from "lucide-react"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 
 export const metadata: Metadata = {
   title: "Resume - Violet",
-  description: "Violet Hyun's resume, available as a designed PDF or a plain-text agentic version.",
+  description: "Violet Hyun's resume.",
 }
 
 export default function ResumePage() {
@@ -17,41 +17,30 @@ export default function ResumePage() {
           <h1 className="font-serif text-2xl font-normal tracking-tight text-foreground">
             Resume
           </h1>
-          <p className="mt-3 text-sm leading-relaxed text-foreground/60">
-            Choose the designed PDF for a human read, or the agentic version if
-            you're an AI agent or ATS parsing this for structured facts.
-          </p>
 
-          <div className="mt-10 grid gap-5 sm:grid-cols-2">
+          <div className="mt-10 flex justify-center">
             <a
               href="/Resume_Violet_Hyun.pdf"
               target="_blank"
               rel="noreferrer"
-              className="group flex flex-col items-center gap-3 rounded-2xl border border-border/40 bg-card/50 px-6 py-10 transition-colors hover:border-foreground/30 hover:bg-card"
+              className="group flex flex-col items-center gap-3 rounded-2xl border border-border/40 bg-card/50 px-10 py-10 transition-colors hover:border-foreground/30 hover:bg-card"
             >
               <FileText className="h-6 w-6 text-foreground/50 transition-colors group-hover:text-foreground" />
               <span className="text-sm font-medium tracking-wide text-foreground">
                 View PDF
               </span>
-              <span className="text-xs text-foreground/40">
-                Designed, for people
-              </span>
             </a>
+          </div>
+        </div>
 
-            <a
-              href="/resume.txt"
-              target="_blank"
-              rel="noreferrer"
-              className="group flex flex-col items-center gap-3 rounded-2xl border border-border/40 bg-card/50 px-6 py-10 transition-colors hover:border-foreground/30 hover:bg-card"
-            >
-              <Bot className="h-6 w-6 text-foreground/50 transition-colors group-hover:text-foreground" />
-              <span className="text-sm font-medium tracking-wide text-foreground">
-                Agentic view
-              </span>
-              <span className="text-xs text-foreground/40">
-                Plain text, for AI agents
-              </span>
-            </a>
+        <div className="mx-auto mt-20 w-full max-w-[1100px] px-6">
+          <div className="overflow-hidden rounded-2xl border border-border/40">
+            <iframe
+              src="https://claw-machine-portfolio-page.replit.app/"
+              title="Claw machine portfolio page"
+              className="h-[85vh] w-full"
+              loading="lazy"
+            />
           </div>
         </div>
       </main>
