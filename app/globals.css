@@ -72,8 +72,9 @@ body,
 
 @theme inline {
   /* Typography - Inter, with the existing system stack as fallback */
-  --font-sans: var(--font-inter), 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-serif: var(--font-inter), 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, sans-serif;
+  /* Typography - Satoshi (via Fontshare), with the existing system stack as fallback */
+  --font-sans: 'Satoshi', 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Satoshi', 'Helvetica Neue', Helvetica, -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'SF Mono', Monaco, 'Cascadia Code', monospace;
   
   /* Core color tokens */
