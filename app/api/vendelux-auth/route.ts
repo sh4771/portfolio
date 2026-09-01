@@ -3,17 +3,18 @@ import { NextResponse } from "next/server"
 export async function POST(request: Request) {
   const { password } = await request.json().catch(() => ({ password: "" }))
 
-  const correctPassword = process.env.VENDELUX_PASSWORD
+  const correctPassword = process.env.VENDELUX_PASSWORD?.trim()
+  const submitted = typeof password === "string" ? password.trim() : ""
 
   if (!correctPassword) {
     return NextResponse.json(
-      { ok: false, error: "Access is not configured yet." },
+      { ok: false, reason: "not_configured" },
       { status: 500 },
     )
   }
 
-  if (password !== correctPassword) {
-    return NextResponse.json({ ok: false }, { status: 401 })
+  if (submitted !== correctPassword) {
+    return NextResponse.json({ ok: false, reason: "wrong_password" }, { status: 401 })
   }
 
   const response = NextResponse.json({ ok: true })

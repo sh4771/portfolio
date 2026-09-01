@@ -9,7 +9,7 @@ import { Footer } from "@/components/footer"
 
 function LockedForm() {
   const [password, setPassword] = useState("")
-  const [error, setError] = useState(false)
+  const [error, setError] = useState<"wrong_password" | "not_configured" | null>(null)
   const [loading, setLoading] = useState(false)
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -18,7 +18,7 @@ function LockedForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setLoading(true)
-    setError(false)
+    setError(null)
 
     const res = await fetch("/api/vendelux-auth", {
       method: "POST",
@@ -32,7 +32,8 @@ function LockedForm() {
       router.push(destination)
       router.refresh()
     } else {
-      setError(true)
+      const data = await res.json().catch(() => ({ reason: "wrong_password" }))
+      setError(data.reason === "not_configured" ? "not_configured" : "wrong_password")
     }
   }
 
@@ -62,9 +63,15 @@ function LockedForm() {
             autoFocus
             className="w-full rounded-md border border-border/60 bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-foreground/40"
           />
-          {error && (
+          {error === "wrong_password" && (
             <p className="text-sm text-red-500">
               That password didn't work — try again.
+            </p>
+          )}
+          {error === "not_configured" && (
+            <p className="text-sm text-red-500">
+              Access isn't set up correctly yet — the site owner needs to
+              check the password configuration.
             </p>
           )}
           <button
