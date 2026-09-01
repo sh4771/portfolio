@@ -6,7 +6,7 @@ import { Footer } from "@/components/footer"
 import { VendeluxCaseStudies } from "@/components/vendelux/vendelux-case-studies"
 
 export const metadata = {
-  title: "Vendelux — Violet Hyun",
+  title: "Vendelux · Violet Hyun",
   description:
     "Product design case studies from my time at Vendelux, an AI-powered B2B event intelligence platform.",
   robots: { index: false, follow: false },

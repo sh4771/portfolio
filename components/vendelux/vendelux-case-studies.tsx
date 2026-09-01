@@ -1,6 +1,7 @@
 "use client"
 
 import type React from "react"
+import { ArrowDown } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { vendeluxProjects } from "@/lib/vendelux-projects"
@@ -51,21 +52,39 @@ export function VendeluxCaseStudies() {
         </header>
 
         <Section title="Role">
-          <p>{active.role}</p>
+          {active.role.map((p, i) => (
+            <p key={i}>{p}</p>
+          ))}
         </Section>
 
         <Section title="The problem">
-          <p>{active.problem}</p>
+          {active.problem.map((p, i) => (
+            <p key={i}>{p}</p>
+          ))}
         </Section>
+
+        {/* Visual bridge from problem to decision */}
+        {active.bridgeQuestion && (
+          <div className="flex flex-col items-center gap-3 py-2 text-center">
+            <ArrowDown className="h-4 w-4 text-muted-foreground/60" aria-hidden />
+            <p className="max-w-md text-base font-medium italic text-foreground/80">
+              {active.bridgeQuestion}
+            </p>
+          </div>
+        )}
 
         {active.process && (
           <Section title="Process">
-            <p>{active.process}</p>
+            {active.process.map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
           </Section>
         )}
 
         <Section title="Key decision">
-          <p>{active.keyDecision}</p>
+          {active.keyDecision.map((p, i) => (
+            <p key={i}>{p}</p>
+          ))}
         </Section>
 
         {/* Before / after placeholder */}
@@ -103,12 +122,16 @@ export function VendeluxCaseStudies() {
 
         {active.mistake && (
           <Section title="A mistake I made">
-            <p>{active.mistake}</p>
+            {active.mistake.map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
           </Section>
         )}
 
         <Section title="Outcome">
-          <p>{active.outcome}</p>
+          {active.outcome.map((p, i) => (
+            <p key={i}>{p}</p>
+          ))}
         </Section>
       </article>
     </div>
@@ -127,7 +150,7 @@ function Section({
       <h2 className="text-xs font-medium uppercase tracking-[0.1em] text-muted-foreground">
         {title}
       </h2>
-      <div className="text-[15px] leading-relaxed text-foreground/90">
+      <div className="space-y-3 text-[15px] leading-relaxed text-foreground/90">
         {children}
       </div>
     </div>
@@ -152,7 +175,7 @@ function PlaceholderImage({
     >
       {/* Swap this Image for the real asset once it's captured */}
       <span className="px-4 text-center text-xs text-muted-foreground">
-        {label} placeholder — drop asset at{" "}
+        {label} placeholder. Drop asset at{" "}
         <code className="rounded bg-foreground/[0.06] px-1 py-0.5">{src}</code>
       </span>
     </div>

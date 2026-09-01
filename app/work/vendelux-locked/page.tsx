@@ -65,12 +65,12 @@ function LockedForm() {
           />
           {error === "wrong_password" && (
             <p className="text-sm text-red-500">
-              That password didn't work — try again.
+              That password didn't work. Try again.
             </p>
           )}
           {error === "not_configured" && (
             <p className="text-sm text-red-500">
-              Access isn't set up correctly yet — the site owner needs to
+              Access isn't set up correctly yet. The site owner needs to
               check the password configuration.
             </p>
           )}

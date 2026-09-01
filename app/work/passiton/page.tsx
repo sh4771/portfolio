@@ -530,6 +530,97 @@ export default function Page() {
               </div>
             </div>
           </div>
+
+          {/* Feature 3: High-Fidelity Condition & Materials (revisited in Claude Design) */}
+          <div 
+            className="relative mx-auto rounded-[32px] md:rounded-[40px] p-8 md:p-12 lg:p-16 overflow-hidden"
+            style={{
+              background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
+              boxShadow: "0 4px 60px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04)",
+            }}
+          >
+            <div 
+              className="absolute inset-0 rounded-[32px] md:rounded-[40px] pointer-events-none"
+              style={{
+                background: "radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.4) 0%, transparent 50%)",
+              }}
+            />
+
+            <div className="relative z-10">
+              <div className="flex flex-col lg:flex-row items-center lg:items-start gap-10 lg:gap-14">
+
+                {/* Two Images */}
+                <div className="flex flex-col sm:flex-row items-center gap-6 md:gap-8 shrink-0">
+                  <div className="flex flex-col items-center group">
+                    <div 
+                      className="rounded-[2rem] overflow-hidden transition-transform duration-300 group-hover:-translate-y-1"
+                      style={{
+                        boxShadow: "0 30px 70px rgba(0,0,0,0.35), 0 15px 35px rgba(0,0,0,0.25), 0 5px 15px rgba(0,0,0,0.2)",
+                        border: "3px solid rgba(0,0,0,0.12)",
+                      }}
+                    >
+                      <Image
+                        src="/images/passiton-condition-listing.png"
+                        alt="Condition and listing screen showing purchase price versus suggested resale price"
+                        width={240}
+                        height={520}
+                        className="w-[180px] md:w-[200px] lg:w-[220px] h-auto"
+                      />
+                    </div>
+                    <p className="mt-3 text-xs text-foreground/40">Condition & listing</p>
+                  </div>
+
+                  <div className="flex flex-col items-center group">
+                    <div 
+                      className="rounded-[2rem] overflow-hidden transition-transform duration-300 group-hover:-translate-y-1"
+                      style={{
+                        boxShadow: "0 30px 70px rgba(0,0,0,0.35), 0 15px 35px rgba(0,0,0,0.25), 0 5px 15px rgba(0,0,0,0.2)",
+                        border: "3px solid rgba(0,0,0,0.12)",
+                      }}
+                    >
+                      <Image
+                        src="/images/passiton-materials-chain.png"
+                        alt="Material disclosure screen tied to the garment's ownership chain"
+                        width={240}
+                        height={520}
+                        className="w-[180px] md:w-[200px] lg:w-[220px] h-auto"
+                      />
+                    </div>
+                    <p className="mt-3 text-xs text-foreground/40">Materials & chain context</p>
+                  </div>
+                </div>
+
+                {/* Feature Description */}
+                <div className="border border-foreground/10 rounded-2xl p-6 md:p-8 lg:self-center">
+                  <h3 className="text-base md:text-lg font-medium tracking-tight">
+                    High-Fidelity: Condition & Materials
+                  </h3>
+
+                  <p className="mt-3 text-sm text-foreground/60 leading-relaxed">
+                    Course prototype frames for listing condition (with purchase vs. suggested resale) and for material disclosures tied to the garment chain.
+                  </p>
+
+                  {/* Circular pricing callout */}
+                  <div className="mt-5 rounded-xl bg-foreground/[0.04] p-4">
+                    <p className="text-sm font-medium text-foreground/90">
+                      Circular pricing: resale price steps down over the chain
+                    </p>
+                    <p className="mt-2 text-sm text-foreground/60 leading-relaxed">
+                      Each handoff lowers the list price so the next buyer can afford the piece. Earlier owners can earn a small share of later sales, and the platform can use membership or per-sale fees to stay sustainable.
+                    </p>
+                  </div>
+
+                  <p className="mt-4 text-xs text-foreground/50 leading-relaxed">
+                    I came back to this part of the prototype after the course ended. The lo-fi version could show that condition and price were connected, but not whether that connection would actually make sense to someone mid-listing. Rebuilding it in Claude Design let me test real copy and layout fast enough to iterate on the pricing logic itself, not just the visual polish around it.
+                  </p>
+                </div>
+              </div>
+
+              <p className="mt-6 text-xs text-foreground/40 text-center lg:text-left">
+                The Urban Tech hi-fi condition screen (above) shows purchase versus suggested resale in the listing flow.
+              </p>
+            </div>
+          </div>
         </section>
 
         {/* Reflection: learnings, time, next step */}
