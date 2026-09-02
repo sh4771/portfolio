@@ -32,29 +32,30 @@ export const vendeluxProjects: VendeluxProject[] = [
     navLabel: "Smart Segments",
     title: "Smart Segments",
     oneLiner:
-      "I redesigned attendee filtering around organizer workflow instead of alphabetical order.",
+      "I found that alphabetical filtering hid organizers' actual workflow, explored alternatives for a defined task, and learned that visual density can't override system constraints.",
     duration: "Late March – April 2026 · Shipped",
     tools: ["Figma", "Claude Code"],
     role: [
       "I worked closely with my manager (PM) through iterative feedback rounds, and we shaped the new hierarchy together.",
-      "I independently tested multiple structural hierarchies and refined them based on stakeholder feedback across several rounds.",
+      "I independently explored multiple structural hierarchies and refined them based on stakeholder feedback across several rounds.",
     ],
     boxes: [
       {
         icon: "route",
         label: "The organizer's job",
         body: [
-          "After an event, organizers build a follow-up audience. They pick the event, narrow by attendance or export status, then save or apply the segment.",
+          "For the event follow-up workflow I focused on, organizers first needed to identify the event before they narrowed the attendee list.",
           "The alphabetical filter menu buried that first decision, the one organizers had to make before anything else.",
         ],
       },
       {
         icon: "git-branch",
-        label: "Three directions I tested",
+        label: "Directions I explored",
         body: [
+          "I explored three structural directions and reviewed them through stakeholder feedback rounds rather than direct usability testing with organizers.",
           "Alphabetical categories with better search kept discoverability but ignored task order.",
-          "Audience-attribute-first helped broad prospecting but slowed down event follow-up.",
-          "Event-first matched how organizers actually decided, so I chose it.",
+          "Audience-attribute-first served broad prospecting well, but it slowed organizers down on the event follow-up task I focused on.",
+          "Event-first prioritized that task, so I chose it for this workflow while leaving audience attributes available for broader prospecting.",
         ],
       },
       {
@@ -62,36 +63,60 @@ export const vendeluxProjects: VendeluxProject[] = [
         label: "Key decision",
         variant: "accent",
         body: [
-          "I moved Event to the top and grouped attendance, export, and speaker status right after it, because organizers pick the event before anything else.",
-          "I added visible counts to saved segments so organizers can compare audiences without opening each one.",
+          "I moved Event to the top and grouped attendance, export, and speaker status right after it, because organizers needed to identify the event before narrowing the attendee list.",
         ],
-        code: "Spring Summit 2026 → Attended → Not exported → Attendee · 184 people",
+        codeBlocks: [
+          {
+            heading: "This changed the interaction from browsing a long menu to constructing an audience in decision order.",
+            content:
+              "Before: Filter menu\nAccount\nAttendance status\nCompany\nCreated date\nEvent\nExport status\n...\n\nAfter: Build audience from an event\n1. Choose event: Spring Summit 2026\n2. Choose participation: Attended\n3. Choose operational state: Not exported\n4. Review audience: 184 people\n5. Save segment",
+          },
+        ],
+        footer:
+          "Organizers often maintained several event audiences. Counts were intended to help them compare saved audience sizes, for example whether \"Spring Summit attendees, not exported\" at 184 people was large enough for follow-up, before they opened or applied a segment.",
       },
       {
         icon: "alert-triangle",
-        label: "A mistake I caught late",
+        label: "A mistake engineering caught in review",
         variant: "danger",
         body: [
-          "I introduced a sub-12px type size to fit more into the filter interface. An engineer flagged it in review: it broke the product's type scale and raised readability and accessibility concerns.",
-          "I fixed the density with capitalization and spacing instead, and I now check hierarchy changes against design-system tokens before I present a high-fidelity direction.",
+          "I introduced a sub-12px type size to fit more into the filter interface. An engineer flagged it: it broke the product's type scale and raised readability and accessibility concerns.",
         ],
+        footer:
+          "I kept the established minimum text size and created density through stronger section labels, shorter filter names, and spacing that separated groups without adding visual noise. I now check hierarchy changes against design-system tokens before I present a high-fidelity direction.",
       },
       {
         icon: "flask",
         label: "How I'd validate this today",
         body: [
-          "Looking back, I would write the workflow as tasks and build a lightweight clickable prototype before touching visual design, for example \"create a segment for Spring Summit attendees not yet exported.\"",
-          "I would use AI to generate that prototype fast, but I would keep the hierarchy decisions grounded in my own rationale rather than the model's.",
+          "Before building screens, I would write the task logic in detail: what information an organizer has, what they need to decide first, what they can refine later, and which exceptions matter.",
+          "I would then build an HTML prototype and test competing entry points against the same task.",
         ],
+        quote:
+          "Create a follow-up audience for Spring Summit attendees who have not been exported.",
+        codeBlocks: [
+          {
+            content: "Start with an event\nStart with audience attributes\nStart with a saved segment",
+          },
+        ],
+        footer:
+          "I would also ask AI to argue against the Event-first approach and identify cases where attributes, accounts, or saved segments should come first. I would treat those outputs as hypotheses to evaluate rather than answers to accept.",
       },
       {
         icon: "chart-line",
         label: "Outcome",
         body: [
-          "The redesign shipped, and monthly active organizers grew from 2 to 74 in the following months.",
-          "A separate product launch happened in the same window, so I can't say this redesign alone caused the growth. It does confirm the workflow reached real users.",
+          "The product shipped. Monthly active organizers increased from 2 to 74 during the following months, alongside a separate product launch.",
+          "I can't attribute that increase to Smart Segments without feature-level usage or task-completion data.",
         ],
-        stat: { value: "2 → 74", caption: "monthly active organizers" },
+        codeBlocks: [
+          {
+            heading: "Feature-level measures I would track next:",
+            content:
+              "Number of segments created using Event filters\nTime to create an event follow-up segment\nFilter abandonment rate\nUse of saved-segment counts\nNumber of segments applied to campaigns",
+          },
+        ],
+        stat: { value: "2 → 74", caption: "monthly active organizers, correlation only" },
       },
     ],
     media: {
