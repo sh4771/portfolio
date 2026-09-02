@@ -347,20 +347,26 @@ export const vendeluxProjects: VendeluxProject[] = [
         ],
         codeBlocks: [
           {
-            heading: "Show a range instead of a single number, and name the rate precisely instead of a vague \"conversion rate.\"",
+            heading: "The real formula is a single deterministic calculation: matched prospects times a rate, where the rate is a 0.6% baseline for a customer's first campaign, or their own historical rate if it's higher on later campaigns.",
             content:
-              "Expected meetings: 28 to 44\nBased on:\n2,500 selected contacts\n1.4% historical invite-to-booked-meeting rate\nTypical variation in campaign performance",
+              "Expected meetings = Matched prospects × rate\nFirst campaign: rate = 0.6% baseline\nLater campaigns: rate = MAX(0.6%, customer's own historical rate)",
+            placeholder: "/images/vendelux/meeting-planner-formula-spec.png",
+          },
+          {
+            heading: "Since the formula returns one exact number, I chose to present it as a range instead of a false-precision point estimate.",
+            content:
+              "Expected meetings: 28 to 44\nBased on:\n2,500 matched prospects\n1.4% (your own historical rate, above the 0.6% baseline)",
             placeholder: "/images/vendelux/meeting-planner-range.png",
           },
           {
-            heading: "This estimate uses one rate for every selected segment, even though real response rates likely vary by segment. I flagged that as an open product question rather than build a per-segment model I couldn't verify.",
+            heading: "The rate applies once to the whole audience. It doesn't break out by segment, and it doesn't compare against similar campaigns from other customers or events, so I kept the panel copy limited to what the formula actually does.",
             content:
-              "This estimate uses the same historical rate for all selected segments.",
+              "Your expected meetings are calculated using your own historical conversion rate (or a baseline rate if you're new), applied to the number of matched prospects at this event.",
           },
           {
             heading: "Add an expandable \"Why this estimate?\" for customers who want confidence before they act.",
             content:
-              "Why this estimate?\nThis range uses:\n• Your selected audience size\n• The historical invite-to-booked-meeting rate\n• A lower and upper estimate to account for normal variation",
+              "Why this estimate?\nThis range uses:\n• Your matched prospect count for this event\n• Your own historical conversion rate, or a 0.6% baseline if you're new\n• A range instead of one number, since the formula shouldn't be read as more precise than it is",
             placeholder: "/images/vendelux/meeting-planner-why-estimate.png",
           },
           {
@@ -370,6 +376,8 @@ export const vendeluxProjects: VendeluxProject[] = [
             placeholder: "/images/vendelux/meeting-planner-recalculate.gif",
           },
         ],
+        footer:
+          "The baseline rate has moved more than once as the team recalibrated it against real campaign performance. That told me this was a monitored simplification the team actively revisits rather than a forgotten default, which shaped how much confidence I gave the estimate in the copy.",
       },
       {
         icon: "git-branch",
@@ -385,7 +393,7 @@ export const vendeluxProjects: VendeluxProject[] = [
           },
           {
             heading: "Option 2: rate only. Benefit: makes the assumption visible. Risk: pushes the planning math back onto the customer.",
-            content: "Historical invite-to-booked-meeting rate: 1.4%",
+            content: "Historical conversion rate: 1.4%",
             placeholder: "/images/vendelux/meeting-planner-option-2.png",
           },
           {
