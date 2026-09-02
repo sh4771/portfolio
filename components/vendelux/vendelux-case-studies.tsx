@@ -1,6 +1,7 @@
 "use client"
 
 import type React from "react"
+import Image from "next/image"
 import {
   Route,
   GitBranch,
@@ -9,6 +10,7 @@ import {
   FlaskConical,
   LineChart,
   Map as MapIcon,
+  Code2,
 } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { cn } from "@/lib/utils"
@@ -22,6 +24,7 @@ const ICONS: Record<InfoBox["icon"], React.ElementType> = {
   flask: FlaskConical,
   "chart-line": LineChart,
   map: MapIcon,
+  code: Code2,
 }
 
 export function VendeluxCaseStudies() {
@@ -176,7 +179,18 @@ function InfoBoxCard({ box }: { box: InfoBox }) {
                   {block.heading && (
                     <p className="text-sm leading-relaxed text-foreground/80">{block.heading}</p>
                   )}
-                  {block.placeholder ? (
+                  {block.image ? (
+                    <div className="relative w-full overflow-hidden rounded-md border border-border/40">
+                      <Image
+                        src={block.image}
+                        alt={block.heading ?? "Design spec screenshot"}
+                        width={1600}
+                        height={1000}
+                        className="h-auto w-full"
+                        sizes="600px"
+                      />
+                    </div>
+                  ) : block.placeholder ? (
                     <div className="flex aspect-video items-center justify-center rounded-md border border-dashed border-border/60 bg-foreground/[0.03] px-4 text-center">
                       <span className="text-xs text-muted-foreground">
                         Screenshot placeholder. Drop asset at{" "}

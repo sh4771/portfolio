@@ -1,10 +1,10 @@
 export interface InfoBox {
-  icon: "route" | "git-branch" | "bulb" | "alert-triangle" | "flask" | "chart-line" | "map"
+  icon: "route" | "git-branch" | "bulb" | "alert-triangle" | "flask" | "chart-line" | "map" | "code"
   label: string
   body: string[]
   variant?: "accent" | "danger" | "default"
   code?: string
-  codeBlocks?: { heading?: string; content: string; placeholder?: string }[]
+  codeBlocks?: { heading?: string; content?: string; placeholder?: string; image?: string }[]
   steps?: string[]
   quote?: string
   footer?: string
@@ -75,6 +75,23 @@ export const vendeluxProjects: VendeluxProject[] = [
         ],
         footer:
           "Organizers often maintained several event audiences. Counts were intended to help them compare saved audience sizes, for example whether \"Spring Summit attendees, not exported\" at 184 people was large enough for follow-up, before they opened or applied a segment.",
+      },
+      {
+        icon: "code",
+        label: "How I built this with Claude MCP",
+        body: [
+          "Once the hierarchy was set, I used the Figma MCP plugin API to script the tooltip system and the component library directly from written specs, instead of building every variant by hand.",
+          "The tooltip is one reusable component that fires on hover of the info icon, positions itself relative to that icon, and only swaps its text content per filter category. Scripting it once through MCP covered every tooltip in the panel instead of me placing dozens of them manually.",
+        ],
+        codeBlocks: [
+          {
+            image: "/images/vendelux/segments-tooltip-mcp-spec.png",
+          },
+          {
+            heading: "I specced and scripted the rest of the component set the same way: filter toggles, section headers, the selected-count button, save and reset controls, and toast confirmations, each with its own documented states and interaction rules.",
+            image: "/images/vendelux/segments-component-library-mcp-spec.png",
+          },
+        ],
       },
       {
         icon: "alert-triangle",
