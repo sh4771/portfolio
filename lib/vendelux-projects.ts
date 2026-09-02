@@ -289,12 +289,12 @@ export const vendeluxProjects: VendeluxProject[] = [
     navLabel: "Meeting Planner",
     title: "Meeting Planner",
     oneLiner:
-      "I redesigned how customers interpret event-outreach predictions, replacing an unexplained single number with a transparent, adjustable estimate.",
+      "I found that the product presented an uncertain forecast as a precise fact, and redesigned it to expose the inputs and uncertainty behind the number.",
     duration: "July 21 – Aug 26, 2026 · Ongoing",
     tools: ["Figma", "v0"],
     role: [
       "I worked as the sole designer, mainly with customer-facing team members who brought recurring customer questions and objections into the design process.",
-      "My feedback loop focused on customer-proxy insight: what confused customers, what the team repeatedly had to explain, and which parts of the estimate people distrusted.",
+      "My feedback loop focused on customer-proxy insight: what the team repeatedly had to explain, and which parts of the estimate customers reportedly distrusted.",
     ],
     boxes: [
       {
@@ -313,7 +313,7 @@ export const vendeluxProjects: VendeluxProject[] = [
           },
         ],
         footer:
-          "Customers couldn't see the audience size behind the number, the conversion rate driving it, whether it was a guarantee or a forecast, or how changing segments would change the result. The team also changed the conversion rate five times over about 13 months, which made the estimate hard to explain consistently.",
+          "Customer-facing teammates reported that customers often asked how the estimate was calculated and struggled to understand what drove it. The team also changed the underlying rate five times over about 13 months, which made the estimate hard to explain consistently.",
       },
       {
         icon: "map",
@@ -324,9 +324,9 @@ export const vendeluxProjects: VendeluxProject[] = [
           "The planner shows an Expected Meetings number.",
           "The customer sees \"36 meetings.\"",
           "The customer asks, \"Where did 36 come from?\"",
-          "A teammate manually explains the calculation, if they know the current conversion rate.",
+          "A teammate manually explains the calculation, if they know the current rate.",
           "The customer changes the segment selection.",
-          "The customer struggles to tell whether the estimate changed because of audience size, conversion assumptions, or both.",
+          "The customer struggles to tell whether the estimate changed because of audience size, rate assumptions, or both.",
         ],
         footer:
           "The issue went beyond unclear copy. The UI presented an estimate as a precise answer while it hid the assumptions that created it.",
@@ -341,22 +341,24 @@ export const vendeluxProjects: VendeluxProject[] = [
         ],
         codeBlocks: [
           {
-            heading: "Show a range instead of a single number.",
-            content: "Expected Meetings: 28 to 44\nBased on your selected audience of 2,500 contacts",
+            heading: "Show a range instead of a single number, and name the rate precisely instead of a vague \"conversion rate.\"",
+            content:
+              "Expected meetings: 28 to 44\nBased on:\n2,500 selected contacts\n1.4% historical invite-to-booked-meeting rate\nTypical variation in campaign performance",
           },
           {
-            heading: "Surface the conversion rate behind the estimate.",
-            content: "Audience size: 2,500\nHistorical conversion rate: 1.4%\nExpected meetings: 28 to 44",
+            heading: "This estimate uses one rate for every selected segment, even though real response rates likely vary by segment. I flagged that as an open product question rather than build a per-segment model I couldn't verify.",
+            content:
+              "This estimate uses the same historical rate for all selected segments.",
           },
           {
             heading: "Add an expandable \"Why this estimate?\" for customers who want confidence before they act.",
             content:
-              "Why this estimate?\nThis range uses:\n• Your selected audience size\n• The current historical conversion rate for similar outreach\n• A lower and upper estimate to account for normal variation",
+              "Why this estimate?\nThis range uses:\n• Your selected audience size\n• The historical invite-to-booked-meeting rate\n• A lower and upper estimate to account for normal variation",
           },
           {
-            heading: "Recalculate live as segments change.",
+            heading: "Recalculate live as segments change, and label it as a forecast rather than a guarantee.",
             content:
-              "VP/Director, Enterprise: 1,200\nPast event attendees: 800\nHigh-intent accounts: 500\nTotal audience: 2,500 → Expected Meetings: 28 to 44\n\nRemove High-intent accounts (500):\nTotal audience: 2,000 → Expected Meetings: 22 to 35",
+              "Total audience: 2,500 → Expected meetings: 28 to 44\nRemove a 500-contact segment:\nTotal audience: 2,000 → Expected meetings: 22 to 35\n\nDirectional forecast. Actual results depend on outreach content, timing, audience fit, and campaign execution.",
           },
         ],
       },
@@ -364,59 +366,74 @@ export const vendeluxProjects: VendeluxProject[] = [
         icon: "git-branch",
         label: "Alternatives I considered",
         body: [
-          "I considered three directions before I landed on the final design.",
+          "I considered three directions before I landed on the final design, and weighed a real tradeoff for each one rather than just a description.",
         ],
         codeBlocks: [
           {
-            heading: "Option 1: keep one number, add a tooltip.",
+            heading: "Option 1: single number with a tooltip. Benefit: keeps a fast, compact planning view. Risk: keeps the estimate looking exact, so customers have to dig for the calculation.",
             content: "Expected Meetings: 36 (i)",
           },
           {
-            heading: "Option 2: show only the conversion rate.",
-            content: "Estimated conversion rate: 1.4%",
+            heading: "Option 2: rate only. Benefit: makes the assumption visible. Risk: pushes the planning math back onto the customer.",
+            content: "Historical invite-to-booked-meeting rate: 1.4%",
           },
           {
-            heading: "Option 3, selected: show a range, the assumptions, and live updates.",
+            heading: "Option 3, selected: outcome plus visible inputs. Benefit: supports planning while keeping the main assumption inspectable. Risk: still depends on whether customers trust the underlying data for their case.",
             content:
-              "Expected Meetings: 28 to 44\nBased on 2,500 contacts and a 1.4% historical conversion rate.\n[Why this estimate?]",
+              "Expected meetings: 28 to 44\n2,500 contacts × 1.4% historical rate\n[Why this estimate?]",
           },
         ],
-        footer:
-          "I chose option 3 because it gives customers an outcome, reveals the main assumption behind it, and lets them see how changing their plan changes the result.",
       },
       {
         icon: "flask",
         label: "Validation plan",
         body: [
-          "I will test whether the panel changes trust and decision-making with real customers.",
+          "I will test understanding and trust separately, since a customer can correctly explain the estimate and still say they wouldn't use it to set a goal.",
         ],
         quote:
           "You have 2,500 contacts across three segments. You need to decide whether this audience can support a goal of 30 meetings.",
         steps: [
           "What do you think this estimate means?",
           "What information is driving it?",
-          "Would you use this to plan outreach? Why?",
-          "What would you change if you needed 50 meetings?",
-          "What information would make you trust this estimate more?",
+          "How confident are you in using this estimate to plan your outreach, and what makes you confident or skeptical?",
+          "Does the range change how you would set your goal?",
+          "Would you prefer a conservative estimate, a likely estimate, or a best-case estimate?",
+        ],
+        codeBlocks: [
+          {
+            heading: "Success criteria",
+            content:
+              "Understanding: participants identify audience size and the rate as inputs.\nTrust: participants describe the estimate as a useful planning signal rather than a guaranteed outcome.\nDecision support: participants can use the panel to decide whether to add audience, change their goal, or adjust outreach effort.",
+          },
         ],
         footer:
           "I will compare answers against the previous single-number version to see whether customers understand the calculation and whether the range feels useful.",
       },
       {
+        icon: "bulb",
+        label: "What I would write before prototyping",
+        body: [
+          "The estimate helps customers plan, so it must support decisions without presenting a guarantee.",
+          "Customers need to understand the selected audience, the rate definition, and the source of uncertainty.",
+          "The interface must reveal when there is insufficient data rather than force a prediction.",
+          "Changing a segment should update the forecast and explain which input changed.",
+        ],
+      },
+      {
         icon: "flask",
         label: "Prototyping this with AI",
         body: [
-          "I would write the calculation logic and interaction states before I produce high-fidelity UI, using a lightweight HTML prototype with segment checkboxes, a live Expected Meetings range, a visible conversion-rate assumption, an expandable \"Why this estimate?\" section, and a scenario where the conversion rate changes.",
+          "I would turn the writing above into a functional HTML prototype before I invest in visual detail, with segment checkboxes, a live Expected Meetings range, a visible rate assumption, an expandable \"Why this estimate?\" section, and a scenario where the rate changes.",
         ],
         codeBlocks: [
           {
-            heading: "Edge cases I'd design for:",
+            heading: "Edge states I'd design for:",
             content:
-              "No audience selected\nExpected Meetings: Select at least one segment\n\nSmall audience (42 contacts)\nExpected Meetings: 0 to 1\n\nInsufficient historical data\nExpected Meetings: Estimate unavailable\nWe need more outreach data for this audience.\n\nConversion rate updated from 1.4% to 1.1%\nExpected Meetings: 22 to 35",
+              "No segments selected\nExpected meetings: Select an audience to see an estimate\n\nSmall audience (42 contacts)\nExpected meetings: 0 to 1\n\nNo reliable historical data\nExpected meetings: Unavailable\nThere is not enough historical data to create a reliable estimate.\n\nOutdated assumption\nHistorical rate last updated: August 2026\n[Learn how this rate is calculated]",
           },
         ],
         footer:
-          "I would use AI to generate a functional prototype and state variations, and I would define the calculation, information hierarchy, wording, and trust model myself.",
+          "I would use AI to generate a functional prototype and state variations, and I would define the calculation, information hierarchy, wording, and trust model myself. I would also ask AI to argue against the proposed panel and identify ways the interface could mislead customers, create false confidence, or hide weak data. I would treat its response as a list of test cases rather than as product direction.",
       },
       {
         icon: "chart-line",
