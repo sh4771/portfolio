@@ -147,7 +147,7 @@ export const vendeluxProjects: VendeluxProject[] = [
         icon: "route",
         label: "The operator's job-to-be-done",
         body: [
-          "A campaign operator needs to launch several related outreach campaigns, for example one campaign per target account list, but with the same status, sending settings, and audience rules.",
+          "A campaign operator needs to launch several related sub-campaigns that share operational settings, such as status, sender, sending window, and cadence, while each sub-campaign targets a different audience segment.",
         ],
         quote:
           "Create three sub-campaigns for the same event: Enterprise attendees, Mid-market attendees, and SMB attendees. Set each to Draft, use the same sender and cadence settings, then assign the appropriate audience segment.",
@@ -180,32 +180,38 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
       {
         icon: "bulb",
-        label: "Key decision: design for shared intent, then allow exceptions",
+        label: "Key decision: separate shared setup from audience-specific setup",
         variant: "accent",
         body: [
-          "I centered the redesign on two bulk actions.",
-          "First, an operator selects Apply to all and sets status, sender, sending window, and cadence once instead of repeating that setup for every row.",
+          "I moved operational settings that apply across related sub-campaigns, such as Draft status, sender, sending window, and cadence, into a campaign-level bulk action. Each sub-campaign retained its own audience segment and any necessary exceptions.",
+          "This model matched the operator's task: configure the shared outreach setup once, then tailor the audience for each outreach variant.",
         ],
         codeBlocks: [
           {
+            heading: "An operator applies shared settings once instead of repeating that setup for every row. An operator can still open an individual sub-campaign to override a shared value, which takes that row out of the bulk action going forward.",
             content:
               "Status: Draft\nSender: Violet Hyun\nSending window: Weekdays, 9 AM–5 PM\nCadence: 3-step outreach sequence\n[Apply to all sub-campaigns]",
           },
           {
-            heading: "Second, an operator applies or compares segments from one All column instead of opening each sub-campaign separately.",
+            heading: "Riskier actions, like activating or pausing live sub-campaigns, show a confirmation before they apply.",
             content:
-              "                All        Enterprise    Mid-market    SMB\nSegment      [Apply]      148 contacts  276 contacts  392 contacts\nStatus       Draft        Draft         Draft         Draft",
+              "Apply status to all sub-campaigns\nSelected status: Active\nThis will activate 3 sub-campaigns:\n• Enterprise attendees, 148 contacts\n• Mid-market attendees, 276 contacts\n• SMB attendees, 392 contacts\n[Cancel]  [Activate 3 sub-campaigns]",
+          },
+          {
+            heading: "Audience segment stays a sub-campaign-level field, since each row targets a different audience. The table lets an operator compare sizes across sub-campaigns, but it doesn't apply one segment to all of them.",
+            content:
+              "                     Enterprise      Mid-market      SMB\nAudience segment    148 contacts    276 contacts    392 contacts\nStatus              Draft           Draft           Draft",
           },
         ],
         footer:
-          "This made the shared action visible and kept sub-campaign rows available for the cases where an operator needed to override one setting.",
+          "This kept the bulk action limited to fields that are genuinely shared, and it kept audience assignment where each sub-campaign actually differs.",
       },
       {
         icon: "chart-line",
         label: "Interaction impact in the prototype",
         body: [
-          "For the task of applying the same status to three related sub-campaigns, an operator needed 7 clicks before this redesign: open each sub-campaign and set its status individually.",
-          "After the redesign, an operator needs 3 clicks: select a status once, choose Apply to all, and confirm.",
+          "In the prototype, applying Draft status to three existing sub-campaigns took seven clicks in the prior flow: open each row, choose Draft, and return to the table.",
+          "The redesigned flow took three clicks: choose Draft, select Apply to all, and confirm.",
           "This reflects a 57% reduction for this specific task in the prototype. It doesn't represent the complete campaign-creation workflow or production behavior.",
         ],
         stat: { value: "7 → 3", caption: "clicks for this task, in the prototype" },
@@ -219,7 +225,7 @@ export const vendeluxProjects: VendeluxProject[] = [
         quote:
           "You're launching three outreach variants for the same initiative. Which settings would you set once? Which would you control separately?",
         footer:
-          "Her answers confirmed the nesting matched how she organized campaigns, and I revised the structure wherever the model felt unclear.",
+          "Her feedback indicated that the nesting matched how she organized related campaigns. I revised parts of the structure where the distinction between shared settings and sub-campaign settings felt unclear.",
       },
       {
         icon: "alert-triangle",
@@ -240,7 +246,7 @@ export const vendeluxProjects: VendeluxProject[] = [
           "Rather than designing around an assumption, I documented the conflict and asked the PM to make the product decision. I continued the interaction design only after that decision landed.",
         ],
         footer:
-          "This reinforced that design execution depends on resolving product rules as much as clarifying the interface.",
+          "This reinforced that design execution depends on resolving product rules as much as clarifying the interface. As of this writing, the PM hadn't finalized that decision.",
       },
       {
         icon: "flask",
@@ -255,7 +261,7 @@ export const vendeluxProjects: VendeluxProject[] = [
           "Resume a paused sub-campaign and confirm how its scheduled date behaves.",
         ],
         footer:
-          "I'd use AI to generate the functional prototype and edge states, like empty segments, mismatched settings, paused rows, and confirmation dialogs, but I'd define the hierarchy, task sequence, and product rules myself.",
+          "I'd use AI to generate the functional prototype and edge states, like empty segments, mismatched settings, paused rows, and confirmation dialogs, but I'd define the hierarchy, task sequence, and product rules myself. I would also prompt the prototype review from an opposing perspective, asking it to identify cases where campaign-level bulk controls could create mistakes, hide meaningful differences, or reduce operator control. I would treat those outputs as edge cases to test rather than as product decisions.",
       },
       {
         icon: "chart-line",
