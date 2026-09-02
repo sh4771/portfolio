@@ -239,6 +239,10 @@ export const vendeluxProjects: VendeluxProject[] = [
             heading: "A: save while creating, a toggle at the bottom of the sub-campaign creation drawer. B: dedicated library, selected, a separate presets manager applied at creation. C: save from existing, capture a preset from a sub-campaign you already built.",
             image: "/images/vendelux/campaign-admin-custom-presets-compare.gif",
           },
+          {
+            heading: "Here's the dedicated library live in the product: a Custom Preset entry point sits alongside Saved presets and Compare Segments in the sub-campaign view.",
+            image: "/images/vendelux/campaign-admin-custom-presets-shipped.gif",
+          },
         ],
         footer:
           "I chose B because a preset saved through a dedicated library is reusable across many sub-campaigns and campaigns rather than just the one it was created from. A and C both tie the preset's origin to a single sub-campaign, which limits reuse exactly where FDEs needed it most.",
