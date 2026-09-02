@@ -4,7 +4,7 @@ export interface InfoBox {
   body: string[]
   variant?: "accent" | "danger" | "default"
   code?: string
-  codeBlocks?: { heading?: string; content: string }[]
+  codeBlocks?: { heading?: string; content: string; placeholder?: string }[]
   steps?: string[]
   quote?: string
   footer?: string
@@ -70,6 +70,7 @@ export const vendeluxProjects: VendeluxProject[] = [
             heading: "This changed the interaction from browsing a long menu to constructing an audience in decision order.",
             content:
               "Before: Filter menu\nAccount\nAttendance status\nCompany\nCreated date\nEvent\nExport status\n...\n\nAfter: Build audience from an event\n1. Choose event: Spring Summit 2026\n2. Choose participation: Attended\n3. Choose operational state: Not exported\n4. Review audience: 184 people\n5. Save segment",
+            placeholder: "/images/vendelux/segments-before-after-flow.png",
           },
         ],
         footer:
@@ -173,6 +174,7 @@ export const vendeluxProjects: VendeluxProject[] = [
           {
             content:
               "Fall Event Follow-up\n├── Enterprise attendees\n├── Mid-market attendees\n└── SMB attendees",
+            placeholder: "/images/vendelux/campaign-admin-structure.png",
           },
         ],
         footer:
@@ -191,16 +193,19 @@ export const vendeluxProjects: VendeluxProject[] = [
             heading: "An operator applies shared settings once instead of repeating that setup for every row. An operator can still open an individual sub-campaign to override a shared value, which takes that row out of the bulk action going forward.",
             content:
               "Status: Draft\nSender: Violet Hyun\nSending window: Weekdays, 9 AM–5 PM\nCadence: 3-step outreach sequence\n[Apply to all sub-campaigns]",
+            placeholder: "/images/vendelux/campaign-admin-apply-to-all.png",
           },
           {
             heading: "Riskier actions, like activating or pausing live sub-campaigns, show a confirmation before they apply.",
             content:
               "Apply status to all sub-campaigns\nSelected status: Active\nThis will activate 3 sub-campaigns:\n• Enterprise attendees, 148 contacts\n• Mid-market attendees, 276 contacts\n• SMB attendees, 392 contacts\n[Cancel]  [Activate 3 sub-campaigns]",
+            placeholder: "/images/vendelux/campaign-admin-activate-confirm.png",
           },
           {
             heading: "Audience segment stays a sub-campaign-level field, since each row targets a different audience. The table lets an operator compare sizes across sub-campaigns, but it doesn't apply one segment to all of them.",
             content:
               "                     Enterprise      Mid-market      SMB\nAudience segment    148 contacts    276 contacts    392 contacts\nStatus              Draft           Draft           Draft",
+            placeholder: "/images/vendelux/campaign-admin-segment-table.png",
           },
         ],
         footer:
@@ -310,6 +315,7 @@ export const vendeluxProjects: VendeluxProject[] = [
           {
             heading: "The old experience showed one value, with none of the reasoning behind it.",
             content: "Expected Meetings: 36",
+            placeholder: "/images/vendelux/meeting-planner-old-panel.png",
           },
         ],
         footer:
@@ -344,6 +350,7 @@ export const vendeluxProjects: VendeluxProject[] = [
             heading: "Show a range instead of a single number, and name the rate precisely instead of a vague \"conversion rate.\"",
             content:
               "Expected meetings: 28 to 44\nBased on:\n2,500 selected contacts\n1.4% historical invite-to-booked-meeting rate\nTypical variation in campaign performance",
+            placeholder: "/images/vendelux/meeting-planner-range.png",
           },
           {
             heading: "This estimate uses one rate for every selected segment, even though real response rates likely vary by segment. I flagged that as an open product question rather than build a per-segment model I couldn't verify.",
@@ -354,11 +361,13 @@ export const vendeluxProjects: VendeluxProject[] = [
             heading: "Add an expandable \"Why this estimate?\" for customers who want confidence before they act.",
             content:
               "Why this estimate?\nThis range uses:\n• Your selected audience size\n• The historical invite-to-booked-meeting rate\n• A lower and upper estimate to account for normal variation",
+            placeholder: "/images/vendelux/meeting-planner-why-estimate.png",
           },
           {
             heading: "Recalculate live as segments change, and label it as a forecast rather than a guarantee.",
             content:
               "Total audience: 2,500 → Expected meetings: 28 to 44\nRemove a 500-contact segment:\nTotal audience: 2,000 → Expected meetings: 22 to 35\n\nDirectional forecast. Actual results depend on outreach content, timing, audience fit, and campaign execution.",
+            placeholder: "/images/vendelux/meeting-planner-recalculate.gif",
           },
         ],
       },
@@ -372,15 +381,18 @@ export const vendeluxProjects: VendeluxProject[] = [
           {
             heading: "Option 1: single number with a tooltip. Benefit: keeps a fast, compact planning view. Risk: keeps the estimate looking exact, so customers have to dig for the calculation.",
             content: "Expected Meetings: 36 (i)",
+            placeholder: "/images/vendelux/meeting-planner-option-1.png",
           },
           {
             heading: "Option 2: rate only. Benefit: makes the assumption visible. Risk: pushes the planning math back onto the customer.",
             content: "Historical invite-to-booked-meeting rate: 1.4%",
+            placeholder: "/images/vendelux/meeting-planner-option-2.png",
           },
           {
             heading: "Option 3, selected: outcome plus visible inputs. Benefit: supports planning while keeping the main assumption inspectable. Risk: still depends on whether customers trust the underlying data for their case.",
             content:
               "Expected meetings: 28 to 44\n2,500 contacts × 1.4% historical rate\n[Why this estimate?]",
+            placeholder: "/images/vendelux/meeting-planner-option-3.png",
           },
         ],
       },

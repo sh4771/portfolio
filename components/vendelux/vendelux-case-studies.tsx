@@ -176,9 +176,18 @@ function InfoBoxCard({ box }: { box: InfoBox }) {
                   {block.heading && (
                     <p className="text-sm leading-relaxed text-foreground/80">{block.heading}</p>
                   )}
-                  <pre className="overflow-x-auto rounded-md bg-foreground/[0.06] px-3 py-2.5 text-xs leading-relaxed">
-                    {block.content}
-                  </pre>
+                  {block.placeholder ? (
+                    <div className="flex aspect-video items-center justify-center rounded-md border border-dashed border-border/60 bg-foreground/[0.03] px-4 text-center">
+                      <span className="text-xs text-muted-foreground">
+                        Screenshot placeholder. Drop asset at{" "}
+                        <code className="rounded bg-foreground/[0.06] px-1 py-0.5">{block.placeholder}</code>
+                      </span>
+                    </div>
+                  ) : (
+                    <pre className="overflow-x-auto rounded-md bg-foreground/[0.06] px-3 py-2.5 text-xs leading-relaxed">
+                      {block.content}
+                    </pre>
+                  )}
                 </div>
               ))}
             </div>
