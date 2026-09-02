@@ -1,3 +1,12 @@
+export interface InfoBox {
+  icon: "route" | "git-branch" | "bulb" | "alert-triangle" | "flask" | "chart-line" | "map"
+  label: string
+  body: string[]
+  variant?: "accent" | "danger" | "default"
+  code?: string
+  stat?: { value: string; caption: string }
+}
+
 export interface VendeluxProject {
   slug: string
   navLabel: string
@@ -6,12 +15,7 @@ export interface VendeluxProject {
   duration: string
   tools: string[]
   role: string[]
-  problem: string[]
-  bridgeQuestion?: string
-  process?: string[]
-  keyDecision: string[]
-  mistake?: string[]
-  outcome: string[]
+  boxes: InfoBox[]
   media: {
     beforeAfter?: { before: string; after: string; caption?: string }
     gif?: { src: string; caption?: string }
@@ -24,29 +28,67 @@ export const vendeluxProjects: VendeluxProject[] = [
     navLabel: "Smart Segments",
     title: "Smart Segments",
     oneLiner:
-      "Redesigned attendee filtering around organizer workflow instead of alphabetical order.",
+      "I redesigned attendee filtering around organizer workflow instead of alphabetical order.",
     duration: "Late March – April 2026 · Shipped",
     tools: ["Figma", "Claude Code"],
     role: [
-      "Worked closely with my manager (PM) through iterative feedback rounds, shaping the new hierarchy together.",
-      "Independently tested multiple structural hierarchies and refined based on stakeholder feedback across several rounds.",
+      "I worked closely with my manager (PM) through iterative feedback rounds, and we shaped the new hierarchy together.",
+      "I independently tested multiple structural hierarchies and refined them based on stakeholder feedback across several rounds.",
     ],
-    problem: [
-      "Customers struggled to manage events and campaigns without meaningful ways to filter attendees.",
-      "Filter categories were sorted alphabetically, disconnected from how organizers actually worked. The filters people needed most stayed buried.",
-    ],
-    bridgeQuestion: "So how do you fix filters that ignore how people actually work?",
-    keyDecision: [
-      "We moved Event (including attendance status, already exported, and speaker) to the top of the hierarchy, since organizers need to identify relevant events before narrowing down attendees.",
-      "I tested this against alternative structures and iterated based on feedback across several rounds. I also surfaced filter counts directly in the segment list, so organizers could compare segments at a glance.",
-    ],
-    mistake: [
-      "An early Figma pass broke the product's established type scale, introducing a sub-12px font size that failed accessibility standards. An engineer caught it on review, not me.",
-      "The fix was to revert the type change and solve the density problem with capitalization instead. That taught me to test hierarchy changes against the existing design system, not just against the content.",
-    ],
-    outcome: [
-      "Shipped. Monthly active organizers grew from 2 to 74 in the following months, though this overlapped with a separate, concurrent product launch, so I can't claim the growth was caused by this redesign alone.",
-      "What it does show: the surface is live and used at real scale.",
+    boxes: [
+      {
+        icon: "route",
+        label: "The organizer's job",
+        body: [
+          "After an event, organizers build a follow-up audience. They pick the event, narrow by attendance or export status, then save or apply the segment.",
+          "The alphabetical filter menu buried that first decision, the one organizers had to make before anything else.",
+        ],
+      },
+      {
+        icon: "git-branch",
+        label: "Three directions I tested",
+        body: [
+          "Alphabetical categories with better search kept discoverability but ignored task order.",
+          "Audience-attribute-first helped broad prospecting but slowed down event follow-up.",
+          "Event-first matched how organizers actually decided, so I chose it.",
+        ],
+      },
+      {
+        icon: "bulb",
+        label: "Key decision",
+        variant: "accent",
+        body: [
+          "I moved Event to the top and grouped attendance, export, and speaker status right after it, because organizers pick the event before anything else.",
+          "I added visible counts to saved segments so organizers can compare audiences without opening each one.",
+        ],
+        code: "Spring Summit 2026 → Attended → Not exported → Attendee · 184 people",
+      },
+      {
+        icon: "alert-triangle",
+        label: "A mistake I caught late",
+        variant: "danger",
+        body: [
+          "I introduced a sub-12px type size to fit more into the filter interface. An engineer flagged it in review: it broke the product's type scale and raised readability and accessibility concerns.",
+          "I fixed the density with capitalization and spacing instead, and I now check hierarchy changes against design-system tokens before I present a high-fidelity direction.",
+        ],
+      },
+      {
+        icon: "flask",
+        label: "How I'd validate this today",
+        body: [
+          "Looking back, I would write the workflow as tasks and build a lightweight clickable prototype before touching visual design, for example \"create a segment for Spring Summit attendees not yet exported.\"",
+          "I would use AI to generate that prototype fast, but I would keep the hierarchy decisions grounded in my own rationale, not the model's.",
+        ],
+      },
+      {
+        icon: "chart-line",
+        label: "Outcome",
+        body: [
+          "The redesign shipped, and monthly active organizers grew from 2 to 74 in the following months.",
+          "A separate product launch happened in the same window, so I can't say this redesign alone caused the growth. It does confirm the workflow reached real users.",
+        ],
+        stat: { value: "2 → 74", caption: "monthly active organizers" },
+      },
     ],
     media: {
       beforeAfter: {
@@ -65,32 +107,54 @@ export const vendeluxProjects: VendeluxProject[] = [
     navLabel: "Campaign Admin",
     title: "Campaign Admin",
     oneLiner:
-      "Redesigned an internal tool for launching outreach campaigns, cutting a multi-step process into bulk actions.",
+      "I redesigned an internal tool for launching outreach campaigns, cutting a multi-step process into bulk actions.",
     duration: "July 10 – Aug 28, 2026 (7 weeks) · In progress",
     tools: ["Figma", "v0"],
     role: [
-      "Sole designer, working through a structured ticket-and-spec process with a PM, engineer, and data lead. This was closer to a formal cross-functional build than a collaborative design pass.",
+      "I worked as the sole designer through a structured ticket-and-spec process with a PM, engineer, and data lead. This was closer to a formal cross-functional build than a collaborative design pass.",
     ],
-    problem: [
-      "Creating a campaign took three separate steps across multiple pages, and sub-campaigns that shared the same settings still had to be configured individually.",
-      "Three different team members had independently flagged this pain point months before the redesign started.",
-    ],
-    bridgeQuestion: "How do you turn three repetitive setups into one?",
-    process: [
-      "Before building anything, I mapped the full user journey and walked it past an actual person doing this job, who confirmed the new nested campaign-to-sub-campaign structure made sense.",
-      "I iterated the structure based on her reaction rather than assuming it was right.",
-    ],
-    keyDecision: [
-      "I redesigned the flow around two bulk actions: applying status and settings across all sub-campaigns at once, and applying a segment across every sub-campaign from one column instead of checking each individually.",
-      "Together, these cut the process of creating three identical sub-campaigns from 7 clicks to 3 in my prototype. That's a 57% reduction.",
-    ],
-    mistake: [
-      "My first draft read as too close to the original tool: a reskin rather than a real fix to the underlying workflow. It needed a full rework to actually change how the job got done.",
-      "Later, I caught a conflict between two engineering specs on date-handling logic and had to get the PM to arbitrate before design could move forward.",
-    ],
-    outcome: [
-      "In progress. Feature scope locked Aug 24, and design continued refining details (status display, pause/unpause behavior) through Aug 28.",
-      "Handed to engineering. Not yet live.",
+    boxes: [
+      {
+        icon: "route",
+        label: "The problem",
+        body: [
+          "Creating a campaign took three separate steps across multiple pages. Even sub-campaigns with identical settings still required configuring each one individually.",
+          "Three different team members had independently flagged this pain point months before I started the redesign.",
+        ],
+      },
+      {
+        icon: "map",
+        label: "Process",
+        body: [
+          "Before I built anything, I mapped the full user journey and walked it past someone who does this job. She confirmed the new campaign-to-sub-campaign structure made sense, and I iterated based on her reaction rather than assuming I was right.",
+        ],
+      },
+      {
+        icon: "bulb",
+        label: "Key decision",
+        variant: "accent",
+        body: [
+          "I redesigned the flow around two bulk actions: applying status and settings across all sub-campaigns at once, and applying a segment across every sub-campaign from one column instead of checking each individually.",
+          "Together, these cut the process of creating three identical sub-campaigns from 7 clicks to 3 in my prototype, a 57% reduction.",
+        ],
+      },
+      {
+        icon: "alert-triangle",
+        label: "Mistakes I caught",
+        variant: "danger",
+        body: [
+          "My first draft read as too close to the original tool: a reskin, not a real fix to the underlying workflow. It needed a full rework to actually change how the job got done.",
+          "Later, I caught a conflict between two engineering specs on date-handling logic and asked the PM to arbitrate before design could move forward.",
+        ],
+      },
+      {
+        icon: "chart-line",
+        label: "Status",
+        body: [
+          "I locked feature scope on Aug 24 and kept refining details (status display, pause and unpause behavior) through Aug 28.",
+          "I handed the design to engineering. It isn't live yet.",
+        ],
+      },
     ],
     media: {
       beforeAfter: {
@@ -109,25 +173,39 @@ export const vendeluxProjects: VendeluxProject[] = [
     navLabel: "Meeting Planner",
     title: "Meeting Planner",
     oneLiner:
-      "Redesigned how customers see event outreach predictions, replacing a number nobody could fully explain.",
+      "I redesigned how customers see event outreach predictions, replacing a number nobody could fully explain.",
     duration: "July 21 – Aug 26, 2026 · Ongoing",
     tools: ["Figma", "v0"],
     role: [
-      "Sole designer, working primarily with customer-facing team members rather than engineering.",
+      "I worked as the sole designer, primarily with customer-facing team members rather than engineering.",
       "My main feedback loop here was customer-proxy insight, not build feasibility.",
     ],
-    problem: [
-      "Customers saw an \"Expected Meetings\" number with no visible explanation of how it was calculated.",
-      "Internally, the team didn't fully trust it either. The conversion rate behind it changed five times over about 13 months, and multiple people, including leadership, had asked how it was actually calculated.",
-    ],
-    bridgeQuestion: "How do you make a number people don't trust worth trusting?",
-    keyDecision: [
-      "I redesigned the prediction panel to show Expected Meetings as a range instead of a single hardcoded number, surface the conversion rate driving the estimate, and add a \"Why this estimate?\" explanation.",
-      "The estimate also recalculates live as segments change.",
-    ],
-    outcome: [
-      "In progress. This hasn't been tested with a customer yet.",
-      "The next step before shipping is validating whether the new panel actually rebuilds trust, not just assuming transparency solves it. Design reviews ran through Aug 26.",
+    boxes: [
+      {
+        icon: "route",
+        label: "The problem",
+        body: [
+          "Customers saw an \"Expected Meetings\" number with no visible explanation of how we calculated it.",
+          "Internally, the team didn't fully trust it either. The conversion rate behind it changed five times over about 13 months, and multiple people, including leadership, had asked how we actually calculated it.",
+        ],
+      },
+      {
+        icon: "bulb",
+        label: "Key decision",
+        variant: "accent",
+        body: [
+          "I redesigned the prediction panel to show Expected Meetings as a range instead of a single hardcoded number, surface the conversion rate driving the estimate, and add a \"Why this estimate?\" explanation.",
+          "The estimate also recalculates live as segments change.",
+        ],
+      },
+      {
+        icon: "chart-line",
+        label: "Status",
+        body: [
+          "I haven't tested this with a customer yet. Before I ship, I need to validate whether the new panel actually rebuilds trust, rather than assuming transparency alone solves it.",
+          "Design reviews ran through Aug 26.",
+        ],
+      },
     ],
     media: {
       beforeAfter: {

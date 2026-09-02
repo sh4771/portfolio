@@ -1,10 +1,28 @@
 "use client"
 
 import type React from "react"
-import { ArrowDown } from "lucide-react"
+import {
+  Route,
+  GitBranch,
+  Lightbulb,
+  AlertTriangle,
+  FlaskConical,
+  LineChart,
+  Map as MapIcon,
+} from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { vendeluxProjects } from "@/lib/vendelux-projects"
+import { vendeluxProjects, type InfoBox } from "@/lib/vendelux-projects"
+
+const ICONS: Record<InfoBox["icon"], React.ElementType> = {
+  route: Route,
+  "git-branch": GitBranch,
+  bulb: Lightbulb,
+  "alert-triangle": AlertTriangle,
+  flask: FlaskConical,
+  "chart-line": LineChart,
+  map: MapIcon,
+}
 
 export function VendeluxCaseStudies() {
   const router = useRouter()
@@ -40,7 +58,7 @@ export function VendeluxCaseStudies() {
       </div>
 
       {/* Active project content */}
-      <article className="space-y-10">
+      <article className="space-y-8">
         <header className="space-y-3">
           <h1 className="text-2xl font-medium text-foreground">{active.title}</h1>
           <p className="text-base text-muted-foreground">{active.oneLiner}</p>
@@ -51,41 +69,21 @@ export function VendeluxCaseStudies() {
           </div>
         </header>
 
-        <Section title="Role">
+        <div className="space-y-2 text-[15px] leading-relaxed text-foreground/90">
+          <h2 className="text-xs font-medium uppercase tracking-[0.1em] text-muted-foreground">
+            Role
+          </h2>
           {active.role.map((p, i) => (
             <p key={i}>{p}</p>
           ))}
-        </Section>
+        </div>
 
-        <Section title="The problem">
-          {active.problem.map((p, i) => (
-            <p key={i}>{p}</p>
+        {/* Info boxes */}
+        <div className="grid gap-3">
+          {active.boxes.map((box, i) => (
+            <InfoBoxCard key={i} box={box} />
           ))}
-        </Section>
-
-        {/* Visual bridge from problem to decision */}
-        {active.bridgeQuestion && (
-          <div className="flex flex-col items-center gap-3 py-2 text-center">
-            <ArrowDown className="h-4 w-4 text-muted-foreground/60" aria-hidden />
-            <p className="max-w-md text-base font-medium italic text-foreground/80">
-              {active.bridgeQuestion}
-            </p>
-          </div>
-        )}
-
-        {active.process && (
-          <Section title="Process">
-            {active.process.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
-          </Section>
-        )}
-
-        <Section title="Key decision">
-          {active.keyDecision.map((p, i) => (
-            <p key={i}>{p}</p>
-          ))}
-        </Section>
+        </div>
 
         {/* Before / after placeholder */}
         {active.media.beforeAfter && (
@@ -119,39 +117,49 @@ export function VendeluxCaseStudies() {
             )}
           </div>
         )}
-
-        {active.mistake && (
-          <Section title="A mistake I made">
-            {active.mistake.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
-          </Section>
-        )}
-
-        <Section title="Outcome">
-          {active.outcome.map((p, i) => (
-            <p key={i}>{p}</p>
-          ))}
-        </Section>
       </article>
     </div>
   )
 }
 
-function Section({
-  title,
-  children,
-}: {
-  title: string
-  children: React.ReactNode
-}) {
+function InfoBoxCard({ box }: { box: InfoBox }) {
+  const Icon = ICONS[box.icon]
+  const borderClass =
+    box.variant === "accent"
+      ? "border-2 border-foreground/70"
+      : box.variant === "danger"
+        ? "border border-red-800/40"
+        : "border border-border/60"
+  const iconColorClass =
+    box.variant === "accent"
+      ? "text-foreground"
+      : box.variant === "danger"
+        ? "text-red-700 dark:text-red-400"
+        : "text-muted-foreground"
+
   return (
-    <div className="space-y-2">
-      <h2 className="text-xs font-medium uppercase tracking-[0.1em] text-muted-foreground">
-        {title}
-      </h2>
-      <div className="space-y-3 text-[15px] leading-relaxed text-foreground/90">
-        {children}
+    <div className={cn("rounded-xl p-4 sm:p-5", borderClass)}>
+      <div className="flex items-start gap-3">
+        <Icon className={cn("mt-0.5 h-5 w-5 shrink-0", iconColorClass)} strokeWidth={1.75} />
+        <div className="min-w-0 flex-1 space-y-2">
+          <p className="text-sm font-medium text-foreground">{box.label}</p>
+          <div className="space-y-1.5 text-sm leading-relaxed text-foreground/80">
+            {box.body.map((line, i) => (
+              <p key={i}>{line}</p>
+            ))}
+          </div>
+          {box.code && (
+            <code className="mt-1 inline-block rounded-md bg-foreground/[0.06] px-2.5 py-1.5 text-xs">
+              {box.code}
+            </code>
+          )}
+          {box.stat && (
+            <div className="flex items-baseline gap-2 pt-1">
+              <span className="text-xl font-medium text-foreground">{box.stat.value}</span>
+              <span className="text-xs text-muted-foreground">{box.stat.caption}</span>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )
