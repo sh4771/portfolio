@@ -229,6 +229,21 @@ export const vendeluxProjects: VendeluxProject[] = [
           "This kept the bulk action limited to fields that are genuinely shared, and it kept audience assignment where each sub-campaign actually differs.",
       },
       {
+        icon: "git-branch",
+        label: "Custom presets: three ways for FDEs to save settings",
+        body: [
+          "Beyond the fixed system preset batch (Early Confirmed, Late Confirmed, Predicted), FDEs needed a way to save their own settings as a reusable config. The real question was where saving should actually happen, so I built three clickable prototype directions to compare instead of debating it in the abstract.",
+        ],
+        codeBlocks: [
+          {
+            heading: "A: save while creating, a toggle at the bottom of the sub-campaign creation drawer. B: dedicated library, selected, a separate presets manager applied at creation. C: save from existing, capture a preset from a sub-campaign you already built.",
+            image: "/images/vendelux/campaign-admin-custom-presets-compare.gif",
+          },
+        ],
+        footer:
+          "I chose B because a preset saved through a dedicated library is reusable across many sub-campaigns and campaigns rather than just the one it was created from. A and C both tie the preset's origin to a single sub-campaign, which limits reuse exactly where FDEs needed it most.",
+      },
+      {
         icon: "chart-line",
         label: "Interaction impact in the prototype",
         body: [
