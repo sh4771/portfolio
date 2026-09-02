@@ -4,6 +4,10 @@ export interface InfoBox {
   body: string[]
   variant?: "accent" | "danger" | "default"
   code?: string
+  codeBlocks?: { heading?: string; content: string }[]
+  steps?: string[]
+  quote?: string
+  footer?: string
   stat?: { value: string; caption: string }
 }
 
@@ -77,7 +81,7 @@ export const vendeluxProjects: VendeluxProject[] = [
         label: "How I'd validate this today",
         body: [
           "Looking back, I would write the workflow as tasks and build a lightweight clickable prototype before touching visual design, for example \"create a segment for Spring Summit attendees not yet exported.\"",
-          "I would use AI to generate that prototype fast, but I would keep the hierarchy decisions grounded in my own rationale, not the model's.",
+          "I would use AI to generate that prototype fast, but I would keep the hierarchy decisions grounded in my own rationale rather than the model's.",
         ],
       },
       {
@@ -107,52 +111,133 @@ export const vendeluxProjects: VendeluxProject[] = [
     navLabel: "Campaign Admin",
     title: "Campaign Admin",
     oneLiner:
-      "I redesigned an internal tool for launching outreach campaigns, cutting a multi-step process into bulk actions.",
-    duration: "July 10 – Aug 28, 2026 (7 weeks) · In progress",
+      "I redesigned an internal campaign-launch tool around bulk actions, reducing repetitive setup for related sub-campaigns.",
+    duration: "July 10 – Aug 28, 2026 · In progress",
     tools: ["Figma", "v0"],
     role: [
-      "I worked as the sole designer through a structured ticket-and-spec process with a PM, engineer, and data lead. This was closer to a formal cross-functional build than a collaborative design pass.",
+      "I worked as the sole designer with a PM, engineer, and data lead through tickets and written specs.",
     ],
     boxes: [
       {
         icon: "route",
-        label: "The problem",
+        label: "The operator's job-to-be-done",
         body: [
-          "Creating a campaign took three separate steps across multiple pages. Even sub-campaigns with identical settings still required configuring each one individually.",
-          "Three different team members had independently flagged this pain point months before I started the redesign.",
+          "A campaign operator needs to launch several related outreach campaigns, for example one campaign per target account list, but with the same status, sending settings, and audience rules.",
         ],
+        quote:
+          "Create three sub-campaigns for the same event: Enterprise attendees, Mid-market attendees, and SMB attendees. Set each to Draft, use the same sender and cadence settings, then assign the appropriate audience segment.",
+        steps: [
+          "Create or open Sub-campaign A.",
+          "Set its status to Draft.",
+          "Configure its shared settings.",
+          "Repeat those steps for Sub-campaign B.",
+          "Repeat again for Sub-campaign C.",
+          "Open each sub-campaign separately to assign a segment.",
+          "Return to the campaign view to verify setup.",
+        ],
+        footer:
+          "The problem went beyond click count. The structure treated related sub-campaigns as isolated objects, even though the operator managed them as a group.",
       },
       {
         icon: "map",
-        label: "Process",
+        label: "New model: campaign as the shared setup layer",
         body: [
-          "Before I built anything, I mapped the full user journey and walked it past someone who does this job. She confirmed the new campaign-to-sub-campaign structure made sense, and I iterated based on her reaction rather than assuming I was right.",
+          "I introduced a nested structure. The parent campaign holds shared operational controls, and sub-campaigns hold individual audience segments and exceptions.",
         ],
+        codeBlocks: [
+          {
+            content:
+              "Fall Event Follow-up\n├── Enterprise attendees\n├── Mid-market attendees\n└── SMB attendees",
+          },
+        ],
+        footer:
+          "This made the campaign the place to set common defaults, while sub-campaigns kept control over the differences that mattered.",
       },
       {
         icon: "bulb",
-        label: "Key decision",
+        label: "Key decision: design for shared intent, then allow exceptions",
         variant: "accent",
         body: [
-          "I redesigned the flow around two bulk actions: applying status and settings across all sub-campaigns at once, and applying a segment across every sub-campaign from one column instead of checking each individually.",
-          "Together, these cut the process of creating three identical sub-campaigns from 7 clicks to 3 in my prototype, a 57% reduction.",
+          "I centered the redesign on two bulk actions.",
+          "First, an operator selects Apply to all and sets status, sender, sending window, and cadence once instead of repeating that setup for every row.",
         ],
-      },
-      {
-        icon: "alert-triangle",
-        label: "Mistakes I caught",
-        variant: "danger",
-        body: [
-          "My first draft read as too close to the original tool: a reskin, not a real fix to the underlying workflow. It needed a full rework to actually change how the job got done.",
-          "Later, I caught a conflict between two engineering specs on date-handling logic and asked the PM to arbitrate before design could move forward.",
+        codeBlocks: [
+          {
+            content:
+              "Status: Draft\nSender: Violet Hyun\nSending window: Weekdays, 9 AM–5 PM\nCadence: 3-step outreach sequence\n[Apply to all sub-campaigns]",
+          },
+          {
+            heading: "Second, an operator applies or compares segments from one All column instead of opening each sub-campaign separately.",
+            content:
+              "                All        Enterprise    Mid-market    SMB\nSegment      [Apply]      148 contacts  276 contacts  392 contacts\nStatus       Draft        Draft         Draft         Draft",
+          },
         ],
+        footer:
+          "This made the shared action visible and kept sub-campaign rows available for the cases where an operator needed to override one setting.",
       },
       {
         icon: "chart-line",
-        label: "Status",
+        label: "Interaction impact in the prototype",
         body: [
-          "I locked feature scope on Aug 24 and kept refining details (status display, pause and unpause behavior) through Aug 28.",
-          "I handed the design to engineering. It isn't live yet.",
+          "For the task of applying the same status to three related sub-campaigns, an operator needed 7 clicks before this redesign: open each sub-campaign and set its status individually.",
+          "After the redesign, an operator needs 3 clicks: select a status once, choose Apply to all, and confirm.",
+          "This reflects a 57% reduction for this specific task in the prototype. It doesn't represent the complete campaign-creation workflow or production behavior.",
+        ],
+        stat: { value: "7 → 3", caption: "clicks for this task, in the prototype" },
+      },
+      {
+        icon: "flask",
+        label: "Validation before visual polish",
+        body: [
+          "Before I moved into detailed UI, I mapped the workflow and reviewed the proposed parent-campaign and sub-campaign structure with someone who does this work regularly.",
+        ],
+        quote:
+          "You're launching three outreach variants for the same initiative. Which settings would you set once? Which would you control separately?",
+        footer:
+          "Her answers confirmed the nesting matched how she organized campaigns, and I revised the structure wherever the model felt unclear.",
+      },
+      {
+        icon: "alert-triangle",
+        label: "Early mistake: I polished the surface before I changed the model",
+        variant: "danger",
+        body: [
+          "My first direction kept the original interaction pattern: each sub-campaign still behaved like a separate setup task. It looked cleaner, but it didn't eliminate the repeated work.",
+          "The operator still had to set Draft three times for three related sub-campaigns, which made this a visual reskin instead of a workflow redesign.",
+        ],
+        footer:
+          "I restarted from the operator's repeated task, apply the same setup across this group, and introduced bulk actions at the campaign level.",
+      },
+      {
+        icon: "git-branch",
+        label: "Cross-functional constraint: unresolved date logic",
+        body: [
+          "During the build, I found that two engineering specs described date behavior differently: whether a paused sub-campaign should keep its scheduled start date or require a new date when it resumes.",
+          "Rather than designing around an assumption, I documented the conflict and asked the PM to make the product decision. I continued the interaction design only after that decision landed.",
+        ],
+        footer:
+          "This reinforced that design execution depends on resolving product rules as much as clarifying the interface.",
+      },
+      {
+        icon: "flask",
+        label: "How I'd validate this flow today",
+        body: [
+          "Before I invest in high-fidelity screens, I'd write a detailed interaction brief and build a lightweight HTML prototype using the existing design-system tokens.",
+        ],
+        steps: [
+          "Create three sub-campaigns for one event and set all of them to Draft.",
+          "Apply the same sending settings to every sub-campaign, then pause only Mid-market.",
+          "Compare audience sizes across all three segments before activating.",
+          "Resume a paused sub-campaign and confirm how its scheduled date behaves.",
+        ],
+        footer:
+          "I'd use AI to generate the functional prototype and edge states, like empty segments, mismatched settings, paused rows, and confirmation dialogs, but I'd define the hierarchy, task sequence, and product rules myself.",
+      },
+      {
+        icon: "chart-line",
+        label: "Outcome",
+        body: [
+          "I locked scope on August 24, 2026. By August 28, I'd handed the design to engineering, and I kept refining status display and pause and unpause behavior along the way.",
+          "The feature isn't live yet, so I don't have an adoption or performance outcome to report.",
         ],
       },
     ],
@@ -178,7 +263,7 @@ export const vendeluxProjects: VendeluxProject[] = [
     tools: ["Figma", "v0"],
     role: [
       "I worked as the sole designer, primarily with customer-facing team members rather than engineering.",
-      "My main feedback loop here was customer-proxy insight, not build feasibility.",
+      "My main feedback loop here was customer-proxy insight rather than build feasibility.",
     ],
     boxes: [
       {

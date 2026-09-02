@@ -148,11 +148,46 @@ function InfoBoxCard({ box }: { box: InfoBox }) {
               <p key={i}>{line}</p>
             ))}
           </div>
+
+          {box.quote && (
+            <blockquote className="border-l-2 border-foreground/20 pl-3 text-sm italic leading-relaxed text-foreground/70">
+              {box.quote}
+            </blockquote>
+          )}
+
+          {box.steps && box.steps.length > 0 && (
+            <ol className="space-y-1 pl-5 text-sm leading-relaxed text-foreground/80 [&>li]:list-decimal">
+              {box.steps.map((step, i) => (
+                <li key={i}>{step}</li>
+              ))}
+            </ol>
+          )}
+
           {box.code && (
             <code className="mt-1 inline-block rounded-md bg-foreground/[0.06] px-2.5 py-1.5 text-xs">
               {box.code}
             </code>
           )}
+
+          {box.codeBlocks && box.codeBlocks.length > 0 && (
+            <div className="space-y-3">
+              {box.codeBlocks.map((block, i) => (
+                <div key={i} className="space-y-1.5">
+                  {block.heading && (
+                    <p className="text-sm leading-relaxed text-foreground/80">{block.heading}</p>
+                  )}
+                  <pre className="overflow-x-auto rounded-md bg-foreground/[0.06] px-3 py-2.5 text-xs leading-relaxed">
+                    {block.content}
+                  </pre>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {box.footer && (
+            <p className="text-sm leading-relaxed text-foreground/80">{box.footer}</p>
+          )}
+
           {box.stat && (
             <div className="flex items-baseline gap-2 pt-1">
               <span className="text-xl font-medium text-foreground">{box.stat.value}</span>
