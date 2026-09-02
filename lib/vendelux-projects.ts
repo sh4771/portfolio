@@ -258,37 +258,141 @@ export const vendeluxProjects: VendeluxProject[] = [
     navLabel: "Meeting Planner",
     title: "Meeting Planner",
     oneLiner:
-      "I redesigned how customers see event outreach predictions, replacing a number nobody could fully explain.",
+      "I redesigned how customers interpret event-outreach predictions, replacing an unexplained single number with a transparent, adjustable estimate.",
     duration: "July 21 – Aug 26, 2026 · Ongoing",
     tools: ["Figma", "v0"],
     role: [
-      "I worked as the sole designer, primarily with customer-facing team members rather than engineering.",
-      "My main feedback loop here was customer-proxy insight rather than build feasibility.",
+      "I worked as the sole designer, mainly with customer-facing team members who brought recurring customer questions and objections into the design process.",
+      "My feedback loop focused on customer-proxy insight: what confused customers, what the team repeatedly had to explain, and which parts of the estimate people distrusted.",
     ],
     boxes: [
       {
         icon: "route",
-        label: "The problem",
+        label: "The customer's job",
         body: [
-          "Customers saw an \"Expected Meetings\" number with no visible explanation of how we calculated it.",
-          "Internally, the team didn't fully trust it either. The conversion rate behind it changed five times over about 13 months, and multiple people, including leadership, had asked how we actually calculated it.",
+          "A customer plans outreach for an event and needs to decide whether a target audience is large enough to produce a useful number of meetings.",
+          "They need this estimate to plan sales-team capacity, outreach volume, event goals, and follow-up expectations.",
         ],
+        quote:
+          "If I invite 2,500 people from these segments, how many meetings should I expect my team to book?",
+        codeBlocks: [
+          {
+            heading: "The old experience showed one value, with none of the reasoning behind it.",
+            content: "Expected Meetings: 36",
+          },
+        ],
+        footer:
+          "Customers couldn't see the audience size behind the number, the conversion rate driving it, whether it was a guarantee or a forecast, or how changing segments would change the result. The team also changed the conversion rate five times over about 13 months, which made the estimate hard to explain consistently.",
+      },
+      {
+        icon: "map",
+        label: "The old journey",
+        body: [],
+        steps: [
+          "The customer selects one or more audience segments.",
+          "The planner shows an Expected Meetings number.",
+          "The customer sees \"36 meetings.\"",
+          "The customer asks, \"Where did 36 come from?\"",
+          "A teammate manually explains the calculation, if they know the current conversion rate.",
+          "The customer changes the segment selection.",
+          "The customer struggles to tell whether the estimate changed because of audience size, conversion assumptions, or both.",
+        ],
+        footer:
+          "The issue went beyond unclear copy. The UI presented an estimate as a precise answer while it hid the assumptions that created it.",
       },
       {
         icon: "bulb",
-        label: "Key decision",
+        label: "Key decision: turn a hardcoded outcome into an inspectable calculation",
         variant: "accent",
         body: [
-          "I redesigned the prediction panel to show Expected Meetings as a range instead of a single hardcoded number, surface the conversion rate driving the estimate, and add a \"Why this estimate?\" explanation.",
-          "The estimate also recalculates live as segments change.",
+          "An estimate should show its assumptions, its uncertainty, and the action that changes it.",
+          "I designed the panel around three questions a customer would naturally ask: what result should I expect, what assumptions created it, and what happens if I change my audience?",
+        ],
+        codeBlocks: [
+          {
+            heading: "Show a range instead of a single number.",
+            content: "Expected Meetings: 28 to 44\nBased on your selected audience of 2,500 contacts",
+          },
+          {
+            heading: "Surface the conversion rate behind the estimate.",
+            content: "Audience size: 2,500\nHistorical conversion rate: 1.4%\nExpected meetings: 28 to 44",
+          },
+          {
+            heading: "Add an expandable \"Why this estimate?\" for customers who want confidence before they act.",
+            content:
+              "Why this estimate?\nThis range uses:\n• Your selected audience size\n• The current historical conversion rate for similar outreach\n• A lower and upper estimate to account for normal variation",
+          },
+          {
+            heading: "Recalculate live as segments change.",
+            content:
+              "VP/Director, Enterprise: 1,200\nPast event attendees: 800\nHigh-intent accounts: 500\nTotal audience: 2,500 → Expected Meetings: 28 to 44\n\nRemove High-intent accounts (500):\nTotal audience: 2,000 → Expected Meetings: 22 to 35",
+          },
         ],
       },
       {
-        icon: "chart-line",
-        label: "Status",
+        icon: "git-branch",
+        label: "Alternatives I considered",
         body: [
-          "I haven't tested this with a customer yet. Before I ship, I need to validate whether the new panel actually rebuilds trust, rather than assuming transparency alone solves it.",
-          "Design reviews ran through Aug 26.",
+          "I considered three directions before I landed on the final design.",
+        ],
+        codeBlocks: [
+          {
+            heading: "Option 1: keep one number, add a tooltip.",
+            content: "Expected Meetings: 36 (i)",
+          },
+          {
+            heading: "Option 2: show only the conversion rate.",
+            content: "Estimated conversion rate: 1.4%",
+          },
+          {
+            heading: "Option 3, selected: show a range, the assumptions, and live updates.",
+            content:
+              "Expected Meetings: 28 to 44\nBased on 2,500 contacts and a 1.4% historical conversion rate.\n[Why this estimate?]",
+          },
+        ],
+        footer:
+          "I chose option 3 because it gives customers an outcome, reveals the main assumption behind it, and lets them see how changing their plan changes the result.",
+      },
+      {
+        icon: "flask",
+        label: "Validation plan",
+        body: [
+          "I will test whether the panel changes trust and decision-making with real customers.",
+        ],
+        quote:
+          "You have 2,500 contacts across three segments. You need to decide whether this audience can support a goal of 30 meetings.",
+        steps: [
+          "What do you think this estimate means?",
+          "What information is driving it?",
+          "Would you use this to plan outreach? Why?",
+          "What would you change if you needed 50 meetings?",
+          "What information would make you trust this estimate more?",
+        ],
+        footer:
+          "I will compare answers against the previous single-number version to see whether customers understand the calculation and whether the range feels useful.",
+      },
+      {
+        icon: "flask",
+        label: "Prototyping this with AI",
+        body: [
+          "I would write the calculation logic and interaction states before I produce high-fidelity UI, using a lightweight HTML prototype with segment checkboxes, a live Expected Meetings range, a visible conversion-rate assumption, an expandable \"Why this estimate?\" section, and a scenario where the conversion rate changes.",
+        ],
+        codeBlocks: [
+          {
+            heading: "Edge cases I'd design for:",
+            content:
+              "No audience selected\nExpected Meetings: Select at least one segment\n\nSmall audience (42 contacts)\nExpected Meetings: 0 to 1\n\nInsufficient historical data\nExpected Meetings: Estimate unavailable\nWe need more outreach data for this audience.\n\nConversion rate updated from 1.4% to 1.1%\nExpected Meetings: 22 to 35",
+          },
+        ],
+        footer:
+          "I would use AI to generate a functional prototype and state variations, and I would define the calculation, information hierarchy, wording, and trust model myself.",
+      },
+      {
+        icon: "chart-line",
+        label: "Outcome",
+        body: [
+          "Design reviews continued through August 26, 2026. I haven't tested the panel with customers yet.",
+          "The next milestone is customer validation: confirm whether customers understand the estimate, identify its inputs, and use it with more confidence when they plan outreach.",
         ],
       },
     ],
