@@ -490,6 +490,23 @@ export const vendeluxProjects: VendeluxProject[] = [
           "I would use AI to generate a functional prototype and state variations, and I would define the calculation, information hierarchy, wording, and trust model myself. I would also ask AI to argue against the proposed panel and identify ways the interface could mislead customers, create false confidence, or hide weak data. I would treat its response as a list of test cases rather than as product direction.",
       },
       {
+        icon: "route",
+        label: "Design reviews across the Meetings App",
+        body: [
+          "This work sat inside a broader Meetings App effort, so I ran structured reviews with Customer Success and cross-functional stakeholders on the surrounding flows: the campaign builder, the segment builder, and campaign summary and launch validation.",
+        ],
+        codeBlocks: [
+          {
+            heading: "Notes from a review with Customer Success covering the campaign builder, the segment builder flow, and campaign summary validation.",
+            image: "/images/vendelux/meeting-planner-design-review-cs.png",
+          },
+          {
+            heading: "Notes from a design review on the Meetings App navigation and Create Campaign workflow.",
+            image: "/images/vendelux/meeting-planner-design-review-notes.png",
+          },
+        ],
+      },
+      {
         icon: "chart-line",
         label: "Outcome",
         body: [
