@@ -406,10 +406,8 @@ export const vendeluxProjects: VendeluxProject[] = [
             placeholder: "/images/vendelux/meeting-planner-why-estimate.png",
           },
           {
-            heading: "Recalculate live as segments change, and label it as a forecast rather than a guarantee.",
-            content:
-              "Total audience: 2,500 → Expected meetings: 28 to 44\nRemove a 500-contact segment:\nTotal audience: 2,000 → Expected meetings: 22 to 35\n\nDirectional forecast. Actual results depend on outreach content, timing, audience fit, and campaign execution.",
-            placeholder: "/images/vendelux/meeting-planner-recalculate.gif",
+            heading: "In the real Create Campaign flow, the forecast panel updates live as an FDE sets the event, timing, and audience, matched leads, the expected meeting range, the conversion rate, and price per meeting all update together, with a \"Why this estimate?\" link for more detail.",
+            image: "/images/vendelux/meeting-planner-create-campaign-flow.gif",
           },
         ],
         footer:
