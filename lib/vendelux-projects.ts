@@ -24,6 +24,7 @@ export interface VendeluxProject {
   oneLiner: string
   duration: string
   tools: string[]
+  intro: { text: string; image: string; alt: string }
   role: string[]
   boxes: InfoBox[]
   media: {
@@ -40,6 +41,11 @@ export const vendeluxProjects: VendeluxProject[] = [
       "I found that alphabetical filtering hid organizers' actual workflow, explored alternatives for a defined task, and learned that visual density can't override system constraints.",
     duration: "Late March – April 2026 · Shipped",
     tools: ["Figma", "Claude Code"],
+    intro: {
+      text: "Vendelux surfaces everyone attending an event. Organizers filter that list down to the people worth reaching out to, that filtered list is called a segment. This project redesigned how organizers build one.",
+      image: "/images/vendelux/segments-after-event-filter.gif",
+      alt: "Vendelux segment builder showing the Event-first filter hierarchy",
+    },
     role: [
       "I worked closely with my manager (PM) through iterative feedback rounds, and we shaped the new hierarchy together.",
       "I independently explored multiple structural hierarchies and refined them based on stakeholder feedback across several rounds.",
@@ -166,6 +172,11 @@ export const vendeluxProjects: VendeluxProject[] = [
       "I redesigned an internal campaign-launch tool around a shared-setup model for related sub-campaigns, pivoting from bulk editing to a Duplicate action when backend constraints ruled it out for MVP.",
     duration: "July 10 – Aug 28, 2026 · In progress",
     tools: ["Figma", "v0"],
+    intro: {
+      text: "Once organizers know who to reach, they set up an outreach campaign, a container for a specific pitch, sending settings, and audience. A single event often needs several similar campaigns at once (one per audience), each one is called a sub-campaign. This project redesigned how organizers set up several of these at once.",
+      image: "/images/vendelux/campaign-admin-duplicate-action.gif",
+      alt: "Vendelux campaign view showing a list of sub-campaigns and the Duplicate action",
+    },
     role: [
       "I worked as the sole designer with a PM, engineer, and data lead through tickets and written specs.",
     ],
@@ -354,6 +365,11 @@ export const vendeluxProjects: VendeluxProject[] = [
       "I found that the product presented an uncertain forecast as a precise fact, and redesigned it to expose the inputs and uncertainty behind the number.",
     duration: "July 21 – Aug 26, 2026 · Ongoing",
     tools: ["Figma", "v0"],
+    intro: {
+      text: "Before committing to an event campaign, customers want to know: how many actual sales meetings should I expect? Vendelux shows that as an \"Expected Meetings\" estimate. This project redesigned how that estimate gets explained.",
+      image: "/images/vendelux/meeting-planner-create-campaign-flow.gif",
+      alt: "Vendelux Create Campaign flow showing a live Expected Meetings forecast panel",
+    },
     role: [
       "I worked as the sole designer, mainly with customer-facing team members who brought recurring customer questions and objections into the design process.",
       "My feedback loop focused on customer-proxy insight: what the team repeatedly had to explain, and which parts of the estimate customers reportedly distrusted.",

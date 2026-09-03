@@ -68,14 +68,21 @@ export function VendeluxCaseStudies() {
       {/* Active project content */}
       <article className="space-y-8">
         <header className="space-y-3">
-          <h1 className="text-2xl font-medium text-foreground">{active.title}</h1>
-          <p className="text-base text-muted-foreground">{active.oneLiner}</p>
+          <h1 className="text-2xl md:text-3xl font-normal tracking-tight text-foreground">{active.title}</h1>
+          <p className="text-sm text-text-secondary">{active.oneLiner}</p>
           <div className="flex flex-wrap gap-x-6 gap-y-1 pt-2 text-xs uppercase tracking-[0.1em] text-muted-foreground">
             <span>Vendelux</span>
             <span>{active.duration}</span>
             <span>{active.tools.join(", ")}</span>
           </div>
         </header>
+
+        <div className="space-y-3 rounded-lg border border-border/40 bg-muted/20 p-4">
+          <p className="text-sm leading-relaxed text-foreground/80">{active.intro.text}</p>
+          <div className="relative aspect-video w-full overflow-hidden rounded-md border border-border/30">
+            <Image src={active.intro.image} alt={active.intro.alt} fill className="object-cover object-top" sizes="800px" />
+          </div>
+        </div>
 
         <div className="space-y-2 text-[15px] leading-relaxed text-foreground/90">
           <h2 className="text-xs font-medium uppercase tracking-[0.1em] text-muted-foreground">
