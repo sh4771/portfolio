@@ -207,10 +207,8 @@ export const vendeluxProjects: VendeluxProject[] = [
         ],
         codeBlocks: [
           {
-            heading: "An operator applies shared settings once instead of repeating that setup for every row. An operator can still open an individual sub-campaign to override a shared value, which takes that row out of the bulk action going forward.",
-            content:
-              "Status: Draft\nSender: Violet Hyun\nSending window: Weekdays, 9 AM–5 PM\nCadence: 3-step outreach sequence\n[Apply to all sub-campaigns]",
-            placeholder: "/images/vendelux/campaign-admin-apply-to-all.png",
+            heading: "In the shipped version, an operator selects specific sub-campaigns with checkboxes, including a group-level checkbox for an entire outreach type, then applies shared settings to just that selection instead of an all-or-nothing action. An operator can still open an individual sub-campaign to override a value, which takes that row out of the bulk action going forward.",
+            image: "/images/vendelux/campaign-admin-bulk-edit.gif",
           },
           {
             heading: "Riskier actions, like activating or pausing live sub-campaigns, show a confirmation before they apply.",
