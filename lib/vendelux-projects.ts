@@ -292,15 +292,22 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
     ],
     media: {
-      beforeAfter: {
-        before: "/images/vendelux/campaign-admin-before-placeholder.png",
-        after: "/images/vendelux/campaign-admin-after-placeholder.png",
-        caption: "7-click flow (before) vs. 3-click Apply to All flow (after) (placeholder)",
-      },
-      gif: {
-        src: "/images/vendelux/campaign-admin-demo-placeholder.gif",
-        caption: "Apply to All and Compare Segments 'All' column (placeholder)",
-      },
+      beforeAfterSet: [
+        {
+          label: "Create campaign",
+          description:
+            "The old tool (Vendelux Meetings Management V2) was an unstyled internal form: a flat page with a raw Team ID, plain radio buttons, and no visual hierarchy between required and optional fields. The redesign turns it into a structured modal, grouping Campaign Details, Event Association, and the auto-created Sub-Campaigns into clearly labeled sections.",
+          before: "/images/vendelux/campaign-admin-before-creation.png",
+          after: "/images/vendelux/campaign-admin-after-creation.png",
+        },
+        {
+          label: "Campaign list",
+          description:
+            "The old view was a raw stats block (Campaigns, Sub-Campaigns, Ready to Launch, Pending Approval...) followed by a dense, unstyled table of every sub-campaign across every event. The redesign replaces it with a scannable list of campaigns, each showing its channel types, sub-campaign count, and status at a glance, with filtering and search.",
+          before: "/images/vendelux/campaign-admin-before-summary.png",
+          after: "/images/vendelux/campaign-admin-after-summary.png",
+        },
+      ],
     },
   },
   {
