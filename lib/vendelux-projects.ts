@@ -148,7 +148,7 @@ export const vendeluxProjects: VendeluxProject[] = [
     navLabel: "Campaign Admin",
     title: "Campaign Admin",
     oneLiner:
-      "I redesigned an internal campaign-launch tool around bulk actions, reducing repetitive setup for related sub-campaigns.",
+      "I redesigned an internal campaign-launch tool around a shared-setup model for related sub-campaigns, pivoting from bulk editing to a Duplicate action when backend constraints ruled it out for MVP.",
     duration: "July 10 – Aug 28, 2026 · In progress",
     tools: ["Figma", "v0"],
     role: [
@@ -195,25 +195,23 @@ export const vendeluxProjects: VendeluxProject[] = [
           "This made the campaign the place to set common defaults, while sub-campaigns kept control over the differences that mattered.",
       },
       {
-        icon: "bulb",
-        label: "Key decision: separate shared setup from audience-specific setup",
-        variant: "accent",
+        icon: "git-branch",
+        label: "Initial direction: bulk editing",
         body: [
-          "I moved operational settings that apply across related sub-campaigns, such as Draft status, sender, sending window, and cadence, into a campaign-level bulk action. Each sub-campaign retained its own audience segment and any necessary exceptions.",
-          "This model matched the operator's task: configure the shared outreach setup once, then tailor the audience for each outreach variant.",
-          "Riskier actions, like activating or pausing live sub-campaigns, show a confirmation before they apply, since a bulk action here affects several live sub-campaigns at once.",
-          "Audience segment stays a sub-campaign-level field in the same table, since each row targets a different audience. That lets an operator compare sizes across sub-campaigns at a glance, without the bulk action ever applying one segment to all of them.",
+          "I designed a bulk-editing workflow that let operators select sub-campaigns with checkboxes and apply shared settings, such as status, sender, and cadence, to the selection. The prototype addressed a high-priority FDE request by reducing repeated setup.",
+          "Riskier actions, like activating or pausing live sub-campaigns, would show a confirmation before they applied, since a bulk action here would affect several live sub-campaigns at once.",
+          "Audience segment stayed a sub-campaign-level field in the same table, since each row targets a different audience, so an operator could compare sizes across sub-campaigns without the bulk action ever applying one segment to all of them.",
         ],
         codeBlocks: [
           {
-            heading: "In the shipped version, an operator selects specific sub-campaigns with checkboxes, including a group-level checkbox for an entire outreach type, then applies shared settings to just that selection instead of an all-or-nothing action. An operator can still open an individual sub-campaign to override a value, which takes that row out of the bulk action going forward.",
+            heading: "In this prototype, an operator selected specific sub-campaigns with checkboxes, including a group-level checkbox for an entire outreach type, then applied shared settings to just that selection instead of an all-or-nothing action. An operator could still open an individual sub-campaign to override a value, which took that row out of the bulk action going forward.",
             image: "/images/vendelux/campaign-admin-bulk-edit.gif",
             imageWidth: 1280,
             imageHeight: 1169,
           },
         ],
         footer:
-          "This kept the bulk action limited to fields that are genuinely shared, and it kept audience assignment where each sub-campaign actually differs.",
+          "This kept the bulk action limited to fields that were genuinely shared, and kept audience assignment where each sub-campaign actually differs. It didn't ship — see the next section for why.",
       },
       {
         icon: "code",
@@ -226,11 +224,10 @@ export const vendeluxProjects: VendeluxProject[] = [
       {
         icon: "alert-triangle",
         variant: "danger",
-        label: "I got ahead of a backend constraint",
+        label: "Scope correction: Duplicate for the MVP",
         body: [
-          "I initially designed bulk-editing controls in response to a high-priority FDE request. I didn't communicate early enough about the gap between that demand and what the backend could support within the MVP timeline.",
-          "As the design evolved, I made changes that assumed bulk editing would be available, but engineering couldn't support that capability in the first release. The team removed bulk editing from MVP scope.",
-          "I proposed a Duplicate action as an alternative. An operator could duplicate an existing sub-campaign with its shared setup, then adjust the audience segment or other exceptions for the new version. This reduced repetitive setup without requiring the backend changes true bulk editing needed.",
+          "I didn't communicate early enough about the gap between the requested bulk-editing workflow and backend feasibility within the MVP timeline. Bulk editing required backend support that was unavailable for the first release, so the team removed it from scope.",
+          "I proposed a Duplicate action instead. Operators could copy an existing sub-campaign with its shared configuration, then change the audience segment or any other exception. This preserved a faster setup path without depending on the bulk-editing backend work.",
         ],
         codeBlocks: [
           {
@@ -269,8 +266,8 @@ export const vendeluxProjects: VendeluxProject[] = [
         label: "Interaction impact in the prototype",
         body: [
           "In the prototype, applying Draft status to three existing sub-campaigns took seven clicks in the prior flow: open each row, choose Draft, and return to the table.",
-          "The redesigned flow took three clicks: choose Draft, select Apply to all, and confirm.",
-          "This reflects a 57% reduction for this specific task in the prototype. It doesn't represent the complete campaign-creation workflow or production behavior.",
+          "The bulk-edit prototype took three clicks: choose Draft, select Apply to all, and confirm.",
+          "This reflects a 57% reduction for this specific task in that prototype. It measures the bulk-editing mechanism specifically, which didn't ship — the MVP replaced it with Duplicate, which I haven't measured the same way yet.",
         ],
         stat: { value: "7 → 3", caption: "clicks for this task, in the prototype" },
       },
