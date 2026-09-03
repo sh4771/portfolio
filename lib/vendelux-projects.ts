@@ -26,6 +26,7 @@ export interface VendeluxProject {
   whatIDid: string
   tools: string[]
   intro: { text: string; image: string; alt: string }
+  credit?: { text: string; linkText?: string; url?: string }
   role: string[]
   boxes: InfoBox[]
   media: {
@@ -45,8 +46,13 @@ export const vendeluxProjects: VendeluxProject[] = [
     tools: ["Figma", "Claude Code"],
     intro: {
       text: "Vendelux surfaces everyone attending an event. Organizers filter that list down to the people worth reaching out to, that filtered list is called a segment. This project redesigned how organizers build one.",
-      image: "/images/vendelux/segments-after-event-filter.gif",
-      alt: "Vendelux segment builder showing the Event-first filter hierarchy",
+      image: "/images/vendelux/segments-include-exclude-after.png",
+      alt: "Vendelux segment builder showing job title and seniority filters with include/exclude toggles",
+    },
+    credit: {
+      text: "Product Design Internship, Vendelux",
+      linkText: "view the case study deck",
+      url: "https://www.google.com/goto?url=CAESVQHrOzAVS88RVlmY9mMD39AUyefsVkijSEV8TB3EvZcnlB3w67wF-TEZteaFv_zxDj4qFYkO0DfYkfuM6jEyINF1Mm46PeqxTFl8SYUVhVIbrRZFzRM",
     },
     role: [
       "I worked closely with my manager (PM) through iterative feedback rounds, and we shaped the new hierarchy together.",
@@ -177,9 +183,10 @@ export const vendeluxProjects: VendeluxProject[] = [
     tools: ["Figma", "v0"],
     intro: {
       text: "Once organizers know who to reach, they set up an outreach campaign, a container for a specific pitch, sending settings, and audience. A single event often needs several similar campaigns at once (one per audience), each one is called a sub-campaign. This project redesigned how organizers set up several of these at once.",
-      image: "/images/vendelux/campaign-admin-duplicate-action.gif",
-      alt: "Vendelux campaign view showing a list of sub-campaigns and the Duplicate action",
+      image: "/images/vendelux/campaign-admin-after-creation.png",
+      alt: "Vendelux campaign creation view showing sub-campaign setup",
     },
+    credit: { text: "Product Design Internship, Vendelux" },
     role: [
       "I worked as the sole designer with a PM, engineer, and data lead through tickets and written specs.",
     ],
@@ -371,9 +378,10 @@ export const vendeluxProjects: VendeluxProject[] = [
     tools: ["Figma", "v0"],
     intro: {
       text: "Before committing to an event campaign, customers want to know: how many actual sales meetings should I expect? Vendelux shows that as an \"Expected Meetings\" estimate. This project redesigned how that estimate gets explained.",
-      image: "/images/vendelux/meeting-planner-create-campaign-flow.gif",
-      alt: "Vendelux Create Campaign flow showing a live Expected Meetings forecast panel",
+      image: "/images/vendelux/mp-after-mainpage.png",
+      alt: "Vendelux Meetings dashboard showing campaigns and their status",
     },
+    credit: { text: "Product Design Internship, Vendelux" },
     role: [
       "I worked as the sole designer, mainly with customer-facing team members who brought recurring customer questions and objections into the design process.",
       "My feedback loop focused on customer-proxy insight: what the team repeatedly had to explain, and which parts of the estimate customers reportedly distrusted.",

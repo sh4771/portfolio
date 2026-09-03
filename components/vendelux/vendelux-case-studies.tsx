@@ -70,6 +70,24 @@ export function VendeluxCaseStudies() {
         <header className="space-y-3">
           <h1 className="text-2xl md:text-3xl font-normal tracking-tight text-foreground">{active.title}</h1>
           <p className="text-sm text-text-secondary">{active.oneLiner}</p>
+          {active.credit && (
+            <p className="text-xs text-text-secondary">
+              {active.credit.text}
+              {active.credit.linkText && active.credit.url && (
+                <>
+                  {" — "}
+                  <a
+                    href={active.credit.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline decoration-text-muted underline-offset-2 hover:text-foreground"
+                  >
+                    {active.credit.linkText}
+                  </a>
+                </>
+              )}
+            </p>
+          )}
 
           <div className="flex flex-wrap gap-x-12 gap-y-4 text-sm pt-4">
             <div>
