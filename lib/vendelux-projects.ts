@@ -59,6 +59,8 @@ export const vendeluxProjects: VendeluxProject[] = [
           "Audience-attribute-first served broad prospecting well, but it slowed organizers down on the event follow-up task I focused on.",
           "Event-first prioritized that task, so I chose it for this workflow while leaving audience attributes available for broader prospecting.",
         ],
+        footer:
+          "The team didn't yet have a dedicated research function or an established organizer research panel, and this project moved within the Organizer MVP launch timeline. I used stakeholder and customer-facing feedback to evaluate the hierarchy, while recognizing that this was proxy feedback, not a substitute for direct organizer usability testing.",
       },
       {
         icon: "bulb",
@@ -92,6 +94,8 @@ export const vendeluxProjects: VendeluxProject[] = [
             image: "/images/vendelux/segments-component-library-mcp-spec.png",
           },
         ],
+        footer:
+          "Mine: choosing the Event-first hierarchy, grouping attendance, export, and speaker filters around it, deciding which saved-segment counts to surface, and refining labels and spacing within the design system. Mechanical, and what I used MCP for: applying the same filter UI patterns across categories, generating repeated filter states, and producing layout variants.",
       },
       {
         icon: "alert-triangle",
@@ -104,37 +108,20 @@ export const vendeluxProjects: VendeluxProject[] = [
           "I kept the established minimum text size and created density through stronger section labels, shorter filter names, and spacing that separated groups without adding visual noise. I now check hierarchy changes against design-system tokens before I present a high-fidelity direction.",
       },
       {
-        icon: "flask",
-        label: "How I'd validate this today",
-        body: [
-          "Before building screens, I would write the task logic in detail: what information an organizer has, what they need to decide first, what they can refine later, and which exceptions matter.",
-          "I would then build an HTML prototype and test competing entry points against the same task.",
-        ],
-        quote:
-          "Create a follow-up audience for Spring Summit attendees who have not been exported.",
-        codeBlocks: [
-          {
-            content: "Start with an event\nStart with audience attributes\nStart with a saved segment",
-          },
-        ],
-        footer:
-          "I would also ask AI to argue against the Event-first approach and identify cases where attributes, accounts, or saved segments should come first. I would treat those outputs as hypotheses to evaluate rather than answers to accept.",
-      },
-      {
         icon: "chart-line",
         label: "Outcome",
         body: [
-          "The product shipped. Monthly active organizers increased from 2 to 74 during the following months, alongside a separate product launch.",
-          "I can't attribute that increase to Smart Segments without feature-level usage or task-completion data.",
+          "The product shipped. During the August 3–9, 2026 launch window, segment creation increased from 26 to 52 week over week.",
+          "That indicates increased use of the broader organizer workflow, but I can't attribute it to Smart Segments alone: the same window included a separate Organizer MVP launch, and I don't yet have feature-level usage data isolating the redesigned filtering workflow from that.",
         ],
         codeBlocks: [
           {
-            heading: "Feature-level measures I would track next:",
+            heading: "Feature-level measures I'm working to pull next, including monthly active organizers re-run by account-creation date (before vs. after July 6, 2026) to separate the two launches:",
             content:
               "Number of segments created using Event filters\nTime to create an event follow-up segment\nFilter abandonment rate\nUse of saved-segment counts\nNumber of segments applied to campaigns",
           },
         ],
-        stat: { value: "2 → 74", caption: "monthly active organizers, correlation only" },
+        stat: { value: "26 → 52", caption: "segment creation, week over week (Aug 3–9, 2026)" },
       },
     ],
     media: {
@@ -227,6 +214,14 @@ export const vendeluxProjects: VendeluxProject[] = [
           "This kept the bulk action limited to fields that are genuinely shared, and it kept audience assignment where each sub-campaign actually differs.",
       },
       {
+        icon: "code",
+        label: "Where judgment was mine, and where v0 did the mechanical work",
+        body: [
+          "Mine: separating shared campaign settings from sub-campaign-specific settings, choosing which controls belonged in bulk actions, defining exception and pause/resume states, and clarifying ambiguous product rules with the PM.",
+          "Mechanical: generating repeated table rows, applying shared styles, and building out prototype states for confirmations, empty segments, and status variations.",
+        ],
+      },
+      {
         icon: "git-branch",
         label: "Custom presets: three ways for FDEs to save settings",
         body: [
@@ -286,21 +281,6 @@ export const vendeluxProjects: VendeluxProject[] = [
         ],
         footer:
           "This reinforced that design execution depends on resolving product rules as much as clarifying the interface. As of this writing, the PM hadn't finalized that decision.",
-      },
-      {
-        icon: "flask",
-        label: "How I'd validate this flow today",
-        body: [
-          "Before I invest in high-fidelity screens, I'd write a detailed interaction brief and build a lightweight HTML prototype using the existing design-system tokens.",
-        ],
-        steps: [
-          "Create three sub-campaigns for one event and set all of them to Draft.",
-          "Apply the same sending settings to every sub-campaign, then pause only Mid-market.",
-          "Compare audience sizes across all three segments before activating.",
-          "Resume a paused sub-campaign and confirm how its scheduled date behaves.",
-        ],
-        footer:
-          "I'd use AI to generate the functional prototype and edge states, like empty segments, mismatched settings, paused rows, and confirmation dialogs, but I'd define the hierarchy, task sequence, and product rules myself. I would also prompt the prototype review from an opposing perspective, asking it to identify cases where campaign-level bulk controls could create mistakes, hide meaningful differences, or reduce operator control. I would treat those outputs as edge cases to test rather than as product decisions.",
       },
       {
         icon: "chart-line",
@@ -412,6 +392,14 @@ export const vendeluxProjects: VendeluxProject[] = [
           "The baseline rate has moved more than once as the team recalibrated it against real campaign performance. That told me this was a monitored simplification the team actively revisits rather than a forgotten default, which shaped how much confidence I gave the estimate in the copy.",
       },
       {
+        icon: "code",
+        label: "Where judgment was mine, and where v0 did the mechanical work",
+        body: [
+          "Mine: choosing to replace a single forecast with a range, determining which inputs needed to be visible, writing the \"Why this estimate?\" explanation, and deciding how a segment change should affect the displayed estimate.",
+          "Mechanical: laying out the panel, generating alternate display states, and implementing live recalculation once the underlying formula and rules were defined.",
+        ],
+      },
+      {
         icon: "git-branch",
         label: "Alternatives I considered",
         body: [
@@ -470,22 +458,6 @@ export const vendeluxProjects: VendeluxProject[] = [
           "The interface must reveal when there is insufficient data rather than force a prediction.",
           "Changing a segment should update the forecast and explain which input changed.",
         ],
-      },
-      {
-        icon: "flask",
-        label: "Prototyping this with AI",
-        body: [
-          "I would turn the writing above into a functional HTML prototype before I invest in visual detail, with segment checkboxes, a live Expected Meetings range, a visible rate assumption, an expandable \"Why this estimate?\" section, and a scenario where the rate changes.",
-        ],
-        codeBlocks: [
-          {
-            heading: "Edge states I'd design for:",
-            content:
-              "No segments selected\nExpected meetings: Select an audience to see an estimate\n\nSmall audience (42 contacts)\nExpected meetings: 0 to 1\n\nNo reliable historical data\nExpected meetings: Unavailable\nThere is not enough historical data to create a reliable estimate.\n\nOutdated assumption\nHistorical rate last updated: August 2026\n[Learn how this rate is calculated]",
-          },
-        ],
-        footer:
-          "I would use AI to generate a functional prototype and state variations, and I would define the calculation, information hierarchy, wording, and trust model myself. I would also ask AI to argue against the proposed panel and identify ways the interface could mislead customers, create false confidence, or hide weak data. I would treat its response as a list of test cases rather than as product direction.",
       },
       {
         icon: "route",
