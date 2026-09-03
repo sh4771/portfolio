@@ -7,6 +7,7 @@ export interface InfoBox {
   codeBlocks?: { heading?: string; content?: string; image?: string; imageWidth?: number; imageHeight?: number }[]
   thumbnailImages?: string[]
   steps?: string[]
+  flow?: { steps: string[]; note?: string }[]
   quote?: string
   footer?: string
   stat?: { value: string; caption: string }
@@ -42,7 +43,7 @@ export const vendeluxProjects: VendeluxProject[] = [
     boxes: [
       {
         icon: "route",
-        label: "The organizer's job",
+        label: "What the organizer needed to do",
         body: [
           "For the event follow-up workflow I focused on, organizers first needed to identify the event before they narrowed the attendee list.",
           "The alphabetical filter menu buried that first decision, the one organizers had to make before anything else.",
@@ -95,10 +96,9 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
       {
         icon: "code",
-        label: "How I built this with Claude MCP",
+        label: "My workflow",
         body: [
-          "Once the hierarchy was set, I used the Figma MCP plugin API to script the tooltip system and the component library directly from written specs, instead of building every variant by hand.",
-          "The tooltip is one reusable component that fires on hover of the info icon, positions itself relative to that icon, and only swaps its text content per filter category. Scripting it once through MCP covered every tooltip in the panel instead of me placing dozens of them manually.",
+          "Once the hierarchy was set, I used the Figma MCP plugin API to script the tooltip system and component library from written specs, instead of building every variant by hand.",
         ],
         codeBlocks: [
           {
@@ -165,14 +165,18 @@ export const vendeluxProjects: VendeluxProject[] = [
         ],
         quote:
           "Create three sub-campaigns for the same event: Enterprise attendees, Mid-market attendees, and SMB attendees. Set each to Draft, use the same sender and cadence settings, then assign the appropriate audience segment.",
-        steps: [
-          "Create or open Sub-campaign A.",
-          "Set its status to Draft.",
-          "Configure its shared settings.",
-          "Repeat those steps for Sub-campaign B.",
-          "Repeat again for Sub-campaign C.",
-          "Open each sub-campaign separately to assign a segment.",
-          "Return to the campaign view to verify setup.",
+        flow: [
+          {
+            steps: ["Open sub-campaign", "Set to Draft", "Configure shared settings"],
+            note: "repeated for A, B, and C",
+          },
+          {
+            steps: ["Assign audience segment"],
+            note: "separately, per sub-campaign",
+          },
+          {
+            steps: ["Return to campaign view to verify"],
+          },
         ],
         footer:
           "The problem went beyond click count. The structure treated related sub-campaigns as isolated objects, even though the operator managed them as a group.",
@@ -199,6 +203,8 @@ export const vendeluxProjects: VendeluxProject[] = [
         body: [
           "I moved operational settings that apply across related sub-campaigns, such as Draft status, sender, sending window, and cadence, into a campaign-level bulk action. Each sub-campaign retained its own audience segment and any necessary exceptions.",
           "This model matched the operator's task: configure the shared outreach setup once, then tailor the audience for each outreach variant.",
+          "Riskier actions, like activating or pausing live sub-campaigns, show a confirmation before they apply, since a bulk action here affects several live sub-campaigns at once.",
+          "Audience segment stays a sub-campaign-level field in the same table, since each row targets a different audience. That lets an operator compare sizes across sub-campaigns at a glance, without the bulk action ever applying one segment to all of them.",
         ],
         codeBlocks: [
           {
@@ -206,16 +212,6 @@ export const vendeluxProjects: VendeluxProject[] = [
             image: "/images/vendelux/campaign-admin-bulk-edit.gif",
             imageWidth: 1280,
             imageHeight: 1169,
-          },
-          {
-            heading: "Riskier actions, like activating or pausing live sub-campaigns, show a confirmation before they apply.",
-            content:
-              "Apply status to all sub-campaigns\nSelected status: Active\nThis will activate 3 sub-campaigns:\n• Enterprise attendees, 148 contacts\n• Mid-market attendees, 276 contacts\n• SMB attendees, 392 contacts\n[Cancel]  [Activate 3 sub-campaigns]",
-          },
-          {
-            heading: "Audience segment stays a sub-campaign-level field, since each row targets a different audience. The table lets an operator compare sizes across sub-campaigns, but it doesn't apply one segment to all of them.",
-            content:
-              "                     Enterprise      Mid-market      SMB\nAudience segment    148 contacts    276 contacts    392 contacts\nStatus              Draft           Draft           Draft",
           },
         ],
         footer:
@@ -233,11 +229,10 @@ export const vendeluxProjects: VendeluxProject[] = [
         icon: "git-branch",
         label: "Custom presets: three ways for FDEs to save settings",
         body: [
-          "Beyond the fixed system preset batch (Early Confirmed, Late Confirmed, Predicted), FDEs needed a way to save their own settings as a reusable config. The real question was where saving should actually happen, so I built three clickable prototype directions to compare instead of debating it in the abstract.",
+          "Beyond the fixed system preset batch (Early Confirmed, Late Confirmed, Predicted), FDEs needed a way to save their own settings as a reusable config. The real question was where saving should actually happen, so I built three clickable prototype directions to compare instead of debating it in the abstract: (A) a save toggle inside the sub-campaign creation drawer, (B) a dedicated presets library, and (C) capturing a preset from a sub-campaign you'd already built.",
         ],
         codeBlocks: [
           {
-            heading: "A: save while creating, a toggle at the bottom of the sub-campaign creation drawer. B: dedicated library, selected, a separate presets manager applied at creation. C: save from existing, capture a preset from a sub-campaign you already built.",
             image: "/images/vendelux/campaign-admin-custom-presets-compare.gif",
             imageWidth: 1208,
             imageHeight: 1286,
