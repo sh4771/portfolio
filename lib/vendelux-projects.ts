@@ -4,7 +4,7 @@ export interface InfoBox {
   body: string[]
   variant?: "accent" | "danger" | "default"
   code?: string
-  codeBlocks?: { heading?: string; content?: string; image?: string }[]
+  codeBlocks?: { heading?: string; content?: string; image?: string; imageWidth?: number; imageHeight?: number }[]
   thumbnailImages?: string[]
   steps?: string[]
   quote?: string
@@ -71,6 +71,8 @@ export const vendeluxProjects: VendeluxProject[] = [
           {
             heading: "This changed the interaction from browsing a long menu to constructing an audience in decision order. Here, Event sits at the top with Attendance Status grouped right under it (Confirmed, Predicted, Historical), matching a saved segment against 40,153 attendees.",
             image: "/images/vendelux/segments-after-event-filter.gif",
+            imageWidth: 1600,
+            imageHeight: 967,
           },
         ],
         footer:
@@ -86,6 +88,8 @@ export const vendeluxProjects: VendeluxProject[] = [
         codeBlocks: [
           {
             image: "/images/vendelux/segments-include-exclude-before-after.png",
+            imageWidth: 6704,
+            imageHeight: 4405,
           },
         ],
       },
@@ -99,10 +103,14 @@ export const vendeluxProjects: VendeluxProject[] = [
         codeBlocks: [
           {
             image: "/images/vendelux/segments-tooltip-mcp-spec.png",
+            imageWidth: 8000,
+            imageHeight: 5101,
           },
           {
             heading: "I specced and scripted the rest of the component set the same way: filter toggles, section headers, the selected-count button, save and reset controls, and toast confirmations, each with its own documented states and interaction rules.",
             image: "/images/vendelux/segments-component-library-mcp-spec.png",
+            imageWidth: 6775,
+            imageHeight: 8000,
           },
         ],
         footer:
@@ -196,6 +204,8 @@ export const vendeluxProjects: VendeluxProject[] = [
           {
             heading: "In the shipped version, an operator selects specific sub-campaigns with checkboxes, including a group-level checkbox for an entire outreach type, then applies shared settings to just that selection instead of an all-or-nothing action. An operator can still open an individual sub-campaign to override a value, which takes that row out of the bulk action going forward.",
             image: "/images/vendelux/campaign-admin-bulk-edit.gif",
+            imageWidth: 1280,
+            imageHeight: 1169,
           },
           {
             heading: "Riskier actions, like activating or pausing live sub-campaigns, show a confirmation before they apply.",
@@ -229,10 +239,14 @@ export const vendeluxProjects: VendeluxProject[] = [
           {
             heading: "A: save while creating, a toggle at the bottom of the sub-campaign creation drawer. B: dedicated library, selected, a separate presets manager applied at creation. C: save from existing, capture a preset from a sub-campaign you already built.",
             image: "/images/vendelux/campaign-admin-custom-presets-compare.gif",
+            imageWidth: 1208,
+            imageHeight: 1286,
           },
           {
             heading: "Here's the dedicated library live in the product: a Custom Preset entry point sits alongside Saved presets and Compare Segments in the sub-campaign view.",
             image: "/images/vendelux/campaign-admin-custom-presets-shipped.gif",
+            imageWidth: 1280,
+            imageHeight: 973,
           },
         ],
         footer:
@@ -387,6 +401,8 @@ export const vendeluxProjects: VendeluxProject[] = [
           {
             heading: "In the real Create Campaign flow, the forecast panel updates live as an FDE sets the event, timing, and audience, matched leads, the expected meeting range, the conversion rate, and price per meeting all update together, with a \"Why this estimate?\" link for more detail.",
             image: "/images/vendelux/meeting-planner-create-campaign-flow.gif",
+            imageWidth: 1280,
+            imageHeight: 1488,
           },
         ],
         footer:

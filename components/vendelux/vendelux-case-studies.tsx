@@ -194,8 +194,8 @@ function InfoBoxCard({ box }: { box: InfoBox }) {
                       <Image
                         src={block.image}
                         alt={block.heading ?? "Design spec screenshot"}
-                        width={1600}
-                        height={1000}
+                        width={block.imageWidth ?? 1600}
+                        height={block.imageHeight ?? 1000}
                         className="h-auto w-full"
                         sizes="600px"
                       />
