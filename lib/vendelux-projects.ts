@@ -5,6 +5,7 @@ export interface InfoBox {
   variant?: "accent" | "danger" | "default"
   code?: string
   codeBlocks?: { heading?: string; content?: string; placeholder?: string; image?: string }[]
+  thumbnailImages?: string[]
   steps?: string[]
   quote?: string
   footer?: string
@@ -23,7 +24,7 @@ export interface VendeluxProject {
   media: {
     beforeAfter?: { before: string; after: string; caption?: string }
     gif?: { src: string; caption?: string }
-    beforeAfterSet?: { label: string; before: string; after: string }[]
+    beforeAfterSet?: { label: string; description: string; before: string; after: string }[]
   }
 }
 
@@ -492,15 +493,9 @@ export const vendeluxProjects: VendeluxProject[] = [
         body: [
           "This work sat inside a broader Meetings App effort, so I ran structured reviews with Customer Success and cross-functional stakeholders on the surrounding flows: the campaign builder, the segment builder, and campaign summary and launch validation.",
         ],
-        codeBlocks: [
-          {
-            heading: "Notes from a review with Customer Success covering the campaign builder, the segment builder flow, and campaign summary validation.",
-            image: "/images/vendelux/meeting-planner-design-review-cs.png",
-          },
-          {
-            heading: "Notes from a design review on the Meetings App navigation and Create Campaign workflow.",
-            image: "/images/vendelux/meeting-planner-design-review-notes.png",
-          },
+        thumbnailImages: [
+          "/images/vendelux/meeting-planner-design-review-cs.png",
+          "/images/vendelux/meeting-planner-design-review-notes.png",
         ],
       },
       {
@@ -514,10 +509,34 @@ export const vendeluxProjects: VendeluxProject[] = [
     ],
     media: {
       beforeAfterSet: [
-        { label: "Main page", before: "/images/vendelux/mp-before-mainpage.png", after: "/images/vendelux/mp-after-mainpage.png" },
-        { label: "Create campaign flow", before: "/images/vendelux/mp-before-creationflow.png", after: "/images/vendelux/mp-after-creationflow.png" },
-        { label: "Email sequences", before: "/images/vendelux/mp-before-emailsequence.png", after: "/images/vendelux/mp-after-emailsequence.png" },
-        { label: "Event detail", before: "/images/vendelux/mp-before-eventdetail.png", after: "/images/vendelux/mp-after-eventdetail.png" },
+        {
+          label: "Main page",
+          description:
+            "The old view was a flat data table with no way to see what needed attention. The redesign adds a \"Needs attention\" panel that surfaces missing booking links, missing on-site contacts, and pending approvals up front, then lists campaigns as cards with status and connection counts.",
+          before: "/images/vendelux/mp-before-mainpage.png",
+          after: "/images/vendelux/mp-after-mainpage.png",
+        },
+        {
+          label: "Create campaign flow",
+          description:
+            "The old flow was one long single-page form covering event details, audience targeting, and goals all at once. The redesign breaks it into a guided four-step wizard (Goal & Audience, Persona & Sequences, Booking & Integrations, Review & Launch) with a live forecast panel alongside it.",
+          before: "/images/vendelux/mp-before-creationflow.png",
+          after: "/images/vendelux/mp-after-creationflow.png",
+        },
+        {
+          label: "Email sequences",
+          description:
+            "The old view showed all four email steps fully expanded with their full copy visible at once. The redesign collapses them into a labeled, expandable list and adds cold-call and LinkedIn or networking-app scripts alongside it.",
+          before: "/images/vendelux/mp-before-emailsequence.png",
+          after: "/images/vendelux/mp-after-emailsequence.png",
+        },
+        {
+          label: "Event detail",
+          description:
+            "The old page listed every field as flat text, including a hardcoded \"Expected Meetings: 27, 2.5% conversion rate\" with no explanation. The redesign organizes the same information into clear sections and adds a \"Fix to launch\" checklist that flags what's missing before a campaign can go live.",
+          before: "/images/vendelux/mp-before-eventdetail.png",
+          after: "/images/vendelux/mp-after-eventdetail.png",
+        },
       ],
     },
   },

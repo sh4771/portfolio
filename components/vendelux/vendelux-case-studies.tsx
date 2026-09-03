@@ -90,18 +90,27 @@ export function VendeluxCaseStudies() {
 
         {/* Compact before/after grid, real screenshots across multiple areas */}
         {active.media.beforeAfterSet && active.media.beforeAfterSet.length > 0 && (
-          <div className="space-y-3 pt-2">
+          <div className="space-y-8 pt-2">
             <p className="text-xs font-medium uppercase tracking-[0.1em] text-muted-foreground">
               Before / after, across the app
             </p>
             {active.media.beforeAfterSet.map((pair, i) => (
-              <div key={i} className="grid grid-cols-[80px_1fr_1fr] items-center gap-2 sm:grid-cols-[110px_1fr_1fr]">
-                <span className="text-xs text-muted-foreground">{pair.label}</span>
-                <div className="relative aspect-video overflow-hidden rounded-md border border-border/40">
-                  <Image src={pair.before} alt={`${pair.label}, before`} fill className="object-cover object-top" sizes="200px" />
-                </div>
-                <div className="relative aspect-video overflow-hidden rounded-md border border-border/40">
-                  <Image src={pair.after} alt={`${pair.label}, after`} fill className="object-cover object-top" sizes="200px" />
+              <div key={i} className="space-y-2">
+                <p className="text-sm font-medium text-foreground">{pair.label}</p>
+                <p className="text-sm leading-relaxed text-foreground/70">{pair.description}</p>
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  <div className="space-y-1.5">
+                    <span className="text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground">Before</span>
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-border/40">
+                      <Image src={pair.before} alt={`${pair.label}, before`} fill className="object-cover object-top" sizes="500px" />
+                    </div>
+                  </div>
+                  <div className="space-y-1.5">
+                    <span className="text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground">After</span>
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-border/40">
+                      <Image src={pair.after} alt={`${pair.label}, after`} fill className="object-cover object-top" sizes="500px" />
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
@@ -190,6 +199,20 @@ function InfoBoxCard({ box }: { box: InfoBox }) {
             <code className="mt-1 inline-block rounded-md bg-foreground/[0.06] px-2.5 py-1.5 text-xs">
               {box.code}
             </code>
+          )}
+
+          {box.thumbnailImages && box.thumbnailImages.length > 0 && (
+            <div className="flex pt-1">
+              {box.thumbnailImages.map((src, i) => (
+                <div
+                  key={i}
+                  className="relative h-20 w-28 shrink-0 overflow-hidden rounded-md border-2 border-background bg-muted shadow-sm"
+                  style={{ marginLeft: i === 0 ? 0 : -16, zIndex: box.thumbnailImages!.length - i }}
+                >
+                  <Image src={src} alt="Meeting notes" fill className="object-cover object-top" sizes="112px" />
+                </div>
+              ))}
+            </div>
           )}
 
           {box.codeBlocks && box.codeBlocks.length > 0 && (
