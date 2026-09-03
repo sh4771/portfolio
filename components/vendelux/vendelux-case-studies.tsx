@@ -11,6 +11,8 @@ import {
   LineChart,
   Map as MapIcon,
   Code2,
+  ArrowRight,
+  ArrowDown,
 } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { cn } from "@/lib/utils"
@@ -101,14 +103,14 @@ export function VendeluxCaseStudies() {
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                   <div className="space-y-1.5">
                     <span className="text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground">Before</span>
-                    <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-border/40">
-                      <Image src={pair.before} alt={`${pair.label}, before`} fill className="object-cover object-top" sizes="500px" />
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-border/40 bg-foreground/[0.03]">
+                      <Image src={pair.before} alt={`${pair.label}, before`} fill className="object-contain" sizes="500px" />
                     </div>
                   </div>
                   <div className="space-y-1.5">
                     <span className="text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground">After</span>
-                    <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-border/40">
-                      <Image src={pair.after} alt={`${pair.label}, after`} fill className="object-cover object-top" sizes="500px" />
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-border/40 bg-foreground/[0.03]">
+                      <Image src={pair.after} alt={`${pair.label}, after`} fill className="object-contain" sizes="500px" />
                     </div>
                   </div>
                 </div>
@@ -162,6 +164,33 @@ function InfoBoxCard({ box }: { box: InfoBox }) {
             </ol>
           )}
 
+          {box.flow && box.flow.length > 0 && (
+            <div className="space-y-2 pt-1">
+              {box.flow.map((group, gi) => (
+                <div key={gi}>
+                  <div className="flex flex-wrap items-center gap-2">
+                    {group.steps.map((step, si) => (
+                      <span key={si} className="contents">
+                        {si > 0 && (
+                          <ArrowRight className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
+                        )}
+                        <span className="rounded-md border border-border/60 bg-foreground/[0.04] px-3 py-1.5 text-sm text-foreground/90">
+                          {step}
+                        </span>
+                      </span>
+                    ))}
+                    {group.note && (
+                      <span className="text-xs italic text-muted-foreground">{group.note}</span>
+                    )}
+                  </div>
+                  {gi < box.flow!.length - 1 && (
+                    <ArrowDown className="my-1 h-3.5 w-3.5 text-muted-foreground/50" />
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+
           {box.code && (
             <code className="mt-1 inline-block rounded-md bg-foreground/[0.06] px-2.5 py-1.5 text-xs">
               {box.code}
@@ -169,14 +198,13 @@ function InfoBoxCard({ box }: { box: InfoBox }) {
           )}
 
           {box.thumbnailImages && box.thumbnailImages.length > 0 && (
-            <div className="flex pt-1">
+            <div className="grid grid-cols-2 gap-3 pt-1">
               {box.thumbnailImages.map((src, i) => (
                 <div
                   key={i}
-                  className="relative h-20 w-28 shrink-0 overflow-hidden rounded-md border-2 border-background bg-muted shadow-sm"
-                  style={{ marginLeft: i === 0 ? 0 : -16, zIndex: box.thumbnailImages!.length - i }}
+                  className="relative aspect-[3/4] overflow-hidden rounded-md border border-border/40 bg-foreground/[0.03]"
                 >
-                  <Image src={src} alt="Meeting notes" fill className="object-cover object-top" sizes="112px" />
+                  <Image src={src} alt="Design review notes" fill className="object-contain" sizes="400px" />
                 </div>
               ))}
             </div>
