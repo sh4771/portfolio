@@ -88,6 +88,26 @@ export function VendeluxCaseStudies() {
           ))}
         </div>
 
+        {/* Compact before/after grid, real screenshots across multiple areas */}
+        {active.media.beforeAfterSet && active.media.beforeAfterSet.length > 0 && (
+          <div className="space-y-3 pt-2">
+            <p className="text-xs font-medium uppercase tracking-[0.1em] text-muted-foreground">
+              Before / after, across the app
+            </p>
+            {active.media.beforeAfterSet.map((pair, i) => (
+              <div key={i} className="grid grid-cols-[80px_1fr_1fr] items-center gap-2 sm:grid-cols-[110px_1fr_1fr]">
+                <span className="text-xs text-muted-foreground">{pair.label}</span>
+                <div className="relative aspect-video overflow-hidden rounded-md border border-border/40">
+                  <Image src={pair.before} alt={`${pair.label}, before`} fill className="object-cover object-top" sizes="200px" />
+                </div>
+                <div className="relative aspect-video overflow-hidden rounded-md border border-border/40">
+                  <Image src={pair.after} alt={`${pair.label}, after`} fill className="object-cover object-top" sizes="200px" />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
         {/* Before / after placeholder */}
         {active.media.beforeAfter && (
           <div className="space-y-2">

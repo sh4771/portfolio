@@ -23,6 +23,7 @@ export interface VendeluxProject {
   media: {
     beforeAfter?: { before: string; after: string; caption?: string }
     gif?: { src: string; caption?: string }
+    beforeAfterSet?: { label: string; before: string; after: string }[]
   }
 }
 
@@ -512,15 +513,12 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
     ],
     media: {
-      beforeAfter: {
-        before: "/images/vendelux/meeting-planner-before-placeholder.png",
-        after: "/images/vendelux/meeting-planner-after-placeholder.png",
-        caption: "Old hardcoded estimate (before) vs. transparent range + explanation (after) (placeholder)",
-      },
-      gif: {
-        src: "/images/vendelux/meeting-planner-demo-placeholder.gif",
-        caption: "Expanding \"Why this estimate?\" (placeholder)",
-      },
+      beforeAfterSet: [
+        { label: "Main page", before: "/images/vendelux/mp-before-mainpage.png", after: "/images/vendelux/mp-after-mainpage.png" },
+        { label: "Create campaign flow", before: "/images/vendelux/mp-before-creationflow.png", after: "/images/vendelux/mp-after-creationflow.png" },
+        { label: "Email sequences", before: "/images/vendelux/mp-before-emailsequence.png", after: "/images/vendelux/mp-after-emailsequence.png" },
+        { label: "Event detail", before: "/images/vendelux/mp-before-eventdetail.png", after: "/images/vendelux/mp-after-eventdetail.png" },
+      ],
     },
   },
 ]
