@@ -79,6 +79,19 @@ export const vendeluxProjects: VendeluxProject[] = [
           "Organizers often maintained several event audiences. Counts were intended to help them compare saved audience sizes, for example whether \"Spring Summit attendees, not exported\" at 184 people was large enough for follow-up, before they opened or applied a segment.",
       },
       {
+        icon: "git-branch",
+        label: "A second decision: making include vs. exclude unambiguous",
+        body: [
+          "Job Title and Job Seniority originally mixed included and excluded values into one list, distinguished only by color. That's an easy state to misread at a glance, especially once an organizer has several values selected across both directions.",
+          "I split each field into an explicit Include and Exclude section, each with its own toggle and its own list, so an organizer applying \"− Intern, 2,114\" doesn't have to infer exclusion from a color alone.",
+        ],
+        codeBlocks: [
+          {
+            image: "/images/vendelux/segments-include-exclude-before-after.png",
+          },
+        ],
+      },
+      {
         icon: "code",
         label: "How I built this with Claude MCP",
         body: [
