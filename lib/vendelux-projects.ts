@@ -23,6 +23,7 @@ export interface VendeluxProject {
   title: string
   oneLiner: string
   duration: string
+  whatIDid: string
   tools: string[]
   intro: { text: string; image: string; alt: string }
   role: string[]
@@ -40,6 +41,7 @@ export const vendeluxProjects: VendeluxProject[] = [
     oneLiner:
       "I found that alphabetical filtering hid organizers' actual workflow, explored alternatives for a defined task, and learned that visual density can't override system constraints.",
     duration: "Late March – April 2026 · Shipped",
+    whatIDid: "UI/UX Design, Prototyping",
     tools: ["Figma", "Claude Code"],
     intro: {
       text: "Vendelux surfaces everyone attending an event. Organizers filter that list down to the people worth reaching out to, that filtered list is called a segment. This project redesigned how organizers build one.",
@@ -171,6 +173,7 @@ export const vendeluxProjects: VendeluxProject[] = [
     oneLiner:
       "I redesigned an internal campaign-launch tool around a shared-setup model for related sub-campaigns, pivoting from bulk editing to a Duplicate action when backend constraints ruled it out for MVP.",
     duration: "July 10 – Aug 28, 2026 · In progress",
+    whatIDid: "UI/UX Design, Prototyping",
     tools: ["Figma", "v0"],
     intro: {
       text: "Once organizers know who to reach, they set up an outreach campaign, a container for a specific pitch, sending settings, and audience. A single event often needs several similar campaigns at once (one per audience), each one is called a sub-campaign. This project redesigned how organizers set up several of these at once.",
@@ -364,6 +367,7 @@ export const vendeluxProjects: VendeluxProject[] = [
     oneLiner:
       "I found that the product presented an uncertain forecast as a precise fact, and redesigned it to expose the inputs and uncertainty behind the number.",
     duration: "July 21 – Aug 26, 2026 · Ongoing",
+    whatIDid: "UI/UX Design, Prototyping",
     tools: ["Figma", "v0"],
     intro: {
       text: "Before committing to an event campaign, customers want to know: how many actual sales meetings should I expect? Vendelux shows that as an \"Expected Meetings\" estimate. This project redesigned how that estimate gets explained.",

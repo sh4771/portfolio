@@ -70,10 +70,20 @@ export function VendeluxCaseStudies() {
         <header className="space-y-3">
           <h1 className="text-2xl md:text-3xl font-normal tracking-tight text-foreground">{active.title}</h1>
           <p className="text-sm text-text-secondary">{active.oneLiner}</p>
-          <div className="flex flex-wrap gap-x-6 gap-y-1 pt-2 text-xs uppercase tracking-[0.1em] text-muted-foreground">
-            <span>Vendelux</span>
-            <span>{active.duration}</span>
-            <span>{active.tools.join(", ")}</span>
+
+          <div className="flex flex-wrap gap-x-12 gap-y-4 text-sm pt-4">
+            <div>
+              <span className="mb-1 block text-xs text-foreground/40">Context</span>
+              <span className="text-foreground/70">Vendelux</span>
+            </div>
+            <div>
+              <span className="mb-1 block text-xs text-foreground/40">Timeline</span>
+              <span className="text-foreground/70">{active.duration}</span>
+            </div>
+            <div>
+              <span className="mb-1 block text-xs text-foreground/40">What I did</span>
+              <span className="text-foreground/70">{active.whatIDid}</span>
+            </div>
           </div>
         </header>
 
