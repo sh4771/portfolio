@@ -210,6 +210,23 @@ function InfoBoxCard({ box }: { box: InfoBox }) {
             </div>
           )}
 
+          {box.inlineBeforeAfter && (
+            <div className="grid grid-cols-1 gap-3 pt-1 sm:grid-cols-2">
+              <div className="space-y-1.5">
+                <span className="text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground">Before</span>
+                <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-border/40 bg-foreground/[0.03]">
+                  <Image src={box.inlineBeforeAfter.before} alt={`${box.label}, before`} fill className="object-contain" sizes="400px" />
+                </div>
+              </div>
+              <div className="space-y-1.5">
+                <span className="text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground">After</span>
+                <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-border/40 bg-foreground/[0.03]">
+                  <Image src={box.inlineBeforeAfter.after} alt={`${box.label}, after`} fill className="object-contain" sizes="400px" />
+                </div>
+              </div>
+            </div>
+          )}
+
           {box.codeBlocks && box.codeBlocks.length > 0 && (
             <div className="space-y-3">
               {box.codeBlocks.map((block, i) => (
