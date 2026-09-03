@@ -67,10 +67,8 @@ export const vendeluxProjects: VendeluxProject[] = [
         ],
         codeBlocks: [
           {
-            heading: "This changed the interaction from browsing a long menu to constructing an audience in decision order.",
-            content:
-              "Before: Filter menu\nAccount\nAttendance status\nCompany\nCreated date\nEvent\nExport status\n...\n\nAfter: Build audience from an event\n1. Choose event: Spring Summit 2026\n2. Choose participation: Attended\n3. Choose operational state: Not exported\n4. Review audience: 184 people\n5. Save segment",
-            placeholder: "/images/vendelux/segments-before-after-flow.png",
+            heading: "This changed the interaction from browsing a long menu to constructing an audience in decision order. Here, Event sits at the top with Attendance Status grouped right under it (Confirmed, Predicted, Historical), matching a saved segment against 40,153 attendees.",
+            image: "/images/vendelux/segments-after-event-filter.gif",
           },
         ],
         footer:
