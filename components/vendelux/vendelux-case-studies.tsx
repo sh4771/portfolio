@@ -82,7 +82,7 @@ export function VendeluxCaseStudies() {
         </div>
 
         {/* Info boxes */}
-        <div className="grid gap-3">
+        <div className="grid grid-cols-1 gap-3">
           {active.boxes.map((box, i) => (
             <InfoBoxCard key={i} box={box} />
           ))}
