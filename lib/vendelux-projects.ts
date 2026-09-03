@@ -4,7 +4,7 @@ export interface InfoBox {
   body: string[]
   variant?: "accent" | "danger" | "default"
   code?: string
-  codeBlocks?: { heading?: string; content?: string; placeholder?: string; image?: string }[]
+  codeBlocks?: { heading?: string; content?: string; image?: string; imageWidth?: number; imageHeight?: number }[]
   thumbnailImages?: string[]
   steps?: string[]
   quote?: string
@@ -22,8 +22,6 @@ export interface VendeluxProject {
   role: string[]
   boxes: InfoBox[]
   media: {
-    beforeAfter?: { before: string; after: string; caption?: string }
-    gif?: { src: string; caption?: string }
     beforeAfterSet?: { label: string; description: string; before: string; after: string }[]
   }
 }
@@ -59,6 +57,8 @@ export const vendeluxProjects: VendeluxProject[] = [
           "Audience-attribute-first served broad prospecting well, but it slowed organizers down on the event follow-up task I focused on.",
           "Event-first prioritized that task, so I chose it for this workflow while leaving audience attributes available for broader prospecting.",
         ],
+        footer:
+          "The team didn't yet have a dedicated research function or an established organizer research panel, and this project moved within the Organizer MVP launch timeline. I used stakeholder and customer-facing feedback to evaluate the hierarchy, while recognizing that this was proxy feedback, not a substitute for direct organizer usability testing.",
       },
       {
         icon: "bulb",
@@ -71,10 +71,27 @@ export const vendeluxProjects: VendeluxProject[] = [
           {
             heading: "This changed the interaction from browsing a long menu to constructing an audience in decision order. Here, Event sits at the top with Attendance Status grouped right under it (Confirmed, Predicted, Historical), matching a saved segment against 40,153 attendees.",
             image: "/images/vendelux/segments-after-event-filter.gif",
+            imageWidth: 1600,
+            imageHeight: 967,
           },
         ],
         footer:
           "Organizers often maintained several event audiences. Counts were intended to help them compare saved audience sizes, for example whether \"Spring Summit attendees, not exported\" at 184 people was large enough for follow-up, before they opened or applied a segment.",
+      },
+      {
+        icon: "git-branch",
+        label: "A second decision: making include vs. exclude unambiguous",
+        body: [
+          "Job Title and Job Seniority originally mixed included and excluded values into one list, distinguished only by color. That's an easy state to misread at a glance, especially once an organizer has several values selected across both directions.",
+          "I split each field into an explicit Include and Exclude section, each with its own toggle and its own list, so an organizer applying \"− Intern, 2,114\" doesn't have to infer exclusion from a color alone.",
+        ],
+        codeBlocks: [
+          {
+            image: "/images/vendelux/segments-include-exclude-before-after.png",
+            imageWidth: 6704,
+            imageHeight: 4405,
+          },
+        ],
       },
       {
         icon: "code",
@@ -86,12 +103,18 @@ export const vendeluxProjects: VendeluxProject[] = [
         codeBlocks: [
           {
             image: "/images/vendelux/segments-tooltip-mcp-spec.png",
+            imageWidth: 8000,
+            imageHeight: 5101,
           },
           {
             heading: "I specced and scripted the rest of the component set the same way: filter toggles, section headers, the selected-count button, save and reset controls, and toast confirmations, each with its own documented states and interaction rules.",
             image: "/images/vendelux/segments-component-library-mcp-spec.png",
+            imageWidth: 6775,
+            imageHeight: 8000,
           },
         ],
+        footer:
+          "Mine: choosing the Event-first hierarchy, grouping attendance, export, and speaker filters around it, deciding which saved-segment counts to surface, and refining labels and spacing within the design system. Mechanical, and what I used MCP for: applying the same filter UI patterns across categories, generating repeated filter states, and producing layout variants.",
       },
       {
         icon: "alert-triangle",
@@ -104,50 +127,23 @@ export const vendeluxProjects: VendeluxProject[] = [
           "I kept the established minimum text size and created density through stronger section labels, shorter filter names, and spacing that separated groups without adding visual noise. I now check hierarchy changes against design-system tokens before I present a high-fidelity direction.",
       },
       {
-        icon: "flask",
-        label: "How I'd validate this today",
-        body: [
-          "Before building screens, I would write the task logic in detail: what information an organizer has, what they need to decide first, what they can refine later, and which exceptions matter.",
-          "I would then build an HTML prototype and test competing entry points against the same task.",
-        ],
-        quote:
-          "Create a follow-up audience for Spring Summit attendees who have not been exported.",
-        codeBlocks: [
-          {
-            content: "Start with an event\nStart with audience attributes\nStart with a saved segment",
-          },
-        ],
-        footer:
-          "I would also ask AI to argue against the Event-first approach and identify cases where attributes, accounts, or saved segments should come first. I would treat those outputs as hypotheses to evaluate rather than answers to accept.",
-      },
-      {
         icon: "chart-line",
         label: "Outcome",
         body: [
-          "The product shipped. Monthly active organizers increased from 2 to 74 during the following months, alongside a separate product launch.",
-          "I can't attribute that increase to Smart Segments without feature-level usage or task-completion data.",
+          "The product shipped. During the August 3–9, 2026 launch window, segment creation increased from 26 to 52 week over week.",
+          "That indicates increased use of the broader organizer workflow, but I can't attribute it to Smart Segments alone: the same window included a separate Organizer MVP launch, and I don't yet have feature-level usage data isolating the redesigned filtering workflow from that.",
         ],
         codeBlocks: [
           {
-            heading: "Feature-level measures I would track next:",
+            heading: "Feature-level measures I'm working to pull next, including monthly active organizers re-run by account-creation date (before vs. after July 6, 2026) to separate the two launches:",
             content:
               "Number of segments created using Event filters\nTime to create an event follow-up segment\nFilter abandonment rate\nUse of saved-segment counts\nNumber of segments applied to campaigns",
           },
         ],
-        stat: { value: "2 → 74", caption: "monthly active organizers, correlation only" },
+        stat: { value: "26 → 52", caption: "segment creation, week over week (Aug 3–9, 2026)" },
       },
     ],
-    media: {
-      beforeAfter: {
-        before: "/images/vendelux/segments-before-placeholder.png",
-        after: "/images/vendelux/segments-after-placeholder.png",
-        caption: "Alphabetical hierarchy (before) vs. Event-first hierarchy (after) (placeholder)",
-      },
-      gif: {
-        src: "/images/vendelux/segments-demo-placeholder.gif",
-        caption: "Filtering by Event and applying a segment (placeholder)",
-      },
-    },
+    media: {},
   },
   {
     slug: "campaign-admin",
@@ -191,7 +187,6 @@ export const vendeluxProjects: VendeluxProject[] = [
           {
             content:
               "Fall Event Follow-up\n├── Enterprise attendees\n├── Mid-market attendees\n└── SMB attendees",
-            placeholder: "/images/vendelux/campaign-admin-structure.png",
           },
         ],
         footer:
@@ -209,22 +204,30 @@ export const vendeluxProjects: VendeluxProject[] = [
           {
             heading: "In the shipped version, an operator selects specific sub-campaigns with checkboxes, including a group-level checkbox for an entire outreach type, then applies shared settings to just that selection instead of an all-or-nothing action. An operator can still open an individual sub-campaign to override a value, which takes that row out of the bulk action going forward.",
             image: "/images/vendelux/campaign-admin-bulk-edit.gif",
+            imageWidth: 1280,
+            imageHeight: 1169,
           },
           {
             heading: "Riskier actions, like activating or pausing live sub-campaigns, show a confirmation before they apply.",
             content:
               "Apply status to all sub-campaigns\nSelected status: Active\nThis will activate 3 sub-campaigns:\n• Enterprise attendees, 148 contacts\n• Mid-market attendees, 276 contacts\n• SMB attendees, 392 contacts\n[Cancel]  [Activate 3 sub-campaigns]",
-            placeholder: "/images/vendelux/campaign-admin-activate-confirm.png",
           },
           {
             heading: "Audience segment stays a sub-campaign-level field, since each row targets a different audience. The table lets an operator compare sizes across sub-campaigns, but it doesn't apply one segment to all of them.",
             content:
               "                     Enterprise      Mid-market      SMB\nAudience segment    148 contacts    276 contacts    392 contacts\nStatus              Draft           Draft           Draft",
-            placeholder: "/images/vendelux/campaign-admin-segment-table.png",
           },
         ],
         footer:
           "This kept the bulk action limited to fields that are genuinely shared, and it kept audience assignment where each sub-campaign actually differs.",
+      },
+      {
+        icon: "code",
+        label: "Where judgment was mine, and where v0 did the mechanical work",
+        body: [
+          "Mine: separating shared campaign settings from sub-campaign-specific settings, choosing which controls belonged in bulk actions, defining exception and pause/resume states, and clarifying ambiguous product rules with the PM.",
+          "Mechanical: generating repeated table rows, applying shared styles, and building out prototype states for confirmations, empty segments, and status variations.",
+        ],
       },
       {
         icon: "git-branch",
@@ -236,10 +239,14 @@ export const vendeluxProjects: VendeluxProject[] = [
           {
             heading: "A: save while creating, a toggle at the bottom of the sub-campaign creation drawer. B: dedicated library, selected, a separate presets manager applied at creation. C: save from existing, capture a preset from a sub-campaign you already built.",
             image: "/images/vendelux/campaign-admin-custom-presets-compare.gif",
+            imageWidth: 1208,
+            imageHeight: 1286,
           },
           {
             heading: "Here's the dedicated library live in the product: a Custom Preset entry point sits alongside Saved presets and Compare Segments in the sub-campaign view.",
             image: "/images/vendelux/campaign-admin-custom-presets-shipped.gif",
+            imageWidth: 1280,
+            imageHeight: 973,
           },
         ],
         footer:
@@ -288,21 +295,6 @@ export const vendeluxProjects: VendeluxProject[] = [
           "This reinforced that design execution depends on resolving product rules as much as clarifying the interface. As of this writing, the PM hadn't finalized that decision.",
       },
       {
-        icon: "flask",
-        label: "How I'd validate this flow today",
-        body: [
-          "Before I invest in high-fidelity screens, I'd write a detailed interaction brief and build a lightweight HTML prototype using the existing design-system tokens.",
-        ],
-        steps: [
-          "Create three sub-campaigns for one event and set all of them to Draft.",
-          "Apply the same sending settings to every sub-campaign, then pause only Mid-market.",
-          "Compare audience sizes across all three segments before activating.",
-          "Resume a paused sub-campaign and confirm how its scheduled date behaves.",
-        ],
-        footer:
-          "I'd use AI to generate the functional prototype and edge states, like empty segments, mismatched settings, paused rows, and confirmation dialogs, but I'd define the hierarchy, task sequence, and product rules myself. I would also prompt the prototype review from an opposing perspective, asking it to identify cases where campaign-level bulk controls could create mistakes, hide meaningful differences, or reduce operator control. I would treat those outputs as edge cases to test rather than as product decisions.",
-      },
-      {
         icon: "chart-line",
         label: "Outcome",
         body: [
@@ -312,15 +304,22 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
     ],
     media: {
-      beforeAfter: {
-        before: "/images/vendelux/campaign-admin-before-placeholder.png",
-        after: "/images/vendelux/campaign-admin-after-placeholder.png",
-        caption: "7-click flow (before) vs. 3-click Apply to All flow (after) (placeholder)",
-      },
-      gif: {
-        src: "/images/vendelux/campaign-admin-demo-placeholder.gif",
-        caption: "Apply to All and Compare Segments 'All' column (placeholder)",
-      },
+      beforeAfterSet: [
+        {
+          label: "Create campaign",
+          description:
+            "The old tool (Vendelux Meetings Management V2) was an unstyled internal form: a flat page with a raw Team ID, plain radio buttons, and no visual hierarchy between required and optional fields. The redesign turns it into a structured modal, grouping Campaign Details, Event Association, and the auto-created Sub-Campaigns into clearly labeled sections.",
+          before: "/images/vendelux/campaign-admin-before-creation.png",
+          after: "/images/vendelux/campaign-admin-after-creation.png",
+        },
+        {
+          label: "Campaign list",
+          description:
+            "The old view was a raw stats block (Campaigns, Sub-Campaigns, Ready to Launch, Pending Approval...) followed by a dense, unstyled table of every sub-campaign across every event. The redesign replaces it with a scannable list of campaigns, each showing its channel types, sub-campaign count, and status at a glance, with filtering and search.",
+          before: "/images/vendelux/campaign-admin-before-summary.png",
+          after: "/images/vendelux/campaign-admin-after-summary.png",
+        },
+      ],
     },
   },
   {
@@ -349,7 +348,6 @@ export const vendeluxProjects: VendeluxProject[] = [
           {
             heading: "The old experience showed one value, with none of the reasoning behind it.",
             content: "Expected Meetings: 36",
-            placeholder: "/images/vendelux/meeting-planner-old-panel.png",
           },
         ],
         footer:
@@ -384,13 +382,11 @@ export const vendeluxProjects: VendeluxProject[] = [
             heading: "The real formula is a single deterministic calculation: matched prospects times a rate, where the rate is a 0.6% baseline for a customer's first campaign, or their own historical rate if it's higher on later campaigns.",
             content:
               "Expected meetings = Matched prospects × rate\nFirst campaign: rate = 0.6% baseline\nLater campaigns: rate = MAX(0.6%, customer's own historical rate)",
-            placeholder: "/images/vendelux/meeting-planner-formula-spec.png",
           },
           {
             heading: "Since the formula returns one exact number, I chose to present it as a range instead of a false-precision point estimate.",
             content:
               "Expected meetings: 28 to 44\nBased on:\n2,500 matched prospects\n1.4% (your own historical rate, above the 0.6% baseline)",
-            placeholder: "/images/vendelux/meeting-planner-range.png",
           },
           {
             heading: "The rate applies once to the whole audience. It doesn't break out by segment, and it doesn't compare against similar campaigns from other customers or events, so I kept the panel copy limited to what the formula actually does.",
@@ -401,15 +397,24 @@ export const vendeluxProjects: VendeluxProject[] = [
             heading: "Add an expandable \"Why this estimate?\" for customers who want confidence before they act.",
             content:
               "Why this estimate?\nThis range uses:\n• Your matched prospect count for this event\n• Your own historical conversion rate, or a 0.6% baseline if you're new\n• A range instead of one number, since the formula shouldn't be read as more precise than it is",
-            placeholder: "/images/vendelux/meeting-planner-why-estimate.png",
           },
           {
             heading: "In the real Create Campaign flow, the forecast panel updates live as an FDE sets the event, timing, and audience, matched leads, the expected meeting range, the conversion rate, and price per meeting all update together, with a \"Why this estimate?\" link for more detail.",
             image: "/images/vendelux/meeting-planner-create-campaign-flow.gif",
+            imageWidth: 1280,
+            imageHeight: 1488,
           },
         ],
         footer:
           "The baseline rate has moved more than once as the team recalibrated it against real campaign performance. That told me this was a monitored simplification the team actively revisits rather than a forgotten default, which shaped how much confidence I gave the estimate in the copy.",
+      },
+      {
+        icon: "code",
+        label: "Where judgment was mine, and where v0 did the mechanical work",
+        body: [
+          "Mine: choosing to replace a single forecast with a range, determining which inputs needed to be visible, writing the \"Why this estimate?\" explanation, and deciding how a segment change should affect the displayed estimate.",
+          "Mechanical: laying out the panel, generating alternate display states, and implementing live recalculation once the underlying formula and rules were defined.",
+        ],
       },
       {
         icon: "git-branch",
@@ -421,18 +426,15 @@ export const vendeluxProjects: VendeluxProject[] = [
           {
             heading: "Option 1: single number with a tooltip. Benefit: keeps a fast, compact planning view. Risk: keeps the estimate looking exact, so customers have to dig for the calculation.",
             content: "Expected Meetings: 36 (i)",
-            placeholder: "/images/vendelux/meeting-planner-option-1.png",
           },
           {
             heading: "Option 2: rate only. Benefit: makes the assumption visible. Risk: pushes the planning math back onto the customer.",
             content: "Historical conversion rate: 1.4%",
-            placeholder: "/images/vendelux/meeting-planner-option-2.png",
           },
           {
             heading: "Option 3, selected: outcome plus visible inputs. Benefit: supports planning while keeping the main assumption inspectable. Risk: still depends on whether customers trust the underlying data for their case.",
             content:
               "Expected meetings: 28 to 44\n2,500 contacts × 1.4% historical rate\n[Why this estimate?]",
-            placeholder: "/images/vendelux/meeting-planner-option-3.png",
           },
         ],
       },
@@ -470,22 +472,6 @@ export const vendeluxProjects: VendeluxProject[] = [
           "The interface must reveal when there is insufficient data rather than force a prediction.",
           "Changing a segment should update the forecast and explain which input changed.",
         ],
-      },
-      {
-        icon: "flask",
-        label: "Prototyping this with AI",
-        body: [
-          "I would turn the writing above into a functional HTML prototype before I invest in visual detail, with segment checkboxes, a live Expected Meetings range, a visible rate assumption, an expandable \"Why this estimate?\" section, and a scenario where the rate changes.",
-        ],
-        codeBlocks: [
-          {
-            heading: "Edge states I'd design for:",
-            content:
-              "No segments selected\nExpected meetings: Select an audience to see an estimate\n\nSmall audience (42 contacts)\nExpected meetings: 0 to 1\n\nNo reliable historical data\nExpected meetings: Unavailable\nThere is not enough historical data to create a reliable estimate.\n\nOutdated assumption\nHistorical rate last updated: August 2026\n[Learn how this rate is calculated]",
-          },
-        ],
-        footer:
-          "I would use AI to generate a functional prototype and state variations, and I would define the calculation, information hierarchy, wording, and trust model myself. I would also ask AI to argue against the proposed panel and identify ways the interface could mislead customers, create false confidence, or hide weak data. I would treat its response as a list of test cases rather than as product direction.",
       },
       {
         icon: "route",
