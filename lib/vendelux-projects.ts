@@ -8,6 +8,7 @@ export interface InfoBox {
   thumbnailImages?: string[]
   steps?: string[]
   flow?: { steps: string[]; note?: string }[]
+  inlineBeforeAfter?: { before: string; after: string }
   quote?: string
   footer?: string
   stat?: { value: string; caption: string }
@@ -84,15 +85,12 @@ export const vendeluxProjects: VendeluxProject[] = [
         label: "A second decision: making include vs. exclude unambiguous",
         body: [
           "Job Title and Job Seniority originally mixed included and excluded values into one list, distinguished only by color. That's an easy state to misread at a glance, especially once an organizer has several values selected across both directions.",
-          "I split each field into an explicit Include and Exclude section, each with its own toggle and its own list, so an organizer applying \"− Intern, 2,114\" doesn't have to infer exclusion from a color alone.",
+          "I split each field into an explicit Include and Exclude section, each with its own toggle and its own list, so an organizer excluding a specific role doesn't have to infer exclusion from a color alone.",
         ],
-        codeBlocks: [
-          {
-            image: "/images/vendelux/segments-include-exclude-before-after.png",
-            imageWidth: 6704,
-            imageHeight: 4405,
-          },
-        ],
+        inlineBeforeAfter: {
+          before: "/images/vendelux/segments-include-exclude-before.png",
+          after: "/images/vendelux/segments-include-exclude-after.png",
+        },
       },
       {
         icon: "code",
@@ -226,6 +224,25 @@ export const vendeluxProjects: VendeluxProject[] = [
         ],
       },
       {
+        icon: "alert-triangle",
+        variant: "danger",
+        label: "I got ahead of a backend constraint",
+        body: [
+          "I initially designed bulk-editing controls in response to a high-priority FDE request. I didn't communicate early enough about the gap between that demand and what the backend could support within the MVP timeline.",
+          "As the design evolved, I made changes that assumed bulk editing would be available, but engineering couldn't support that capability in the first release. The team removed bulk editing from MVP scope.",
+          "I proposed a Duplicate action as an alternative. An operator could duplicate an existing sub-campaign with its shared setup, then adjust the audience segment or other exceptions for the new version. This reduced repetitive setup without requiring the backend changes true bulk editing needed.",
+        ],
+        codeBlocks: [
+          {
+            image: "/images/vendelux/campaign-admin-duplicate-action.gif",
+            imageWidth: 1280,
+            imageHeight: 850,
+          },
+        ],
+        footer:
+          "What I changed in my process: I now validate backend constraints and release timing before expanding a workflow around a requested capability. When a requested solution is out of scope, I look for an alternative that preserves the user's underlying need.",
+      },
+      {
         icon: "git-branch",
         label: "Custom presets: three ways for FDEs to save settings",
         body: [
@@ -241,7 +258,7 @@ export const vendeluxProjects: VendeluxProject[] = [
             heading: "Here's the dedicated library live in the product: a Custom Preset entry point sits alongside Saved presets and Compare Segments in the sub-campaign view.",
             image: "/images/vendelux/campaign-admin-custom-presets-shipped.gif",
             imageWidth: 1280,
-            imageHeight: 973,
+            imageHeight: 884,
           },
         ],
         footer:
