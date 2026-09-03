@@ -13,6 +13,9 @@ import {
   Code2,
   ArrowRight,
   ArrowDown,
+  User,
+  MessageCircle,
+  Check,
 } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { cn } from "@/lib/utils"
@@ -185,6 +188,78 @@ function InfoBoxCard({ box }: { box: InfoBox }) {
                   </div>
                   {gi < box.flow!.length - 1 && (
                     <ArrowDown className="my-1 h-3.5 w-3.5 text-muted-foreground/50" />
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {box.journey && box.journey.length > 0 && (
+            <div className="relative space-y-3 py-1 pl-8">
+              <div className="vendelux-dash-line absolute top-1 bottom-1 left-[13px] w-px" />
+              {box.journey.map((turn, i) => {
+                const ActorIcon = turn.actor === "customer" ? User : MessageCircle
+                return (
+                  <div
+                    key={i}
+                    className="vendelux-step-in relative"
+                    style={{ animationDelay: `${i * 90}ms` }}
+                  >
+                    <span className="absolute top-0 -left-8 flex h-6 w-6 items-center justify-center rounded-full border border-border/60 bg-background">
+                      <ActorIcon className="h-3.5 w-3.5 text-muted-foreground" />
+                    </span>
+                    {turn.isQuote ? (
+                      <div className="inline-block rounded-2xl rounded-tl-sm border border-border/60 bg-foreground/[0.04] px-3.5 py-2 text-sm text-foreground/90 italic">
+                        &ldquo;{turn.text}&rdquo;
+                      </div>
+                    ) : (
+                      <p className="pt-1 text-sm leading-relaxed text-foreground/80">{turn.text}</p>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+          )}
+
+          {box.questionCards && box.questionCards.length > 0 && (
+            <div className="grid grid-cols-1 gap-2 pt-1 sm:grid-cols-2">
+              {box.questionCards.map((q, i) => (
+                <div
+                  key={i}
+                  className="vendelux-step-in flex items-start gap-2.5 rounded-lg border border-border/60 bg-foreground/[0.03] p-3"
+                  style={{ animationDelay: `${i * 80}ms` }}
+                >
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-foreground/10 text-[11px] font-medium text-foreground/70">
+                    {i + 1}
+                  </span>
+                  <p className="text-sm leading-relaxed text-foreground/85">{q}</p>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {box.optionCards && box.optionCards.length > 0 && (
+            <div className="grid grid-cols-1 gap-3 pt-1 sm:grid-cols-3">
+              {box.optionCards.map((opt, i) => (
+                <div
+                  key={i}
+                  className={cn(
+                    "vendelux-step-in space-y-1.5 rounded-lg p-3",
+                    opt.selected
+                      ? "border-2 border-foreground/70 bg-foreground/[0.04]"
+                      : "border border-border/60",
+                  )}
+                  style={{ animationDelay: `${i * 90}ms` }}
+                >
+                  <div className="flex items-center gap-1.5">
+                    {opt.selected && <Check className="h-3.5 w-3.5 shrink-0 text-foreground" />}
+                    <span className="text-sm font-medium text-foreground">{opt.label}</span>
+                  </div>
+                  <p className="text-xs leading-relaxed text-foreground/70">{opt.description}</p>
+                  {opt.example && (
+                    <pre className="overflow-x-auto rounded bg-foreground/[0.06] px-2 py-1.5 text-[11px] leading-relaxed whitespace-pre-wrap">
+                      {opt.example}
+                    </pre>
                   )}
                 </div>
               ))}

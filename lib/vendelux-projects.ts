@@ -9,6 +9,9 @@ export interface InfoBox {
   steps?: string[]
   flow?: { steps: string[]; note?: string }[]
   inlineBeforeAfter?: { before: string; after: string }
+  journey?: { actor: "customer" | "system"; text: string; isQuote?: boolean }[]
+  questionCards?: string[]
+  optionCards?: { label: string; description: string; example?: string; selected?: boolean }[]
   quote?: string
   footer?: string
   stat?: { value: string; caption: string }
@@ -55,9 +58,21 @@ export const vendeluxProjects: VendeluxProject[] = [
         label: "Directions I explored",
         body: [
           "I explored three structural directions and reviewed them through stakeholder feedback rounds rather than direct usability testing with organizers.",
-          "Alphabetical categories with better search kept discoverability but ignored task order.",
-          "Audience-attribute-first served broad prospecting well, but it slowed organizers down on the event follow-up task I focused on.",
-          "Event-first prioritized that task, so I chose it for this workflow while leaving audience attributes available for broader prospecting.",
+        ],
+        optionCards: [
+          {
+            label: "Alphabetical",
+            description: "Kept discoverability with better search, but ignored task order.",
+          },
+          {
+            label: "Audience-attribute-first",
+            description: "Served broad prospecting well, but slowed organizers down on the event follow-up task.",
+          },
+          {
+            label: "Event-first",
+            description: "Prioritized the follow-up task, so I chose it for this workflow while leaving audience attributes available for broader prospecting.",
+            selected: true,
+          },
         ],
         footer:
           "The team didn't yet have a dedicated research function or an established organizer research panel, and this project moved within the Organizer MVP launch timeline. I used stakeholder and customer-facing feedback to evaluate the hierarchy, while recognizing that this was proxy feedback, not a substitute for direct organizer usability testing.",
@@ -366,14 +381,14 @@ export const vendeluxProjects: VendeluxProject[] = [
         icon: "map",
         label: "The old journey",
         body: [],
-        steps: [
-          "The customer selects one or more audience segments.",
-          "The planner shows an Expected Meetings number.",
-          "The customer sees \"36 meetings.\"",
-          "The customer asks, \"Where did 36 come from?\"",
-          "A teammate manually explains the calculation, if they know the current rate.",
-          "The customer changes the segment selection.",
-          "The customer struggles to tell whether the estimate changed because of audience size, rate assumptions, or both.",
+        journey: [
+          { actor: "customer", text: "Selects one or more audience segments." },
+          { actor: "system", text: "Shows an Expected Meetings number." },
+          { actor: "customer", text: "36 meetings.", isQuote: true },
+          { actor: "customer", text: "Where did 36 come from?", isQuote: true },
+          { actor: "system", text: "A teammate manually explains the calculation — if they know the current rate." },
+          { actor: "customer", text: "Changes the segment selection." },
+          { actor: "customer", text: "Can't tell whether the estimate changed because of audience size, rate assumptions, or both." },
         ],
         footer:
           "The issue went beyond unclear copy. The UI presented an estimate as a precise answer while it hid the assumptions that created it.",
@@ -431,19 +446,22 @@ export const vendeluxProjects: VendeluxProject[] = [
         body: [
           "I considered three directions before I landed on the final design, and weighed a real tradeoff for each one rather than just a description.",
         ],
-        codeBlocks: [
+        optionCards: [
           {
-            heading: "Option 1: single number with a tooltip. Benefit: keeps a fast, compact planning view. Risk: keeps the estimate looking exact, so customers have to dig for the calculation.",
-            content: "Expected Meetings: 36 (i)",
+            label: "Single number + tooltip",
+            description: "Benefit: fast, compact planning view. Risk: keeps the estimate looking exact, so customers have to dig for the calculation.",
+            example: "Expected Meetings: 36 (i)",
           },
           {
-            heading: "Option 2: rate only. Benefit: makes the assumption visible. Risk: pushes the planning math back onto the customer.",
-            content: "Historical conversion rate: 1.4%",
+            label: "Rate only",
+            description: "Benefit: makes the assumption visible. Risk: pushes the planning math back onto the customer.",
+            example: "Historical conversion rate: 1.4%",
           },
           {
-            heading: "Option 3, selected: outcome plus visible inputs. Benefit: supports planning while keeping the main assumption inspectable. Risk: still depends on whether customers trust the underlying data for their case.",
-            content:
-              "Expected meetings: 28 to 44\n2,500 contacts × 1.4% historical rate\n[Why this estimate?]",
+            label: "Outcome + visible inputs",
+            description: "Benefit: supports planning while keeping the main assumption inspectable. Risk: still depends on whether customers trust the underlying data for their case.",
+            example: "Expected meetings: 28 to 44\n2,500 contacts × 1.4% historical rate",
+            selected: true,
           },
         ],
       },
@@ -455,7 +473,7 @@ export const vendeluxProjects: VendeluxProject[] = [
         ],
         quote:
           "You have 2,500 contacts across three segments. You need to decide whether this audience can support a goal of 30 meetings.",
-        steps: [
+        questionCards: [
           "What do you think this estimate means?",
           "What information is driving it?",
           "How confident are you in using this estimate to plan your outreach, and what makes you confident or skeptical?",
