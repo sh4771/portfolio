@@ -116,39 +116,6 @@ export function VendeluxCaseStudies() {
             ))}
           </div>
         )}
-
-        {/* Before / after placeholder */}
-        {active.media.beforeAfter && (
-          <div className="space-y-2">
-            <div className="grid grid-cols-2 gap-3">
-              <PlaceholderImage
-                src={active.media.beforeAfter.before}
-                label="Before"
-              />
-              <PlaceholderImage
-                src={active.media.beforeAfter.after}
-                label="After"
-              />
-            </div>
-            {active.media.beforeAfter.caption && (
-              <p className="text-xs text-muted-foreground">
-                {active.media.beforeAfter.caption}
-              </p>
-            )}
-          </div>
-        )}
-
-        {/* GIF placeholder */}
-        {active.media.gif && (
-          <div className="space-y-2">
-            <PlaceholderImage src={active.media.gif.src} label="GIF" wide />
-            {active.media.gif.caption && (
-              <p className="text-xs text-muted-foreground">
-                {active.media.gif.caption}
-              </p>
-            )}
-          </div>
-        )}
       </article>
     </div>
   )
@@ -233,13 +200,6 @@ function InfoBoxCard({ box }: { box: InfoBox }) {
                         sizes="600px"
                       />
                     </div>
-                  ) : block.placeholder ? (
-                    <div className="flex aspect-video items-center justify-center rounded-md border border-dashed border-border/60 bg-foreground/[0.03] px-4 text-center">
-                      <span className="text-xs text-muted-foreground">
-                        Screenshot placeholder. Drop asset at{" "}
-                        <code className="rounded bg-foreground/[0.06] px-1 py-0.5">{block.placeholder}</code>
-                      </span>
-                    </div>
                   ) : (
                     <pre className="overflow-x-auto rounded-md bg-foreground/[0.06] px-3 py-2.5 text-xs leading-relaxed">
                       {block.content}
@@ -262,31 +222,6 @@ function InfoBoxCard({ box }: { box: InfoBox }) {
           )}
         </div>
       </div>
-    </div>
-  )
-}
-
-function PlaceholderImage({
-  src,
-  label,
-  wide,
-}: {
-  src: string
-  label: string
-  wide?: boolean
-}) {
-  return (
-    <div
-      className={cn(
-        "relative flex items-center justify-center overflow-hidden rounded-lg border border-dashed border-border/60 bg-foreground/[0.03]",
-        wide ? "aspect-video" : "aspect-[4/3]",
-      )}
-    >
-      {/* Swap this Image for the real asset once it's captured */}
-      <span className="px-4 text-center text-xs text-muted-foreground">
-        {label} placeholder. Drop asset at{" "}
-        <code className="rounded bg-foreground/[0.06] px-1 py-0.5">{src}</code>
-      </span>
     </div>
   )
 }

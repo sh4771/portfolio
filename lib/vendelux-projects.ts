@@ -4,7 +4,7 @@ export interface InfoBox {
   body: string[]
   variant?: "accent" | "danger" | "default"
   code?: string
-  codeBlocks?: { heading?: string; content?: string; placeholder?: string; image?: string }[]
+  codeBlocks?: { heading?: string; content?: string; image?: string }[]
   thumbnailImages?: string[]
   steps?: string[]
   quote?: string
@@ -22,8 +22,6 @@ export interface VendeluxProject {
   role: string[]
   boxes: InfoBox[]
   media: {
-    beforeAfter?: { before: string; after: string; caption?: string }
-    gif?: { src: string; caption?: string }
     beforeAfterSet?: { label: string; description: string; before: string; after: string }[]
   }
 }
@@ -137,17 +135,7 @@ export const vendeluxProjects: VendeluxProject[] = [
         stat: { value: "26 → 52", caption: "segment creation, week over week (Aug 3–9, 2026)" },
       },
     ],
-    media: {
-      beforeAfter: {
-        before: "/images/vendelux/segments-before-placeholder.png",
-        after: "/images/vendelux/segments-after-placeholder.png",
-        caption: "Alphabetical hierarchy (before) vs. Event-first hierarchy (after) (placeholder)",
-      },
-      gif: {
-        src: "/images/vendelux/segments-demo-placeholder.gif",
-        caption: "Filtering by Event and applying a segment (placeholder)",
-      },
-    },
+    media: {},
   },
   {
     slug: "campaign-admin",
@@ -191,7 +179,6 @@ export const vendeluxProjects: VendeluxProject[] = [
           {
             content:
               "Fall Event Follow-up\n├── Enterprise attendees\n├── Mid-market attendees\n└── SMB attendees",
-            placeholder: "/images/vendelux/campaign-admin-structure.png",
           },
         ],
         footer:
@@ -214,13 +201,11 @@ export const vendeluxProjects: VendeluxProject[] = [
             heading: "Riskier actions, like activating or pausing live sub-campaigns, show a confirmation before they apply.",
             content:
               "Apply status to all sub-campaigns\nSelected status: Active\nThis will activate 3 sub-campaigns:\n• Enterprise attendees, 148 contacts\n• Mid-market attendees, 276 contacts\n• SMB attendees, 392 contacts\n[Cancel]  [Activate 3 sub-campaigns]",
-            placeholder: "/images/vendelux/campaign-admin-activate-confirm.png",
           },
           {
             heading: "Audience segment stays a sub-campaign-level field, since each row targets a different audience. The table lets an operator compare sizes across sub-campaigns, but it doesn't apply one segment to all of them.",
             content:
               "                     Enterprise      Mid-market      SMB\nAudience segment    148 contacts    276 contacts    392 contacts\nStatus              Draft           Draft           Draft",
-            placeholder: "/images/vendelux/campaign-admin-segment-table.png",
           },
         ],
         footer:
@@ -349,7 +334,6 @@ export const vendeluxProjects: VendeluxProject[] = [
           {
             heading: "The old experience showed one value, with none of the reasoning behind it.",
             content: "Expected Meetings: 36",
-            placeholder: "/images/vendelux/meeting-planner-old-panel.png",
           },
         ],
         footer:
@@ -384,13 +368,11 @@ export const vendeluxProjects: VendeluxProject[] = [
             heading: "The real formula is a single deterministic calculation: matched prospects times a rate, where the rate is a 0.6% baseline for a customer's first campaign, or their own historical rate if it's higher on later campaigns.",
             content:
               "Expected meetings = Matched prospects × rate\nFirst campaign: rate = 0.6% baseline\nLater campaigns: rate = MAX(0.6%, customer's own historical rate)",
-            placeholder: "/images/vendelux/meeting-planner-formula-spec.png",
           },
           {
             heading: "Since the formula returns one exact number, I chose to present it as a range instead of a false-precision point estimate.",
             content:
               "Expected meetings: 28 to 44\nBased on:\n2,500 matched prospects\n1.4% (your own historical rate, above the 0.6% baseline)",
-            placeholder: "/images/vendelux/meeting-planner-range.png",
           },
           {
             heading: "The rate applies once to the whole audience. It doesn't break out by segment, and it doesn't compare against similar campaigns from other customers or events, so I kept the panel copy limited to what the formula actually does.",
@@ -401,7 +383,6 @@ export const vendeluxProjects: VendeluxProject[] = [
             heading: "Add an expandable \"Why this estimate?\" for customers who want confidence before they act.",
             content:
               "Why this estimate?\nThis range uses:\n• Your matched prospect count for this event\n• Your own historical conversion rate, or a 0.6% baseline if you're new\n• A range instead of one number, since the formula shouldn't be read as more precise than it is",
-            placeholder: "/images/vendelux/meeting-planner-why-estimate.png",
           },
           {
             heading: "In the real Create Campaign flow, the forecast panel updates live as an FDE sets the event, timing, and audience, matched leads, the expected meeting range, the conversion rate, and price per meeting all update together, with a \"Why this estimate?\" link for more detail.",
@@ -429,18 +410,15 @@ export const vendeluxProjects: VendeluxProject[] = [
           {
             heading: "Option 1: single number with a tooltip. Benefit: keeps a fast, compact planning view. Risk: keeps the estimate looking exact, so customers have to dig for the calculation.",
             content: "Expected Meetings: 36 (i)",
-            placeholder: "/images/vendelux/meeting-planner-option-1.png",
           },
           {
             heading: "Option 2: rate only. Benefit: makes the assumption visible. Risk: pushes the planning math back onto the customer.",
             content: "Historical conversion rate: 1.4%",
-            placeholder: "/images/vendelux/meeting-planner-option-2.png",
           },
           {
             heading: "Option 3, selected: outcome plus visible inputs. Benefit: supports planning while keeping the main assumption inspectable. Risk: still depends on whether customers trust the underlying data for their case.",
             content:
               "Expected meetings: 28 to 44\n2,500 contacts × 1.4% historical rate\n[Why this estimate?]",
-            placeholder: "/images/vendelux/meeting-planner-option-3.png",
           },
         ],
       },
