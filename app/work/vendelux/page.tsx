@@ -62,8 +62,8 @@ export default function VendeluxPage() {
               helps their team reach out and book meetings before, during, and after the event. I
               joined as a product design intern still figuring out what &ldquo;good&rdquo; looks like on
               a live product with real customers on the other end, and I&apos;m still there. The three
-              projects below are the ones that taught me the most, each one started with a workflow I
-              watched someone actually get stuck on. None of them started as a feature request.
+              projects below are the ones that taught me the most. Each one started because I watched
+              someone get stuck on a real workflow, and I wanted to understand why.
             </p>
 
             <div className="flex justify-center rounded-lg border border-border/40 bg-white py-10">

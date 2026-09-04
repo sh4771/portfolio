@@ -40,12 +40,12 @@ export const vendeluxProjects: VendeluxProject[] = [
     navLabel: "Smart Segments",
     title: "Smart Segments",
     oneLiner:
-      "I kept wondering why organizers were digging through an alphabetical list to do the one thing they always did first. Chasing that question took me through three structural directions, and taught me that visual density can't override a system constraint.",
+      "I kept wondering why organizers were digging through an alphabetical list to do the one thing they always did first. That question led me through three structural directions, and taught me that visual density can't override a system constraint.",
     duration: "Late March – April 2026 · Shipped",
     whatIDid: "UI/UX Design, Prototyping",
     tools: ["Figma", "Claude Code"],
     intro: {
-      text: "Vendelux surfaces everyone attending an event, and organizers filter that list down to the people actually worth reaching out to (we call that filtered list a segment). I got curious about how organizers actually built one, and that curiosity became this project.",
+      text: "Vendelux surfaces everyone attending an event, and organizers filter that list down to the people actually worth reaching out to (we call that filtered list a segment). I got curious about how organizers actually built one, so I looked into it for this project.",
       image: "/images/vendelux/segments-include-exclude-after.png",
       alt: "Vendelux segment builder showing job title and seniority filters with include/exclude toggles",
     },
@@ -96,7 +96,7 @@ export const vendeluxProjects: VendeluxProject[] = [
         label: "The decision: put Event at the top",
         variant: "accent",
         body: [
-          "Once I saw the pattern, the fix was almost too simple: move Event to the top, and group attendance, export, and speaker status right after it, since organizers needed to identify the event before narrowing the attendee list.",
+          "Once I saw the pattern, the fix was straightforward: move Event to the top, and group attendance, export, and speaker status right after it, since organizers needed to identify the event before narrowing the attendee list.",
         ],
         codeBlocks: [
           {
@@ -331,7 +331,7 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
       {
         icon: "git-branch",
-        label: "A question I couldn't answer myself: whose date logic wins?",
+        label: "A question I couldn't answer myself: which date logic applies?",
         body: [
           "During the build, I found that two engineering specs described date behavior differently: whether a paused sub-campaign should keep its scheduled start date or require a new date when it resumes.",
           "Rather than designing around an assumption, I documented the conflict and asked the PM to make the product decision. I continued the interaction design only after that decision landed.",
@@ -377,7 +377,7 @@ export const vendeluxProjects: VendeluxProject[] = [
     whatIDid: "UI/UX Design, Prototyping",
     tools: ["Figma", "v0"],
     intro: {
-      text: "Before committing to an event campaign, customers want to know: how many actual sales meetings should I expect? Vendelux shows that as an \"Expected Meetings\" estimate. I got curious about why customers kept pushing back on that number, and that question became this project.",
+      text: "Before committing to an event campaign, customers want to know: how many actual sales meetings should I expect? Vendelux shows that as an \"Expected Meetings\" estimate. I got curious about why customers kept pushing back on that number, so I looked into it for this project.",
       image: "/images/vendelux/mp-after-mainpage.png",
       alt: "Vendelux Meetings dashboard showing campaigns and their status",
     },
@@ -530,7 +530,7 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
       {
         icon: "route",
-        label: "Zooming out: reviews across the whole Meetings App",
+        label: "Design reviews across the whole Meetings App",
         body: [
           "This work sat inside a broader Meetings App effort, so I ran structured reviews with Customer Success and cross-functional stakeholders on the surrounding flows: the campaign builder, the segment builder, and campaign summary and launch validation.",
         ],
