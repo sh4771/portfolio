@@ -63,7 +63,7 @@ export default function VendeluxPage() {
               joined as a product design intern still figuring out what &ldquo;good&rdquo; looks like on
               a live product with real customers on the other end, and I&apos;m still there. The three
               projects below are the ones that taught me the most, each one started with a workflow I
-              watched someone actually get stuck on, not a feature request.
+              watched someone actually get stuck on. None of them started as a feature request.
             </p>
 
             <div className="flex justify-center rounded-lg border border-border/40 bg-white py-10">

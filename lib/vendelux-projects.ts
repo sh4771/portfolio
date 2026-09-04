@@ -89,7 +89,7 @@ export const vendeluxProjects: VendeluxProject[] = [
           },
         ],
         footer:
-          "The team didn't yet have a dedicated research function or an established organizer research panel, and this project moved within the Organizer MVP launch timeline. I used stakeholder and customer-facing feedback to evaluate the hierarchy, while recognizing that this was proxy feedback, not a substitute for direct organizer usability testing.",
+          "The team didn't yet have a dedicated research function or an established organizer research panel, and this project moved within the Organizer MVP launch timeline. I used stakeholder and customer-facing feedback to evaluate the hierarchy, while recognizing that this was proxy feedback and couldn't substitute for direct organizer usability testing.",
       },
       {
         icon: "bulb",
@@ -295,7 +295,7 @@ export const vendeluxProjects: VendeluxProject[] = [
           },
         ],
         footer:
-          "I chose B because a preset saved through a dedicated library is reusable across many sub-campaigns and campaigns rather than just the one it was created from. A and C both tie the preset's origin to a single sub-campaign, which limits reuse exactly where FDEs needed it most.",
+          "I chose B because a preset saved through a dedicated library works across every sub-campaign and campaign. A and C both tie the preset's origin to a single sub-campaign, which limits reuse exactly where FDEs needed it most.",
       },
       {
         icon: "chart-line",
@@ -320,7 +320,7 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
       {
         icon: "alert-triangle",
-        label: "An earlier mistake: I redesigned the surface, not the workflow",
+        label: "An earlier mistake: new look, same workflow",
         variant: "danger",
         body: [
           "My first direction kept the original interaction pattern: each sub-campaign still behaved like a separate setup task. It looked cleaner, but it didn't eliminate the repeated work.",
@@ -458,7 +458,7 @@ export const vendeluxProjects: VendeluxProject[] = [
           },
         ],
         footer:
-          "The baseline rate has moved more than once as the team recalibrated it against real campaign performance. That told me this was a monitored simplification the team actively revisits rather than a forgotten default, which shaped how much confidence I gave the estimate in the copy.",
+          "The baseline rate has moved more than once as the team recalibrated it against real campaign performance. That told me the team actively monitors and adjusts this simplification, which shaped how much confidence I gave the estimate in the copy.",
       },
       {
         icon: "code",
@@ -472,7 +472,7 @@ export const vendeluxProjects: VendeluxProject[] = [
         icon: "git-branch",
         label: "Three ways to show this, each with a real tradeoff",
         body: [
-          "I considered three directions before I landed on the final design, and weighed a real tradeoff for each one rather than just a description.",
+          "I considered three directions before landing on the final design and wrote out an actual tradeoff for each one.",
         ],
         optionCards: [
           {
@@ -512,7 +512,7 @@ export const vendeluxProjects: VendeluxProject[] = [
           {
             heading: "Success criteria",
             content:
-              "Understanding: participants identify audience size and the rate as inputs.\nTrust: participants describe the estimate as a useful planning signal rather than a guaranteed outcome.\nDecision support: participants can use the panel to decide whether to add audience, change their goal, or adjust outreach effort.",
+              "Understanding: participants identify audience size and the rate as inputs.\nTrust: participants treat the estimate as a planning signal and know it isn't a guarantee.\nDecision support: participants can use the panel to decide whether to add audience, change their goal, or adjust outreach effort.",
           },
         ],
         footer:
@@ -524,7 +524,7 @@ export const vendeluxProjects: VendeluxProject[] = [
         body: [
           "The estimate helps customers plan, so it must support decisions without presenting a guarantee.",
           "Customers need to understand the selected audience, the rate definition, and the source of uncertainty.",
-          "The interface must reveal when there is insufficient data rather than force a prediction.",
+          "The interface must show when data is insufficient. It shouldn't force a prediction.",
           "Changing a segment should update the forecast and explain which input changed.",
         ],
       },
