@@ -67,42 +67,13 @@ export function VendeluxCaseStudies() {
 
       {/* Active project content */}
       <article className="space-y-8">
-        <header className="space-y-3">
+        <header className="space-y-1.5">
           <h1 className="text-2xl md:text-3xl font-normal tracking-tight text-foreground">{active.title}</h1>
-          <p className="text-sm text-text-secondary">{active.oneLiner}</p>
-          {active.credit && (
-            <p className="text-xs text-text-secondary">
-              {active.credit.text}
-              {active.credit.linkText && active.credit.url && (
-                <>
-                  {" — "}
-                  <a
-                    href={active.credit.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="underline decoration-text-muted underline-offset-2 hover:text-foreground"
-                  >
-                    {active.credit.linkText}
-                  </a>
-                </>
-              )}
-            </p>
-          )}
-
-          <div className="flex flex-wrap gap-x-12 gap-y-4 text-sm pt-4">
-            <div>
-              <span className="mb-1 block text-xs text-foreground/40">Context</span>
-              <span className="text-foreground/70">Vendelux</span>
-            </div>
-            <div>
-              <span className="mb-1 block text-xs text-foreground/40">Timeline</span>
-              <span className="text-foreground/70">{active.duration}</span>
-            </div>
-            <div>
-              <span className="mb-1 block text-xs text-foreground/40">What I did</span>
-              <span className="text-foreground/70">{active.whatIDid}</span>
-            </div>
-          </div>
+          <p className="text-sm text-foreground/60">
+            {active.duration}
+            {" · "}
+            {active.whatIDid}
+          </p>
         </header>
 
         <div className="space-y-3 rounded-lg border border-border/40 bg-muted/20 p-4">
