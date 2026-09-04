@@ -40,12 +40,12 @@ export const vendeluxProjects: VendeluxProject[] = [
     navLabel: "Smart Segments",
     title: "Smart Segments",
     oneLiner:
-      "I found that alphabetical filtering hid organizers' actual workflow, explored alternatives for a defined task, and learned that visual density can't override system constraints.",
+      "I kept wondering why organizers were digging through an alphabetical list to do the one thing they always did first. Chasing that question took me through three structural directions, and taught me that visual density can't override a system constraint.",
     duration: "Late March – April 2026 · Shipped",
     whatIDid: "UI/UX Design, Prototyping",
     tools: ["Figma", "Claude Code"],
     intro: {
-      text: "Vendelux surfaces everyone attending an event. Organizers filter that list down to the people worth reaching out to, that filtered list is called a segment. This project redesigned how organizers build one.",
+      text: "Vendelux surfaces everyone attending an event, and organizers filter that list down to the people actually worth reaching out to (we call that filtered list a segment). I got curious about how organizers actually built one, and that curiosity became this project.",
       image: "/images/vendelux/segments-include-exclude-after.png",
       alt: "Vendelux segment builder showing job title and seniority filters with include/exclude toggles",
     },
@@ -61,17 +61,17 @@ export const vendeluxProjects: VendeluxProject[] = [
     boxes: [
       {
         icon: "route",
-        label: "What the organizer needed to do",
+        label: "The job I almost missed",
         body: [
-          "For the event follow-up workflow I focused on, organizers first needed to identify the event before they narrowed the attendee list.",
+          "Before I touched the UI, I asked what an organizer actually needed to do first. For the event follow-up workflow I focused on, that was identifying the event before narrowing the attendee list.",
           "The alphabetical filter menu buried that first decision, the one organizers had to make before anything else.",
         ],
       },
       {
         icon: "git-branch",
-        label: "Directions I explored",
+        label: "Three directions, one real tradeoff each",
         body: [
-          "I explored three structural directions and reviewed them through stakeholder feedback rounds rather than direct usability testing with organizers.",
+          "So I mapped out three different ways to structure the whole filter hierarchy, and reviewed each with stakeholders since I didn't have direct organizer testing available yet.",
         ],
         optionCards: [
           {
@@ -93,10 +93,10 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
       {
         icon: "bulb",
-        label: "Key decision",
+        label: "The decision: put Event at the top",
         variant: "accent",
         body: [
-          "I moved Event to the top and grouped attendance, export, and speaker status right after it, because organizers needed to identify the event before narrowing the attendee list.",
+          "Once I saw the pattern, the fix was almost too simple: move Event to the top, and group attendance, export, and speaker status right after it, since organizers needed to identify the event before narrowing the attendee list.",
         ],
         codeBlocks: [
           {
@@ -111,9 +111,9 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
       {
         icon: "git-branch",
-        label: "A second decision: making include vs. exclude unambiguous",
+        label: "Then I found a second problem: include vs. exclude",
         body: [
-          "Job Title and Job Seniority originally mixed included and excluded values into one list, distinguished only by color. That's an easy state to misread at a glance, especially once an organizer has several values selected across both directions.",
+          "While I was in there, I noticed Job Title and Job Seniority mixed included and excluded values into one list, distinguished only by color. That's an easy state to misread at a glance, especially once an organizer has several values selected across both directions.",
           "I split each field into an explicit Include and Exclude section, each with its own toggle and its own list, so an organizer excluding a specific role doesn't have to infer exclusion from a color alone.",
         ],
         inlineBeforeAfter: {
@@ -123,9 +123,9 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
       {
         icon: "code",
-        label: "My workflow",
+        label: "How I actually built this",
         body: [
-          "Once the hierarchy was set, I used the Figma MCP plugin API to script the tooltip system and component library from written specs, instead of building every variant by hand.",
+          "Once the hierarchy was set, I wanted to see if I could script my way through the repetitive parts. I used the Figma MCP plugin API to build the tooltip system and component library from written specs, instead of building every variant by hand.",
         ],
         codeBlocks: [
           {
@@ -141,23 +141,23 @@ export const vendeluxProjects: VendeluxProject[] = [
           },
         ],
         footer:
-          "Mine: choosing the Event-first hierarchy, grouping attendance, export, and speaker filters around it, deciding which saved-segment counts to surface, and refining labels and spacing within the design system. Mechanical, and what I used MCP for: applying the same filter UI patterns across categories, generating repeated filter states, and producing layout variants.",
+          "What was actually mine here: choosing the Event-first hierarchy, grouping attendance, export, and speaker filters around it, deciding which saved-segment counts to surface, and refining labels and spacing within the design system. What the tool did: applying the same filter UI patterns across categories, generating repeated filter states, and producing layout variants.",
       },
       {
         icon: "alert-triangle",
-        label: "A mistake engineering caught in review",
+        label: "Where I got it wrong",
         variant: "danger",
         body: [
-          "I introduced a sub-12px type size to fit more into the filter interface. An engineer flagged it: it broke the product's type scale and raised readability and accessibility concerns.",
+          "In the name of fitting more into the interface, I introduced a sub-12px type size. An engineer caught it in review: it broke the product's type scale and raised readability and accessibility concerns.",
         ],
         footer:
-          "I kept the established minimum text size and created density through stronger section labels, shorter filter names, and spacing that separated groups without adding visual noise. I now check hierarchy changes against design-system tokens before I present a high-fidelity direction.",
+          "I kept the established minimum text size instead, and found density another way, through stronger section labels, shorter filter names, and spacing that separated groups without adding visual noise. Now I check hierarchy changes against design-system tokens before I present anything high-fidelity.",
       },
       {
         icon: "chart-line",
-        label: "Outcome",
+        label: "What happened after it shipped",
         body: [
-          "The product shipped. During the August 3–9, 2026 launch window, segment creation increased from 26 to 52 week over week.",
+          "It shipped, and during the August 3–9, 2026 launch window, segment creation increased from 26 to 52 week over week.",
           "That indicates increased use of the broader organizer workflow, but I can't attribute it to Smart Segments alone: the same window included a separate Organizer MVP launch, and I don't yet have feature-level usage data isolating the redesigned filtering workflow from that.",
         ],
         codeBlocks: [
@@ -177,12 +177,12 @@ export const vendeluxProjects: VendeluxProject[] = [
     navLabel: "Campaign Admin",
     title: "Campaign Admin",
     oneLiner:
-      "I redesigned an internal campaign-launch tool around a shared-setup model for related sub-campaigns, pivoting from bulk editing to a Duplicate action when backend constraints ruled it out for MVP.",
+      "I set out to redesign an internal campaign-launch tool and ended up rethinking the shared-setup model for related sub-campaigns along the way. When backend constraints ruled out my first plan, bulk editing, for the MVP, I had to find another path to the same outcome.",
     duration: "July 10 – Aug 28, 2026 · In progress",
     whatIDid: "UI/UX Design, Prototyping",
     tools: ["Figma", "v0"],
     intro: {
-      text: "Once organizers know who to reach, they set up an outreach campaign, a container for a specific pitch, sending settings, and audience. A single event often needs several similar campaigns at once (one per audience), each one is called a sub-campaign. This project redesigned how organizers set up several of these at once.",
+      text: "Once organizers know who to reach, they set up an outreach campaign, a container for a specific pitch, sending settings, and audience. A single event often needs several similar campaigns at once (one per audience), we call each one a sub-campaign. I got pulled into redesigning how operators set up several of these at once.",
       image: "/images/vendelux/campaign-admin-after-creation.png",
       alt: "Vendelux campaign creation view showing sub-campaign setup",
     },
@@ -193,7 +193,7 @@ export const vendeluxProjects: VendeluxProject[] = [
     boxes: [
       {
         icon: "route",
-        label: "The operator's job-to-be-done",
+        label: "What was the operator actually trying to do?",
         body: [
           "A campaign operator needs to launch several related sub-campaigns that share operational settings, such as status, sender, sending window, and cadence, while each sub-campaign targets a different audience segment.",
         ],
@@ -213,11 +213,11 @@ export const vendeluxProjects: VendeluxProject[] = [
           },
         ],
         footer:
-          "The problem went beyond click count. The structure treated related sub-campaigns as isolated objects, even though the operator managed them as a group.",
+          "The problem went beyond click count. I realized the structure treated related sub-campaigns as isolated objects, even though the operator managed them as a group.",
       },
       {
         icon: "map",
-        label: "New model: campaign as the shared setup layer",
+        label: "So I proposed a different model",
         body: [
           "I introduced a nested structure. The parent campaign holds shared operational controls, and sub-campaigns hold individual audience segments and exceptions.",
         ],
@@ -232,7 +232,7 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
       {
         icon: "git-branch",
-        label: "Initial direction: bulk editing",
+        label: "My first idea: bulk editing",
         body: [
           "I designed a bulk-editing workflow that let operators select sub-campaigns with checkboxes and apply shared settings, such as status, sender, and cadence, to the selection. The prototype addressed a high-priority FDE request by reducing repeated setup.",
           "Riskier actions, like activating or pausing live sub-campaigns, would show a confirmation before they applied, since a bulk action here would affect several live sub-campaigns at once.",
@@ -247,20 +247,20 @@ export const vendeluxProjects: VendeluxProject[] = [
           },
         ],
         footer:
-          "This kept the bulk action limited to fields that were genuinely shared, and kept audience assignment where each sub-campaign actually differs. It didn't ship — see the next section for why.",
+          "This kept the bulk action limited to fields that were genuinely shared, and kept audience assignment where each sub-campaign actually differs. It didn't ship, though, and the next section is why.",
       },
       {
         icon: "code",
-        label: "Where judgment was mine, and where v0 did the mechanical work",
+        label: "What v0 handled, and what I had to decide myself",
         body: [
           "Mine: separating shared campaign settings from sub-campaign-specific settings, choosing which controls belonged in bulk actions, defining exception and pause/resume states, and clarifying ambiguous product rules with the PM.",
-          "Mechanical: generating repeated table rows, applying shared styles, and building out prototype states for confirmations, empty segments, and status variations.",
+          "v0's: generating repeated table rows, applying shared styles, and building out prototype states for confirmations, empty segments, and status variations.",
         ],
       },
       {
         icon: "alert-triangle",
         variant: "danger",
-        label: "Scope correction: Duplicate for the MVP",
+        label: "Then I hit a wall: backend couldn't support it",
         body: [
           "I didn't communicate early enough about the gap between the requested bulk-editing workflow and backend feasibility within the MVP timeline. Bulk editing required backend support that was unavailable for the first release, so the team removed it from scope.",
           "I proposed a Duplicate action instead. Operators could copy an existing sub-campaign with its shared configuration, then change the audience segment or any other exception. This preserved a faster setup path without depending on the bulk-editing backend work.",
@@ -277,9 +277,9 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
       {
         icon: "git-branch",
-        label: "Custom presets: three ways for FDEs to save settings",
+        label: "A smaller question: where should saving even happen?",
         body: [
-          "Beyond the fixed system preset batch (Early Confirmed, Late Confirmed, Predicted), FDEs needed a way to save their own settings as a reusable config. The real question was where saving should actually happen, so I built three clickable prototype directions to compare instead of debating it in the abstract: (A) a save toggle inside the sub-campaign creation drawer, (B) a dedicated presets library, and (C) capturing a preset from a sub-campaign you'd already built.",
+          "Beyond the fixed system preset batch (Early Confirmed, Late Confirmed, Predicted), FDEs needed a way to save their own settings as a reusable config. Rather than debate it in the abstract, I built three clickable prototype directions to compare: (A) a save toggle inside the sub-campaign creation drawer, (B) a dedicated presets library, and (C) capturing a preset from a sub-campaign you'd already built.",
         ],
         codeBlocks: [
           {
@@ -299,7 +299,7 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
       {
         icon: "chart-line",
-        label: "Interaction impact in the prototype",
+        label: "Did it actually save clicks?",
         body: [
           "In the prototype, applying Draft status to three existing sub-campaigns took seven clicks in the prior flow: open each row, choose Draft, and return to the table.",
           "The bulk-edit prototype took three clicks: choose Draft, select Apply to all, and confirm.",
@@ -309,7 +309,7 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
       {
         icon: "flask",
-        label: "Validation before visual polish",
+        label: "Before I touched pixels, I checked the model with someone who does this daily",
         body: [
           "Before I moved into detailed UI, I mapped the workflow and reviewed the proposed parent-campaign and sub-campaign structure with someone who does this work regularly.",
         ],
@@ -320,7 +320,7 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
       {
         icon: "alert-triangle",
-        label: "Early mistake: I polished the surface before I changed the model",
+        label: "An earlier mistake: I redesigned the surface, not the workflow",
         variant: "danger",
         body: [
           "My first direction kept the original interaction pattern: each sub-campaign still behaved like a separate setup task. It looked cleaner, but it didn't eliminate the repeated work.",
@@ -331,7 +331,7 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
       {
         icon: "git-branch",
-        label: "Cross-functional constraint: unresolved date logic",
+        label: "A question I couldn't answer myself: whose date logic wins?",
         body: [
           "During the build, I found that two engineering specs described date behavior differently: whether a paused sub-campaign should keep its scheduled start date or require a new date when it resumes.",
           "Rather than designing around an assumption, I documented the conflict and asked the PM to make the product decision. I continued the interaction design only after that decision landed.",
@@ -341,7 +341,7 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
       {
         icon: "chart-line",
-        label: "Outcome",
+        label: "Where this stands",
         body: [
           "I locked scope on August 24, 2026. By August 28, I'd handed the design to engineering, and I kept refining status display and pause and unpause behavior along the way.",
           "The feature isn't live yet, so I don't have an adoption or performance outcome to report.",
@@ -372,12 +372,12 @@ export const vendeluxProjects: VendeluxProject[] = [
     navLabel: "Meeting Planner",
     title: "Meeting Planner",
     oneLiner:
-      "I found that the product presented an uncertain forecast as a precise fact, and redesigned it to expose the inputs and uncertainty behind the number.",
+      "The product told customers \"Expected Meetings: 36\" like it was a fact, when it was really an estimate built on a handful of assumptions. I redesigned the panel to show its work.",
     duration: "July 21 – Aug 26, 2026 · Ongoing",
     whatIDid: "UI/UX Design, Prototyping",
     tools: ["Figma", "v0"],
     intro: {
-      text: "Before committing to an event campaign, customers want to know: how many actual sales meetings should I expect? Vendelux shows that as an \"Expected Meetings\" estimate. This project redesigned how that estimate gets explained.",
+      text: "Before committing to an event campaign, customers want to know: how many actual sales meetings should I expect? Vendelux shows that as an \"Expected Meetings\" estimate. I got curious about why customers kept pushing back on that number, and that question became this project.",
       image: "/images/vendelux/mp-after-mainpage.png",
       alt: "Vendelux Meetings dashboard showing campaigns and their status",
     },
@@ -389,7 +389,7 @@ export const vendeluxProjects: VendeluxProject[] = [
     boxes: [
       {
         icon: "route",
-        label: "The customer's job",
+        label: "The question customers were actually asking",
         body: [
           "A customer plans outreach for an event and needs to decide whether a target audience is large enough to produce a useful number of meetings.",
           "They need this estimate to plan sales-team capacity, outreach volume, event goals, and follow-up expectations.",
@@ -407,7 +407,7 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
       {
         icon: "map",
-        label: "The old journey",
+        label: "Watching the old flow break down",
         body: [],
         journey: [
           { actor: "customer", text: "Selects one or more audience segments." },
@@ -423,7 +423,7 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
       {
         icon: "bulb",
-        label: "Key decision: turn a hardcoded outcome into an inspectable calculation",
+        label: "The decision: make the calculation inspectable",
         variant: "accent",
         body: [
           "An estimate should show its assumptions, its uncertainty, and the action that changes it.",
@@ -462,15 +462,15 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
       {
         icon: "code",
-        label: "Where judgment was mine, and where v0 did the mechanical work",
+        label: "Splitting the work: my calls vs. v0's",
         body: [
           "Mine: choosing to replace a single forecast with a range, determining which inputs needed to be visible, writing the \"Why this estimate?\" explanation, and deciding how a segment change should affect the displayed estimate.",
-          "Mechanical: laying out the panel, generating alternate display states, and implementing live recalculation once the underlying formula and rules were defined.",
+          "v0's: laying out the panel, generating alternate display states, and implementing live recalculation once the underlying formula and rules were defined.",
         ],
       },
       {
         icon: "git-branch",
-        label: "Alternatives I considered",
+        label: "Three ways to show this, each with a real tradeoff",
         body: [
           "I considered three directions before I landed on the final design, and weighed a real tradeoff for each one rather than just a description.",
         ],
@@ -495,7 +495,7 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
       {
         icon: "flask",
-        label: "Validation plan",
+        label: "How I plan to find out if this actually works",
         body: [
           "I will test understanding and trust separately, since a customer can correctly explain the estimate and still say they wouldn't use it to set a goal.",
         ],
@@ -520,7 +520,7 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
       {
         icon: "bulb",
-        label: "What I would write before prototyping",
+        label: "The principles I wrote down before touching Figma",
         body: [
           "The estimate helps customers plan, so it must support decisions without presenting a guarantee.",
           "Customers need to understand the selected audience, the rate definition, and the source of uncertainty.",
@@ -530,7 +530,7 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
       {
         icon: "route",
-        label: "Design reviews across the Meetings App",
+        label: "Zooming out: reviews across the whole Meetings App",
         body: [
           "This work sat inside a broader Meetings App effort, so I ran structured reviews with Customer Success and cross-functional stakeholders on the surrounding flows: the campaign builder, the segment builder, and campaign summary and launch validation.",
         ],
@@ -541,7 +541,7 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
       {
         icon: "chart-line",
-        label: "Outcome",
+        label: "Where this stands",
         body: [
           "Design reviews continued through August 26, 2026. I haven't tested the panel with customers yet.",
           "The next milestone is customer validation: confirm whether customers understand the estimate, identify its inputs, and use it with more confidence when they plan outreach.",

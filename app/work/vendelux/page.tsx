@@ -27,20 +27,52 @@ export default function VendeluxPage() {
             Back to Portfolio
           </Link>
 
-          <div className="mb-14 space-y-4">
+          <div className="mb-14 space-y-8">
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <h1 className="text-2xl md:text-3xl font-normal tracking-tight">
+                  Product Designer, Vendelux
+                </h1>
+                <p className="text-sm text-text-secondary">
+                  Product Design · AI-powered B2B event intelligence platform
+                </p>
+              </div>
+
+              <div className="flex flex-wrap gap-x-12 gap-y-4 text-sm pt-4">
+                <div>
+                  <span className="block text-xs text-text-secondary mb-1">Context</span>
+                  <span className="text-foreground/70">Vendelux</span>
+                </div>
+                <div>
+                  <span className="block text-xs text-foreground/40 mb-1">Timeline</span>
+                  <span className="text-foreground/70">March 2026 – Present</span>
+                </div>
+                <div>
+                  <span className="block text-xs text-foreground/40 mb-1">What I did</span>
+                  <span className="text-foreground/70">
+                    Product design across segment building, campaign tooling, and forecasting
+                  </span>
+                </div>
+              </div>
+            </div>
+
             <p className="text-sm leading-relaxed text-text-secondary">
-              Vendelux helps B2B companies turn event attendance into sales pipeline. It matches
-              who&apos;s attending an event against a company&apos;s ideal customer profile, then helps
-              their team reach out and book meetings before, during, and after the event. The three
-              projects below touch different parts of that workflow.
+              Vendelux helps B2B companies turn event attendance into sales pipeline: it matches
+              who&apos;s attending a conference against a company&apos;s ideal customer profile, then
+              helps their team reach out and book meetings before, during, and after the event. I
+              joined as a product design intern still figuring out what &ldquo;good&rdquo; looks like on
+              a live product with real customers on the other end, and I&apos;m still there. The three
+              projects below are the ones that taught me the most, each one started with a workflow I
+              watched someone actually get stuck on, not a feature request.
             </p>
-            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg border border-border/40">
+
+            <div className="flex justify-center rounded-lg border border-border/40 bg-white py-10">
               <Image
-                src="/images/vendelux/campaign-admin-after-summary.png"
-                alt="Vendelux campaign summary view"
-                fill
-                className="object-cover object-top"
-                sizes="900px"
+                src="/images/vendelux-cover.png"
+                alt="Vendelux logo"
+                width={220}
+                height={115}
+                className="h-auto w-[200px]"
               />
             </div>
           </div>
