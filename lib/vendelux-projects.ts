@@ -1,6 +1,7 @@
 export interface InfoBox {
   icon: "route" | "git-branch" | "bulb" | "alert-triangle" | "flask" | "chart-line" | "map" | "code"
   label: string
+  badge?: string
   body: string[]
   variant?: "accent" | "danger" | "default"
   code?: string
@@ -9,6 +10,14 @@ export interface InfoBox {
   steps?: string[]
   flow?: { steps: string[]; note?: string }[]
   inlineBeforeAfter?: { before: string; after: string }
+  beforeAfterPairs?: { label: string; description: string; before: string; after: string }[]
+  stepCompare?: {
+    beforeLabel: string
+    beforeSteps: string[]
+    afterLabel: string
+    afterSteps: string[]
+    highlightAfterIndexes?: number[]
+  }
   journey?: { actor: "customer" | "system"; text: string; isQuote?: boolean }[]
   questionCards?: string[]
   optionCards?: { label: string; description: string; example?: string; selected?: boolean }[]
@@ -194,9 +203,7 @@ export const vendeluxProjects: VendeluxProject[] = [
       alt: "Vendelux campaign creation view showing sub-campaign setup",
     },
     credit: { text: "Product Design Internship, Vendelux" },
-    role: [
-      "I worked as the sole designer with a PM, engineer, and data lead through tickets and written specs.",
-    ],
+    role: ["Sole designer on this project, working with a PM, engineer, and data lead through tickets and written specs."],
     boxes: [
       {
         icon: "route",
@@ -308,11 +315,18 @@ export const vendeluxProjects: VendeluxProject[] = [
         icon: "chart-line",
         label: "Did it actually save clicks?",
         body: [
-          "In the prototype, applying Draft status to three existing sub-campaigns took seven clicks in the prior flow: open each row, choose Draft, and return to the table.",
-          "The bulk-edit prototype took three clicks: choose Draft, select Apply to all, and confirm.",
-          "This reflects a 57% reduction for this specific task in that prototype. It measures the bulk-editing mechanism specifically, which didn't ship — the MVP replaced it with Duplicate, which I haven't measured the same way yet.",
+          "In the prototype, applying Draft status to three existing sub-campaigns took seven clicks in the prior flow. The bulk-edit prototype took three.",
         ],
-        stat: { value: "7 → 3", caption: "clicks for this task, in the prototype" },
+        stepCompare: {
+          beforeLabel: "Before · 7 clicks",
+          beforeSteps: ["Open row 1", "Choose Draft", "Open row 2", "Choose Draft", "Open row 3", "Choose Draft", "Return to table"],
+          afterLabel: "After · 3 clicks",
+          afterSteps: ["Choose Draft", "Select \"Apply to all\"", "Confirm"],
+          highlightAfterIndexes: [1],
+        },
+        stat: { value: "7 → 3", caption: "clicks for this task, in the prototype (a 57% drop)" },
+        footer:
+          "This measures the bulk-editing mechanism specifically, which didn't ship. The MVP replaced it with Duplicate, which I haven't measured the same way yet.",
       },
       {
         icon: "flask",
@@ -327,24 +341,46 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
       {
         icon: "alert-triangle",
-        label: "An earlier mistake: new look, same workflow",
+        label: "An earlier mistake: new UI, same interaction model",
         variant: "danger",
         body: [
-          "My first direction kept the original interaction pattern: each sub-campaign still behaved like a separate setup task. It looked cleaner, but it didn't eliminate the repeated work.",
-          "The operator still had to set Draft three times for three related sub-campaigns, which made this a visual reskin instead of a workflow redesign.",
+          "My first direction was a visual reskin. It kept the original interaction pattern, so each sub-campaign still behaved like a separate setup task, and it looked cleaner without removing any of the repeated work.",
+          "The operator still had to set Draft three times for three related sub-campaigns, exactly the task I was supposed to be fixing.",
         ],
         footer:
           "I restarted from the operator's repeated task, apply the same setup across this group, and introduced bulk actions at the campaign level.",
       },
       {
+        icon: "map",
+        label: "Before / after",
+        body: [],
+        beforeAfterPairs: [
+          {
+            label: "Create campaign",
+            description:
+              "The old tool (Vendelux Meetings Management V2) was an unstyled internal form: a flat page with a raw Team ID, plain radio buttons, and no visual hierarchy between required and optional fields. The redesign turns it into a structured modal, grouping Campaign Details, Event Association, and the auto-created Sub-Campaigns into clearly labeled sections.",
+            before: "/images/vendelux/campaign-admin-before-creation.png",
+            after: "/images/vendelux/campaign-admin-after-creation.png",
+          },
+          {
+            label: "Campaign list",
+            description:
+              "The old view was a raw stats block (Campaigns, Sub-Campaigns, Ready to Launch, Pending Approval...) followed by a dense, unstyled table of every sub-campaign across every event. The redesign replaces it with a scannable list of campaigns, each showing its channel types, sub-campaign count, and status at a glance, with filtering and search.",
+            before: "/images/vendelux/campaign-admin-before-summary.png",
+            after: "/images/vendelux/campaign-admin-after-summary.png",
+          },
+        ],
+      },
+      {
         icon: "git-branch",
         label: "A question I couldn't answer myself: which date logic applies?",
+        badge: "Open question",
         body: [
-          "During the build, I found that two engineering specs described date behavior differently: whether a paused sub-campaign should keep its scheduled start date or require a new date when it resumes.",
-          "Rather than designing around an assumption, I documented the conflict and asked the PM to make the product decision. I continued the interaction design only after that decision landed.",
+          "During the build, two engineering specs described date behavior differently for a paused sub-campaign: one said it should keep its scheduled start date when it resumes, the other said it should require a new date.",
+          "I didn't design around an assumption. I documented the conflict and handed the product decision to the PM, since this determines what the resume flow should actually show.",
         ],
         footer:
-          "This reinforced that design execution depends on resolving product rules as much as clarifying the interface. As of this writing, the PM hadn't finalized that decision.",
+          "This is still open as of this writing. I'm holding the interaction design for the resume flow until the PM decides, so I don't build UI around a rule that might change.",
       },
       {
         icon: "chart-line",
@@ -362,24 +398,7 @@ export const vendeluxProjects: VendeluxProject[] = [
         ],
       },
     ],
-    media: {
-      beforeAfterSet: [
-        {
-          label: "Create campaign",
-          description:
-            "The old tool (Vendelux Meetings Management V2) was an unstyled internal form: a flat page with a raw Team ID, plain radio buttons, and no visual hierarchy between required and optional fields. The redesign turns it into a structured modal, grouping Campaign Details, Event Association, and the auto-created Sub-Campaigns into clearly labeled sections.",
-          before: "/images/vendelux/campaign-admin-before-creation.png",
-          after: "/images/vendelux/campaign-admin-after-creation.png",
-        },
-        {
-          label: "Campaign list",
-          description:
-            "The old view was a raw stats block (Campaigns, Sub-Campaigns, Ready to Launch, Pending Approval...) followed by a dense, unstyled table of every sub-campaign across every event. The redesign replaces it with a scannable list of campaigns, each showing its channel types, sub-campaign count, and status at a glance, with filtering and search.",
-          before: "/images/vendelux/campaign-admin-before-summary.png",
-          after: "/images/vendelux/campaign-admin-after-summary.png",
-        },
-      ],
-    },
+    media: {},
   },
   {
     slug: "meeting-planner",

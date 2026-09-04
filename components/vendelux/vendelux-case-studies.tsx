@@ -74,19 +74,15 @@ export function VendeluxCaseStudies() {
             {" · "}
             {active.whatIDid}
           </p>
+          {active.role.map((p, i) => (
+            <p key={i} className="text-xs text-foreground/50">
+              {p}
+            </p>
+          ))}
         </header>
 
         <div className="space-y-3 rounded-lg border border-border/40 bg-muted/20 p-4">
           <p className="text-sm leading-relaxed text-foreground/80">{active.intro.text}</p>
-        </div>
-
-        <div className="space-y-2 text-[15px] leading-relaxed text-foreground/90">
-          <h2 className="text-xs font-medium uppercase tracking-[0.1em] text-muted-foreground">
-            Role
-          </h2>
-          {active.role.map((p, i) => (
-            <p key={i}>{p}</p>
-          ))}
         </div>
 
         {/* Info boxes */}
@@ -149,7 +145,14 @@ function InfoBoxCard({ box }: { box: InfoBox }) {
       <div className="flex items-start gap-3">
         <Icon className={cn("mt-0.5 h-5 w-5 shrink-0", iconColorClass)} strokeWidth={1.75} />
         <div className="min-w-0 flex-1 space-y-2">
-          <p className="text-sm font-medium text-foreground">{box.label}</p>
+          <p className="flex flex-wrap items-center gap-2 text-sm font-medium text-foreground">
+            {box.label}
+            {box.badge && (
+              <span className="rounded-full border border-amber-600/40 bg-amber-500/10 px-2 py-0.5 text-[10px] font-semibold tracking-wide text-amber-800 uppercase dark:text-amber-400">
+                {box.badge}
+              </span>
+            )}
+          </p>
           <div className="space-y-1.5 text-sm leading-relaxed text-foreground/80">
             {box.body.map((line, i) => (
               <p key={i}>{line}</p>
@@ -328,6 +331,64 @@ function InfoBoxCard({ box }: { box: InfoBox }) {
                       {block.content}
                     </pre>
                   )}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {box.stepCompare && (
+            <div className="grid grid-cols-1 gap-3 pt-1 sm:grid-cols-2">
+              <div className="space-y-1.5">
+                <span className="text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground">
+                  {box.stepCompare.beforeLabel}
+                </span>
+                <ol className="space-y-1 text-sm text-foreground/70 [&>li]:list-decimal [&>li]:pl-1.5 pl-4">
+                  {box.stepCompare.beforeSteps.map((step, i) => (
+                    <li key={i}>{step}</li>
+                  ))}
+                </ol>
+              </div>
+              <div className="space-y-1.5">
+                <span className="text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground">
+                  {box.stepCompare.afterLabel}
+                </span>
+                <ol className="space-y-1 text-sm text-foreground/70 [&>li]:list-decimal [&>li]:pl-1.5 pl-4">
+                  {box.stepCompare.afterSteps.map((step, i) => (
+                    <li
+                      key={i}
+                      className={cn(
+                        box.stepCompare!.highlightAfterIndexes?.includes(i) &&
+                          "-ml-1.5 rounded-md bg-amber-400/20 pl-2.5 font-medium text-foreground",
+                      )}
+                    >
+                      {step}
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </div>
+          )}
+
+          {box.beforeAfterPairs && box.beforeAfterPairs.length > 0 && (
+            <div className="space-y-6 pt-1">
+              {box.beforeAfterPairs.map((pair, i) => (
+                <div key={i} className="space-y-2">
+                  <p className="text-sm font-medium text-foreground">{pair.label}</p>
+                  <p className="text-sm leading-relaxed text-foreground/70">{pair.description}</p>
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    <div className="space-y-1.5">
+                      <span className="text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground">Before</span>
+                      <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-border/40 bg-foreground/[0.03]">
+                        <Image src={pair.before} alt={`${pair.label}, before`} fill className="object-contain" sizes="500px" />
+                      </div>
+                    </div>
+                    <div className="space-y-1.5">
+                      <span className="text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground">After</span>
+                      <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-border/40 bg-foreground/[0.03]">
+                        <Image src={pair.after} alt={`${pair.label}, after`} fill className="object-contain" sizes="500px" />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
