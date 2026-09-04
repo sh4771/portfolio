@@ -43,7 +43,7 @@ export const vendeluxProjects: VendeluxProject[] = [
       "I kept wondering why organizers were digging through an alphabetical list to do the one thing they always did first. That question led me through three structural directions, and taught me that visual density can't override a system constraint.",
     duration: "Late March – April 2026 · Shipped",
     whatIDid: "UI/UX Design, Prototyping",
-    tools: ["Figma", "Claude Code"],
+    tools: ["Figma", "Figma MCP Plugin API"],
     intro: {
       text: "Vendelux surfaces everyone attending an event, and organizers filter that list down to the people actually worth reaching out to (we call that filtered list a segment). I got curious about how organizers actually built one, so I looked into it for this project.",
       image: "/images/vendelux/segments-include-exclude-after.png",
@@ -169,6 +169,13 @@ export const vendeluxProjects: VendeluxProject[] = [
         ],
         stat: { value: "26 → 52", caption: "segment creation, week over week (Aug 3–9, 2026)" },
       },
+      {
+        icon: "bulb",
+        label: "What I learned",
+        body: [
+          "The biggest lesson here was that a layout problem is sometimes actually a structure problem. Reordering filters or shrinking type wouldn't have fixed the real issue: organizers needed the hierarchy itself to match how they worked. Next time, I'd check any hierarchy change against design-system tokens before presenting a high-fidelity direction, and push harder for a few organizer interviews instead of relying only on stakeholder feedback.",
+        ],
+      },
     ],
     media: {},
   },
@@ -180,7 +187,7 @@ export const vendeluxProjects: VendeluxProject[] = [
       "I set out to redesign an internal campaign-launch tool and ended up rethinking the shared-setup model for related sub-campaigns along the way. When backend constraints ruled out my first plan, bulk editing, for the MVP, I had to find another path to the same outcome.",
     duration: "July 10 – Aug 28, 2026 · In progress",
     whatIDid: "UI/UX Design, Prototyping",
-    tools: ["Figma", "v0"],
+    tools: ["Granola", "Claude Code", "v0"],
     intro: {
       text: "Once organizers know who to reach, they set up an outreach campaign, a container for a specific pitch, sending settings, and audience. A single event often needs several similar campaigns at once (one per audience), we call each one a sub-campaign. I got pulled into redesigning how operators set up several of these at once.",
       image: "/images/vendelux/campaign-admin-after-creation.png",
@@ -347,6 +354,13 @@ export const vendeluxProjects: VendeluxProject[] = [
           "The feature isn't live yet, so I don't have an adoption or performance outcome to report.",
         ],
       },
+      {
+        icon: "bulb",
+        label: "What I learned",
+        body: [
+          "I moved to visual design too early once on this project and ended up polishing a workflow that hadn't actually changed underneath. Now I map the underlying model first and get it checked with someone who does the work daily before I open Figma. I'd also loop in engineering sooner: the backend constraint that killed bulk editing surfaced later than it should have, and catching it earlier would have saved a full design direction.",
+        ],
+      },
     ],
     media: {
       beforeAfterSet: [
@@ -375,7 +389,7 @@ export const vendeluxProjects: VendeluxProject[] = [
       "The product told customers \"Expected Meetings: 36\" like it was a fact, when it was really an estimate built on a handful of assumptions. I redesigned the panel to show its work.",
     duration: "July 21 – Aug 26, 2026 · Ongoing",
     whatIDid: "UI/UX Design, Prototyping",
-    tools: ["Figma", "v0"],
+    tools: ["Granola", "Claude Code", "v0"],
     intro: {
       text: "Before committing to an event campaign, customers want to know: how many actual sales meetings should I expect? Vendelux shows that as an \"Expected Meetings\" estimate. I got curious about why customers kept pushing back on that number, so I looked into it for this project.",
       image: "/images/vendelux/mp-after-mainpage.png",
@@ -545,6 +559,13 @@ export const vendeluxProjects: VendeluxProject[] = [
         body: [
           "Design reviews continued through August 26, 2026. I haven't tested the panel with customers yet.",
           "The next milestone is customer validation: confirm whether customers understand the estimate, identify its inputs, and use it with more confidence when they plan outreach.",
+        ],
+      },
+      {
+        icon: "bulb",
+        label: "What I learned",
+        body: [
+          "Writing down my validation plan and design principles before I opened Figma kept me honest about what the panel actually needed to prove. What I'd do differently: get in front of customers earlier, even with a rough prototype, instead of finishing the full design first. This project's biggest open question, whether people actually trust the estimate, still doesn't have an answer, and I want that answer before I call this done.",
         ],
       },
     ],
