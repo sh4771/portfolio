@@ -81,9 +81,54 @@ export function VendeluxCaseStudies() {
           ))}
         </header>
 
+        {/* Quick facts */}
+        {active.quickFacts && active.quickFacts.length > 0 && (
+          <div className="overflow-hidden rounded-lg border border-border/40 bg-muted/10">
+            <div className="grid grid-cols-1 divide-y divide-border/40 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+              {active.quickFacts.slice(0, 3).map((fact, i) => (
+                <div key={i} className="p-4">
+                  <span className="mb-1 block text-xs uppercase tracking-wide text-muted-foreground">
+                    {fact.label}
+                  </span>
+                  <span className="text-base text-foreground">{fact.value}</span>
+                </div>
+              ))}
+            </div>
+            {active.quickFacts.slice(3).map((fact, i) => (
+              <div key={i} className="border-t border-border/40 p-4">
+                <span className="mb-1 block text-xs uppercase tracking-wide text-muted-foreground">
+                  {fact.label}
+                </span>
+                <span className="text-base text-foreground">{fact.value}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
         <div className="space-y-3 rounded-lg border border-border/40 bg-muted/20 p-4">
           <p className="text-sm leading-relaxed text-foreground/80">{active.intro.text}</p>
         </div>
+
+        {/* Before shot + transition */}
+        {active.beforeShot && (
+          <div className="space-y-2">
+            <span className="text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground">
+              {active.beforeShot.label ?? "Before"}
+            </span>
+            <div className="relative aspect-[16/10] overflow-hidden rounded-md border border-border/40 bg-foreground/[0.03]">
+              <Image
+                src={active.beforeShot.image}
+                alt={active.beforeShot.alt}
+                fill
+                className="object-contain"
+                sizes="800px"
+              />
+            </div>
+          </div>
+        )}
+        {active.transition && (
+          <p className="text-sm leading-relaxed text-foreground/70 italic">{active.transition}</p>
+        )}
 
         {/* Info boxes */}
         <div className="grid grid-cols-1 gap-3">
@@ -402,6 +447,32 @@ function InfoBoxCard({ box }: { box: InfoBox }) {
             <div className="flex items-baseline gap-2 pt-1">
               <span className="text-xl font-medium text-foreground">{box.stat.value}</span>
               <span className="text-xs text-muted-foreground">{box.stat.caption}</span>
+            </div>
+          )}
+
+          {box.barChart && (
+            <div className="pt-2">
+              <div className="flex items-end gap-3">
+                {box.barChart.bars.map((bar, i) => {
+                  const max = Math.max(...box.barChart!.bars.map((b) => b.value))
+                  const heightPct = Math.max((bar.value / max) * 100, 4)
+                  return (
+                    <div key={i} className="flex flex-1 flex-col items-center gap-1.5">
+                      <span className="text-sm font-medium text-foreground">{bar.value}</span>
+                      <div className="flex h-32 w-full items-end">
+                        <div
+                          className="w-full rounded-t-md bg-gradient-to-b from-rose-300 to-rose-600"
+                          style={{ height: `${heightPct}%` }}
+                        />
+                      </div>
+                      <span className="text-xs text-muted-foreground">{bar.label}</span>
+                    </div>
+                  )
+                })}
+              </div>
+              {box.barChart.summary && (
+                <p className="pt-4 text-xl font-medium text-foreground">{box.barChart.summary}</p>
+              )}
             </div>
           )}
         </div>
