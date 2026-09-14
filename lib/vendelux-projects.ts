@@ -231,6 +231,14 @@ export const vendeluxProjects: VendeluxProject[] = [
       image: "/images/vendelux/campaign-admin-after-creation.png",
       alt: "Vendelux campaign creation view showing sub-campaign setup",
     },
+    quickFacts: [
+      { label: "My Role", value: "Product Design Intern" },
+      { label: "Timeline", value: "Jul – Aug 2026" },
+      { label: "Team", value: "5-person team · 1 lead, 1 PM, 2 engineers" },
+      { label: "Users", value: "Forward-deployed engineers" },
+      { label: "User Goal", value: "Set up campaigns and related sub-campaigns for event teams" },
+      { label: "Outcome", value: "MVP in development; duplicate action reduced the tested repeated-setup flow from 9 to 3 steps" },
+    ],
     credit: { text: "Product Design Internship, Vendelux" },
     role: ["Sole designer on this project, working with a PM, engineer, and data lead through tickets and written specs."],
     boxes: [
