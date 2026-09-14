@@ -57,13 +57,15 @@ export default function VendeluxPage() {
             </div>
 
             <p className="text-sm leading-relaxed text-text-secondary">
-              Vendelux helps B2B companies turn event attendance into sales pipeline: it matches
-              who&apos;s attending a conference against a company&apos;s ideal customer profile, then
-              helps their team reach out and book meetings before, during, and after the event. I
-              joined as a product design intern still figuring out what &ldquo;good&rdquo; looks like on
-              a live product with real customers on the other end, and I&apos;m still there. The three
-              projects below are the ones that taught me the most. Each one started because I watched
-              someone get stuck on a real workflow, and I wanted to understand why.
+              Vendelux is an AI event-marketing platform that helps companies figure out which
+              events are worth attending, who they should target at those events, and how to turn
+              those interactions into actual meetings and revenue.
+            </p>
+            <p className="text-sm leading-relaxed text-text-secondary">
+              As a product designer, I worked across both customer-facing and internal tools. I
+              designed workflows that help event marketers narrow large amounts of attendee data
+              into the right target audience, and tools that help our forward-deployed engineers
+              create and manage outreach campaigns more efficiently.
             </p>
 
             <div className="flex justify-center rounded-lg border border-border/40 bg-white py-10">
