@@ -465,6 +465,14 @@ export const vendeluxProjects: VendeluxProject[] = [
       image: "/images/vendelux/mp-after-mainpage.png",
       alt: "Vendelux Meetings dashboard showing campaigns and their status",
     },
+    quickFacts: [
+      { label: "My Role", value: "Product Design Intern" },
+      { label: "Timeline", value: "Jul – Aug 2026" },
+      { label: "Team", value: "5-person team · 1 team lead, 1 PM, 2 engineers" },
+      { label: "Users", value: "Customers hosting events, setting outreach goals" },
+      { label: "User Goal", value: "Find the right outreach audience and see predicted attendees for upcoming events" },
+      { label: "Outcome", value: "In design review; not yet shipped to engineering or tested with customers" },
+    ],
     credit: { text: "Product Design Internship, Vendelux" },
     role: [
       "I worked as the sole designer, mainly with customer-facing team members who brought recurring customer questions and objections into the design process.",
