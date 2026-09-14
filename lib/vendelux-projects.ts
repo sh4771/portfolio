@@ -24,6 +24,7 @@ export interface InfoBox {
   quote?: string
   footer?: string
   stat?: { value: string; caption: string }
+  barChart?: { bars: { label: string; value: number }[]; summary?: string }
 }
 
 export interface VendeluxProject {
@@ -35,6 +36,9 @@ export interface VendeluxProject {
   whatIDid: string
   tools: string[]
   intro: { text: string; image: string; alt: string }
+  quickFacts?: { label: string; value: string }[]
+  beforeShot?: { image: string; alt: string; label?: string }
+  transition?: string
   credit?: { text: string; linkText?: string; url?: string }
   role: string[]
   boxes: InfoBox[]
@@ -46,18 +50,33 @@ export interface VendeluxProject {
 export const vendeluxProjects: VendeluxProject[] = [
   {
     slug: "segments",
-    navLabel: "Smart Segments",
-    title: "Smart Segments",
+    navLabel: "Segments",
+    title: "Segments",
     oneLiner:
       "I kept wondering why organizers were digging through an alphabetical list to do the one thing they always did first. That question led me through three structural directions, and taught me that visual density can't override a system constraint.",
-    duration: "Late March – April 2026 · Shipped",
+    duration: "Mar – May 2026 · Shipped",
     whatIDid: "UI/UX design, working directly with engineers on handoff (specs, Figma organization, Tailwind components)",
     tools: ["Figma", "Figma MCP Plugin API"],
     intro: {
-      text: "Vendelux surfaces everyone attending an event, and organizers filter that list down to the people actually worth reaching out to (we call that filtered list a segment). I kept wondering why organizers were digging through an alphabetical list to do the one thing they always did first, so I looked into how they actually built a segment for this project. That question led me through three structural directions, and taught me that visual density can't override a system constraint.",
+      text: "When event organizers plan an event, they need to identify the right people to reach out to from a large pool of attendee data. I worked on redesigning Vendelux's filtering tool, called Segments, to help them build more precise target audiences. As a product designer, I designed the workflow that helps users narrow large sets of attendee data. They then use those filtered outputs for outreach.",
       image: "/images/vendelux/segments-include-exclude-after.png",
       alt: "Vendelux segment builder showing job title and seniority filters with include/exclude toggles",
     },
+    quickFacts: [
+      { label: "My Role", value: "Product Design Intern" },
+      { label: "Timeline", value: "Mar – May 2026" },
+      { label: "Team", value: "5-person team · 1 team lead, 1 PM, 2 engineers" },
+      { label: "Users", value: "Event marketers and campaign coordinators" },
+      { label: "User Goal", value: "Identify relevant people to invite or contact for future events" },
+      { label: "Outcome", value: "26 segments created in week one; 220 by the end of the first month" },
+    ],
+    beforeShot: {
+      image: "/images/vendelux/segments-raw-attendee-table.png",
+      alt: "Raw table of confirmed attendees with job title, job function, seniority, and organization columns",
+      label: "Before",
+    },
+    transition:
+      "When I joined this project, users had access to data, but they did not have a clear path for turning it into an audience list.",
     credit: {
       text: "Product Design Internship, Vendelux",
       linkText: "view the case study deck",
@@ -70,11 +89,14 @@ export const vendeluxProjects: VendeluxProject[] = [
     boxes: [
       {
         icon: "route",
-        label: "The job I almost missed",
+        label: "Problem",
         body: [
-          "Before I touched the UI, I asked what an organizer actually needed to do first. For the event follow-up workflow I focused on, that was identifying the event before narrowing the attendee list.",
-          "The alphabetical filter menu buried that first decision, the one organizers had to make before anything else.",
+          "Users were working with a raw table of attendee data. Customers had to navigate a list of 40,000 attendees.",
+          "They also had to manually rebuild their targeting filters from scratch every time they wanted to narrow down who to reach out to.",
+          "The core question became:",
         ],
+        quote:
+          "How might we increase filter adoption to drive more precise audience targeting for event organizers?",
       },
       {
         icon: "git-branch",
@@ -164,25 +186,31 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
       {
         icon: "chart-line",
-        label: "What happened after it shipped",
+        label: "Impact",
         body: [
-          "It shipped, and during the August 3–9, 2026 launch window, segment creation increased from 26 to 52 week over week.",
-          "That indicates increased use of the broader organizer workflow, but I can't attribute it to Smart Segments alone: the same window included a separate Organizer MVP launch, and I don't yet have feature-level usage data isolating the redesigned filtering workflow from that.",
+          "Segments is a project I'm proud of for a different reason: the scale of impact it had across the team. After launch, 26 filters were saved in the first week. By the end of the month, that grew to 220. This mattered because creating a saved filter was the core action the redesign was meant to make easier.",
+          "Adoption wasn't driven by one isolated team. As saved segments grew, sales and customer success started talking about it more directly with customers. That helped it spread across the company rather than staying siloed to one function.",
+          "For example, when an event marketer is hosting Dreamforce, which averages around 40,000 attendees, their saved segment can narrow that down to 400 relevant attendees. When they switch to SaaStr, they find 210 relevant attendees using the same segment. This brought impact not only to event marketers, but to sales reps and customer success too, since they all rely on accurate targeting to do their jobs well. And because attendee counts update live as filters change, customers know their targeting is accurate before they commit to outreach, instead of exporting a CSV and finding out too late.",
+          "I was glad to find a point where a small structural change could remove a huge amount of manual work across the firm. One customer even called it \"lifechanging\" and thanked us for making the workflow so much simpler.",
         ],
-        codeBlocks: [
-          {
-            heading: "Feature-level measures I'm working to pull next, including monthly active organizers re-run by account-creation date (before vs. after July 6, 2026) to separate the two launches:",
-            content:
-              "Number of segments created using Event filters\nTime to create an event follow-up segment\nFilter abandonment rate\nUse of saved-segment counts\nNumber of segments applied to campaigns",
-          },
-        ],
-        stat: { value: "26 → 52", caption: "segment creation, week over week (Aug 3–9, 2026)" },
+        barChart: {
+          bars: [
+            { label: "Jul 27", value: 26 },
+            { label: "Aug 3", value: 52 },
+            { label: "Aug 10", value: 95 },
+            { label: "Aug 17", value: 133 },
+            { label: "Aug 30", value: 220 },
+          ],
+          summary: "26 → 52 → 95 → 133 → 220 (+746%)",
+        },
       },
       {
         icon: "bulb",
         label: "What I learned",
         body: [
-          "The biggest lesson here was that a layout problem is sometimes actually a structure problem. Reordering filters or shrinking type wouldn't have fixed the real issue: organizers needed the hierarchy itself to match how they worked. Next time, I'd check any hierarchy change against design-system tokens before presenting a high-fidelity direction, and push harder for a few organizer interviews instead of relying only on stakeholder feedback.",
+          "Across both projects, I focused on simplifying complex workflows while balancing user needs and technical constraints.",
+          "Working at a growing company has taught me that teams often move quickly and figure things out as they go. There isn't always a strict rule for what can or cannot be done. Because of that, I've learned to take ownership, test ideas early, speak with users, bring forward solutions, and initiate conversations instead of waiting for direction.",
+          "The biggest takeaway for me is that strong product design is about understanding the real problem, making trade-offs visible, and collaborating early enough to turn a solution into something that can actually ship.",
         ],
       },
     ],
