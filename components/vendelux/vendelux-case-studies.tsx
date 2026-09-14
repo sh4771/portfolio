@@ -450,6 +450,24 @@ function InfoBoxCard({ box }: { box: InfoBox }) {
             </div>
           )}
 
+          {box.numberedCards && box.numberedCards.length > 0 && (
+            <div className="grid grid-cols-1 gap-3 pt-1 sm:grid-cols-3">
+              {box.numberedCards.map((card, i) => (
+                <div
+                  key={i}
+                  className="rounded-xl p-5 text-white"
+                  style={{ backgroundColor: "#4a0e4e" }}
+                >
+                  <p className="text-2xl font-semibold">{card.number}</p>
+                  <p className="mt-3 text-base font-medium">{card.title}</p>
+                  {card.description && (
+                    <p className="mt-1 text-sm text-white/75">{card.description}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+
           {box.barChart && (
             <div className="pt-2">
               <div className="flex items-end gap-3">
