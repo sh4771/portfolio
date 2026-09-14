@@ -25,6 +25,7 @@ export interface InfoBox {
   footer?: string
   stat?: { value: string; caption: string }
   barChart?: { bars: { label: string; value: number }[]; summary?: string }
+  numberedCards?: { number: string; title: string; description?: string }[]
 }
 
 export interface VendeluxProject {
@@ -226,7 +227,7 @@ export const vendeluxProjects: VendeluxProject[] = [
     whatIDid: "UI/UX design, structuring an ambiguous workflow into a data model across engineering, FDEs, and product",
     tools: ["Granola", "Claude Code", "v0"],
     intro: {
-      text: "Once organizers know who to reach, they set up an outreach campaign, a container for a specific pitch, sending settings, and audience. A single event often needs several similar campaigns at once (one per audience), we call each one a sub-campaign. I got pulled into redesigning how operators set up several of these at once, and ended up rethinking the shared-setup model for the whole group. When backend constraints ruled out my first plan, bulk editing, for the MVP, I had to find another path to the same outcome.",
+      text: "When forward-deployed engineers at Vendelux set up event marketing campaigns, they have to move through multiple pages. They also have to repeatedly enter similar settings to create and manage related sub-campaigns. The workflow was fragmented and repetitive. That's why we started Campaign Admin: a centralized tool to simplify campaign setup and ongoing management for forward-deployed engineers. At Vendelux, a campaign supports a specific event. A multi-day event, for example, can have several related sub-campaigns across different days, locations, or audiences. This project began with an open-ended brief. There was no fully defined handoff or set of requirements, so I took ownership of building the context myself. I worked closely with my PM, Gina, and partnered directly with the forward-deployed engineers who used the tool daily. As the only product designer, I owned the research, flow design, and prioritization myself.",
       image: "/images/vendelux/campaign-admin-after-creation.png",
       alt: "Vendelux campaign creation view showing sub-campaign setup",
     },
@@ -258,19 +259,29 @@ export const vendeluxProjects: VendeluxProject[] = [
           "The problem went beyond click count. I realized the structure treated related sub-campaigns as isolated objects, even though the operator managed them as a group.",
       },
       {
-        icon: "map",
-        label: "So I proposed a different model",
+        icon: "route",
+        label: "What I heard from the FDEs",
         body: [
-          "I introduced a nested structure. The parent campaign holds shared operational controls, and sub-campaigns hold individual audience segments and exceptions.",
+          "I met with the forward-deployed engineers who were the main users of this product. I wanted to understand how they managed campaigns, where they were losing time, and what parts of the workflow created the most friction.",
         ],
-        codeBlocks: [
+        numberedCards: [
           {
-            content:
-              "Fall Event Follow-up\n├── Enterprise attendees\n├── Mid-market attendees\n└── SMB attendees",
+            number: "01",
+            title: "Fragmented Setup",
+            description: "Essential setup was split across campaign creation and editing.",
+          },
+          {
+            number: "02",
+            title: "Repeated Work",
+            description: "Related sub-campaigns needed nearly identical settings entered again and again.",
+          },
+          {
+            number: "03",
+            title: "Harder Management",
+            description: "The campaign list was hard to scan, so it wasn't clear what was active, ready to launch, or pending.",
           },
         ],
-        footer:
-          "This made the campaign the place to set common defaults, while sub-campaigns kept control over the differences that mattered.",
+        footer: "From there, I prioritized the highest-impact opportunities with my PM.",
       },
       {
         icon: "git-branch",
@@ -341,20 +352,27 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
       {
         icon: "chart-line",
-        label: "Did it actually save clicks?",
+        label: "Did duplicate action actually save clicks?",
         body: [
-          "In the prototype, applying Draft status to three existing sub-campaigns took seven clicks in the prior flow. The bulk-edit prototype took three.",
+          "With duplicate action, engineers start from an existing sub-campaign and edit only what's changed. That took the workflow from nine steps down to three, a 67% reduction.",
+          "While bulk editing wasn't part of the MVP, duplicate action still cut redundant work and got positive feedback from engineers.",
         ],
-        stepCompare: {
-          beforeLabel: "Before · 7 clicks",
-          beforeSteps: ["Open row 1", "Choose Draft", "Open row 2", "Choose Draft", "Open row 3", "Choose Draft", "Return to table"],
-          afterLabel: "After · 3 clicks",
-          afterSteps: ["Choose Draft", "Select \"Apply to all\"", "Confirm"],
-          highlightAfterIndexes: [1],
+        stat: { value: "9 → 3", caption: "steps to configure a related sub-campaign (a 67% reduction)" },
+        footer: "Beyond these features, I also improved the overall campaign-management experience.",
+      },
+      {
+        icon: "map",
+        label: "Make campaign status easier to scan",
+        body: [
+          "On the campaign list page, FDEs previously struggled to tell at a glance what needed their attention.",
+          "I redesigned the hierarchy in two ways. First, I added tabs so engineers can move directly between recently updated, drafts, and cancelled campaigns, instead of scanning one long list to find what needs action. I initially considered a sidebar to hold these tabs, but decided against it. The page already had a persistent left nav for the app itself, and adding a second sidebar would compete for space and attention on a page whose main job is scanning a dense list at a glance. A top nav bar kept the tabs visible without eating into that width, and it matched how engineers were already scanning left to right across the list.",
+          "Second, I surfaced status tags on the main page itself: active, ready to launch, pending. Now engineers see that information immediately instead of scrolling for it.",
+          "This addressed the third recurring theme from my conversations with engineers: making ongoing campaign management easier to scan and act on. After launch, our FDEs told us the new first view guided users straight into their actual workflow. They'd check overall campaign status first, then either create a new campaign or click into a specific one to manage it. The page now matches the order people actually think in, instead of asking them to hunt for that starting point.",
+        ],
+        inlineBeforeAfter: {
+          before: "/images/vendelux/campaign-admin-before-summary.png",
+          after: "/images/vendelux/campaign-admin-after-summary.png",
         },
-        stat: { value: "7 → 3", caption: "clicks for this task, in the prototype (a 57% drop)" },
-        footer:
-          "This measures the bulk-editing mechanism specifically, which didn't ship. The MVP replaced it with Duplicate, which I haven't measured the same way yet.",
       },
       {
         icon: "flask",
@@ -390,13 +408,6 @@ export const vendeluxProjects: VendeluxProject[] = [
             before: "/images/vendelux/campaign-admin-before-creation.png",
             after: "/images/vendelux/campaign-admin-after-creation.png",
           },
-          {
-            label: "Campaign list",
-            description:
-              "The old view was a raw stats block (Campaigns, Sub-Campaigns, Ready to Launch, Pending Approval...) followed by a dense, unstyled table of every sub-campaign across every event. The redesign replaces it with a scannable list of campaigns, each showing its channel types, sub-campaign count, and status at a glance, with filtering and search.",
-            before: "/images/vendelux/campaign-admin-before-summary.png",
-            after: "/images/vendelux/campaign-admin-after-summary.png",
-          },
         ],
       },
       {
@@ -420,9 +431,13 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
       {
         icon: "bulb",
-        label: "What I learned",
+        label: "What this project changed about my process",
         body: [
-          "I moved to visual design too early once on this project and ended up polishing a workflow that hadn't actually changed underneath. Now I map the underlying model first and get it checked with someone who does the work daily before I open Figma. I'd also loop in engineering sooner: the backend constraint that killed bulk editing surfaced later than it should have, and catching it earlier would have saved a full design direction.",
+          "I faced an issue earlier where bulk editing needed backend support that hadn't been scoped in time. Because of that, I want to share the key lesson I took from this project now that the MVP has been handed off to engineering.",
+          "The biggest lesson was that cross-functional communication needs to happen early, especially when a design depends on backend support. I could design a solution that solved the user's problem well, like bulk editing, but if the technical foundation wasn't ready, I couldn't deliver it within the MVP. The duplicate action saved the project, but it was a workaround I found late.",
+          "This changed how I approach collaboration going forward. I want to bring engineers in during scoping, and ask what's technically feasible before I design the flow. That way, the team can catch constraints like the bulk editing one before they become a deadline problem.",
+          "One open question I'm still working through: my backend engineer wanted to understand the reasoning behind each decision before starting implementation. I built an HTML walkthrough using static page screenshots from a v0 prototype that steps through the user journey. But I realized it's better at showing what the flow looks like than why we made each decision along the way. I'm exploring a few ways to close that gap. One option is a short narrated walkthrough, since saying the reasoning out loud is easier than fitting it into a caption. Another is a written decision log that documents the constraints behind each choice. I don't have a final answer yet, but I know specifically what's missing now, and I'm testing narration and decision logs to see which works. I was the only product designer at Vendelux, so this is also something I'm looking forward to pressure-testing with a larger design team going forward.",
+          "The MVP for this campaign redesign is currently being built by engineering, and duplicate action is what's shipping.",
         ],
       },
     ],
