@@ -43,7 +43,7 @@ const funProjects: FunProject[] = [
 export function FunGrid() {
   return (
     <section id="fun" className="pb-24">
-      <div className="mx-auto w-full max-w-[900px] px-6">
+      <div className="mx-auto w-full max-w-[1200px] px-4">
         <h2 className="text-2xl md:text-3xl font-normal tracking-tight text-foreground">
           For Fun
         </h2>
@@ -52,7 +52,7 @@ export function FunGrid() {
           because a question was interesting enough to chase.
         </p>
 
-        <div className="mt-10 grid grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2">
+        <div className="mt-10 grid grid-cols-1 gap-x-4 gap-y-16 sm:grid-cols-2">
           {funProjects.map((project) => (
             <Link
               key={project.slug}

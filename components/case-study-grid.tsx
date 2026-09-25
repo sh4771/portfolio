@@ -196,9 +196,9 @@ const homepageProjects = projects.filter((p) => p.showOnHomepage !== false)
 export function CaseStudyGrid() {
   return (
     <section id="work" className="pb-24 pt-6">
-      <div className="mx-auto w-full max-w-[900px] px-6">
+      <div className="mx-auto w-full max-w-[1200px] px-4">
         {/* Two-up grid */}
-        <div className="grid grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-x-4 gap-y-16 sm:grid-cols-2">
           {homepageProjects.map((project) => (
             <CaseStudyCard key={project.slug} project={project} />
           ))}
