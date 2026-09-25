@@ -58,6 +58,7 @@ const projects: CaseStudy[] = [
     category: "Product Design",
     softSkills: ["Design thinking", "Behavioral insight", "Systems thinking"],
     image: "/images/games4peace.jpg",
+    video: "/videos/games4peace-hero.mp4",
     aiTools: ["Cursor", "Claude Code"],
   },
   {
