@@ -7,7 +7,7 @@ export function Footer() {
 
   return (
     <footer className="border-t border-border/30 bg-[#171615] text-[#f4f0e9]">
-      <div className="mx-auto grid w-full max-w-[1200px] items-center gap-12 px-6 py-20 lg:grid-cols-[1fr_360px] lg:gap-20">
+      <div className="mx-auto grid w-full max-w-[1200px] items-center gap-12 px-6 py-20 lg:grid-cols-[1fr_420px] lg:gap-16">
         <div className="flex flex-col items-start gap-8">
           <Image
             src="/vh_logo.png"
@@ -26,7 +26,7 @@ export function Footer() {
           <p className="text-xs text-[#625e59]">© Violet Hyun {year}</p>
         </div>
 
-        <div className="w-full max-w-[360px] justify-self-center lg:justify-self-end">
+        <div className="w-full max-w-[420px] justify-self-center lg:justify-self-end">
           <div className="overflow-hidden rounded-[2rem] border-[10px] border-[#d7d3ce] bg-[#d7d3ce] shadow-[0_24px_60px_-24px_rgba(0,0,0,0.8)]">
             <iframe
               src="/api/claw"
