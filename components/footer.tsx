@@ -20,9 +20,8 @@ export function Footer() {
 
           <div className="space-y-3">
             <p className="feedback-note max-w-xl text-lg leading-relaxed text-[#d1cbc3] sm:text-xl">
-              Have a minute to play?{" "}
-              <span className="feedback-emphasis text-emerald-300">Feedback is always welcome.</span>{" "}
-              Every curious player helps the next iteration get a little better.
+              Have a minute to play? After the game, please give me{" "}
+              <span className="feedback-emphasis">some feedback!</span>
             </p>
           </div>
 
@@ -66,7 +65,7 @@ export function Footer() {
         .feedback-emphasis {
           position: relative;
           display: inline-block;
-          color: #6ee7b7;
+          color: inherit;
         }
 
         .feedback-emphasis::after {
@@ -76,7 +75,7 @@ export function Footer() {
           bottom: -0.18em;
           left: -0.04em;
           height: 0.28em;
-          background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 8' preserveAspectRatio='none'%3E%3Cpath d='M1 5.2 C10 1.5 22 7 35 4 C49 1.4 63 6.9 77 3.9 C91 1.2 104 6.1 119 3.8' fill='none' stroke='%236ee7b7' stroke-width='1.35' stroke-linecap='round'/%3E%3C/svg%3E")
+          background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 8' preserveAspectRatio='none'%3E%3Cpath d='M1 5.2 C10 1.5 22 7 35 4 C49 1.4 63 6.9 77 3.9 C91 1.2 104 6.1 119 3.8' fill='none' stroke='%23d1cbc3' stroke-width='1.35' stroke-linecap='round'/%3E%3C/svg%3E")
             no-repeat center / 100% 100%;
           transform: scaleX(0);
           transform-origin: left;
