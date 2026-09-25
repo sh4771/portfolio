@@ -10,6 +10,7 @@ interface FunProject {
   video?: string
   embedUrl?: string
   tools?: string[]
+  softSkills?: string[]
 }
 
 const funProjects: FunProject[] = [
@@ -30,6 +31,7 @@ const funProjects: FunProject[] = [
     tags: ["2026"],
     image: "/images/restaurant-bot-cover.png",
     video: "/videos/restaurant-bot-demo.mov",
+    softSkills: ["Creative experimentation", "Iterative prototyping", "Technical communication"],
     embedUrl: "https://editor.p5js.org/sh6363/full/mnrKWZok0",
     tools: ["p5.js"],
   },
@@ -78,26 +80,26 @@ export function FunGrid() {
                     />
                   )}
                 </div>
+                {project.softSkills && project.softSkills.length > 0 ? (
+                  <div className="pointer-events-none absolute inset-0 flex items-end bg-foreground/65 p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
+                    <div className="flex flex-wrap gap-1.5">
+                      {project.softSkills.map((skill) => (
+                        <span
+                          key={skill}
+                          className="rounded-full border border-white/30 bg-white/90 px-2.5 py-1 text-xs font-medium text-foreground"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
               </div>
-              <h3 className="mt-3 text-sm font-medium text-foreground/80 leading-snug tracking-tight transition-colors group-hover:text-foreground">
-                {project.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-foreground/50">
-                {project.description}
-              </p>
-              {project.tools && project.tools.length > 0 ? (
-                <div className="mt-3 flex flex-wrap gap-1.5">
-                  {project.tools.map((tool) => (
-                    <span
-                      key={tool}
-                      className="rounded-full border border-foreground/15 bg-foreground/[0.04] px-3 py-1 text-sm font-semibold text-foreground transition-colors group-hover:border-foreground/30"
-                    >
-                      {tool}
-                    </span>
-                  ))}
-                </div>
-              ) : null}
-              <div className="mt-3 flex flex-wrap items-center gap-x-1 text-xs text-foreground/60">
+              <div className="mt-3 flex items-start justify-between gap-4">
+                <h3 className="text-sm font-medium leading-snug tracking-tight text-foreground/80 transition-colors group-hover:text-foreground">
+                  {project.title}
+                </h3>
+                <div className="flex shrink-0 flex-wrap justify-end gap-x-1 text-right text-[10px] uppercase tracking-[0.08em] text-foreground/45">
                 {project.tags.map((tag, index) => (
                   <span key={tag} className="flex items-center">
                     {tag}
@@ -106,6 +108,7 @@ export function FunGrid() {
                     )}
                   </span>
                 ))}
+                </div>
               </div>
             </Link>
           ))}

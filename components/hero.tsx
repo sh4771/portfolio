@@ -14,6 +14,17 @@ const DELETE_SPEED_MS = 30
 const HOLD_MS = 1400
 const PAUSE_MS = 350
 
+function OrganizationIcon({ domain }: { domain: string }) {
+  return (
+    <img
+      src={`https://www.google.com/s2/favicons?domain=${domain}&sz=64`}
+      alt=""
+      aria-hidden="true"
+      className="mr-1.5 inline-block h-4 w-4 align-[-0.2em] object-contain"
+    />
+  )
+}
+
 function TypewriterWords() {
   const [phraseIndex, setPhraseIndex] = useState(0)
   const [subIndex, setSubIndex] = useState(0)
@@ -147,8 +158,9 @@ export function Hero() {
                   href="https://www.vendelux.com/"
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-block font-medium text-purple-900 transition-colors duration-200 ease-out hover:text-purple-950 dark:text-purple-200 dark:hover:text-purple-50"
+                  className="inline-flex items-center whitespace-nowrap font-medium text-purple-900 transition-colors duration-200 ease-out hover:text-purple-950 dark:text-purple-200 dark:hover:text-purple-50"
                 >
+                  <OrganizationIcon domain="vendelux.com" />
                   Vendelux
                 </a>
                 {", currently designing internal platform tools. Previously built customer-facing products."}
@@ -171,8 +183,9 @@ export function Hero() {
                   href="https://roar.me.columbia.edu/"
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-block text-text-secondary underline decoration-text-muted underline-offset-2 transition-colors duration-200 ease-out hover:text-foreground"
+                  className="inline-flex items-center whitespace-nowrap text-text-secondary underline decoration-text-muted underline-offset-2 transition-colors duration-200 ease-out hover:text-foreground"
                 >
+                  <OrganizationIcon domain="columbia.edu" />
                   Robotics and Rehabilitation Lab at Columbia University
                 </a>
                 {", "}
@@ -230,8 +243,9 @@ export function Hero() {
                   href="https://tisch.nyu.edu/"
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-block text-violet-600 dark:text-violet-400 transition-colors duration-200 ease-out hover:text-violet-500 dark:hover:text-violet-300"
+                  className="inline-flex items-center whitespace-nowrap text-violet-600 dark:text-violet-400 transition-colors duration-200 ease-out hover:text-violet-500 dark:hover:text-violet-300"
                 >
+                  <OrganizationIcon domain="tisch.nyu.edu" />
                   NYU Tisch
                 </a>
                 {"."}
