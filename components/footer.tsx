@@ -29,7 +29,7 @@ export function Footer() {
         <div className="w-full max-w-[360px] justify-self-center lg:justify-self-end">
           <div className="overflow-hidden rounded-[2rem] border-[10px] border-[#d7d3ce] bg-[#d7d3ce] shadow-[0_24px_60px_-24px_rgba(0,0,0,0.8)]">
             <iframe
-              src="https://claw-machine-portfolio-page.replit.app/"
+              src="/api/claw"
               title="Play Violet's feedback game"
               className="h-[520px] w-full border-0 bg-[#171615]"
               allow="fullscreen"
