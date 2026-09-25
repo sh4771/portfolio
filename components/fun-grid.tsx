@@ -86,7 +86,7 @@ export function FunGrid() {
                       {project.softSkills.map((skill) => (
                         <span
                           key={skill}
-                          className="rounded-full border border-white/30 bg-white/90 px-2.5 py-1 text-xs font-medium text-foreground"
+                          className="rounded-full border border-white/30 bg-white/90 px-2.5 py-1 text-xs font-medium text-neutral-900"
                         >
                           {skill}
                         </span>
