@@ -6,6 +6,7 @@ interface FunProject {
   title: string
   description: string
   tags: string[]
+  category: string
   image: string
   video?: string
   embedUrl?: string
@@ -20,6 +21,7 @@ const funProjects: FunProject[] = [
     description:
       "A walking-navigation prototype that recommends routes with higher green exposure, built for Computational Modeling at Columbia GSAPP, advised by Luc Wilson and Meli Harvey.",
     tags: ["2026", "In progress"],
+    category: "Spatial Design",
     image: "/images/greener-routes/screen-route-choice.png",
     tools: ["Rhino", "Grasshopper"],
   },
@@ -29,6 +31,7 @@ const funProjects: FunProject[] = [
     description:
       "A live p5.js chatbot sketch built for Chatbots for Art's Sake at NYU, advised by Carrie Wang.",
     tags: ["2026"],
+    category: "Creative Technology",
     image: "/images/restaurant-bot-cover.png",
     video: "/videos/restaurant-bot-demo.mov",
     softSkills: ["Creative experimentation", "Iterative prototyping", "Technical communication"],
@@ -96,19 +99,12 @@ export function FunGrid() {
                 ) : null}
               </div>
               <div className="mt-3 flex items-start justify-between gap-4">
-                <h3 className="text-sm font-medium leading-snug tracking-tight text-foreground/80 transition-colors group-hover:text-foreground">
+                <h3 className="min-w-0 flex-1 text-sm font-medium leading-snug tracking-tight text-foreground/80 transition-colors group-hover:text-foreground">
                   {project.title}
                 </h3>
-                <div className="flex shrink-0 flex-wrap justify-end gap-x-1 text-right text-[10px] uppercase tracking-[0.08em] text-foreground/45">
-                {project.tags.map((tag, index) => (
-                  <span key={tag} className="flex items-center">
-                    {tag}
-                    {index < project.tags.length - 1 && (
-                      <span className="ml-1">•</span>
-                    )}
-                  </span>
-                ))}
-                </div>
+                <span className="shrink-0 text-right text-[10px] uppercase tracking-[0.08em] text-foreground/45">
+                  {project.category}
+                </span>
               </div>
             </Link>
           ))}

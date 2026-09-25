@@ -8,6 +8,7 @@ export interface CaseStudy {
   title: string
   description: string
   tags: string[]
+  category: string
   image: string
   /** When false, project stays routable at /work/[slug] but is omitted from the homepage grid. */
   showOnHomepage?: boolean
@@ -29,6 +30,7 @@ const projects: CaseStudy[] = [
     description:
       "At Vendelux I support product UI and system design on an AI-powered B2B event intelligence platform that helps teams identify high-ROI conferences, pre-book qualified meetings, and connect event spend to pipeline in Salesforce and HubSpot.",
     tags: ["2026", "Product Design", "B2B"],
+    category: "Product Design",
     softSkills: ["Stakeholder alignment", "Systems thinking", "Ownership"],
     image: "/images/vendelux-cover.png",
     video: "/videos/vendelux-cover.mp4",
@@ -41,6 +43,7 @@ const projects: CaseStudy[] = [
     description:
       "Led research and end-to-end design of a blockchain-enabled fashion reuse app focused on extending garment lifecycle through traceability.",
     tags: ["2026", "UI/UX Design", "Case Study"],
+    category: "Product Design",
     softSkills: ["Empathetic research", "Systems thinking", "Storytelling"],
     image: "/images/passiton.jpg",
     aiTools: ["Claude Code", "Cursor"],
@@ -51,6 +54,7 @@ const projects: CaseStudy[] = [
     description:
       "Designing an interactive system that transforms playful user interactions into measurable social impact.",
     tags: ["2024–2025", "UI/UX Design", "Case Study"],
+    category: "Product Design",
     softSkills: ["Behavioral insight", "Facilitation", "Iterative collaboration"],
     image: "/images/games4peace.jpg",
     aiTools: ["Cursor", "Claude Code"],
@@ -61,6 +65,7 @@ const projects: CaseStudy[] = [
     description:
       "Designing a social scheduling system that helps college students coordinate spontaneous plans.",
     tags: ["2025", "Product Design", "UX Design", "Interaction Design"],
+    category: "Interaction Design",
     softSkills: ["User advocacy", "Rapid iteration", "Clear communication"],
     image: "/images/schedulink.jpg",
     aiTools: ["Cursor", "Claude Code", "V0"],
@@ -71,6 +76,7 @@ const projects: CaseStudy[] = [
     description:
       "Designing a wearable assistive device that helps restore postural stability for spinal cord injury patients.",
     tags: ["2025", "Wearable Design", "UX Research", "Human-Centered Robotics"],
+    category: "UX Research",
     softSkills: ["Empathy", "Research synthesis", "Collaborative problem-solving"],
     image: "/images/cast.jpg",
     aiTools: ["ChatGPT", "Perplexity", "Gemini"],
@@ -81,6 +87,7 @@ const projects: CaseStudy[] = [
     description:
       "Adobe Designathon: clinical trial intelligence platform for clearer decisions, transparent AI recommendations, and actionable dashboards.",
     tags: ["2026", "UI/UX Design", "Case Study"],
+    category: "Product Design",
     softSkills: ["Decision framing", "Trust-building", "Collaborative problem-solving"],
     image: "/images/clinical-trials/monitor-mockup-static.png",
     aiTools: ["Claude Code", "Cursor", "Figma MCP"],
@@ -172,19 +179,12 @@ function CaseStudyCard({ project }: { project: CaseStudy }) {
 
         {/* Text below image */}
         <div className="mt-3 flex items-start justify-between gap-4">
-          <h3 className="text-sm font-medium leading-snug tracking-tight text-foreground/80 transition-colors group-hover:text-foreground">
+          <h3 className="min-w-0 flex-1 text-sm font-medium leading-snug tracking-tight text-foreground/80 transition-colors group-hover:text-foreground">
             {project.title}
           </h3>
-          <div className="flex shrink-0 flex-wrap justify-end gap-x-1 text-right text-[10px] uppercase tracking-[0.08em] text-foreground/45">
-            {project.tags.map((tag, index) => (
-              <span key={tag} className="flex items-center">
-                {tag}
-                {index < project.tags.length - 1 && (
-                  <span className="ml-1">•</span>
-                )}
-              </span>
-            ))}
-          </div>
+          <span className="shrink-0 text-right text-[10px] uppercase tracking-[0.08em] text-foreground/45">
+            {project.category}
+          </span>
         </div>
       </article>
     </Link>
