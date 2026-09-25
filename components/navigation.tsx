@@ -4,10 +4,10 @@ import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
-import { Mail, Linkedin } from "lucide-react"
+import { type LucideIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-const navLinks: { href: string; label: string; external?: boolean }[] = [
+const navLinks: { href: string; label: string; external?: boolean; icon?: LucideIcon }[] = [
   { href: "/about", label: "About" },
   { href: "/Resume_Violet_Hyun.pdf", label: "Resume", external: true },
 ]
@@ -19,7 +19,7 @@ export function Navigation() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-card/70 backdrop-blur-md shadow-[0_1px_24px_-8px_rgba(0,0,0,0.15)] after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-gradient-to-r after:from-transparent after:via-border/50 after:to-transparent">
       <nav className="flex w-full items-center justify-between px-6 py-4">
-        {/* Left: logo, name, contact icons */}
+        {/* Left: logo */}
         <div className="flex items-center gap-4">
           <Link href="/" className="flex items-center gap-3">
             <Image
@@ -31,24 +31,6 @@ export function Navigation() {
             />
           </Link>
 
-          <div className="flex items-center gap-2">
-            <a
-              href="mailto:violethyun@nyu.edu"
-              aria-label="Email"
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-border/60 text-foreground/60 transition-colors hover:text-foreground hover:border-foreground/30"
-            >
-              <Mail className="h-3.5 w-3.5" />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/violet-hyun/"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="LinkedIn"
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-border/60 text-foreground/60 transition-colors hover:text-foreground hover:border-foreground/30"
-            >
-              <Linkedin className="h-3.5 w-3.5" />
-            </a>
-          </div>
         </div>
 
         {/* Desktop nav */}
@@ -60,13 +42,15 @@ export function Navigation() {
                 target={link.external ? "_blank" : undefined}
                 rel={link.external ? "noreferrer" : undefined}
                 className={cn(
-                  "text-sm font-medium transition-colors hover:text-foreground",
+                  "inline-flex items-center gap-1.5 text-sm font-medium transition-colors hover:text-foreground",
                   pathname === link.href
                     ? "text-foreground"
                     : "text-muted-foreground"
                 )}
+                title={link.icon ? link.label : undefined}
               >
-                {link.label}
+                {link.icon ? <link.icon className="h-4 w-4 text-rose-500" aria-hidden="true" /> : null}
+                {link.icon ? <span className="sr-only">{link.label}</span> : link.label}
               </Link>
             </li>
           ))}
@@ -106,13 +90,14 @@ export function Navigation() {
                   rel={link.external ? "noreferrer" : undefined}
                   onClick={() => setMobileOpen(false)}
                   className={cn(
-                    "text-sm font-medium transition-colors hover:text-foreground",
+                    "inline-flex items-center gap-1.5 text-sm font-medium transition-colors hover:text-foreground",
                     pathname === link.href
                       ? "text-foreground"
                       : "text-muted-foreground"
                   )}
                 >
-                  {link.label}
+                  {link.icon ? <link.icon className="h-4 w-4 text-rose-500" aria-hidden="true" /> : null}
+                  {link.icon ? <span className="sr-only">{link.label}</span> : link.label}
                 </Link>
               </li>
             ))}

@@ -1,7 +1,6 @@
 "use client"
 
 import Image from "next/image"
-import { Heart } from "lucide-react"
 
 export function Footer() {
   const year = new Date().getFullYear()
@@ -20,8 +19,7 @@ export function Footer() {
 
           <div className="space-y-3">
             <p className="feedback-note max-w-xl text-lg leading-relaxed text-[#d1cbc3] sm:text-xl">
-              Have a minute to play? After the game, please give me{" "}
-              <span className="feedback-emphasis">some feedback!</span>
+              Have a minute to play? After the game, feel free to leave me some thoughts!
             </p>
           </div>
 
@@ -34,22 +32,10 @@ export function Footer() {
               src="https://claw-machine-portfolio-page.replit.app/"
               title="Play Violet's feedback game"
               className="h-[520px] w-full border-0 bg-[#171615]"
-              loading="lazy"
+              allow="fullscreen"
             />
           </div>
-          <div className="mt-4 flex items-center justify-between text-xs text-[#817b74]">
-            <span>Play, then tell me what you noticed.</span>
-            <a
-              href="https://claw-machine-portfolio-page.replit.app/"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Open the feedback game in a new tab"
-              title="Open game in a new tab"
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-rose-400/40 text-rose-300 transition-colors hover:border-rose-300 hover:bg-rose-300/10"
-            >
-              <Heart className="h-4 w-4" aria-hidden="true" />
-            </a>
-          </div>
+          <p className="mt-4 text-xs text-[#817b74]">Play, then tell me what you noticed.</p>
         </div>
       </div>
 
