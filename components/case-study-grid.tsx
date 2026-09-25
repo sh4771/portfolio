@@ -99,13 +99,13 @@ function CaseStudyCard({ project }: { project: CaseStudy }) {
           className={`relative aspect-[4/3] w-full overflow-hidden rounded-2xl ${project.cardTreatAsLogo ? "bg-white" : "bg-card"}`}
         >
           {project.video && project.mockupFrame && project.mockupBounds ? (
-            <div className="absolute inset-[6%]">
+            <div className="absolute inset-0">
               <div className="relative h-full w-full">
                 <Image
                   src={project.mockupFrame}
                   alt={`${project.title} device mockup`}
                   fill
-                  className="object-contain transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                   sizes="(max-width: 768px) 100vw, 640px"
                 />
                 <div
@@ -132,7 +132,7 @@ function CaseStudyCard({ project }: { project: CaseStudy }) {
               </div>
             </div>
           ) : project.video ? (
-            <div className="absolute inset-[6%]">
+            <div className="absolute inset-0">
               <video
                 autoPlay
                 muted
@@ -140,18 +140,18 @@ function CaseStudyCard({ project }: { project: CaseStudy }) {
                 playsInline
                 preload="metadata"
                 poster={project.image}
-                className="h-full w-full object-contain transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
               >
                 <source src={project.video} type="video/mp4" />
               </video>
             </div>
           ) : (
-            <div className="absolute inset-[6%]">
+            <div className="absolute inset-0">
               <Image
                 src={project.image}
                 alt={`${project.title} case study preview`}
                 fill
-                className="object-contain transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                 sizes="(max-width: 768px) 100vw, 640px"
               />
             </div>

@@ -57,7 +57,7 @@ export function FunGrid() {
               className="group block"
             >
               <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/30 bg-muted/30">
-                <div className="absolute inset-[6%]">
+                <div className="absolute inset-0">
                   {project.video ? (
                     <video
                       autoPlay
@@ -65,7 +65,7 @@ export function FunGrid() {
                       loop
                       playsInline
                       preload="auto"
-                      className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
                     >
                       <source src={project.video} type="video/quicktime" />
                       <source src={project.video} type="video/mp4" />
@@ -75,7 +75,7 @@ export function FunGrid() {
                       src={project.image}
                       alt={`${project.title} preview`}
                       fill
-                      className="object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+                      className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
                       sizes="450px"
                     />
                   )}
