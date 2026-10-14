@@ -2,6 +2,9 @@ import Link from "next/link"
 import Image from "next/image"
 import { ArrowLeft } from "lucide-react"
 import SwotAnalysis from "@/components/infographics/swot-analysis"
+import { Navigation } from "@/components/navigation"
+import { Footer } from "@/components/footer"
+import { ContinueLink } from "@/components/continue-link"
 import { SectionTracker } from "@/components/section-tracker"
 
 const sections = [
@@ -19,13 +22,14 @@ export default function Page() {
   return (
     <>
     <SectionTracker sections={sections} />
-    <main className="min-h-screen bg-background py-16 px-4 md:px-8 transition-colors duration-300">
-      <div className="max-w-[900px] mx-auto space-y-24">
+    <Navigation />
+      <main className="pt-32 pb-24">
+      <div className="mx-auto w-full max-w-[900px] px-6 space-y-24">
 
         {/* Back Button */}
         <Link 
-          href="/" 
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          href="/#work" 
+          className="!mb-14 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Portfolio
@@ -36,7 +40,7 @@ export default function Page() {
           {/* Project Title & Meta */}
           <div className="space-y-6">
             <div className="space-y-2">
-              <h1 className="text-2xl md:text-3xl font-normal tracking-tight">
+              <h1 className="cs-h1">
                 Turning Casual Play into Measurable Social Impact
               </h1>
               <p className="text-sm text-foreground/50">
@@ -88,7 +92,7 @@ export default function Page() {
               boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
             }}
           >
-            <h2 className="text-lg md:text-xl font-medium tracking-tight">
+            <h2 className="cs-h2">
               Overview
             </h2>
             <p className="text-sm text-foreground/60 text-pretty max-w-3xl leading-relaxed">
@@ -104,8 +108,8 @@ export default function Page() {
           {/* The Problem */}
           <div id="problem" className="space-y-6 scroll-mt-32">
             <div className="space-y-2">
-              <p className="text-xs text-foreground/40 uppercase tracking-wide">01 — THE PROBLEM</p>
-              <h2 className="text-lg md:text-xl font-medium tracking-tight">
+              <p className="cs-eyebrow">01 · The problem</p>
+              <h2 className="cs-h2">
                 Why existing platforms fall short
               </h2>
             </div>
@@ -179,10 +183,10 @@ export default function Page() {
         </header>
 
         {/* Competitive Analysis */}
-        <section id="research" className="space-y-6 scroll-mt-32">
+        <section id="research" className="space-y-8 scroll-mt-32">
           <div className="space-y-2">
-            <p className="text-xs text-foreground/40 uppercase tracking-wide">02 — COMPETITIVE ANALYSIS</p>
-            <h2 className="text-lg md:text-xl font-medium tracking-tight">
+            <p className="cs-eyebrow">02 · Competitive analysis</p>
+            <h2 className="cs-h2">
               Analyzing the landscape
             </h2>
           </div>
@@ -260,12 +264,15 @@ export default function Page() {
         </section>
 
         {/* SWOT Analysis */}
-        <section id="positioning" className="space-y-6 scroll-mt-32">
+        <section id="positioning" className="space-y-8 scroll-mt-32">
           <div className="space-y-2">
-            <p className="text-xs text-foreground/40 uppercase tracking-wide">03 — SWOT ANALYSIS</p>
-            <h2 className="text-lg md:text-xl font-medium tracking-tight">
+            <p className="cs-eyebrow">03 · SWOT analysis</p>
+            <h2 className="cs-h2">
               Strategic positioning
             </h2>
+            <p className="text-sm text-foreground/60 max-w-2xl">
+              Identifying strengths, weaknesses, opportunities, and threats to inform design decisions
+            </p>
           </div>
           <SwotAnalysis />
           <p className="text-xs text-foreground/60 leading-relaxed">
@@ -274,10 +281,10 @@ export default function Page() {
         </section>
 
         {/* Information Architecture & Early Wireframes - Side by Side */}
-        <section id="ia" className="space-y-6 scroll-mt-32">
+        <section id="ia" className="space-y-8 scroll-mt-32">
           <div className="space-y-2">
-            <p className="text-xs text-foreground/40 uppercase tracking-wide">04 — STRUCTURE</p>
-            <h2 className="text-lg md:text-xl font-medium tracking-tight">
+            <p className="cs-eyebrow">04 · Structure</p>
+            <h2 className="cs-h2">
               Information Architecture & Wireframes
             </h2>
           </div>
@@ -291,7 +298,7 @@ export default function Page() {
                 boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
               }}
             >
-              <p className="text-xs text-foreground/40 uppercase tracking-wide">User Flow</p>
+              <p className="cs-eyebrow">User Flow</p>
               <div 
                 className="rounded-xl overflow-hidden h-[350px] md:h-[420px]"
                 style={{ boxShadow: "0 8px 30px rgba(0,0,0,0.08)" }}
@@ -314,7 +321,7 @@ export default function Page() {
                 boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
               }}
             >
-              <p className="text-xs text-foreground/40 uppercase tracking-wide">Early Wireframes</p>
+              <p className="cs-eyebrow">Early Wireframes</p>
               <div 
                 className="rounded-xl overflow-hidden h-[350px] md:h-[420px]"
                 style={{ boxShadow: "0 8px 30px rgba(0,0,0,0.08)" }}
@@ -339,8 +346,8 @@ export default function Page() {
         <section id="wireframes" className="space-y-12 scroll-mt-32">
           {/* Section Header */}
           <div className="space-y-2">
-            <p className="text-xs text-foreground/40 uppercase tracking-wide">05 — LOW-FIDELITY</p>
-            <h2 className="text-lg md:text-xl font-medium tracking-tight">
+            <p className="cs-eyebrow">05 · Low-fidelity</p>
+            <h2 className="cs-h2">
               Wireframe Iterations
             </h2>
           </div>
@@ -434,8 +441,8 @@ export default function Page() {
         <section id="screens" className="space-y-16 md:space-y-20 scroll-mt-32">
           {/* Section Header */}
           <div className="space-y-2">
-            <p className="text-xs text-foreground/40 uppercase tracking-wide">06 — FINAL DESIGNS</p>
-            <h2 className="text-lg md:text-xl font-medium tracking-tight">
+            <p className="cs-eyebrow">06 · Final designs</p>
+            <h2 className="cs-h2">
               High-Fidelity Screens
             </h2>
           </div>
@@ -590,8 +597,8 @@ export default function Page() {
             }}
           >
             <div className="space-y-2">
-              <p className="text-xs text-foreground/40">Takeaway</p>
-              <h2 className="text-lg md:text-xl font-medium tracking-tight">
+              <p className="cs-eyebrow">Takeaway</p>
+              <h2 className="cs-h2">
                 Key Takeaway
               </h2>
             </div>
@@ -609,21 +616,11 @@ export default function Page() {
           </div>
         </section>
 
-        {/* Back to Portfolio */}
-        <div className="border-t border-border/30 pt-12 text-center">
-          <p className="text-xs tracking-[0.15em] text-muted-foreground/40 uppercase">
-            Continue
-          </p>
-          <Link
-            href="/#work"
-            className="mt-2 inline-block text-base tracking-tight text-foreground transition-colors hover:text-foreground/60"
-          >
-            View All Projects
-          </Link>
-        </div>
+        <ContinueLink />
 
       </div>
     </main>
+      <Footer />
     </>
   )
 }

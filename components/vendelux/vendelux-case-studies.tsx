@@ -68,7 +68,7 @@ export function VendeluxCaseStudies() {
       {/* Active project content */}
       <article className="space-y-8">
         <header className="space-y-1.5">
-          <h1 className="text-2xl md:text-3xl font-normal tracking-tight text-foreground">{active.title}</h1>
+          <h1 className="cs-h1">{active.title}</h1>
           <p className="text-sm text-foreground/60">
             {active.duration}
             {" · "}
@@ -87,7 +87,7 @@ export function VendeluxCaseStudies() {
             <div className="grid grid-cols-1 divide-y divide-border/40 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
               {active.quickFacts.slice(0, 3).map((fact, i) => (
                 <div key={i} className="p-4">
-                  <span className="mb-1 block text-xs uppercase tracking-wide text-muted-foreground">
+                  <span className="cs-eyebrow mb-1 block">
                     {fact.label}
                   </span>
                   <span className="text-base text-foreground">{fact.value}</span>
@@ -96,7 +96,7 @@ export function VendeluxCaseStudies() {
             </div>
             {active.quickFacts.slice(3).map((fact, i) => (
               <div key={i} className="border-t border-border/40 p-4">
-                <span className="mb-1 block text-xs uppercase tracking-wide text-muted-foreground">
+                <span className="cs-eyebrow mb-1 block">
                   {fact.label}
                 </span>
                 <span className="text-base text-foreground">{fact.value}</span>
@@ -112,7 +112,7 @@ export function VendeluxCaseStudies() {
         {/* Before shot + transition */}
         {active.beforeShot && (
           <div className="space-y-2">
-            <span className="text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground">
+            <span className="cs-eyebrow">
               {active.beforeShot.label ?? "Before"}
             </span>
             <div className="relative aspect-[16/10] overflow-hidden rounded-md border border-border/40 bg-foreground/[0.03]">
@@ -140,7 +140,7 @@ export function VendeluxCaseStudies() {
         {/* Compact before/after grid, real screenshots across multiple areas */}
         {active.media.beforeAfterSet && active.media.beforeAfterSet.length > 0 && (
           <div className="space-y-8 pt-2">
-            <p className="text-xs font-medium uppercase tracking-[0.1em] text-muted-foreground">
+            <p className="cs-eyebrow">
               Before / after, across the app
             </p>
             {active.media.beforeAfterSet.map((pair, i) => (
@@ -149,13 +149,13 @@ export function VendeluxCaseStudies() {
                 <p className="text-sm leading-relaxed text-foreground/70">{pair.description}</p>
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                   <div className="space-y-1.5">
-                    <span className="text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground">Before</span>
+                    <span className="cs-eyebrow">Before</span>
                     <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-border/40 bg-foreground/[0.03]">
                       <Image src={pair.before} alt={`${pair.label}, before`} fill className="object-contain" sizes="500px" />
                     </div>
                   </div>
                   <div className="space-y-1.5">
-                    <span className="text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground">After</span>
+                    <span className="cs-eyebrow">After</span>
                     <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-border/40 bg-foreground/[0.03]">
                       <Image src={pair.after} alt={`${pair.label}, after`} fill className="object-contain" sizes="500px" />
                     </div>
@@ -339,13 +339,13 @@ function InfoBoxCard({ box }: { box: InfoBox }) {
           {box.inlineBeforeAfter && (
             <div className="grid grid-cols-1 gap-3 pt-1 sm:grid-cols-2">
               <div className="space-y-1.5">
-                <span className="text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground">Before</span>
+                <span className="cs-eyebrow">Before</span>
                 <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-border/40 bg-foreground/[0.03]">
                   <Image src={box.inlineBeforeAfter.before} alt={`${box.label}, before`} fill className="object-contain" sizes="400px" />
                 </div>
               </div>
               <div className="space-y-1.5">
-                <span className="text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground">After</span>
+                <span className="cs-eyebrow">After</span>
                 <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-border/40 bg-foreground/[0.03]">
                   <Image src={box.inlineBeforeAfter.after} alt={`${box.label}, after`} fill className="object-contain" sizes="400px" />
                 </div>
@@ -384,7 +384,7 @@ function InfoBoxCard({ box }: { box: InfoBox }) {
           {box.stepCompare && (
             <div className="grid grid-cols-1 gap-3 pt-1 sm:grid-cols-2">
               <div className="space-y-1.5">
-                <span className="text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground">
+                <span className="cs-eyebrow">
                   {box.stepCompare.beforeLabel}
                 </span>
                 <ol className="space-y-1 text-sm text-foreground/70 [&>li]:list-decimal [&>li]:pl-1.5 pl-4">
@@ -394,7 +394,7 @@ function InfoBoxCard({ box }: { box: InfoBox }) {
                 </ol>
               </div>
               <div className="space-y-1.5">
-                <span className="text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground">
+                <span className="cs-eyebrow">
                   {box.stepCompare.afterLabel}
                 </span>
                 <ol className="space-y-1 text-sm text-foreground/70 [&>li]:list-decimal [&>li]:pl-1.5 pl-4">
@@ -422,13 +422,13 @@ function InfoBoxCard({ box }: { box: InfoBox }) {
                   <p className="text-sm leading-relaxed text-foreground/70">{pair.description}</p>
                   <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                     <div className="space-y-1.5">
-                      <span className="text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground">Before</span>
+                      <span className="cs-eyebrow">Before</span>
                       <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-border/40 bg-foreground/[0.03]">
                         <Image src={pair.before} alt={`${pair.label}, before`} fill className="object-contain" sizes="500px" />
                       </div>
                     </div>
                     <div className="space-y-1.5">
-                      <span className="text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground">After</span>
+                      <span className="cs-eyebrow">After</span>
                       <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-border/40 bg-foreground/[0.03]">
                         <Image src={pair.after} alt={`${pair.label}, after`} fill className="object-contain" sizes="500px" />
                       </div>

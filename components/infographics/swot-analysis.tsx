@@ -62,16 +62,6 @@ const swotData = {
 export default function SwotAnalysis() {
   return (
     <div className="space-y-8">
-      {/* Section Header */}
-      <div className="space-y-2">
-        <p className="text-xs text-foreground/40">Strategic Analysis</p>
-        <h2 className="text-lg md:text-xl font-medium tracking-tight">
-          SWOT Analysis
-        </h2>
-        <p className="text-sm text-foreground/60 max-w-2xl">
-          Identifying strengths, weaknesses, opportunities, and threats to inform design decisions
-        </p>
-      </div>
 
       {/* SWOT Grid */}
       <div className="grid md:grid-cols-2 gap-4">

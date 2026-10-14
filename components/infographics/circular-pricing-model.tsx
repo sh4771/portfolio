@@ -6,10 +6,10 @@ import { Repeat } from "lucide-react"
 export default function CircularPricingModel() {
   return (
     <section className="mx-auto max-w-2xl space-y-4">
-      <p className="text-xs uppercase tracking-wide text-foreground/40">
+      <p className="cs-eyebrow">
         Circular pricing
       </p>
-      <h2 className="text-lg font-medium tracking-tight md:text-xl">
+      <h2 className="cs-h2">
         Resale price steps down over the chain
       </h2>
       <p className="text-sm leading-relaxed text-foreground/60 text-pretty">

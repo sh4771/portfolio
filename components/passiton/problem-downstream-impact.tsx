@@ -2,7 +2,7 @@ export default function ProblemDownstreamImpact() {
   return (
     <div className="space-y-8">
       <div className="max-w-3xl space-y-4">
-        <h2 className="text-lg font-medium tracking-tight text-pretty md:text-xl">
+        <h2 className="cs-h2 text-pretty">
           The impact does not end at the closet
         </h2>
         <p className="text-sm leading-relaxed text-foreground/65 md:text-base">
@@ -16,7 +16,7 @@ export default function ProblemDownstreamImpact() {
           className="passiton-stat-card relative overflow-hidden rounded-[28px] border border-foreground/10 bg-gradient-to-br from-card/90 via-background to-muted/40 p-6 shadow-[0_20px_60px_-24px_rgba(0,0,0,0.15)]"
           style={{ animationDelay: "0ms" }}
         >
-          <p className="relative text-xs font-medium uppercase tracking-widest text-foreground/50">
+          <p className="cs-eyebrow relative">
             Around
           </p>
           <p className="relative mt-2 flex flex-wrap items-baseline gap-x-1.5 gap-y-0 font-light tracking-tight text-foreground">
@@ -34,7 +34,7 @@ export default function ProblemDownstreamImpact() {
           className="passiton-stat-card relative overflow-hidden rounded-[28px] border border-foreground/10 bg-gradient-to-br from-card/90 via-background to-muted/40 p-6 shadow-[0_20px_60px_-24px_rgba(0,0,0,0.15)]"
           style={{ animationDelay: "120ms" }}
         >
-          <p className="relative text-xs font-medium uppercase tracking-widest text-foreground/50">
+          <p className="cs-eyebrow relative">
             Nearly
           </p>
           <p className="relative mt-2 flex items-baseline gap-1 font-light tracking-tight text-foreground">

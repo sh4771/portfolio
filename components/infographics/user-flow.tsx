@@ -15,8 +15,8 @@ export default function UserFlow() {
     <div className="space-y-8">
       {/* Section Header */}
       <div className="space-y-2">
-        <p className="text-xs text-foreground/40">Structure</p>
-        <h2 className="text-lg md:text-xl font-medium tracking-tight">
+        <p className="cs-eyebrow">Structure</p>
+        <h2 className="cs-h2">
           Information Architecture & User Flow
         </h2>
         <p className="text-sm text-foreground/60 max-w-2xl">

@@ -10,10 +10,10 @@ export default function WardrobeComposition() {
   return (
     <div className="space-y-8">
       <div className="space-y-2">
-        <span className="text-xs uppercase tracking-widest text-muted-foreground">
+        <span className="cs-eyebrow">
           01 · Wardrobe Composition
         </span>
-        <h2 className="text-2xl md:text-3xl font-light">
+        <h2 className="cs-h2">
           What fills the modern closet?
         </h2>
       </div>

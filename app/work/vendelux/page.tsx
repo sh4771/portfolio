@@ -4,6 +4,7 @@ import Image from "next/image"
 import { ArrowLeft } from "lucide-react"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
+import { ContinueLink } from "@/components/continue-link"
 import { VendeluxCaseStudies } from "@/components/vendelux/vendelux-case-studies"
 
 export const metadata = {
@@ -30,7 +31,7 @@ export default function VendeluxPage() {
           <div className="mb-14 space-y-8">
             <div className="space-y-6">
               <div className="space-y-2">
-                <h1 className="text-2xl md:text-3xl font-normal tracking-tight">
+                <h1 className="cs-h1">
                   Product Designer, Vendelux
                 </h1>
                 <p className="text-sm text-text-secondary">
@@ -82,6 +83,10 @@ export default function VendeluxPage() {
           <Suspense fallback={null}>
             <VendeluxCaseStudies />
           </Suspense>
+
+          <div className="mt-24">
+            <ContinueLink />
+          </div>
         </div>
       </main>
       <Footer />

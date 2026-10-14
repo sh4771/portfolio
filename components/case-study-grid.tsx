@@ -21,12 +21,14 @@ export interface CaseStudy {
   video?: string
   mockupFrame?: string
   mockupBounds?: { left: number; right: number; top: number; bottom: number }
+  /** Featured projects span the full grid row with a wider frame. */
+  featured?: boolean
 }
 
 const projects: CaseStudy[] = [
   {
     slug: "vendelux",
-    title: "Product Designer, Vendelux",
+    title: "Designing How Event Teams Target, Plan, and Connect",
     description:
       "At Vendelux I support product UI and system design on an AI-powered B2B event intelligence platform that helps teams identify high-ROI conferences, pre-book qualified meetings, and connect event spend to pipeline in Salesforce and HubSpot.",
     tags: ["2026", "Product Design", "B2B"],
@@ -35,6 +37,7 @@ const projects: CaseStudy[] = [
     image: "/images/vendelux-cover.png",
     video: "/videos/vendelux-cover.mp4",
     cardTreatAsLogo: true,
+    featured: true,
     aiTools: ["Claude Code", "Claude Design", "Figma MCP", "Cursor"],
   },
   {
@@ -99,11 +102,14 @@ const projects: CaseStudy[] = [
 
 function CaseStudyCard({ project }: { project: CaseStudy }) {
   return (
-    <Link href={`/work/${project.slug}`} className="group block">
+    <Link
+      href={`/work/${project.slug}`}
+      className={`group block ${project.featured ? "sm:col-span-2" : ""}`}
+    >
       <article>
         {/* Image / video mockup */}
         <div
-          className={`relative aspect-[4/3] w-full overflow-hidden rounded-2xl ${project.cardTreatAsLogo ? "bg-white" : "bg-card"}`}
+          className={`relative w-full overflow-hidden rounded-2xl ${project.featured ? "aspect-[4/3] sm:aspect-[2/1]" : "aspect-[4/3]"} ${project.cardTreatAsLogo ? "bg-white" : "bg-card"}`}
         >
           {project.video && project.mockupFrame && project.mockupBounds ? (
             <div className="absolute inset-0">
@@ -113,7 +119,7 @@ function CaseStudyCard({ project }: { project: CaseStudy }) {
                   alt={`${project.title} device mockup`}
                   fill
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                  sizes="(max-width: 768px) 100vw, 640px"
+                  sizes={project.featured ? "(max-width: 768px) 100vw, 1200px" : "(max-width: 768px) 100vw, 640px"}
                 />
                 <div
                   className="absolute overflow-hidden rounded-[2px] bg-black"
@@ -159,7 +165,7 @@ function CaseStudyCard({ project }: { project: CaseStudy }) {
                 alt={`${project.title} case study preview`}
                 fill
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                sizes="(max-width: 768px) 100vw, 640px"
+                sizes={project.featured ? "(max-width: 768px) 100vw, 1200px" : "(max-width: 768px) 100vw, 640px"}
               />
             </div>
           )}
@@ -179,7 +185,7 @@ function CaseStudyCard({ project }: { project: CaseStudy }) {
 
         {/* Text below image */}
         <div className="mt-3 flex items-start justify-between gap-4">
-          <h3 className="min-w-0 flex-1 text-sm font-medium leading-snug tracking-tight text-foreground/80 transition-colors group-hover:text-foreground">
+          <h3 className={`min-w-0 flex-1 ${project.featured ? "text-base" : "text-sm"} font-medium leading-snug tracking-tight text-foreground/80 transition-colors group-hover:text-foreground`}>
             {project.title}
           </h3>
           <span className="shrink-0 text-right text-[10px] uppercase tracking-[0.08em] text-foreground/45">

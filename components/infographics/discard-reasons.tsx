@@ -104,10 +104,10 @@ export default function DiscardReasons() {
   return (
     <div className="space-y-8">
       <div className="space-y-2">
-        <span className="text-xs uppercase tracking-widest text-muted-foreground">
+        <span className="cs-eyebrow">
           02 · Discard Reasons
         </span>
-        <h2 className="text-2xl font-light md:text-3xl">Why do people discard clothing?</h2>
+        <h2 className="cs-h2">Why do people discard clothing?</h2>
         <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">
           PASSIT ON is framed around three patterns from research: fit, how &quot;worn out&quot;
           clothes feel, and social visibility, not only damage or quality.
@@ -118,7 +118,7 @@ export default function DiscardReasons() {
         className="space-y-6 rounded-2xl border border-foreground/10 bg-muted/20 p-6 md:p-8"
         style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.04)" }}
       >
-        <p className="text-xs font-medium uppercase tracking-wide text-foreground/70">
+        <p className="cs-eyebrow">
           What this proposal responds to
         </p>
         {proposalReasons.map((reason) => (
@@ -132,7 +132,7 @@ export default function DiscardReasons() {
       </div>
 
       <div className="space-y-4">
-        <p className="text-xs uppercase tracking-wide text-muted-foreground">
+        <p className="cs-eyebrow">
           Other factors people cite
         </p>
         <div className="space-y-3 rounded-xl border border-border/60 bg-card/40 p-4 md:p-5">
@@ -161,7 +161,7 @@ export default function DiscardReasons() {
         style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.04)" }}
       >
         <div className="space-y-1">
-          <p className="text-xs font-medium uppercase tracking-wide text-foreground/50">
+          <p className="cs-eyebrow">
             Key takeaway
           </p>
           <p className="text-sm font-medium text-foreground/90">The challenge underneath the data</p>

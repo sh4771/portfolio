@@ -135,13 +135,6 @@ export function Hero() {
           {" to shape human experience."}
         </p>
 
-        <p
-          data-animate
-          className="mt-3 max-w-lg text-sm leading-relaxed text-text-secondary"
-        >
-          {"I bridge artistic imagination and practical, buildable reality through spatial thinking."}
-        </p>
-
         <div data-animate className="mt-10 space-y-8">
           <div className="relative flex gap-5">
             <div className="flex flex-col items-center">
@@ -163,7 +156,7 @@ export function Hero() {
                   <OrganizationIcon domain="vendelux.com" />
                   Vendelux
                 </a>
-                {", currently designing internal platform tools. Previously built customer-facing products."}
+                {" on the Product and Engineering team, helping teams build target audiences, manage campaigns, and connect with the right people at events."}
               </p>
             </div>
           </div>
@@ -183,7 +176,7 @@ export function Hero() {
                   href="https://roar.me.columbia.edu/"
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center whitespace-nowrap text-text-secondary underline decoration-text-muted underline-offset-2 transition-colors duration-200 ease-out hover:text-foreground"
+                  className="inline-flex items-center whitespace-nowrap font-medium text-foreground transition-colors duration-200 ease-out hover:text-text-muted"
                 >
                   <OrganizationIcon domain="columbia.edu" />
                   Robotics and Rehabilitation Lab at Columbia University
@@ -193,7 +186,7 @@ export function Hero() {
                   href="https://misskcosmetics.com/"
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-block text-text-secondary underline decoration-text-muted underline-offset-2 transition-colors duration-200 ease-out hover:text-foreground"
+                  className="inline-block font-medium text-foreground transition-colors duration-200 ease-out hover:text-text-muted"
                 >
                   Miss K Cosmetics
                 </a>
@@ -202,7 +195,7 @@ export function Hero() {
                   href="https://www.kmcaseoul.org/"
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-block text-text-secondary underline decoration-text-muted underline-offset-2 transition-colors duration-200 ease-out hover:text-foreground"
+                  className="inline-block font-medium text-foreground transition-colors duration-200 ease-out hover:text-text-muted"
                 >
                   K Museum of Contemporary Art
                 </a>
@@ -211,7 +204,7 @@ export function Hero() {
                   href="https://www.chloe.com/en-us"
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-block text-text-secondary underline decoration-text-muted underline-offset-2 transition-colors duration-200 ease-out hover:text-foreground"
+                  className="inline-block font-medium text-foreground transition-colors duration-200 ease-out hover:text-text-muted"
                 >
                   Chloé
                 </a>

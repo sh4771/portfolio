@@ -4,6 +4,9 @@ import Link from "next/link"
 import Image from "next/image"
 import { ArrowLeft, Calendar, Lock, Circle } from "lucide-react"
 import { useState, useEffect } from "react"
+import { Navigation } from "@/components/navigation"
+import { Footer } from "@/components/footer"
+import { ContinueLink } from "@/components/continue-link"
 import { SectionTracker } from "@/components/section-tracker"
 
 const themeImages = Array.from({ length: 24 }, (_, i) => `/images/schedulink-themes/theme-${i + 1}.png`)
@@ -29,13 +32,14 @@ export default function Page() {
   return (
     <>
     <SectionTracker sections={sections} />
-    <main className="min-h-screen bg-background py-16 px-4 md:px-8 transition-colors duration-300">
-      <div className="max-w-[900px] mx-auto space-y-24">
+    <Navigation />
+      <main className="pt-32 pb-24">
+      <div className="mx-auto w-full max-w-[900px] px-6 space-y-24">
 
         {/* Back Button */}
         <Link 
-          href="/" 
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          href="/#work" 
+          className="!mb-14 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Portfolio
@@ -46,7 +50,7 @@ export default function Page() {
           {/* Project Title & Meta */}
           <div className="space-y-6">
             <div className="space-y-2">
-              <h1 className="text-2xl md:text-3xl font-normal tracking-tight">
+              <h1 className="cs-h1">
                 Real-Time Availability for Social Planning
               </h1>
               <p className="text-sm text-foreground/50">
@@ -91,8 +95,8 @@ export default function Page() {
           {/* The Problem */}
           <div className="space-y-6">
             <div className="space-y-2">
-              <p className="text-xs text-foreground/40 uppercase tracking-wide">01 — THE PROBLEM</p>
-              <h2 className="text-lg md:text-xl font-medium tracking-tight">
+              <p className="cs-eyebrow">01 · The problem</p>
+              <h2 className="cs-h2">
                 Texting Back and Forth but Schedules Never Align
               </h2>
             </div>
@@ -190,8 +194,8 @@ export default function Page() {
         {/* Solutions */}
         <section id="framing" className="space-y-8 scroll-mt-32">
           <div className="space-y-2">
-            <p className="text-xs text-foreground/40 uppercase tracking-wide">02 — FRAMING</p>
-            <h2 className="text-lg md:text-xl font-medium tracking-tight">
+            <p className="cs-eyebrow">02 · Framing</p>
+            <h2 className="cs-h2">
               How might we share availability without increasing social pressure or complexity?
             </h2>
           </div>
@@ -200,8 +204,8 @@ export default function Page() {
         {/* Wireframe Exploration */}
         <section id="wireframes" className="space-y-8 scroll-mt-32">
           <div className="space-y-3">
-            <p className="text-xs text-foreground/40 uppercase tracking-wide">03 — IDEATION</p>
-            <h2 className="text-lg md:text-xl font-medium tracking-tight">
+            <p className="cs-eyebrow">03 · Ideation</p>
+            <h2 className="cs-h2">
               Wireframe Exploration
             </h2>
             <p className="text-sm text-foreground/60 max-w-2xl">
@@ -236,7 +240,7 @@ export default function Page() {
 
           {/* Onboarding Wireframes */}
           <div className="space-y-4">
-            <p className="text-xs text-foreground/40 uppercase tracking-wide">Onboarding Flow</p>
+            <p className="cs-eyebrow">Onboarding Flow</p>
             <div 
               className="rounded-[24px] md:rounded-[32px] p-6 md:p-8"
               style={{
@@ -333,10 +337,10 @@ export default function Page() {
         </section>
 
         {/* Calendar as Personal Expression */}
-        <section id="design-system" className="space-y-6 scroll-mt-32">
+        <section id="design-system" className="space-y-8 scroll-mt-32">
           <div className="space-y-2">
-            <p className="text-xs text-foreground/40 uppercase tracking-wide">04 — DESIGN SYSTEM</p>
-            <h2 className="text-lg md:text-xl font-medium tracking-tight">
+            <p className="cs-eyebrow">04 · Design system</p>
+            <h2 className="cs-h2">
               Calendar as Personal Expression
             </h2>
           </div>
@@ -382,8 +386,8 @@ export default function Page() {
         {/* High-Fidelity Screens */}
         <section id="screens" className="space-y-12 scroll-mt-32">
           <div className="space-y-2">
-            <p className="text-xs text-foreground/40 uppercase tracking-wide">05 — FINAL DESIGNS</p>
-            <h2 className="text-lg md:text-xl font-medium tracking-tight">
+            <p className="cs-eyebrow">05 · Final designs</p>
+            <h2 className="cs-h2">
               High-Fidelity Screens
             </h2>
           </div>
@@ -397,7 +401,7 @@ export default function Page() {
                 boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
               }}
             >
-              <p className="text-xs text-foreground/40 uppercase tracking-wide mb-4">Home</p>
+              <p className="cs-eyebrow mb-4">Home</p>
               <div 
                 className="rounded-2xl overflow-hidden"
                 style={{ boxShadow: "0 12px 40px rgba(0,0,0,0.2)" }}
@@ -425,7 +429,7 @@ export default function Page() {
                 boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
               }}
             >
-              <p className="text-xs text-foreground/40 uppercase tracking-wide mb-4">Profile</p>
+              <p className="cs-eyebrow mb-4">Profile</p>
               <div 
                 className="rounded-2xl overflow-hidden"
                 style={{ boxShadow: "0 12px 40px rgba(0,0,0,0.12)" }}
@@ -446,10 +450,10 @@ export default function Page() {
         </section>
 
         {/* Reflection */}
-        <section id="reflection" className="space-y-6 scroll-mt-32">
+        <section id="reflection" className="space-y-8 scroll-mt-32">
           <div className="space-y-2">
-            <p className="text-xs text-foreground/40 uppercase tracking-wide">06 — TAKEAWAY</p>
-            <h2 className="text-lg md:text-xl font-medium tracking-tight">
+            <p className="cs-eyebrow">06 · Takeaway</p>
+            <h2 className="cs-h2">
               Key Reflection
             </h2>
           </div>
@@ -475,21 +479,11 @@ export default function Page() {
           </div>
         </section>
 
-        {/* Back to Portfolio */}
-        <div className="border-t border-border/30 pt-12 text-center">
-          <p className="text-xs tracking-[0.15em] text-muted-foreground/40 uppercase">
-            Continue
-          </p>
-          <Link
-            href="/#work"
-            className="mt-2 inline-block text-base tracking-tight text-foreground transition-colors hover:text-foreground/60"
-          >
-            View All Projects
-          </Link>
-        </div>
+        <ContinueLink />
 
       </div>
     </main>
+      <Footer />
     </>
   )
 }

@@ -64,7 +64,7 @@ export default async function CaseStudyPage({
           {/* Header */}
           <div id="overview" className="space-y-6 scroll-mt-32">
             <div className="space-y-2">
-              <h1 className="text-2xl md:text-3xl font-normal tracking-tight text-foreground">
+              <h1 className="cs-h1">
                 {study.title}
               </h1>
               <p className="text-sm text-foreground/50">{study.subtitle}</p>

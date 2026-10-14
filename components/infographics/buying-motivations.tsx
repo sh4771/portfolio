@@ -31,10 +31,10 @@ export default function BuyingMotivations() {
   return (
     <div className="space-y-8">
       <div className="space-y-2">
-        <span className="text-xs uppercase tracking-widest text-muted-foreground">
+        <span className="cs-eyebrow">
           04 · Buying Motivations
         </span>
-        <h2 className="text-2xl md:text-3xl font-light">
+        <h2 className="cs-h2">
           What drives new purchases?
         </h2>
       </div>
@@ -149,7 +149,7 @@ export default function BuyingMotivations() {
 
       <div className="space-y-5 rounded-2xl border border-foreground/10 bg-muted/15 p-6 md:p-8">
         <div className="space-y-1">
-          <span className="text-xs font-medium uppercase tracking-wide text-foreground/50">
+          <span className="cs-eyebrow">
             Key takeaway
           </span>
           <p className="text-sm font-medium text-foreground/90">Challenge behind the purchase drivers</p>
@@ -176,7 +176,7 @@ export default function BuyingMotivations() {
         </div>
 
         <div className="border-l-2 border-foreground pl-5 space-y-4">
-          <span className="text-xs uppercase tracking-widest text-muted-foreground">
+          <span className="cs-eyebrow">
             Aha moment
           </span>
           <p className="text-sm font-semibold leading-relaxed text-foreground/60 md:text-base">

@@ -8,10 +8,7 @@ export const metadata: Metadata = {
 
 export default function ClinicalTrialsLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div
-      className="antialiased"
-      style={{ fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif' }}
-    >
+    <div className="antialiased">
       {children}
     </div>
   )

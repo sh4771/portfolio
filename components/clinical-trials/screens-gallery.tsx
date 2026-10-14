@@ -43,7 +43,7 @@ export function ScreensGallery({ screens }: { screens: Screen[] }) {
     >
       {/* Main frame */}
       <div className="relative">
-        <div className="overflow-hidden rounded-[8px] border border-[#111111]/10 bg-white shadow-sm">
+        <div className="overflow-hidden rounded-lg border border-border/60 bg-white shadow-sm">
           <Image
             key={current.src}
             src={current.src}
@@ -59,24 +59,24 @@ export function ScreensGallery({ screens }: { screens: Screen[] }) {
         <button
           onClick={() => setIndex((i) => (i - 1 + screens.length) % screens.length)}
           aria-label="Previous screen"
-          className="absolute left-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-[#111111]/10 bg-white/90 text-[#111111] shadow-sm transition-colors hover:bg-white"
+          className="absolute left-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-border/60 bg-white/90 text-foreground shadow-sm transition-colors hover:bg-white"
         >
           <ChevronLeft className="h-4 w-4" />
         </button>
         <button
           onClick={() => setIndex((i) => (i + 1) % screens.length)}
           aria-label="Next screen"
-          className="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-[#111111]/10 bg-white/90 text-[#111111] shadow-sm transition-colors hover:bg-white"
+          className="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-border/60 bg-white/90 text-foreground shadow-sm transition-colors hover:bg-white"
         >
           <ChevronRight className="h-4 w-4" />
         </button>
       </div>
 
       <div>
-        <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#5F6672]">
+        <p className="text-[10px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
           {current.n} · {current.name}
         </p>
-        <p className="text-xs leading-snug text-[#111111]">{current.cap}</p>
+        <p className="text-xs leading-snug text-foreground">{current.cap}</p>
       </div>
 
       {/* Tabs */}
@@ -87,10 +87,10 @@ export function ScreensGallery({ screens }: { screens: Screen[] }) {
             onClick={() => setIndex(i)}
             aria-label={`Show screen ${s.n}: ${s.name}`}
             aria-current={i === index}
-            className={`rounded-[4px] border px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-wide transition-colors ${
+            className={`rounded-[4px] border px-2.5 py-1.5 text-[10px] font-medium uppercase tracking-wide transition-colors ${
               i === index
                 ? "border-[#3D6469] bg-[#3D6469] text-white"
-                : "border-[#111111]/10 bg-white text-[#5F6672] hover:border-[#3D6469]/40"
+                : "border-border/60 bg-white text-muted-foreground hover:border-[#3D6469]/40"
             }`}
           >
             {s.n}

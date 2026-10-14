@@ -65,8 +65,8 @@ export default function PassitOnLivePrototypeSection() {
   return (
     <section className="space-y-12">
       <div className="space-y-4">
-        <p className="text-xs uppercase tracking-wide text-foreground/40">Live prototype · NFC</p>
-        <h2 className="text-lg font-medium tracking-tight md:text-xl">
+        <p className="cs-eyebrow">Live prototype · NFC</p>
+        <h2 className="cs-h2">
           What scanning the tag opens
         </h2>
         <p className="max-w-2xl text-sm leading-relaxed text-foreground/60">
@@ -100,7 +100,7 @@ export default function PassitOnLivePrototypeSection() {
 
       {/* Storyboard */}
       <div>
-        <p className="mb-6 text-xs font-medium uppercase tracking-wide text-foreground/45">
+        <p className="cs-eyebrow mb-6">
           Storyboard: scan to story
         </p>
         <div className="flex flex-col gap-6 md:flex-row md:items-start md:gap-1">
@@ -140,7 +140,7 @@ export default function PassitOnLivePrototypeSection() {
 
       {/* Live embed */}
       <div className="space-y-4">
-        <p className="text-xs font-medium uppercase tracking-wide text-foreground/45">
+        <p className="cs-eyebrow">
           Hosted experience (live)
         </p>
         <div className="flex flex-col items-center gap-6 lg:flex-row lg:items-start lg:justify-center lg:gap-12">

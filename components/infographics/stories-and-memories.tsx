@@ -2,7 +2,7 @@ export default function StoriesAndMemories() {
   return (
     <div className="space-y-6">
 
-      <span className="text-xs uppercase tracking-widest text-muted-foreground">
+      <span className="cs-eyebrow">
         Insight · Stories and memories
       </span>
 
@@ -10,7 +10,7 @@ export default function StoriesAndMemories() {
 
         {/* Left: text hierarchy */}
         <div className="flex flex-col gap-6 flex-1">
-          <h2 className="text-2xl md:text-3xl font-light">
+          <h2 className="cs-h2">
             Every garment carries a history.
           </h2>
 

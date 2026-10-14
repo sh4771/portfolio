@@ -51,8 +51,8 @@ export default function CompetitiveAnalysis() {
     <div className="space-y-12">
       {/* Section Header */}
       <div className="space-y-2">
-        <p className="text-xs text-foreground/40">Research</p>
-        <h2 className="text-lg md:text-xl font-medium tracking-tight">
+        <p className="cs-eyebrow">Research</p>
+        <h2 className="cs-h2">
           Competitive Analysis
         </h2>
         <p className="text-sm text-foreground/60 max-w-2xl">

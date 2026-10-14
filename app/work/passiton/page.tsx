@@ -10,6 +10,9 @@ import CircularPricingModel from "@/components/infographics/circular-pricing-mod
 import ClothingLifecycle from "@/components/infographics/clothing-lifecycle"
 import PassitOnLivePrototypeSection from "@/components/passiton/live-prototype-nfc-section"
 import ProblemDownstreamImpact from "@/components/passiton/problem-downstream-impact"
+import { Navigation } from "@/components/navigation"
+import { Footer } from "@/components/footer"
+import { ContinueLink } from "@/components/continue-link"
 import { SectionTracker } from "@/components/section-tracker"
 
 const sections = [
@@ -25,13 +28,14 @@ export default function Page() {
   return (
       <>
       <SectionTracker sections={sections} />
-      <main className="min-h-screen bg-background py-16 px-4 md:px-8 transition-colors duration-300">
-        <div className="max-w-[900px] mx-auto space-y-24">
+      <Navigation />
+      <main className="pt-32 pb-24">
+        <div className="mx-auto w-full max-w-[900px] px-6 space-y-24">
 
           {/* Back Button */}
           <Link 
-            href="/" 
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            href="/#work" 
+            className="!mb-14 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Portfolio
@@ -42,7 +46,7 @@ export default function Page() {
             {/* Project Title & Meta */}
             <div className="space-y-6">
               <div className="space-y-2">
-                <h1 className="text-2xl md:text-3xl font-normal tracking-tight">
+                <h1 className="cs-h1">
                   Designing Traceable Garment Lifecycles
                 </h1>
                 <p className="text-sm text-text-secondary">
@@ -85,7 +89,7 @@ export default function Page() {
 
               <div className="grid max-w-2xl gap-8 border-t border-border/40 pt-8 sm:grid-cols-2 sm:gap-10">
                 <div className="space-y-2">
-                  <h2 className="text-lg font-medium tracking-tight md:text-xl">
+                  <h2 className="cs-h2">
                     Product scope
                   </h2>
                   <p className="text-sm text-foreground/60 text-pretty leading-relaxed">
@@ -95,7 +99,7 @@ export default function Page() {
                   </p>
                 </div>
                 <div className="space-y-2">
-                  <h2 className="text-lg font-medium tracking-tight md:text-xl">Use case</h2>
+                  <h2 className="cs-h2">Use case</h2>
                   <p className="text-sm text-foreground/60 text-pretty leading-relaxed">
                     Someone reselling or donating a tagged item needs a trustworthy handoff: show
                     what the piece is made of, how worn it is, what it cost versus what it should
@@ -149,8 +153,8 @@ export default function Page() {
 
             {/* Approach */}
             <div className="space-y-4 max-w-3xl">
-              <p className="text-xs text-foreground/40 uppercase tracking-wide">Approach</p>
-              <h2 className="text-lg md:text-xl font-medium tracking-tight">
+              <p className="cs-eyebrow">Approach</p>
+              <h2 className="cs-h2">
                 How I approached the problem
               </h2>
               <p className="text-sm text-foreground/60 text-pretty leading-relaxed">
@@ -221,7 +225,7 @@ export default function Page() {
           </div>
         </header>
 
-        <div id="research" className="scroll-mt-32 space-y-0">
+        <div id="research" className="scroll-mt-32 space-y-24">
         <section>
           <WardrobeComposition />
         </section>
@@ -245,8 +249,8 @@ export default function Page() {
 
         {/* Design intent */}
         <section id="design-intent" className="max-w-3xl space-y-4 scroll-mt-32">
-          <p className="text-xs uppercase tracking-wide text-foreground/40">Design intent</p>
-          <h2 className="text-lg font-medium tracking-tight md:text-xl">What I set out to build</h2>
+          <p className="cs-eyebrow">Design intent</p>
+          <h2 className="cs-h2">What I set out to build</h2>
           <p className="text-sm text-foreground/60 text-pretty leading-relaxed">
             From there, I focused on a system that could raise the perceived value of garments
             over time by making their history visible and shareable, so keeping or passing an
@@ -262,8 +266,8 @@ export default function Page() {
         <section id="solutions" className="space-y-16 md:space-y-20 scroll-mt-32">
           {/* Section Header */}
           <div className="space-y-2">
-            <p className="text-xs text-foreground/40">01</p>
-            <h2 className="text-lg md:text-xl font-medium tracking-tight">
+            <p className="cs-eyebrow">Final designs</p>
+            <h2 className="cs-h2">
               Solutions
             </h2>
             <p className="text-sm text-foreground/60 max-w-2xl text-pretty">
@@ -274,8 +278,8 @@ export default function Page() {
           {/* Columbia Urban Tech: high-fidelity screens */}
           <div className="space-y-6">
             <div className="space-y-2">
-              <p className="text-xs text-foreground/40">Columbia Urban Tech</p>
-              <h3 className="text-base font-medium tracking-tight md:text-lg">
+              <p className="cs-eyebrow">Columbia Urban Tech</p>
+              <h3 className="cs-h3">
                 High-fidelity: condition &amp; materials
               </h3>
               <p className="max-w-2xl text-sm text-foreground/60 text-pretty leading-relaxed">
@@ -645,7 +649,7 @@ export default function Page() {
                   <Lightbulb className="h-6 w-6 text-foreground/80" strokeWidth={1.5} />
                 </div>
                 <div className="min-w-0 space-y-3">
-                  <h2 className="text-lg font-medium tracking-tight md:text-xl">What I learned</h2>
+                  <h2 className="cs-h2">What I learned</h2>
                   <div className="space-y-3 text-sm leading-relaxed text-foreground/65">
                     <p>
                       I tested an early version of the flow and saw people lean in when a
@@ -674,7 +678,7 @@ export default function Page() {
                   <MessageCirclePlus className="h-6 w-6 text-emerald-800/80 dark:text-emerald-200/90" strokeWidth={1.5} />
                 </div>
                 <div className="min-w-0 space-y-3">
-                  <h2 className="text-lg font-medium tracking-tight md:text-xl">If I had more time</h2>
+                  <h2 className="cs-h2">If I had more time</h2>
                   <div className="space-y-3 text-sm leading-relaxed text-foreground/65">
                     <p>
                       I would push the{" "}
@@ -704,7 +708,7 @@ export default function Page() {
                   <Rocket className="h-6 w-6 text-sky-800/85 dark:text-sky-200/90" strokeWidth={1.5} />
                 </div>
                 <div className="min-w-0 space-y-3">
-                  <h2 className="text-lg font-medium tracking-tight md:text-xl">Next step</h2>
+                  <h2 className="cs-h2">Next step</h2>
                   <div className="space-y-3 text-sm leading-relaxed text-foreground/65">
                     <p>
                       I want to move past the prototype and{" "}
@@ -723,8 +727,11 @@ export default function Page() {
           </div>
         </section>
 
+
+        <ContinueLink />
         </div>
       </main>
+      <Footer />
       </>
   )
 }

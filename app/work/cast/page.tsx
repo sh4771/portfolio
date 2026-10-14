@@ -1,6 +1,9 @@
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowLeft, Hand, Lock, Move, Shield } from "lucide-react"
+import { Navigation } from "@/components/navigation"
+import { Footer } from "@/components/footer"
+import { ContinueLink } from "@/components/continue-link"
 import { SectionTracker } from "@/components/section-tracker"
 
 const sections = [
@@ -15,13 +18,14 @@ export default function Page() {
   return (
     <>
     <SectionTracker sections={sections} />
-    <main className="min-h-screen bg-background py-16 px-4 md:px-8 transition-colors duration-300">
-      <div className="max-w-[900px] mx-auto space-y-20">
+    <Navigation />
+      <main className="pt-32 pb-24">
+      <div className="mx-auto w-full max-w-[900px] px-6 space-y-24">
 
         {/* Back Button */}
         <Link 
-          href="/" 
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          href="/#work" 
+          className="!mb-14 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Portfolio
@@ -30,7 +34,7 @@ export default function Page() {
         {/* Header */}
         <header id="overview" className="space-y-6 scroll-mt-32">
           <div className="space-y-2">
-            <h1 className="text-2xl md:text-3xl font-normal tracking-tight">
+            <h1 className="cs-h1">
               C.A.S.T — Cable-Activated Stabilizing Torso
             </h1>
             <p className="text-sm text-foreground/50">
@@ -78,10 +82,10 @@ export default function Page() {
         </header>
 
         {/* My Role */}
-        <section id="role" className="space-y-6 scroll-mt-32">
+        <section id="role" className="space-y-8 scroll-mt-32">
           <div className="space-y-2">
-            <p className="text-xs text-foreground/40 uppercase tracking-wide">01 — MY ROLE</p>
-            <h2 className="text-lg md:text-xl font-medium tracking-tight">What I contributed</h2>
+            <p className="cs-eyebrow">01 · My role</p>
+            <h2 className="cs-h2">What I contributed</h2>
           </div>
           
           <div 
@@ -145,10 +149,10 @@ export default function Page() {
         </section>
 
         {/* Vest Design Improvements */}
-        <section id="problem" className="space-y-6 scroll-mt-32">
+        <section id="problem" className="space-y-8 scroll-mt-32">
           <div className="space-y-2">
-            <p className="text-xs text-foreground/40 uppercase tracking-wide">02 — VEST DESIGN</p>
-            <h2 className="text-lg md:text-xl font-medium tracking-tight">Problem → Solution</h2>
+            <p className="cs-eyebrow">02 · Vest design</p>
+            <h2 className="cs-h2">Problem → Solution</h2>
           </div>
           
           <div className="grid md:grid-cols-2 gap-6">
@@ -160,7 +164,7 @@ export default function Page() {
                 boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
               }}
             >
-              <span className="text-xs text-foreground/40 uppercase tracking-wide">Problem</span>
+              <span className="cs-eyebrow">Problem</span>
               <div 
                 className="rounded-xl overflow-hidden bg-background/50 h-[280px] flex items-center justify-center"
                 style={{ boxShadow: "0 8px 30px rgba(0,0,0,0.08)" }}
@@ -186,7 +190,7 @@ export default function Page() {
                 boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
               }}
             >
-              <span className="text-xs text-foreground/40 uppercase tracking-wide">Solution</span>
+              <span className="cs-eyebrow">Solution</span>
               <div 
                 className="rounded-xl overflow-hidden bg-background/50 h-[280px] flex items-center justify-center"
                 style={{ boxShadow: "0 8px 30px rgba(0,0,0,0.08)" }}
@@ -211,10 +215,10 @@ export default function Page() {
         </section>
 
         {/* Interaction Design */}
-        <section id="modes" className="space-y-6 scroll-mt-32">
+        <section id="modes" className="space-y-8 scroll-mt-32">
           <div className="space-y-2">
-            <p className="text-xs text-foreground/40 uppercase tracking-wide">03 — INTERACTION DESIGN</p>
-            <h2 className="text-lg md:text-xl font-medium tracking-tight">Three Control Modes</h2>
+            <p className="cs-eyebrow">03 · Interaction design</p>
+            <h2 className="cs-h2">Three Control Modes</h2>
           </div>
           
           <div 
@@ -281,10 +285,10 @@ export default function Page() {
         </section>
 
         {/* Design Focus */}
-        <section id="priorities" className="space-y-6 scroll-mt-32">
+        <section id="priorities" className="space-y-8 scroll-mt-32">
           <div className="space-y-2">
-            <p className="text-xs text-foreground/40 uppercase tracking-wide">04 — DESIGN PRINCIPLES</p>
-            <h2 className="text-lg md:text-xl font-medium tracking-tight">Key Design Priorities</h2>
+            <p className="cs-eyebrow">04 · Design principles</p>
+            <h2 className="cs-h2">Key Design Priorities</h2>
           </div>
           
           <div 
@@ -332,21 +336,11 @@ export default function Page() {
           </p>
         </section>
 
-        {/* Back to Portfolio */}
-        <div className="border-t border-border/30 pt-12 text-center">
-          <p className="text-xs tracking-[0.15em] text-muted-foreground/40 uppercase">
-            Continue
-          </p>
-          <Link
-            href="/#work"
-            className="mt-2 inline-block text-base tracking-tight text-foreground transition-colors hover:text-foreground/60"
-          >
-            View All Projects
-          </Link>
-        </div>
+        <ContinueLink />
 
       </div>
     </main>
+      <Footer />
     </>
   )
 }
