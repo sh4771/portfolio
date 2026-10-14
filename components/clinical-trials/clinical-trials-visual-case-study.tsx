@@ -1,14 +1,6 @@
 import Image from "next/image"
-import { Inter } from "next/font/google"
 import { BarChart3, Database, EyeOff, ArrowRight } from "lucide-react"
 import { ScreensGallery } from "./screens-gallery"
-
-/** Inter: used only in the Visual system typography samples (product UI type). */
-const clinicalTypographySamples = Inter({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  display: "swap",
-})
 
 function SectionHeader({ label, title }: { label: string; title: string }) {
   return (
@@ -366,7 +358,7 @@ export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototype
         <div>
           <p className="cs-eyebrow">Typography</p>
           <div
-            className={`${clinicalTypographySamples.className} mt-3 space-y-4 rounded-lg border border-border/60 bg-muted/30 p-5`}
+            className={`mt-3 space-y-4 rounded-lg border border-border/60 bg-muted/30 p-5`}
           >
             <p className="text-3xl font-medium leading-tight text-foreground">Display — trial overview</p>
             <p className="text-lg font-medium text-foreground">Section header · active module</p>

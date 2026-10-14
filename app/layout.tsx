@@ -1,7 +1,15 @@
 import type { Metadata } from 'next'
+import { Manrope } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import ThemeToggle from '@/components/theme-toggle'
 import './globals.css'
+
+const manrope = Manrope({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-manrope',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: 'Violet Hyun — Product Designer',
@@ -15,13 +23,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <head>
-        <link
-          rel="stylesheet"
-          href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap"
-        />
-      </head>
+    <html lang="en" className={manrope.variable}>
       <body className="font-sans antialiased">
         <div
           suppressHydrationWarning
