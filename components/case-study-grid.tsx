@@ -21,6 +21,8 @@ export interface CaseStudy {
   video?: string
   mockupFrame?: string
   mockupBounds?: { left: number; right: number; top: number; bottom: number }
+  /** Short project name shown large in the hover overlay. */
+  displayName: string
   /** Featured projects span the full grid row with a wider frame. */
   featured?: boolean
 }
@@ -28,6 +30,7 @@ export interface CaseStudy {
 const projects: CaseStudy[] = [
   {
     slug: "vendelux",
+    displayName: "VENDELUX",
     title: "Designing How Event Teams Target, Plan, and Connect",
     description:
       "At Vendelux I support product UI and system design on an AI-powered B2B event intelligence platform that helps teams identify high-ROI conferences, pre-book qualified meetings, and connect event spend to pipeline in Salesforce and HubSpot.",
@@ -42,6 +45,7 @@ const projects: CaseStudy[] = [
   },
   {
     slug: "passiton",
+    displayName: "PASSIT ON",
     title: "Designing Traceable Garment Lifecycles",
     description:
       "Led research and end-to-end design of a blockchain-enabled fashion reuse app focused on extending garment lifecycle through traceability.",
@@ -54,6 +58,7 @@ const projects: CaseStudy[] = [
   },
   {
     slug: "games4peace",
+    displayName: "GAMES4PEACE",
     title: "Turning Casual Play into Measurable Social Impact",
     description:
       "Designing an interactive system that transforms playful user interactions into measurable social impact.",
@@ -66,6 +71,7 @@ const projects: CaseStudy[] = [
   },
   {
     slug: "schedulink",
+    displayName: "SCHEDULINK",
     title: "Real-Time Availability for Social Planning",
     description:
       "Designing a social scheduling system that helps college students coordinate spontaneous plans.",
@@ -77,6 +83,7 @@ const projects: CaseStudy[] = [
   },
   {
     slug: "cast",
+    displayName: "C.A.S.T",
     title: "Restoring Postural Control: A Cable-Activated Stabilizing Torso (C.A.S.T)",
     description:
       "Designing a wearable assistive device that helps restore postural stability for spinal cord injury patients.",
@@ -88,6 +95,7 @@ const projects: CaseStudy[] = [
   },
   {
     slug: "clinical-trials",
+    displayName: "ALTROVIA",
     title: "Designing Decision Clarity in Clinical Trial Systems",
     description:
       "Adobe Designathon: clinical trial intelligence platform for clearer decisions, transparent AI recommendations, and actionable dashboards.",
@@ -169,8 +177,13 @@ function CaseStudyCard({ project }: { project: CaseStudy }) {
               />
             </div>
           )}
-          <div className="pointer-events-none absolute inset-0 flex items-end bg-foreground/65 p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
-            <div className="flex flex-wrap gap-1.5">
+          <div className="pointer-events-none absolute inset-0 flex items-end bg-neutral-950/70 p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
+            <span
+              className={`absolute inset-x-4 top-1/2 -translate-y-1/2 text-center font-semibold tracking-[0.14em] text-white ${project.featured ? "text-3xl md:text-5xl" : "text-2xl md:text-3xl"}`}
+            >
+              {project.displayName}
+            </span>
+            <div className="relative flex flex-wrap gap-1.5">
               {project.softSkills.map((skill) => (
                 <span
                   key={skill}

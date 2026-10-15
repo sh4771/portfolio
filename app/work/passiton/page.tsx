@@ -13,21 +13,11 @@ import ProblemDownstreamImpact from "@/components/passiton/problem-downstream-im
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { ContinueLink } from "@/components/continue-link"
-import { SectionTracker } from "@/components/section-tracker"
 
-const sections = [
-  { id: "overview", label: "Overview" },
-  { id: "research", label: "Research" },
-  { id: "design-intent", label: "Design intent" },
-  { id: "prototype", label: "Prototype" },
-  { id: "solutions", label: "Solutions" },
-  { id: "reflection", label: "Reflection" },
-]
 
 export default function Page() {
   return (
       <>
-      <SectionTracker sections={sections} />
       <Navigation />
       <main className="pt-32 pb-24">
         <div className="mx-auto w-full max-w-[900px] px-6 space-y-24">

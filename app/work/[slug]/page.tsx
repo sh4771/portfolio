@@ -5,7 +5,6 @@ import { ArrowLeft } from "lucide-react"
 import { caseStudies } from "@/lib/case-studies"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
-import { SectionTracker } from "@/components/section-tracker"
 
 export function generateStaticParams() {
   return Object.keys(caseStudies).map((slug) => ({ slug }))
@@ -35,21 +34,9 @@ export default async function CaseStudyPage({
 
   if (!study) notFound()
 
-  const sections = [
-    { id: "overview", label: "Overview" },
-    study.problem && { id: "problem", label: study.problem.title },
-    study.research && { id: "research", label: study.research.title },
-    study.insights && { id: "insights", label: study.insights.title },
-    study.designProcess && { id: "process", label: study.designProcess.title },
-    study.prototype && { id: "prototype", label: study.prototype.title },
-    study.outcome && { id: "outcome", label: study.outcome.title },
-    study.gallery && study.gallery.length > 0 && { id: "gallery", label: "Gallery" },
-  ].filter(Boolean) as { id: string; label: string }[]
-
   return (
     <>
       <Navigation />
-      <SectionTracker sections={sections} />
       <main className="pt-32 pb-12">
         <div className="mx-auto w-full max-w-[900px] px-6">
           {/* Back link */}

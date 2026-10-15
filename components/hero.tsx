@@ -204,7 +204,7 @@ export function Hero() {
                   Robotics and Rehabilitation Lab at Columbia University
                 </InlineLink>
                 {", "}
-                <InlineLink href="https://misskcosmetics.com/" className="font-medium text-foreground hover:text-text-muted">
+                <InlineLink href="https://www.instagram.com/missk.cosmetics/" className="font-medium text-foreground hover:text-text-muted">
                   Miss K Cosmetics
                 </InlineLink>
                 {", "}

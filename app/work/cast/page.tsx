@@ -4,20 +4,11 @@ import { ArrowLeft, Hand, Lock, Move, Shield } from "lucide-react"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { ContinueLink } from "@/components/continue-link"
-import { SectionTracker } from "@/components/section-tracker"
 
-const sections = [
-  { id: "overview", label: "Overview" },
-  { id: "role", label: "My Role" },
-  { id: "problem", label: "Vest Design" },
-  { id: "modes", label: "Control Modes" },
-  { id: "priorities", label: "Design Priorities" },
-]
 
 export default function Page() {
   return (
     <>
-    <SectionTracker sections={sections} />
     <Navigation />
       <main className="pt-32 pb-24">
       <div className="mx-auto w-full max-w-[900px] px-6 space-y-24">

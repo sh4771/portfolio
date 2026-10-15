@@ -7,18 +7,9 @@ import { useState, useEffect } from "react"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { ContinueLink } from "@/components/continue-link"
-import { SectionTracker } from "@/components/section-tracker"
 
 const themeImages = Array.from({ length: 24 }, (_, i) => `/images/schedulink-themes/theme-${i + 1}.png`)
 
-const sections = [
-  { id: "overview", label: "Overview" },
-  { id: "framing", label: "Framing" },
-  { id: "wireframes", label: "Wireframe Exploration" },
-  { id: "design-system", label: "Design System" },
-  { id: "screens", label: "High-Fidelity Screens" },
-  { id: "reflection", label: "Reflection" },
-]
 
 export default function Page() {
   const [currentTheme, setCurrentTheme] = useState(0)
@@ -31,7 +22,6 @@ export default function Page() {
   }, [])
   return (
     <>
-    <SectionTracker sections={sections} />
     <Navigation />
       <main className="pt-32 pb-24">
       <div className="mx-auto w-full max-w-[900px] px-6 space-y-24">
