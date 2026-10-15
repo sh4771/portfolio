@@ -4,16 +4,16 @@ import { useEffect, useRef, useState } from "react"
 import { ChevronDown } from "lucide-react"
 
 const STATS = [
-  { num: "10+", label: "products launched" },
-  { num: "5+", label: "projects with ownership" },
-  { num: "5+", label: "years in creative" },
+  { num: "10+", label: "features shipped" },
+  { num: "5+", label: "projects led end to end" },
+  { num: "5+", label: "years across design, art, and research" },
 ]
 
 /** Where each stat lands, relative to the flower's center (desktop / phone). */
 const SPOTS_DESKTOP = [
-  { x: -300, y: -30, r: -8 },
+  { x: -320, y: -30, r: -8 },
   { x: 0, y: -170, r: 0 },
-  { x: 300, y: -30, r: 8 },
+  { x: 320, y: -30, r: 8 },
 ]
 const SPOTS_MOBILE = [
   { x: -112, y: -125, r: -6 },
@@ -22,12 +22,15 @@ const SPOTS_MOBILE = [
 ]
 
 function OrganizationIcon({ domain }: { domain: string }) {
+  const [failed, setFailed] = useState(false)
+  if (failed) return null
   return (
     <img
       src={`https://www.google.com/s2/favicons?domain=${domain}&sz=64`}
       alt=""
       aria-hidden="true"
-      className="mr-1.5 inline-block h-4 w-4 align-[-0.2em] object-contain"
+      onError={() => setFailed(true)}
+      className="mr-[0.2em] inline-block h-4 w-4 align-[-0.2em] object-contain"
     />
   )
 }
@@ -38,7 +41,7 @@ function MetaLink({ href, domain, children }: { href: string; domain: string; ch
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="whitespace-nowrap transition-colors duration-200 ease-out hover:text-foreground"
+      className="ml-[0.25em] whitespace-nowrap transition-colors duration-200 ease-out hover:text-foreground"
     >
       <OrganizationIcon domain={domain} />
       {children}
@@ -52,7 +55,7 @@ function FlowerStats() {
   const lastPointer = useRef<string>("mouse")
 
   useEffect(() => {
-    const mql = window.matchMedia("(max-width: 639px)")
+    const mql = window.matchMedia("(max-width: 1023px)")
     const update = () => setMobile(mql.matches)
     update()
     mql.addEventListener("change", update)
@@ -62,9 +65,9 @@ function FlowerStats() {
   const spots = mobile ? SPOTS_MOBILE : SPOTS_DESKTOP
 
   return (
-    <div className="relative mx-auto h-[300px] w-full sm:h-[260px]">
+    <div className="relative mx-auto h-[300px] w-full lg:h-[260px]">
       {/* Flower: always turning clockwise, low enough for the stats to bloom around it */}
-      <div className="absolute left-1/2 top-[230px] -translate-x-1/2 -translate-y-1/2 sm:top-[180px]">
+      <div className="absolute left-1/2 top-[230px] -translate-x-1/2 -translate-y-1/2 lg:top-[180px]">
         <button
           type="button"
           aria-label={open ? "Hide highlights" : "Show highlights"}
@@ -87,7 +90,7 @@ function FlowerStats() {
             if (e.currentTarget.matches(":focus-visible")) setOpen(true)
           }}
           onBlur={() => setOpen(false)}
-          className="relative block h-[120px] w-[120px] cursor-pointer rounded-full focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground sm:h-[148px] sm:w-[148px]"
+          className="relative block h-[120px] w-[120px] cursor-pointer rounded-full focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground lg:h-[148px] lg:w-[148px]"
         >
           <span
             className="block h-full w-full transition-transform duration-500 ease-out"
@@ -118,17 +121,17 @@ function FlowerStats() {
                 transition: `transform 650ms cubic-bezier(0.34, 1.56, 0.64, 1) ${delay}ms, opacity 300ms ease ${delay}ms`,
               }}
             >
-              <span className="text-3xl font-extrabold leading-none tracking-tight text-foreground/50 sm:text-5xl">
+              <span className="text-3xl font-extrabold leading-none tracking-tight text-foreground/50 lg:text-5xl">
                 {s.num}
               </span>
-              <span className="mt-1 text-sm font-semibold text-foreground sm:text-xl">{s.label}</span>
+              <span className="mt-1 w-[175px] whitespace-normal text-center text-sm font-semibold leading-snug text-foreground lg:w-[240px] lg:text-xl">{s.label}</span>
             </div>
           )
         })}
       </div>
 
       <p
-        className="absolute left-1/2 top-[310px] -translate-x-1/2 text-[11px] tracking-[0.14em] text-text-muted transition-opacity duration-300 sm:top-[268px]"
+        className="absolute left-1/2 top-[310px] -translate-x-1/2 text-[11px] tracking-[0.14em] text-text-muted transition-opacity duration-300 lg:top-[268px]"
         style={{ opacity: open ? 0 : 1 }}
       >
         {mobile ? "TAP ME" : "HOVER ME"}
@@ -178,9 +181,8 @@ export function Hero() {
           <FlowerStats />
         </div>
 
-        <h1 data-animate className="mt-14 text-3xl font-normal leading-tight tracking-tight text-foreground sm:mt-10">
-          {"Hi, I'm "}
-          <span className="font-extrabold">Violet Hyun</span>
+        <h1 data-animate className="mt-14 text-3xl font-extrabold leading-tight tracking-tight text-foreground lg:mt-10">
+          Hi, I&apos;m Violet Hyun
         </h1>
 
         <p data-animate className="mt-2 text-xl font-normal leading-snug tracking-tight text-foreground">
@@ -192,14 +194,14 @@ export function Hero() {
           className="mt-5 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-base text-foreground/50"
         >
           <span>
-            {"Now @ "}
+            {"Now @"}
             <MetaLink href="https://www.vendelux.com/" domain="vendelux.com">
               Vendelux
             </MetaLink>
           </span>
           <span aria-hidden="true">·</span>
           <span>
-            {"Computational Design Practices @ "}
+            {"Computational Design Practices @"}
             <MetaLink
               href="https://www.arch.columbia.edu/programs/15-m-s-computational-design-practices"
               domain="arch.columbia.edu"
