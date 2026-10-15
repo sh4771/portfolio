@@ -184,7 +184,7 @@ export function Hero() {
                 <InlineLink href="https://www.vendelux.com/" domain="vendelux.com" className="font-medium text-purple-900 hover:text-purple-950 dark:text-purple-200 dark:hover:text-purple-50">
                   Vendelux
                 </InlineLink>
-                {" on the Product and Engineering team, helping teams build target audiences, manage campaigns, and connect with the right people at events."}
+                {", Product and Engineering team"}
               </p>
             </div>
           </div>
