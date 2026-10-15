@@ -66,7 +66,7 @@ function FlowerStats() {
 
   return (
     <div className="relative mx-auto h-[300px] w-full lg:h-[260px]">
-      {/* Flower: always turning clockwise, low enough for the stats to bloom around it */}
+      {/* Flower: turns clockwise only while hovered (pauses in place), stats bloom around it */}
       <div className="absolute left-1/2 top-[230px] -translate-x-1/2 -translate-y-1/2 lg:top-[180px]">
         <button
           type="button"
@@ -101,6 +101,7 @@ function FlowerStats() {
               alt=""
               draggable={false}
               className="flower-spin block h-full w-full select-none"
+              style={{ animationPlayState: open ? "running" : "paused" }}
             />
           </span>
         </button>
@@ -204,7 +205,7 @@ export function Hero() {
             {"Computational Design Practices @"}
             <MetaLink
               href="https://www.arch.columbia.edu/programs/15-m-s-computational-design-practices"
-              domain="arch.columbia.edu"
+              domain="columbia.edu"
             >
               Columbia
             </MetaLink>

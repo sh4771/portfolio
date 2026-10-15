@@ -376,7 +376,7 @@ html[data-presentation] {
   }
 }
 
-/* Hero flower: turns clockwise nonstop */
+/* Hero flower: clockwise spin, paused until hovered (hero.tsx sets play state) */
 @keyframes flower-spin {
   to {
     transform: rotate(360deg);
