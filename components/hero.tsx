@@ -3,16 +3,23 @@
 import { useEffect, useRef, useState } from "react"
 import { ChevronDown } from "lucide-react"
 
-const TYPEWRITER_PHRASES = [
-  { text: "digital interfaces", effect: "scribble-underline" },
-  { text: "spatial computing", effect: "scribble-circle" },
-  { text: "emerging technologies", effect: "scribble-highlight" },
+const STATS = [
+  { num: "10+", label: "products launched" },
+  { num: "5+", label: "projects with ownership" },
+  { num: "5+", label: "years in creative" },
 ]
 
-const TYPE_SPEED_MS = 55
-const DELETE_SPEED_MS = 30
-const HOLD_MS = 1400
-const PAUSE_MS = 350
+/** Where each stat lands, relative to the flower's center (desktop / phone). */
+const SPOTS_DESKTOP = [
+  { x: -300, y: -30, r: -8 },
+  { x: 0, y: -170, r: 0 },
+  { x: 300, y: -30, r: 8 },
+]
+const SPOTS_MOBILE = [
+  { x: -112, y: -125, r: -6 },
+  { x: 0, y: -195, r: 0 },
+  { x: 112, y: -125, r: 6 },
+]
 
 function OrganizationIcon({ domain }: { domain: string }) {
   return (
@@ -25,91 +32,108 @@ function OrganizationIcon({ domain }: { domain: string }) {
   )
 }
 
-/**
- * Inline text link that wraps like normal text. Short names never split, and
- * the optional favicon stays glued to the first word.
- */
-function InlineLink({
-  href,
-  domain,
-  className,
-  children,
-}: {
-  href: string
-  domain?: string
-  className: string
-  children: string
-}) {
-  // Short names stay on one line; long ones wrap naturally after the first word.
-  const keepWhole = children.length <= 28
-  const [first, ...rest] = keepWhole ? [children] : children.split(" ")
+function MetaLink({ href, domain, children }: { href: string; domain: string; children: string }) {
   return (
     <a
       href={href}
       target="_blank"
       rel="noreferrer"
-      className={`inline transition-colors duration-200 ease-out ${className}`}
+      className="whitespace-nowrap transition-colors duration-200 ease-out hover:text-foreground"
     >
-      <span className="whitespace-nowrap">
-        {domain && <OrganizationIcon domain={domain} />}
-        {first}
-      </span>
-      {rest.length > 0 && ` ${rest.join(" ")}`}
+      <OrganizationIcon domain={domain} />
+      {children}
     </a>
   )
 }
 
-function TypewriterWords() {
-  const [phraseIndex, setPhraseIndex] = useState(0)
-  const [subIndex, setSubIndex] = useState(0)
-  const [deleting, setDeleting] = useState(false)
-  const [reducedMotion, setReducedMotion] = useState(false)
+function FlowerStats() {
+  const [open, setOpen] = useState(false)
+  const [mobile, setMobile] = useState(false)
+  const lastPointer = useRef<string>("mouse")
 
   useEffect(() => {
-    const mql = window.matchMedia("(prefers-reduced-motion: reduce)")
-    setReducedMotion(mql.matches)
+    const mql = window.matchMedia("(max-width: 639px)")
+    const update = () => setMobile(mql.matches)
+    update()
+    mql.addEventListener("change", update)
+    return () => mql.removeEventListener("change", update)
   }, [])
 
-  useEffect(() => {
-    if (reducedMotion) return
-
-    const current = TYPEWRITER_PHRASES[phraseIndex].text
-
-    if (!deleting && subIndex === current.length) {
-      const holdTimeout = setTimeout(() => setDeleting(true), HOLD_MS)
-      return () => clearTimeout(holdTimeout)
-    }
-
-    if (deleting && subIndex === 0) {
-      const pauseTimeout = setTimeout(() => {
-        setDeleting(false)
-        setPhraseIndex((prev) => (prev + 1) % TYPEWRITER_PHRASES.length)
-      }, PAUSE_MS)
-      return () => clearTimeout(pauseTimeout)
-    }
-
-    const stepTimeout = setTimeout(
-      () => setSubIndex((prev) => prev + (deleting ? -1 : 1)),
-      deleting ? DELETE_SPEED_MS : TYPE_SPEED_MS
-    )
-    return () => clearTimeout(stepTimeout)
-  }, [subIndex, deleting, phraseIndex, reducedMotion])
-
-  const current = TYPEWRITER_PHRASES[phraseIndex]
-  const shownText = reducedMotion ? current.text : current.text.slice(0, subIndex)
+  const spots = mobile ? SPOTS_MOBILE : SPOTS_DESKTOP
 
   return (
-    <span
-      className={`${current.effect} font-semibold text-foreground`}
-      style={{ display: "inline-block", minWidth: "1ch" }}
-    >
-      {shownText}
-      {!reducedMotion && (
-        <span className="typewriter-cursor" aria-hidden="true">
-          |
-        </span>
-      )}
-    </span>
+    <div className="relative mx-auto h-[300px] w-full sm:h-[260px]">
+      {/* Flower: always turning clockwise, low enough for the stats to bloom around it */}
+      <div className="absolute left-1/2 top-[230px] -translate-x-1/2 -translate-y-1/2 sm:top-[180px]">
+        <button
+          type="button"
+          aria-label={open ? "Hide highlights" : "Show highlights"}
+          aria-expanded={open}
+          onPointerEnter={(e) => {
+            lastPointer.current = e.pointerType
+            if (e.pointerType === "mouse") setOpen(true)
+          }}
+          onPointerLeave={(e) => {
+            if (e.pointerType === "mouse") setOpen(false)
+          }}
+          onPointerDown={(e) => {
+            lastPointer.current = e.pointerType
+          }}
+          onClick={() => {
+            if (lastPointer.current !== "mouse") setOpen((v) => !v)
+          }}
+          onFocus={(e) => {
+            // Keyboard focus opens it; a tap is handled by onClick instead.
+            if (e.currentTarget.matches(":focus-visible")) setOpen(true)
+          }}
+          onBlur={() => setOpen(false)}
+          className="relative block h-[120px] w-[120px] cursor-pointer rounded-full focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground sm:h-[148px] sm:w-[148px]"
+        >
+          <span
+            className="block h-full w-full transition-transform duration-500 ease-out"
+            style={{ transform: `scale(${open ? 1.06 : 1})` }}
+          >
+            <img
+              src="/images/flower.png"
+              alt=""
+              draggable={false}
+              className="flower-spin block h-full w-full select-none"
+            />
+          </span>
+        </button>
+
+        {STATS.map((s, i) => {
+          const spot = spots[i]
+          const delay = open ? 100 + i * 90 : (2 - i) * 40
+          return (
+            <div
+              key={s.label}
+              aria-hidden={!open}
+              className="pointer-events-none absolute left-1/2 top-1/2 flex flex-col items-center whitespace-nowrap"
+              style={{
+                transform: open
+                  ? `translate(calc(-50% + ${spot.x}px), calc(-50% + ${spot.y}px)) rotate(${spot.r}deg) scale(1)`
+                  : "translate(-50%, -50%) rotate(0deg) scale(0.3)",
+                opacity: open ? 1 : 0,
+                transition: `transform 650ms cubic-bezier(0.34, 1.56, 0.64, 1) ${delay}ms, opacity 300ms ease ${delay}ms`,
+              }}
+            >
+              <span className="text-3xl font-extrabold leading-none tracking-tight text-foreground/50 sm:text-5xl">
+                {s.num}
+              </span>
+              <span className="mt-1 text-sm font-semibold text-foreground sm:text-xl">{s.label}</span>
+            </div>
+          )
+        })}
+      </div>
+
+      <p
+        className="absolute left-1/2 top-[310px] -translate-x-1/2 text-[11px] tracking-[0.14em] text-text-muted transition-opacity duration-300 sm:top-[268px]"
+        style={{ opacity: open ? 0 : 1 }}
+      >
+        {mobile ? "TAP ME" : "HOVER ME"}
+      </p>
+    </div>
   )
 }
 
@@ -148,234 +172,62 @@ export function Hero() {
   }, [])
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative flex min-h-svh flex-col justify-center pt-28 pb-20"
-    >
-      <div ref={containerRef} className="mx-auto w-full max-w-[760px] px-6">
-        <h1
-          data-animate
-          className="text-4xl font-bold leading-[1.08] tracking-tight text-foreground"
-        >
-          {"Hello, I'm Violet Hyun!"}
+    <section ref={sectionRef} className="relative flex min-h-svh flex-col justify-center pt-24 pb-20">
+      <div ref={containerRef} className="mx-auto w-full max-w-[900px] px-6 text-center">
+        <div data-animate>
+          <FlowerStats />
+        </div>
+
+        <h1 data-animate className="mt-14 text-3xl font-normal leading-tight tracking-tight text-foreground sm:mt-10">
+          {"Hi, I'm "}
+          <span className="font-extrabold">Violet Hyun</span>
         </h1>
+
+        <p data-animate className="mt-2 text-xl font-normal leading-snug tracking-tight text-foreground">
+          I make complex information more approachable for everyone.
+        </p>
 
         <p
           data-animate
-          className="mt-3 text-sm font-medium leading-tight tracking-[-0.01em] text-text-secondary md:whitespace-nowrap"
+          className="mt-5 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-base text-foreground/50"
         >
-          {"— a product designer working across "}
-          <TypewriterWords />
-          {" to shape human experience."}
+          <span>
+            {"Now @ "}
+            <MetaLink href="https://www.vendelux.com/" domain="vendelux.com">
+              Vendelux
+            </MetaLink>
+          </span>
+          <span aria-hidden="true">·</span>
+          <span>
+            {"Computational Design Practices @ "}
+            <MetaLink
+              href="https://www.arch.columbia.edu/programs/15-m-s-computational-design-practices"
+              domain="arch.columbia.edu"
+            >
+              Columbia
+            </MetaLink>
+          </span>
         </p>
-
-        <div data-animate className="mt-10 space-y-8">
-          <div className="relative flex gap-5">
-            <div className="flex flex-col items-center">
-              <span className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full bg-foreground" />
-              <span className="mt-1.5 w-px flex-1 bg-text-muted" />
-            </div>
-            <div className="pb-1">
-              <p className="text-xs font-semibold tracking-[0.14em] text-text-secondary uppercase">
-                Now
-              </p>
-              <p className="mt-2.5 max-w-lg text-sm leading-relaxed text-text-secondary">
-                {"Product Designer at "}
-                <InlineLink href="https://www.vendelux.com/" domain="vendelux.com" className="font-medium text-purple-900 hover:text-purple-950 dark:text-purple-200 dark:hover:text-purple-50">
-                  Vendelux
-                </InlineLink>
-                {", Product and Engineering team"}
-              </p>
-            </div>
-          </div>
-
-          <div className="relative flex gap-5">
-            <div className="flex flex-col items-center">
-              <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full border border-text-muted bg-background" />
-              <span className="mt-1.5 w-px flex-1 bg-text-muted" />
-            </div>
-            <div className="pb-1">
-              <p className="text-xs font-semibold tracking-[0.14em] text-text-secondary uppercase">
-                Previously
-              </p>
-              <p className="mt-2.5 max-w-lg text-sm leading-relaxed text-text-secondary">
-                {"Design and research at "}
-                <InlineLink href="https://roar.me.columbia.edu/" domain="columbia.edu" className="font-medium text-foreground hover:text-text-muted">
-                  Robotics and Rehabilitation Lab at Columbia University
-                </InlineLink>
-                {", "}
-                <InlineLink href="https://www.instagram.com/missk.cosmetics/" className="font-medium text-foreground hover:text-text-muted">
-                  Miss K Cosmetics
-                </InlineLink>
-                {", "}
-                <InlineLink href="https://www.kmcaseoul.org/" className="font-medium text-foreground hover:text-text-muted">
-                  K Museum of Contemporary Art
-                </InlineLink>
-                {", and "}
-                <InlineLink href="https://www.chloe.com/en-us" className="font-medium text-foreground hover:text-text-muted">
-                  Chloé
-                </InlineLink>
-                {"."}
-              </p>
-            </div>
-          </div>
-
-          <div className="relative flex gap-5">
-            <div className="flex flex-col items-center">
-              <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full border border-text-muted bg-background" />
-            </div>
-            <div>
-              <p className="text-xs font-semibold tracking-[0.14em] text-text-secondary uppercase">
-                Education
-              </p>
-              <p className="mt-2.5 max-w-lg text-sm leading-relaxed text-text-secondary">
-                {"M.S. in Computational Design Practices at "}
-                <InlineLink href="https://www.arch.columbia.edu/programs/15-m-s-computational-design-practices" domain="arch.columbia.edu" className="text-sky-600 dark:text-sky-400 hover:text-sky-500 dark:hover:text-sky-300">
-                  Columbia University GSAPP
-                </InlineLink>
-                {"; previously studied Interactive Media Arts at "}
-                <InlineLink href="https://tisch.nyu.edu/" domain="tisch.nyu.edu" className="text-violet-600 dark:text-violet-400 hover:text-violet-500 dark:hover:text-violet-300">
-                  NYU Tisch
-                </InlineLink>
-                {"."}
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* Scroll indicator */}
       <div
-        className={`fixed bottom-6 left-1/2 z-30 -translate-x-1/2 flex flex-col items-center gap-2 scroll-indicator transition-opacity duration-300 ${showScrollHint ? "opacity-100" : "pointer-events-none opacity-0"}`}
+        className={`fixed bottom-6 left-1/2 z-30 -translate-x-1/2 flex flex-col items-center gap-2 transition-opacity duration-300 ${showScrollHint ? "opacity-100" : "pointer-events-none opacity-0"}`}
       >
-        <span className="text-xs uppercase tracking-[0.2em] text-text-muted">
-          Scroll
-        </span>
+        <span className="text-xs uppercase tracking-[0.2em] text-text-muted">Scroll</span>
         <div className="scroll-arrow">
-          <ChevronDown className="w-5 h-5 text-foreground/50" />
+          <ChevronDown className="h-5 w-5 text-foreground/50" />
         </div>
       </div>
 
       <style jsx>{`
-        .scribble-underline {
-          position: relative;
-          display: inline-block;
-        }
-
-        .scribble-underline::after {
-          content: "";
-          position: absolute;
-          left: -0.08em;
-          right: -0.08em;
-          bottom: -0.22em;
-          height: 8px;
-          opacity: 0.6;
-          transform: scaleX(0);
-          transform-origin: left;
-          background-repeat: no-repeat;
-          background-size: 100% 100%;
-          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 8' preserveAspectRatio='none'%3E%3Cpath d='M1 5.2 C10 1.5 22 7 35 4 C49 1.4 63 6.9 77 3.9 C91 1.2 104 6.1 119 3.8' fill='none' stroke='currentColor' stroke-width='1.35' stroke-linecap='round'/%3E%3C/svg%3E");
-          animation: drawScribble 0.6s ease forwards;
-          filter: var(--scribble-filter, none);
-        }
-
-        .scribble-underline:nth-of-type(1)::after {
-          animation-delay: 0.12s;
-        }
-
-        .scribble-underline:nth-of-type(2)::after {
-          animation-delay: 0.22s;
-        }
-
-        .scribble-underline:nth-of-type(3)::after {
-          animation-delay: 0.32s;
-        }
-
-        .scribble-circle {
-          position: relative;
-          display: inline-block;
-          padding: 0 0.04em;
-        }
-
-        .scribble-circle::after {
-          content: "";
-          position: absolute;
-          inset: -0.24em -0.26em -0.2em -0.26em;
-          opacity: 0.6;
-          transform: scale(0.9);
-          background-repeat: no-repeat;
-          background-size: 100% 100%;
-          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 124 38' preserveAspectRatio='none'%3E%3Cpath d='M9 18 C11 8, 24 4, 42 5 L90 6 C108 7, 118 12, 116 20 C114 30, 102 33, 84 33 L34 32 C17 31, 7 27, 9 18 Z' fill='none' stroke='currentColor' stroke-width='1.35' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-          animation: drawCircle 0.6s ease 0.22s forwards;
-          pointer-events: none;
-          filter: var(--scribble-filter, none);
-        }
-
-        .scribble-highlight {
-          position: relative;
-          display: inline-block;
-          padding: 0 0.04em;
-          z-index: 0;
-        }
-
-        .scribble-highlight::before {
-          content: "";
-          position: absolute;
-          left: -0.1em;
-          right: -0.1em;
-          top: 46%;
-          bottom: 0.02em;
-          border-radius: 0.2em;
-          opacity: 0.3;
-          transform: scaleX(0);
-          transform-origin: left;
-          background-repeat: no-repeat;
-          background-size: 100% 100%;
-          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 34' preserveAspectRatio='none'%3E%3Cpath d='M2 14 C10 9, 20 18, 32 12 C48 6, 66 16, 82 11 C99 6, 118 17, 135 12 C145 9, 152 13, 158 11 L158 31 L2 31 Z' fill='currentColor'/%3E%3C/svg%3E");
-          animation: drawHighlight 0.6s ease 0.3s forwards;
-          pointer-events: none;
-          z-index: -1;
-          filter: var(--scribble-filter, none);
-        }
-
-        .scroll-indicator {
-        }
-
         .scroll-arrow {
           animation: bounce 2s ease-in-out infinite;
         }
 
-        @keyframes drawScribble {
-          to {
-            transform: scaleX(1);
-          }
-        }
-
-        @keyframes drawCircle {
-          to {
-            transform: scale(1);
-          }
-        }
-
-        @keyframes drawHighlight {
-          to {
-            transform: scaleX(1);
-          }
-        }
-
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translate(-50%, 10px);
-          }
-          to {
-            opacity: 1;
-            transform: translate(-50%, 0);
-          }
-        }
-
         @keyframes bounce {
-          0%, 100% {
+          0%,
+          100% {
             transform: translateY(0);
           }
           50% {
@@ -383,41 +235,7 @@ export function Hero() {
           }
         }
 
-        .typewriter-cursor {
-          display: inline-block;
-          margin-left: 1px;
-          animation: cursorBlink 0.9s step-end infinite;
-        }
-
-        @keyframes cursorBlink {
-          0%, 49% {
-            opacity: 1;
-          }
-          50%, 100% {
-            opacity: 0;
-          }
-        }
-
         @media (prefers-reduced-motion: reduce) {
-          .scribble-underline::after {
-            animation: none;
-            transform: scaleX(1);
-          }
-
-          .scribble-circle::after {
-            animation: none;
-            transform: scale(1);
-          }
-
-          .scribble-highlight::before {
-            animation: none;
-            transform: scaleX(1);
-          }
-
-          .scroll-indicator {
-            animation: none;
-          }
-
           .scroll-arrow {
             animation: none;
           }

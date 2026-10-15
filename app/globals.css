@@ -375,3 +375,20 @@ html[data-presentation] {
     animation: none;
   }
 }
+
+/* Hero flower: turns clockwise nonstop */
+@keyframes flower-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.flower-spin {
+  animation: flower-spin 6s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flower-spin {
+    animation: none;
+  }
+}
