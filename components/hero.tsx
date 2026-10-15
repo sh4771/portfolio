@@ -230,7 +230,7 @@ export function Hero() {
               </p>
               <p className="mt-2.5 max-w-lg text-sm leading-relaxed text-text-secondary">
                 {"M.S. in Computational Design Practices at "}
-                <InlineLink href="https://www.arch.columbia.edu/programs/15-m-s-computational-design-practices" className="text-sky-600 dark:text-sky-400 hover:text-sky-500 dark:hover:text-sky-300">
+                <InlineLink href="https://www.arch.columbia.edu/programs/15-m-s-computational-design-practices" domain="arch.columbia.edu" className="text-sky-600 dark:text-sky-400 hover:text-sky-500 dark:hover:text-sky-300">
                   Columbia University GSAPP
                 </InlineLink>
                 {"; previously studied Interactive Media Arts at "}
