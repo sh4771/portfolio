@@ -25,6 +25,40 @@ function OrganizationIcon({ domain }: { domain: string }) {
   )
 }
 
+/**
+ * Inline text link that wraps like normal text. Short names never split, and
+ * the optional favicon stays glued to the first word.
+ */
+function InlineLink({
+  href,
+  domain,
+  className,
+  children,
+}: {
+  href: string
+  domain?: string
+  className: string
+  children: string
+}) {
+  // Short names stay on one line; long ones wrap naturally after the first word.
+  const keepWhole = children.length <= 28
+  const [first, ...rest] = keepWhole ? [children] : children.split(" ")
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className={`inline transition-colors duration-200 ease-out ${className}`}
+    >
+      <span className="whitespace-nowrap">
+        {domain && <OrganizationIcon domain={domain} />}
+        {first}
+      </span>
+      {rest.length > 0 && ` ${rest.join(" ")}`}
+    </a>
+  )
+}
+
 function TypewriterWords() {
   const [phraseIndex, setPhraseIndex] = useState(0)
   const [subIndex, setSubIndex] = useState(0)
@@ -147,15 +181,9 @@ export function Hero() {
               </p>
               <p className="mt-2.5 max-w-lg text-sm leading-relaxed text-text-secondary">
                 {"Product Designer at "}
-                <a
-                  href="https://www.vendelux.com/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center whitespace-nowrap font-medium text-purple-900 transition-colors duration-200 ease-out hover:text-purple-950 dark:text-purple-200 dark:hover:text-purple-50"
-                >
-                  <OrganizationIcon domain="vendelux.com" />
+                <InlineLink href="https://www.vendelux.com/" domain="vendelux.com" className="font-medium text-purple-900 hover:text-purple-950 dark:text-purple-200 dark:hover:text-purple-50">
                   Vendelux
-                </a>
+                </InlineLink>
                 {" on the Product and Engineering team, helping teams build target audiences, manage campaigns, and connect with the right people at events."}
               </p>
             </div>
@@ -172,42 +200,21 @@ export function Hero() {
               </p>
               <p className="mt-2.5 max-w-lg text-sm leading-relaxed text-text-secondary">
                 {"Design and research at "}
-                <a
-                  href="https://roar.me.columbia.edu/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center whitespace-nowrap font-medium text-foreground transition-colors duration-200 ease-out hover:text-text-muted"
-                >
-                  <OrganizationIcon domain="columbia.edu" />
+                <InlineLink href="https://roar.me.columbia.edu/" domain="columbia.edu" className="font-medium text-foreground hover:text-text-muted">
                   Robotics and Rehabilitation Lab at Columbia University
-                </a>
+                </InlineLink>
                 {", "}
-                <a
-                  href="https://misskcosmetics.com/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-block font-medium text-foreground transition-colors duration-200 ease-out hover:text-text-muted"
-                >
+                <InlineLink href="https://misskcosmetics.com/" className="font-medium text-foreground hover:text-text-muted">
                   Miss K Cosmetics
-                </a>
+                </InlineLink>
                 {", "}
-                <a
-                  href="https://www.kmcaseoul.org/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-block font-medium text-foreground transition-colors duration-200 ease-out hover:text-text-muted"
-                >
+                <InlineLink href="https://www.kmcaseoul.org/" className="font-medium text-foreground hover:text-text-muted">
                   K Museum of Contemporary Art
-                </a>
+                </InlineLink>
                 {", and "}
-                <a
-                  href="https://www.chloe.com/en-us"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-block font-medium text-foreground transition-colors duration-200 ease-out hover:text-text-muted"
-                >
+                <InlineLink href="https://www.chloe.com/en-us" className="font-medium text-foreground hover:text-text-muted">
                   Chloé
-                </a>
+                </InlineLink>
                 {"."}
               </p>
             </div>
@@ -223,24 +230,13 @@ export function Hero() {
               </p>
               <p className="mt-2.5 max-w-lg text-sm leading-relaxed text-text-secondary">
                 {"M.S. in Computational Design Practices at "}
-                <a
-                  href="https://www.arch.columbia.edu/programs/15-m-s-computational-design-practices"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-block text-sky-600 dark:text-sky-400 transition-colors duration-200 ease-out hover:text-sky-500 dark:hover:text-sky-300"
-                >
+                <InlineLink href="https://www.arch.columbia.edu/programs/15-m-s-computational-design-practices" className="text-sky-600 dark:text-sky-400 hover:text-sky-500 dark:hover:text-sky-300">
                   Columbia University GSAPP
-                </a>
+                </InlineLink>
                 {"; previously studied Interactive Media Arts at "}
-                <a
-                  href="https://tisch.nyu.edu/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center whitespace-nowrap text-violet-600 dark:text-violet-400 transition-colors duration-200 ease-out hover:text-violet-500 dark:hover:text-violet-300"
-                >
-                  <OrganizationIcon domain="tisch.nyu.edu" />
+                <InlineLink href="https://tisch.nyu.edu/" domain="tisch.nyu.edu" className="text-violet-600 dark:text-violet-400 hover:text-violet-500 dark:hover:text-violet-300">
                   NYU Tisch
-                </a>
+                </InlineLink>
                 {"."}
               </p>
             </div>
