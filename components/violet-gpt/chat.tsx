@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { ArrowUpRight, Lock, RotateCcw, Send, X } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { CONTACT_LINKS, PROMPTS, type Project } from "@/lib/violet-gpt/knowledge"
+import { CONTACT_LINKS, PROJECTS, PROMPTS, type Project } from "@/lib/violet-gpt/knowledge"
 import { MAX_INPUT, reply, replyForPrompt, resolveIntent, type Reply } from "@/lib/violet-gpt/engine"
 import { VioletAvatar } from "./avatar"
 
@@ -15,9 +15,36 @@ interface Message {
   projects?: Project[]
   next?: string[]
   showContact?: boolean
+  source?: "ai" | "local"
 }
 
 let nextId = 1
+const AI_TIMEOUT_MS = 10000
+
+/** Ask the server (Gemini). Returns null on any failure so the caller can fall back. */
+async function askAI(message: string): Promise<Reply | null> {
+  const controller = new AbortController()
+  const timer = setTimeout(() => controller.abort(), AI_TIMEOUT_MS)
+  try {
+    const res = await fetch("/api/violet-gpt", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message }),
+      signal: controller.signal,
+    })
+    if (!res.ok) return null
+    const data = await res.json()
+    if (!data?.ok || typeof data.answer !== "string") return null
+    const projects = (data.projectIds as string[])
+      .map((id) => PROJECTS.find((p) => p.id === id))
+      .filter(Boolean) as Project[]
+    return { intent: "unknown", body: [data.answer], projects, next: data.next ?? [] }
+  } catch {
+    return null
+  } finally {
+    clearTimeout(timer)
+  }
+}
 const toMessage = (r: Reply): Message => ({
   id: nextId++,
   role: "assistant",
@@ -25,6 +52,7 @@ const toMessage = (r: Reply): Message => ({
   projects: r.projects,
   next: r.next,
   showContact: r.showContact,
+  source: "local",
 })
 
 function ProjectCard({ project }: { project: Project }) {
@@ -53,6 +81,7 @@ export default function VioletChat({ open, onClose }: { open: boolean; onClose: 
   const [messages, setMessages] = useState<Message[]>(() => [toMessage(reply("welcome"))])
   const [input, setInput] = useState("")
   const [announce, setAnnounce] = useState("")
+  const [pending, setPending] = useState(false)
   const scrollRef = useRef<HTMLDivElement>(null)
   const headingRef = useRef<HTMLHeadingElement>(null)
 
@@ -84,17 +113,35 @@ export default function VioletChat({ open, onClose }: { open: boolean; onClose: 
     if (p) push(p.label, replyForPrompt(promptId))
   }
 
-  const send = () => {
+  const send = async () => {
     const text = input.trim().slice(0, MAX_INPUT)
-    if (!text) return
-    const { intent, skill } = resolveIntent(text)
-    push(text, reply(intent, skill))
+    if (!text || pending) return
     setInput("")
+    const { intent, skill } = resolveIntent(text)
+    const local = reply(intent, skill)
+
+    // Private topics never leave the browser.
+    if (intent === "private") {
+      push(text, local)
+      return
+    }
+
+    setMessages((m) => [...m, { id: nextId++, role: "user", text: [text] }])
+    setPending(true)
+    const ai = await askAI(text)
+    setPending(false)
+    setMessages((m) => [
+      ...m,
+      ai
+        ? { ...toMessage({ ...ai, next: ai.next.length ? ai.next : local.next }), source: "ai" }
+        : toMessage(local),
+    ])
   }
 
   const reset = () => {
     setMessages([toMessage(reply("welcome"))])
     setAnnounce("")
+    setPending(false)
     headingRef.current?.focus()
   }
 
@@ -160,6 +207,9 @@ export default function VioletChat({ open, onClose }: { open: boolean; onClose: 
                   <p key={t}>{t}</p>
                 ))}
               </div>
+              {m.source === "ai" && (
+                <p className="px-1 text-[11px] text-muted-foreground">Answered by Gemini from Violet&apos;s published work</p>
+              )}
               {m.projects && m.projects.length > 0 && (
                 <div className="space-y-2">
                   {m.projects.map((p) => (
@@ -191,6 +241,7 @@ export default function VioletChat({ open, onClose }: { open: boolean; onClose: 
                         key={id}
                         type="button"
                         onClick={() => choose(id)}
+                        disabled={pending}
                         className="min-h-9 rounded-full border border-border bg-background px-3 py-1.5 text-left text-xs text-foreground/85 transition-colors hover:border-foreground/40 hover:text-foreground"
                       >
                         {PROMPTS[id].label}
@@ -202,6 +253,22 @@ export default function VioletChat({ open, onClose }: { open: boolean; onClose: 
             </div>
           </div>
         ))}
+        {pending && (
+          <div className="flex gap-2" aria-label="Violet GPT is thinking">
+            <span className="mt-0.5 h-8 w-8 shrink-0 overflow-hidden rounded-full">
+              <VioletAvatar mood="thinking" size={32} />
+            </span>
+            <div className="flex items-center gap-1 rounded-2xl rounded-tl-md bg-muted/70 px-4 py-3">
+              {[0, 1, 2].map((d) => (
+                <span
+                  key={d}
+                  className="h-1.5 w-1.5 rounded-full bg-foreground/50 motion-safe:animate-bounce"
+                  style={{ animationDelay: `${d * 120}ms` }}
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       <p className="sr-only" aria-live="polite">
@@ -211,7 +278,7 @@ export default function VioletChat({ open, onClose }: { open: boolean; onClose: 
       <form
         onSubmit={(e) => {
           e.preventDefault()
-          send()
+          void send()
         }}
         className="mx-3 mb-2 flex items-center gap-2 rounded-full border border-border bg-background py-1.5 pl-4 pr-1.5 focus-within:border-foreground/50"
       >
@@ -230,14 +297,14 @@ export default function VioletChat({ open, onClose }: { open: boolean; onClose: 
         <button
           type="submit"
           aria-label="Send"
-          disabled={!input.trim()}
+          disabled={!input.trim() || pending}
           className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-foreground text-background transition-opacity disabled:opacity-30"
         >
           <Send className="h-4 w-4" />
         </button>
       </form>
       <p className="px-4 pb-3 text-center text-[11px] text-muted-foreground">
-        Curated answers from Violet&apos;s published work. Not a live chat with Violet.
+        Typed questions are answered by Google Gemini and sent to Google. Please don&apos;t share personal info. Not a live chat with Violet.
       </p>
     </section>
   )
