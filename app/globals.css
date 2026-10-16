@@ -331,7 +331,8 @@ html {
 }
 
 /* Presentation mode */
-html[data-presentation] [data-theme-toggle] {
+html[data-presentation] [data-theme-toggle],
+html[data-presentation] [data-violet-gpt] {
   display: none;
 }
 

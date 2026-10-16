@@ -91,7 +91,7 @@ function generateContrastAwareColor(
   return adjustColorForContrast(baseColor, bgColor, targetContrast, isDarkMode)
 }
 
-function applyTheme(t: number) {
+export function applyTheme(t: number) {
   const html = document.documentElement
   const isDarkMode = t > 0.5
   
@@ -206,7 +206,7 @@ function applyTheme(t: number) {
 }
 
 // Check if it's nighttime in EST (6pm - 6am)
-function isNightTimeEST(): boolean {
+export function isNightTimeEST(): boolean {
   const now = new Date()
   const estOffset = -5
   const utc = now.getTime() + (now.getTimezoneOffset() * 60000)

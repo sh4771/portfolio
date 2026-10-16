@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import { Manrope } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
-import ThemeToggle from '@/components/theme-toggle'
+import { AutoTheme } from '@/components/auto-theme'
+import { VioletGPTLauncher } from '@/components/violet-gpt/launcher'
 import './globals.css'
 
 const manrope = Manrope({
@@ -32,7 +33,8 @@ export default function RootLayout({
           }}
         />
         {children}
-        <ThemeToggle />
+        <AutoTheme />
+        <VioletGPTLauncher />
         <Analytics />
       </body>
     </html>
