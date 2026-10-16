@@ -23,6 +23,7 @@ const funProjects: FunProject[] = [
     tags: ["2026", "In progress"],
     category: "Spatial Design",
     image: "/images/greener-routes/screen-route-choice.png",
+    video: "/videos/greener-routes-cover.mp4",
     tools: ["Rhino", "Grasshopper"],
   },
   {
