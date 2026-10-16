@@ -7,7 +7,7 @@ export function buildSystemInstruction() {
       `- id: ${p.id} | ${p.title}: ${p.summary}. Evidence: ${p.evidence}${p.note ? ` (${p.note})` : ""}`,
   ).join("\n")
 
-  const facts = (["team-fit", "vendelux", "process", "ai-workflow", "collaboration", "background", "philosophy"] as const)
+  const facts = (["intro", "team-fit", "vendelux", "process", "ai-workflow", "collaboration", "background", "philosophy"] as const)
     .map((k) => `- ${ANSWERS[k].body.join(" ")}`)
     .join("\n")
 

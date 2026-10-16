@@ -16,6 +16,7 @@ export type Skill =
 
 export type Intent =
   | "welcome"
+  | "intro"
   | "team-fit"
   | "project-match"
   | "vendelux"
@@ -139,6 +140,7 @@ export const SKILL_LABELS: Record<Skill, string> = {
 }
 
 export const PROMPTS: Record<string, Prompt> = {
+  intro: { id: "intro", label: "Who is Violet?", intent: "intro" },
   team: { id: "team", label: "What would she bring to our team?", intent: "team-fit" },
   match: { id: "match", label: "Find a project for me", intent: "project-match" },
   vendelux: { id: "vendelux", label: "What does she do at Vendelux?", intent: "vendelux" },
@@ -156,7 +158,7 @@ export const PROMPTS: Record<string, Prompt> = {
   ),
 }
 
-export const WELCOME_PROMPTS = ["team", "match", "vendelux", "process", "ai"]
+export const WELCOME_PROMPTS = ["intro", "team", "match", "vendelux", "process", "ai"]
 
 export const SKILL_PROMPTS = ["ownership", "research", "data", "ai", "accessibility", "collaboration"].map(
   (s) => `skill-${s}`,
@@ -170,6 +172,14 @@ export const ANSWERS: Record<Exclude<Intent, "skill" | "project-match">, Answer>
     ],
     projectIds: [],
     next: WELCOME_PROMPTS,
+  },
+  intro: {
+    body: [
+      "Violet Hyun is a product designer on Vendelux's Product and Engineering team, designing how event teams target, plan, and connect.",
+      "She makes complex information approachable, drawing on Interactive Media Arts at NYU Tisch and Computational Design Practices at Columbia GSAPP.",
+    ],
+    projectIds: ["vendelux", "greener-routes"],
+    next: ["team", "process", "match"],
   },
   "team-fit": {
     body: [

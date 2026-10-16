@@ -19,7 +19,7 @@ interface Message {
 }
 
 let nextId = 1
-const AI_TIMEOUT_MS = 10000
+const AI_TIMEOUT_MS = 17000
 
 /** Ask the server (Gemini). Returns null on any failure so the caller can fall back. */
 async function askAI(message: string): Promise<Reply | null> {

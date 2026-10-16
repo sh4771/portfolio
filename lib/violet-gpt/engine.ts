@@ -21,6 +21,7 @@ export interface Reply {
 
 const PRIVATE = /\b(salary|pay|compensation|visa|sponsor|immigration|citizen|age|old|married|boyfriend|girlfriend|address|phone|health|religion|politic|password|secret|confidential|customer names?)\b/
 const RULES: [Intent, RegExp][] = [
+  ["intro", /\b(who (is|'s) (she|her|violet)|who are you talking about|tell me about (her|violet)|about (her|violet)|introduce|summary of (her|violet)|her bio)\b/],
   ["contact", /\b(contact|reach|email|linkedin|resume|cv|hire her|get in touch)\b/],
   ["vendelux", /\b(vendelux|current (job|role)|where does she work|day job)\b/],
   ["ai-workflow", /\b(ai|a\.i|claude|cursor|figma mcp|automation|llm|gpt|vibe ?cod)/],
