@@ -17,12 +17,11 @@ export const metadata = {
 }
 
 const FINAL_SCREENS = [
-  { src: "/images/greener-routes/screen-search.png", caption: "Search and recent destinations" },
-  { src: "/images/greener-routes/screen-destination.png", caption: "Setting a destination" },
-  { src: "/images/greener-routes/screen-preferences.png", caption: "Detour limit and green priority" },
-  { src: "/images/greener-routes/screen-route-choice.png", caption: "Choosing a route" },
-  { src: "/images/greener-routes/screen-compare.png", caption: "Comparing all three routes" },
-  { src: "/images/greener-routes/screen-directions.png", caption: "Turn-by-turn directions" },
+  { src: "/images/greener-routes/proto-1-destination.png", caption: "Pick a destination" },
+  { src: "/images/greener-routes/proto-2-preferences.png", caption: "Set the detour limit" },
+  { src: "/images/greener-routes/proto-3-compare.png", caption: "Compare routes" },
+  { src: "/images/greener-routes/proto-4-directions.png", caption: "Walk it turn by turn" },
+  { src: "/images/greener-routes/proto-5-arrived.png", caption: "See what you gained" },
 ]
 
 const NOTES = [
@@ -33,8 +32,8 @@ const NOTES = [
 
 function PhoneShot({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className="overflow-hidden rounded-[1.75rem] border border-foreground/10 bg-background shadow-[0_24px_60px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08)]">
-      <Image src={src} alt={alt} width={650} height={1420} className="h-auto w-full" sizes="(max-width: 768px) 45vw, 260px" />
+    <div className="overflow-hidden rounded-[1.75rem] border-[6px] border-foreground bg-background shadow-[0_24px_60px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08)]">
+      <Image src={src} alt={alt} width={640} height={1264} className="h-auto w-full" sizes="(max-width: 768px) 45vw, 180px" />
     </div>
   )
 }
@@ -307,11 +306,11 @@ export default function Page() {
               <p className="cs-eyebrow">07 · Final designs</p>
               <h2 className="cs-h2">The full flow</h2>
               <p className="max-w-2xl text-sm leading-relaxed text-foreground/60 text-pretty">
-                High-fidelity screens built in Claude Design. Each screen keeps the tradeoff visible: how much
-                green you gain, and what it costs in minutes.
+                Every step of the prototype above, start to finish. Each screen keeps the tradeoff visible: how
+                much green you gain, and what it costs in minutes.
               </p>
             </div>
-            <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 sm:gap-8">
+            <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-5 md:gap-4">
               {FINAL_SCREENS.map((s) => (
                 <figure key={s.src} className="space-y-3">
                   <PhoneShot src={s.src} alt={s.caption} />
