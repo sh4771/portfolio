@@ -16,12 +16,6 @@ export const metadata = {
     "A walking-navigation concept that measures green exposure along a route and lets people trade a little time for a greener walk.",
 }
 
-const HERO_SCREENS = [
-  { src: "/images/greener-routes/screen-search.png", alt: "Search screen with recent destinations" },
-  { src: "/images/greener-routes/screen-route-choice.png", alt: "Route choice screen with the greenest route highlighted on the map" },
-  { src: "/images/greener-routes/screen-directions.png", alt: "Turn-by-turn directions through Riverside Park" },
-]
-
 const FINAL_SCREENS = [
   { src: "/images/greener-routes/screen-search.png", caption: "Search and recent destinations" },
   { src: "/images/greener-routes/screen-destination.png", caption: "Setting a destination" },
@@ -124,12 +118,19 @@ export default function Page() {
                 Tools: Rhino, Grasshopper, NYC Parks Open Data, Claude Design
               </p>
 
-              <div className="mt-8 grid grid-cols-3 gap-4 rounded-2xl bg-muted/40 px-6 py-8 md:gap-8 md:px-14 md:py-12">
-                {HERO_SCREENS.map((s, i) => (
-                  <div key={s.src} className={i === 1 ? "md:-translate-y-4" : "md:translate-y-4"}>
-                    <PhoneShot src={s.src} alt={s.alt} />
-                  </div>
-                ))}
+              <div className="mt-8 overflow-hidden rounded-2xl">
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  poster="/images/greener-routes/cover-poster.png"
+                  aria-label="Animated mockup of the Greener Routes app screens"
+                  className="block aspect-[4/3] h-auto w-full object-cover"
+                >
+                  <source src="/videos/greener-routes-cover.mp4" type="video/mp4" />
+                </video>
               </div>
             </div>
           </header>
