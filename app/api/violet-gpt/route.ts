@@ -6,9 +6,14 @@ import { MAX_INPUT } from "@/lib/violet-gpt/engine"
 export const runtime = "nodejs"
 export const dynamic = "force-dynamic"
 
-const MODEL = process.env.GEMINI_MODEL || "gemini-3.5-flash-lite"
+// Free-tier models, tried in order when one is busy (5xx), out of free quota (429), or slow.
+const MODELS = (process.env.GEMINI_MODELS || process.env.GEMINI_MODEL || "gemini-3.5-flash-lite,gemini-3.1-flash-lite,gemini-3.6-flash")
+  .split(",")
+  .map((m) => m.trim())
+  .filter(Boolean)
 const API_BASE = process.env.GEMINI_API_BASE || "https://generativelanguage.googleapis.com"
-const TIMEOUT_MS = 15000
+const TIMEOUT_MS = 7000 // per model attempt
+const TOTAL_BUDGET_MS = 15000
 
 // Best-effort abuse guard per server instance. The client always has the
 // rules-based answers to fall back on, so a 429 here is harmless.
@@ -41,14 +46,29 @@ function fail(reason: string, status = 503, detail?: string) {
 }
 
 type GeminiResult =
-  | { ok: true; text: string }
+  | { ok: true; text: string; model: string }
   | { ok: false; reason: string; status: number; detail?: string }
 
+/** Try each free model in turn; move on when one is busy, out of quota, or times out. */
 async function callGemini(key: string, message: string, system: string): Promise<GeminiResult> {
+  const started = Date.now()
+  let last: GeminiResult = { ok: false, reason: "no_model", status: 503 }
+  for (const model of MODELS) {
+    if (Date.now() - started > TOTAL_BUDGET_MS - TIMEOUT_MS) break
+    last = await callModel(model, key, message, system)
+    if (last.ok) return last
+    const retryable = last.reason === "timeout" || last.reason === "quota" || /^upstream_5\d\d$/.test(last.reason)
+    if (!retryable) return last
+    console.warn(`[violet-gpt] ${model} ${last.reason}, trying next model`)
+  }
+  return last
+}
+
+async function callModel(model: string, key: string, message: string, system: string): Promise<GeminiResult> {
   const controller = new AbortController()
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS)
   try {
-    const res = await fetch(`${API_BASE}/v1beta/models/${encodeURIComponent(MODEL)}:generateContent`, {
+    const res = await fetch(`${API_BASE}/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
       method: "POST",
       signal: controller.signal,
       headers: { "Content-Type": "application/json", "x-goog-api-key": key },
@@ -70,7 +90,7 @@ async function callGemini(key: string, message: string, system: string): Promise
     if (!text) {
       return { ok: false, reason: "empty_output", status: 502, detail: data?.candidates?.[0]?.finishReason ?? data?.promptFeedback?.blockReason }
     }
-    return { ok: true, text }
+    return { ok: true, text, model }
   } catch (err) {
     return { ok: false, reason: err instanceof Error && err.name === "AbortError" ? "timeout" : "network", status: 504 }
   } finally {
@@ -121,12 +141,12 @@ export async function POST(request: Request) {
  */
 export async function GET(request: Request) {
   const key = process.env.GEMINI_API_KEY
-  const base = { configured: Boolean(key), model: MODEL }
+  const base = { configured: Boolean(key), models: MODELS }
   if (!key || new URL(request.url).searchParams.get("check") !== "1") return NextResponse.json(base)
   if (limited(clientIp(request))) return NextResponse.json({ ...base, ok: false, reason: "rate_limited" }, { status: 429 })
 
   const result = await callGemini(key, "Say hello.", 'Reply with JSON only: {"answer":"hello"}')
   return NextResponse.json(
-    result.ok ? { ...base, ok: true, sample: result.text.slice(0, 80) } : { ...base, ok: false, reason: result.reason, detail: result.detail ?? null },
+    result.ok ? { ...base, ok: true, answeredBy: result.model, sample: result.text.slice(0, 80) } : { ...base, ok: false, reason: result.reason, detail: result.detail ?? null },
   )
 }
