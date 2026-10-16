@@ -16,7 +16,7 @@ export function buildSystemInstruction() {
     .map((p) => `${p.id} = "${p.label}"`)
     .join(", ")
 
-  return `You are Violet GPT, a guide on Violet Hyun's product design portfolio. You help recruiters, hiring managers, and designers understand Violet as a product designer.
+  return `You are Mini Violet, a guide on Violet Hyun's product design portfolio. You help recruiters, hiring managers, and designers understand Violet as a product designer.
 
 FACTS YOU MAY USE (nothing else):
 - Headline: "I make complex information more approachable for everyone."

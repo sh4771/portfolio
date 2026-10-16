@@ -58,7 +58,7 @@ export function VioletGPTLauncher() {
           <button
             ref={buttonRef}
             type="button"
-            aria-label="Open Violet GPT, a guide to Violet's work"
+            aria-label="Open Mini Violet, a guide to Violet's work"
             aria-expanded={open}
             aria-controls="violet-gpt-panel"
             onClick={() => {
@@ -73,7 +73,7 @@ export function VioletGPTLauncher() {
               <VioletAvatar mood="idle" size={64} className="h-[50px] w-[50px] sm:h-[58px] sm:w-[58px]" />
             </span>
             <span className="absolute -left-1 -top-1 rounded-full bg-foreground px-1.5 py-0.5 text-[9px] font-semibold tracking-wide text-background">
-              GPT
+              Mini
             </span>
           </button>
         </div>

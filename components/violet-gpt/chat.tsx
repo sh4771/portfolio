@@ -166,7 +166,7 @@ export default function VioletChat({ open, onClose }: { open: boolean; onClose: 
         </span>
         <div className="min-w-0 flex-1">
           <h2 id="violet-gpt-title" ref={headingRef} tabIndex={-1} className="text-base font-semibold tracking-tight outline-none">
-            Violet GPT
+            Mini Violet
           </h2>
           <p className="text-xs text-muted-foreground">A guide to Violet&apos;s work as a product designer</p>
         </div>
@@ -181,7 +181,7 @@ export default function VioletChat({ open, onClose }: { open: boolean; onClose: 
         <button
           type="button"
           onClick={onClose}
-          aria-label="Close Violet GPT"
+          aria-label="Close Mini Violet"
           className="grid h-11 w-11 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
         >
           <X className="h-5 w-5" />
@@ -254,7 +254,7 @@ export default function VioletChat({ open, onClose }: { open: boolean; onClose: 
           </div>
         ))}
         {pending && (
-          <div className="flex gap-2" aria-label="Violet GPT is thinking">
+          <div className="flex gap-2" aria-label="Mini Violet is thinking">
             <span className="mt-0.5 h-8 w-8 shrink-0 overflow-hidden rounded-full">
               <VioletAvatar mood="thinking" size={32} />
             </span>

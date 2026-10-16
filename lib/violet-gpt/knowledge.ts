@@ -1,5 +1,5 @@
 /**
- * Violet GPT knowledge base.
+ * Mini Violet knowledge base.
  * Only facts Violet already publishes on this site. Every project links to a real route.
  * Edit copy here; the chat UI reads everything from this file.
  */
@@ -167,7 +167,7 @@ export const SKILL_PROMPTS = ["ownership", "research", "data", "ai", "accessibil
 export const ANSWERS: Record<Exclude<Intent, "skill" | "project-match">, Answer> = {
   welcome: {
     body: [
-      "Hi, I'm Violet GPT. I know Violet's published work inside out.",
+      "Hi, I'm Mini Violet. I know Violet's published work inside out.",
       "Tell me what you're hiring for or curious about, and I'll point you to the right project in a click or two.",
     ],
     projectIds: [],
