@@ -66,7 +66,9 @@ function ProjectCard({ project }: { project: Project }) {
         <ArrowUpRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
       </span>
       <span className="mt-0.5 block text-xs text-muted-foreground">{project.summary}</span>
-      <span className="mt-2 block text-xs leading-relaxed text-foreground/80">{project.evidence}</span>
+      {project.evidence && (
+        <span className="mt-2 block text-xs leading-relaxed text-foreground/80">{project.evidence}</span>
+      )}
       {project.note && (
         <span className="mt-2 inline-flex items-center gap-1 text-[11px] text-muted-foreground">
           <Lock className="h-3 w-3" />

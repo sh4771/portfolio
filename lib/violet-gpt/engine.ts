@@ -22,12 +22,14 @@ export interface Reply {
 const PRIVATE = /\b(salary|pay|compensation|visa|sponsor|immigration|citizen|age|old|married|boyfriend|girlfriend|address|phone|health|religion|politic|password|secret|confidential|customer names?)\b/
 const RULES: [Intent, RegExp][] = [
   ["intro", /\b(who (is|'s) (she|her|violet)|who are you talking about|tell me about (her|violet)|about (her|violet)|introduce|summary of (her|violet)|her bio)\b/],
+  ["best-work", /\b(best (work|project|projects)|strongest|top (work|projects)|favorite project|her work)\b/],
+  ["fun-fact", /\b(not on (her )?(resume|cv)|fun fact|personality|hobb(y|ies)|outside (of )?work|for fun|fun side|personal side)\b/],
   ["team-fit", /\b(team|bring|strength|good at|hire|hiring|value add|contribute|why (should|her)|fit|stand out|unique)\b/],
   ["contact", /\b(contact|reach|email|linkedin|resume|cv|get in touch)\b/],
   ["vendelux", /\b(vendelux|current (job|role)|where does she work|day job)\b/],
   ["ai-workflow", /\b(ai|a\.i|claude|cursor|figma mcp|automation|llm|gpt|vibe ?cod)/],
   ["collaboration", /\b(engineer|developer|dev|collaborat|work with|team ?mates?|handoff|pm|product manager|stakeholder)/],
-  ["process", /\b(process|approach|method|how does she (design|work|think)|workflow|framework)\b/],
+  ["process", /\b(process|approach|method|how does she (design|work|think|solve)|solve|problem.solving|complex problems?|workflow|framework)\b/],
   ["background", /\b(background|education|school|study|studied|columbia|nyu|tisch|experience|career|previous|before)\b/],
   ["philosophy", /\b(care|value|believe|philosophy|motivat|why design|passion)/],
   
@@ -98,7 +100,9 @@ export function reply(intent: Intent, skill?: Skill): Reply {
   return {
     intent,
     body: a.body,
-    projects: byId(a.projectIds),
+    projects: byId(a.projectIds).map((p) =>
+      a.projectNotes?.[p.id] ? { ...p, summary: a.projectNotes[p.id], evidence: "" } : p,
+    ),
     next: a.next,
     showContact: intent === "contact" || intent === "private",
   }

@@ -25,6 +25,9 @@ export type Intent =
   | "collaboration"
   | "background"
   | "philosophy"
+  | "best-work"
+  | "process-example"
+  | "fun-fact"
   | "contact"
   | "skill"
   | "private"
@@ -51,6 +54,8 @@ export interface Prompt {
 export interface Answer {
   body: string[]
   projectIds: string[]
+  /** Optional one-line blurb per project card, replacing its default summary. */
+  projectNotes?: Record<string, string>
   next: string[]
 }
 
@@ -141,10 +146,13 @@ export const SKILL_LABELS: Record<Skill, string> = {
 
 export const PROMPTS: Record<string, Prompt> = {
   intro: { id: "intro", label: "Who is Violet?", intent: "intro" },
-  team: { id: "team", label: "What would she bring to our team?", intent: "team-fit" },
+  team: { id: "team", label: "What would Violet bring to our team?", intent: "team-fit" },
   match: { id: "match", label: "Find a project for me", intent: "project-match" },
   vendelux: { id: "vendelux", label: "What does she do at Vendelux?", intent: "vendelux" },
-  process: { id: "process", label: "What's her design process?", intent: "process" },
+  best: { id: "best", label: "Show me her best work", intent: "best-work" },
+  process: { id: "process", label: "How does she solve complex problems?", intent: "process" },
+  "process-example": { id: "process-example", label: "Show me an example", intent: "process-example" },
+  fun: { id: "fun", label: "What's something not on her resume?", intent: "fun-fact" },
   ai: { id: "ai", label: "How does she use AI?", intent: "ai-workflow" },
   collab: { id: "collab", label: "How does she work with engineers?", intent: "collaboration" },
   background: { id: "background", label: "What's her background?", intent: "background" },
@@ -158,7 +166,7 @@ export const PROMPTS: Record<string, Prompt> = {
   ),
 }
 
-export const WELCOME_PROMPTS = ["intro", "team", "match", "vendelux", "process", "ai"]
+export const WELCOME_PROMPTS = ["team", "best", "process", "fun"]
 
 export const SKILL_PROMPTS = ["ownership", "research", "data", "ai", "accessibility", "collaboration"].map(
   (s) => `skill-${s}`,
@@ -182,11 +190,11 @@ export const ANSWERS: Record<Exclude<Intent, "skill" | "project-match">, Answer>
   },
   "team-fit": {
     body: [
-      "Violet makes complex information approachable. She pairs an art and computational design background with product rigor: research first, fast prototypes, then the details engineers need to ship.",
-      "At Vendelux she designs the tools event teams use to find the right people and plan around them.",
+      "Violet brings product ownership, creative problem-solving, and technical curiosity. At Vendelux, she collaborated with PMs and engineers to ship customer-facing features in a fast-paced startup. She's great at turning complex problems into intuitive experiences and moving ideas from concept to launch.",
+      "Want to see her work in action?",
     ],
-    projectIds: ["vendelux", "passiton"],
-    next: ["process", "collab", "match"],
+    projectIds: [],
+    next: ["best", "process", "fun"],
   },
   vendelux: {
     body: [
@@ -198,11 +206,36 @@ export const ANSWERS: Record<Exclude<Intent, "skill" | "project-match">, Answer>
   },
   process: {
     body: [
-      "She starts with people, not screens: surveys, interviews, and competitive analysis. Then she frames the one question that matters, prototypes quickly, and tests the riskiest idea first.",
-      "PASSIT ON shows it end to end, from 50 survey responses to a working NFC prototype.",
+      "Violet starts by understanding what users actually need, then explores solutions through research, rapid prototyping, and collaboration. She loves experimenting with AI and emerging technologies to move faster while keeping the experience intuitive and thoughtful.",
+      "Want to see an example of her design process?",
     ],
-    projectIds: ["passiton", "games4peace"],
-    next: ["ai", "match", "philosophy"],
+    projectIds: [],
+    next: ["process-example", "ai", "best"],
+  },
+  "process-example": {
+    body: [
+      "PASSIT ON shows it end to end. Violet ran surveys and interviews with Gen Z first, then designed and prototyped an NFC garment app around what she learned.",
+    ],
+    projectIds: ["passiton"],
+    next: ["best", "team", "fun"],
+  },
+  "best-work": {
+    body: ["Here are three projects worth exploring! ✨", "Which one catches your eye?"],
+    projectIds: ["vendelux", "passiton", "greener-routes"],
+    projectNotes: {
+      vendelux: "Simplifying complex B2B workflows to help event marketers find and manage target audiences.",
+      passiton: "Making clothing ownership more transparent through NFC technology and digital garment passports.",
+      "greener-routes": "Using geospatial data to design smarter navigation based on shade and greenery.",
+    },
+    next: ["process", "team", "fun"],
+  },
+  "fun-fact": {
+    body: [
+      "Fun fact! Violet started as an artist before becoming a product designer. 🎨 She loves turning everyday observations into creative solutions, especially when technology can make people's lives a little easier.",
+      "And yes, her love for playful interactions is probably why I exist! 🤭",
+    ],
+    projectIds: [],
+    next: ["best", "team", "contact"],
   },
   "ai-workflow": {
     body: [
