@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
+import { Lock } from "lucide-react"
 
 export interface CaseStudy {
   slug: string
@@ -23,6 +24,13 @@ export interface CaseStudy {
   mockupBounds?: { left: number; right: number; top: number; bottom: number }
   /** Featured projects span the full grid row with a wider frame. */
   featured?: boolean
+  /** Shown as a bento: the main card plus one tile per sub-project. */
+  group?: {
+    label: string
+    meta: string
+    locked?: boolean
+    items: { slug: string; title: string; blurb: string; image: string }[]
+  }
 }
 
 const projects: CaseStudy[] = [
@@ -34,11 +42,20 @@ const projects: CaseStudy[] = [
     tags: ["2026", "Product Design", "B2B"],
     category: "Product Design",
     softSkills: ["Design ownership", "Systems thinking", "Cross-functional collaboration"],
-    image: "/images/vendelux-cover.png",
+    image: "/images/vendelux-cover-poster.jpg",
     video: "/videos/vendelux-cover.mp4",
-    cardTreatAsLogo: true,
     featured: true,
     aiTools: ["Claude Code", "Claude Design", "Figma MCP", "Cursor"],
+    group: {
+      label: "Vendelux",
+      meta: "Product Intern · 2026",
+      locked: true,
+      items: [
+        { slug: "segments", title: "Segments", blurb: "Build an audience once, reuse it across events", image: "/images/vendelux/thumbs/segments.jpg" },
+        { slug: "campaign-admin", title: "Campaign Admin", blurb: "Set up related sub-campaigns without repeating work", image: "/images/vendelux/thumbs/campaign-admin.jpg" },
+        { slug: "meeting-planner", title: "Meeting Planner", blurb: "Show how a meeting forecast is calculated", image: "/images/vendelux/thumbs/meeting-planner.jpg" },
+      ],
+    },
   },
   {
     slug: "passiton",
@@ -100,16 +117,16 @@ const projects: CaseStudy[] = [
   },
 ]
 
-function CaseStudyCard({ project }: { project: CaseStudy }) {
+function CaseStudyCard({ project, inGroup = false }: { project: CaseStudy; inGroup?: boolean }) {
   return (
     <Link
       href={`/work/${project.slug}`}
-      className={`group block ${project.featured ? "sm:col-span-2" : ""}`}
+      className={`group block ${project.featured && !inGroup ? "sm:col-span-2" : ""}`}
     >
       <article>
         {/* Image / video mockup */}
         <div
-          className={`relative w-full overflow-hidden rounded-2xl ${project.featured ? "aspect-[4/3] sm:aspect-[2/1]" : "aspect-[4/3]"} ${project.cardTreatAsLogo ? "bg-white" : "bg-card"}`}
+          className={`relative w-full overflow-hidden rounded-2xl ${inGroup ? "aspect-[4/3] sm:aspect-[16/10]" : project.featured ? "aspect-[4/3] sm:aspect-[2/1]" : "aspect-[4/3]"} ${project.cardTreatAsLogo ? "bg-white" : "bg-card"}`}
         >
           {project.video && project.mockupFrame && project.mockupBounds ? (
             <div className="absolute inset-0">
@@ -197,6 +214,59 @@ function CaseStudyCard({ project }: { project: CaseStudy }) {
   )
 }
 
+/** Featured company card with a tile per sub-project, so all of them are visible from the homepage. */
+function GroupedCaseStudy({ project }: { project: CaseStudy }) {
+  const g = project.group!
+  return (
+    <div className="sm:col-span-2">
+      <div className="mb-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-foreground/60">
+        <span className="font-medium text-foreground">{g.label}</span>
+        <span>· {g.meta}</span>
+        <span className="ml-auto inline-flex items-center gap-1.5 text-xs text-foreground/50">
+          {g.items.length} projects
+          {g.locked && (
+            <>
+              <span aria-hidden>·</span>
+              <Lock className="h-3 w-3" aria-hidden />
+              Password protected
+            </>
+          )}
+        </span>
+      </div>
+      <div className="grid gap-4 lg:grid-cols-[1.7fr_1fr]">
+        <CaseStudyCard project={project} inGroup />
+        <ol className="grid content-start gap-3 lg:grid-rows-3 lg:content-stretch">
+          {g.items.map((item, i) => (
+            <li key={item.slug} className="lg:h-full">
+              <Link
+                href={`/work/${project.slug}?project=${item.slug}`}
+                className="group/tile grid h-full grid-cols-[104px_1fr] items-center gap-3 rounded-2xl border border-border/60 bg-card p-2.5 transition-[border-color,transform] duration-200 hover:translate-x-0.5 hover:border-foreground/30 sm:grid-cols-[120px_1fr]"
+              >
+                <span className="relative block aspect-[4/3] overflow-hidden rounded-lg bg-white">
+                  <Image
+                    src={item.image}
+                    alt=""
+                    fill
+                    className="object-cover object-left-top transition-transform duration-500 group-hover/tile:scale-105"
+                    sizes="120px"
+                  />
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-[11px] font-semibold tracking-[0.08em] text-foreground/40">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="block text-sm font-medium text-foreground">{item.title}</span>
+                  <span className="block text-xs leading-snug text-foreground/60">{item.blurb}</span>
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  )
+}
+
 const homepageProjects = projects.filter((p) => p.showOnHomepage !== false)
 
 export function CaseStudyGrid() {
@@ -205,9 +275,13 @@ export function CaseStudyGrid() {
       <div className="mx-auto w-full max-w-[1200px] px-4">
         {/* Two-up grid */}
         <div className="grid grid-cols-1 gap-x-4 gap-y-16 sm:grid-cols-2">
-          {homepageProjects.map((project) => (
-            <CaseStudyCard key={project.slug} project={project} />
-          ))}
+          {homepageProjects.map((project) =>
+            project.group ? (
+              <GroupedCaseStudy key={project.slug} project={project} />
+            ) : (
+              <CaseStudyCard key={project.slug} project={project} />
+            ),
+          )}
         </div>
       </div>
     </section>

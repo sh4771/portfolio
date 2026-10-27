@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState, Suspense } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { Lock } from "lucide-react"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
@@ -13,7 +13,13 @@ function LockedForm() {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
   const searchParams = useSearchParams()
-  const destination = searchParams.get("from") || "/work/vendelux"
+  const pathname = usePathname()
+  // The middleware rewrites in place, so the browser URL is usually the page they asked for
+  // (e.g. /work/vendelux?project=campaign-admin). Fall back to ?from=, then the default.
+  const here = pathname + (searchParams.toString() ? `?${searchParams.toString()}` : "")
+  const from = searchParams.get("from")
+  const safe = (p: string | null) => !!p && p.startsWith("/work/vendelux") && !p.startsWith("/work/vendelux-locked")
+  const destination = safe(from) ? from! : safe(pathname) ? here : "/work/vendelux"
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()

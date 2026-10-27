@@ -24,9 +24,12 @@ export function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
+  // Keep the query (e.g. ?project=campaign-admin) so visitors land on the tab they clicked.
+  const from = pathname + request.nextUrl.search
   const url = request.nextUrl.clone()
   url.pathname = "/work/vendelux-locked"
-  url.searchParams.set("from", pathname)
+  url.search = ""
+  url.searchParams.set("from", from)
   return NextResponse.rewrite(url)
 }
 
