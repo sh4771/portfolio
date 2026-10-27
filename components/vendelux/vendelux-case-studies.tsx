@@ -21,6 +21,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { vendeluxProjects, type InfoBox } from "@/lib/vendelux-projects"
 import { SegmentsCaseStudy } from "./segments-case-study"
+import { ComingSoon } from "./coming-soon"
 
 const ICONS: Record<InfoBox["icon"], React.ElementType> = {
   route: Route,
@@ -62,6 +63,11 @@ export function VendeluxCaseStudies() {
             )}
           >
             {project.navLabel}
+            {project.comingSoon && (
+              <span className="ml-1.5 rounded-full bg-amber-300 px-1.5 py-px text-[10px] font-semibold tracking-wide text-amber-950 uppercase">
+                Soon
+              </span>
+            )}
           </button>
         ))}
       </div>
@@ -69,6 +75,8 @@ export function VendeluxCaseStudies() {
       {/* Active project content */}
       {active.slug === "segments" ? (
         <SegmentsCaseStudy />
+      ) : active.comingSoon ? (
+        <ComingSoon project={active} />
       ) : (
       <article className="space-y-8">
         <header className="space-y-1.5">

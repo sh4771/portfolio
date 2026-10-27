@@ -46,6 +46,8 @@ export interface VendeluxProject {
   media: {
     beforeAfterSet?: { label: string; description: string; before: string; after: string }[]
   }
+  /** In progress: the tab shows a short "coming soon" note instead of a case study. */
+  comingSoon?: boolean
 }
 
 export const vendeluxProjects: VendeluxProject[] = [
@@ -679,5 +681,19 @@ export const vendeluxProjects: VendeluxProject[] = [
         },
       ],
     },
+  },
+  {
+    slug: "planner",
+    navLabel: "Planner",
+    title: "Planner",
+    oneLiner: "Planner is where event teams build an ROI case for each event.",
+    duration: "2026 · In progress",
+    whatIDid: "Product design",
+    tools: [],
+    intro: { text: "", image: "", alt: "" },
+    role: [],
+    boxes: [],
+    media: {},
+    comingSoon: true,
   },
 ]

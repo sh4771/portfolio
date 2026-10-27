@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Lock } from "lucide-react"
+import { Hourglass, Lock } from "lucide-react"
 
 export interface CaseStudy {
   slug: string
@@ -29,7 +29,7 @@ export interface CaseStudy {
     label: string
     meta: string
     locked?: boolean
-    items: { slug: string; title: string; blurb: string; image: string }[]
+    items: { slug: string; title: string; blurb: string; image?: string; soon?: boolean }[]
   }
 }
 
@@ -54,6 +54,7 @@ const projects: CaseStudy[] = [
         { slug: "segments", title: "Segments", blurb: "Build an audience once, reuse it across events", image: "/images/vendelux/thumbs/segments.jpg" },
         { slug: "campaign-admin", title: "Campaign Admin", blurb: "Set up related sub-campaigns without repeating work", image: "/images/vendelux/thumbs/campaign-admin.jpg" },
         { slug: "meeting-planner", title: "Meeting Planner", blurb: "Show how a meeting forecast is calculated", image: "/images/vendelux/thumbs/meeting-planner.jpg" },
+        { slug: "planner", title: "Planner", blurb: "Where customers build an ROI case for each event", soon: true },
       ],
     },
   },
@@ -223,7 +224,8 @@ function GroupedCaseStudy({ project }: { project: CaseStudy }) {
         <span className="font-medium text-foreground">{g.label}</span>
         <span>· {g.meta}</span>
         <span className="ml-auto inline-flex items-center gap-1.5 text-xs text-foreground/50">
-          {g.items.length} projects
+          {g.items.filter((x) => !x.soon).length} projects
+          {g.items.some((x) => x.soon) && <> · {g.items.filter((x) => x.soon).length} in progress</>}
           {g.locked && (
             <>
               <span aria-hidden>·</span>
@@ -235,27 +237,44 @@ function GroupedCaseStudy({ project }: { project: CaseStudy }) {
       </div>
       <div className="grid gap-4 lg:grid-cols-[1.7fr_1fr]">
         <CaseStudyCard project={project} inGroup />
-        <ol className="grid content-start gap-3 lg:grid-rows-3 lg:content-stretch">
+        <ol className="grid content-start gap-3 lg:auto-rows-fr lg:content-stretch">
           {g.items.map((item, i) => (
             <li key={item.slug} className="lg:h-full">
               <Link
                 href={`/work/${project.slug}?project=${item.slug}`}
-                className="group/tile grid h-full grid-cols-[104px_1fr] items-center gap-3 rounded-2xl border border-border/60 bg-card p-2.5 transition-[border-color,transform] duration-200 hover:translate-x-0.5 hover:border-foreground/30 sm:grid-cols-[120px_1fr]"
+                className={`group/tile grid h-full grid-cols-[104px_1fr] items-center gap-3 rounded-2xl p-2.5 transition-[border-color,transform] duration-200 hover:translate-x-0.5 sm:grid-cols-[120px_1fr] ${
+                  item.soon
+                    ? "border border-dashed border-foreground/25 hover:border-foreground/45"
+                    : "border border-border/60 bg-card hover:border-foreground/30"
+                }`}
               >
-                <span className="relative block aspect-[4/3] overflow-hidden rounded-lg bg-white">
-                  <Image
-                    src={item.image}
-                    alt=""
-                    fill
-                    className="object-cover object-left-top transition-transform duration-500 group-hover/tile:scale-105"
-                    sizes="120px"
-                  />
-                </span>
+                {item.image ? (
+                  <span className="relative block aspect-[4/3] overflow-hidden rounded-lg bg-white">
+                    <Image
+                      src={item.image}
+                      alt=""
+                      fill
+                      className="object-cover object-left-top transition-transform duration-500 group-hover/tile:scale-105"
+                      sizes="120px"
+                    />
+                  </span>
+                ) : (
+                  <span aria-hidden className="grid aspect-[4/3] place-items-center rounded-lg border border-dashed border-foreground/20 text-foreground/40">
+                    <Hourglass className="h-5 w-5" />
+                  </span>
+                )}
                 <span className="min-w-0">
                   <span className="block text-[11px] font-semibold tracking-[0.08em] text-foreground/40">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="block text-sm font-medium text-foreground">{item.title}</span>
+                  <span className="flex items-center gap-2 text-sm font-medium text-foreground">
+                    {item.title}
+                    {item.soon && (
+                      <span className="rounded-full bg-amber-500/20 px-1.5 py-px text-[10px] font-semibold tracking-wide text-amber-800 uppercase dark:text-amber-300">
+                        Coming soon
+                      </span>
+                    )}
+                  </span>
                   <span className="block text-xs leading-snug text-foreground/60">{item.blurb}</span>
                 </span>
               </Link>
