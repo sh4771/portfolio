@@ -3,6 +3,8 @@ import { Manrope } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { AutoTheme } from '@/components/auto-theme'
 import { VioletGPTLauncher } from '@/components/violet-gpt/launcher'
+import { JumpToResults } from '@/components/jump-to-results'
+import { Suspense } from 'react'
 import './globals.css'
 
 const manrope = Manrope({
@@ -35,6 +37,9 @@ export default function RootLayout({
         {children}
         <AutoTheme />
         <VioletGPTLauncher />
+        <Suspense fallback={null}>
+          <JumpToResults />
+        </Suspense>
         <Analytics />
       </body>
     </html>

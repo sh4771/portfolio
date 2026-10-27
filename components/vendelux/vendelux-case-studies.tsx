@@ -133,7 +133,11 @@ export function VendeluxCaseStudies() {
         {/* Info boxes */}
         <div className="grid grid-cols-1 gap-3">
           {active.boxes.map((box, i) => (
-            <InfoBoxCard key={i} box={box} />
+            <InfoBoxCard
+              key={i}
+              box={box}
+              id={i === active.boxes.findIndex((b) => b.icon === "chart-line") ? "results" : undefined}
+            />
           ))}
         </div>
 
@@ -170,7 +174,7 @@ export function VendeluxCaseStudies() {
   )
 }
 
-function InfoBoxCard({ box }: { box: InfoBox }) {
+function InfoBoxCard({ box, id }: { box: InfoBox; id?: string }) {
   const Icon = ICONS[box.icon]
   const borderClass =
     box.variant === "accent"
@@ -186,7 +190,7 @@ function InfoBoxCard({ box }: { box: InfoBox }) {
         : "text-muted-foreground"
 
   return (
-    <div className={cn("rounded-xl p-4 sm:p-5", borderClass)}>
+    <div id={id} className={cn("scroll-mt-32 rounded-xl p-4 sm:p-5 outline-none", borderClass)}>
       <div className="flex items-start gap-3">
         <Icon className={cn("mt-0.5 h-5 w-5 shrink-0", iconColorClass)} strokeWidth={1.75} />
         <div className="min-w-0 flex-1 space-y-2">

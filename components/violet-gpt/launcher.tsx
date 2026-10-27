@@ -51,11 +51,11 @@ export function VioletGPTLauncher() {
   return (
     <div data-violet-gpt>
       {!open && (
-        <div className="fixed bottom-5 right-5 z-50 flex items-end gap-2 sm:bottom-6 sm:right-6">
+        <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-2 sm:bottom-6 sm:right-6 sm:flex-row">
           {hint && (
             <div
               role="status"
-              className="relative mb-3 max-w-[230px] rounded-2xl rounded-br-md border border-border bg-background shadow-[0_12px_32px_rgba(0,0,0,0.12)] motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-right-2 sm:max-w-[280px]"
+              className="relative max-w-[250px] sm:mb-3 sm:max-w-[280px] rounded-2xl rounded-br-md border border-border bg-background shadow-[0_12px_32px_rgba(0,0,0,0.12)] motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-right-2"
             >
               <button
                 type="button"

@@ -332,7 +332,8 @@ html {
 
 /* Presentation mode */
 html[data-presentation] [data-theme-toggle],
-html[data-presentation] [data-violet-gpt] {
+html[data-presentation] [data-violet-gpt],
+html[data-presentation] [data-jump-results] {
   display: none;
 }
 
@@ -394,3 +395,8 @@ html[data-presentation] {
   }
 }
 
+
+/* Programmatic focus targets (e.g. Jump to results) */
+[tabindex="-1"]:focus:not(:focus-visible) {
+  outline: none;
+}
