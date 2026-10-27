@@ -2,36 +2,46 @@
 
 import { useCallback, useEffect, useRef, useState } from "react"
 import dynamic from "next/dynamic"
+import { usePathname } from "next/navigation"
+import { X } from "lucide-react"
+import { HOME_HINT, PAGE_HINTS } from "@/lib/violet-gpt/hints"
 import { VioletAvatar } from "./avatar"
 
 // The chat engine and knowledge base load only after the first click.
 const VioletChat = dynamic(() => import("./chat"), { ssr: false })
 
-const HINT_KEY = "violet-gpt-hint-seen"
+const HINT_KEY = "violet-gpt-hint-seen:"
 
 export function VioletGPTLauncher() {
   const [open, setOpen] = useState(false)
   const [loaded, setLoaded] = useState(false)
-  const [hint, setHint] = useState(false)
+  const [hint, setHint] = useState<string | null>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
+  const pathname = usePathname()
 
-  // One gentle greeting per visit, after a short delay. Never loops.
+  // One bubble per page per visit: a greeting on the homepage, a "why this project matters" line on each project.
   useEffect(() => {
+    setHint(null)
+    const path = (pathname || "/").replace(/\/$/, "") || "/"
+    const text = path === "/" ? HOME_HINT : PAGE_HINTS[path]
+    if (!text) return
     let seen = false
     try {
-      seen = sessionStorage.getItem(HINT_KEY) === "1"
+      seen = sessionStorage.getItem(HINT_KEY + path) === "1"
     } catch {}
     if (seen) return
-    const show = setTimeout(() => setHint(true), 3500)
-    const hide = setTimeout(() => setHint(false), 11000)
-    try {
-      sessionStorage.setItem(HINT_KEY, "1")
-    } catch {}
+    const show = setTimeout(() => {
+      setHint(text)
+      try {
+        sessionStorage.setItem(HINT_KEY + path, "1")
+      } catch {}
+    }, path === "/" ? 3500 : 1200)
+    const hide = setTimeout(() => setHint(null), path === "/" ? 11000 : 12000)
     return () => {
       clearTimeout(show)
       clearTimeout(hide)
     }
-  }, [])
+  }, [pathname])
 
   const close = useCallback(() => {
     setOpen(false)
@@ -43,17 +53,30 @@ export function VioletGPTLauncher() {
       {!open && (
         <div className="fixed bottom-5 right-5 z-50 flex items-end gap-2 sm:bottom-6 sm:right-6">
           {hint && (
-            <button
-              type="button"
-              onClick={() => {
-                setHint(false)
-                setLoaded(true)
-                setOpen(true)
-              }}
-              className="mb-3 hidden max-w-[220px] rounded-2xl rounded-br-md border border-border bg-background px-4 py-2.5 text-left text-sm text-foreground shadow-[0_12px_32px_rgba(0,0,0,0.12)] motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-right-2 sm:block"
+            <div
+              role="status"
+              className="relative mb-3 max-w-[230px] rounded-2xl rounded-br-md border border-border bg-background shadow-[0_12px_32px_rgba(0,0,0,0.12)] motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-right-2 sm:max-w-[280px]"
             >
-              Hiring a product designer? Ask me about Violet.
-            </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setHint(null)
+                  setLoaded(true)
+                  setOpen(true)
+                }}
+                className="block w-full py-2.5 pl-4 pr-8 text-left text-[13px] leading-snug text-foreground sm:text-sm"
+              >
+                {hint}
+              </button>
+              <button
+                type="button"
+                aria-label="Dismiss"
+                onClick={() => setHint(null)}
+                className="absolute right-1 top-1 grid h-7 w-7 place-items-center rounded-full text-muted-foreground hover:text-foreground"
+              >
+                <X className="h-3.5 w-3.5" />
+              </button>
+            </div>
           )}
           <button
             ref={buttonRef}
@@ -62,7 +85,7 @@ export function VioletGPTLauncher() {
             aria-expanded={open}
             aria-controls="violet-gpt-panel"
             onClick={() => {
-              setHint(false)
+              setHint(null)
               setLoaded(true)
               setOpen(true)
             }}

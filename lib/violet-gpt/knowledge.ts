@@ -167,8 +167,7 @@ export const SKILL_PROMPTS = ["ownership", "research", "data", "ai", "accessibil
 export const ANSWERS: Record<Exclude<Intent, "skill" | "project-match">, Answer> = {
   welcome: {
     body: [
-      "Hi, I'm Mini Violet. I know Violet's published work inside out.",
-      "Tell me what you're hiring for or curious about, and I'll point you to the right project in a click or two.",
+      "Hi! I'm Mini Violet 👋 Think of me as your shortcut to getting to know Violet. Want to explore her work or see what she'd bring to your team?",
     ],
     projectIds: [],
     next: WELCOME_PROMPTS,
