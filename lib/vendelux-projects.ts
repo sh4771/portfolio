@@ -59,12 +59,12 @@ export const vendeluxProjects: VendeluxProject[] = [
     whatIDid: "UI/UX design, working directly with engineers on handoff (specs, Figma organization, Tailwind components)",
     tools: ["Figma", "Figma MCP Plugin API"],
     intro: {
-      text: "When event organizers plan an event, they need to identify the right people to reach out to from a large pool of attendee data. I worked on redesigning Vendelux's filtering tool, called Segments, to help them build more precise target audiences. As a product designer, I designed the workflow that helps users narrow large sets of attendee data. They then use those filtered outputs for outreach.",
+      text: "When event organizers plan an event, they need to identify the right people to reach out to from a large pool of attendee data. I worked on redesigning Vendelux's filtering tool, called Segments, to help them build more precise target audiences. As a product intern, I designed the workflow that helps users narrow large sets of attendee data. They then use those filtered outputs for outreach.",
       image: "/images/vendelux/segments-include-exclude-after.png",
       alt: "Vendelux segment builder showing job title and seniority filters with include/exclude toggles",
     },
     quickFacts: [
-      { label: "My Role", value: "Product Design Intern" },
+      { label: "My Role", value: "Product Intern" },
       { label: "Timeline", value: "Mar – May 2026" },
       { label: "Team", value: "5-person team · 1 team lead, 1 PM, 2 engineers" },
       { label: "Users", value: "Event marketers and campaign coordinators" },
@@ -79,7 +79,7 @@ export const vendeluxProjects: VendeluxProject[] = [
     transition:
       "When I joined this project, users had access to data, but they did not have a clear path for turning it into an audience list.",
     credit: {
-      text: "Product Design Internship, Vendelux",
+      text: "Product Internship, Vendelux",
       linkText: "view the case study deck",
       url: "https://www.google.com/goto?url=CAESVQHrOzAVS88RVlmY9mMD39AUyefsVkijSEV8TB3EvZcnlB3w67wF-TEZteaFv_zxDj4qFYkO0DfYkfuM6jEyINF1Mm46PeqxTFl8SYUVhVIbrRZFzRM",
     },
@@ -227,19 +227,19 @@ export const vendeluxProjects: VendeluxProject[] = [
     whatIDid: "UI/UX design, structuring an ambiguous workflow into a data model across engineering, FDEs, and product",
     tools: ["Granola", "Claude Code", "v0"],
     intro: {
-      text: "When forward-deployed engineers at Vendelux set up event marketing campaigns, they have to move through multiple pages. They also have to repeatedly enter similar settings to create and manage related sub-campaigns. The workflow was fragmented and repetitive. That's why we started Campaign Admin: a centralized tool to simplify campaign setup and ongoing management for forward-deployed engineers. At Vendelux, a campaign supports a specific event. A multi-day event, for example, can have several related sub-campaigns across different days, locations, or audiences. This project began with an open-ended brief. There was no fully defined handoff or set of requirements, so I took ownership of building the context myself. I worked closely with my PM, Gina, and partnered directly with the forward-deployed engineers who used the tool daily. As the only product designer, I owned the research, flow design, and prioritization myself.",
+      text: "When forward-deployed engineers at Vendelux set up event marketing campaigns, they have to move through multiple pages. They also have to repeatedly enter similar settings to create and manage related sub-campaigns. The workflow was fragmented and repetitive. That's why we started Campaign Admin: a centralized tool to simplify campaign setup and ongoing management for forward-deployed engineers. At Vendelux, a campaign supports a specific event. A multi-day event, for example, can have several related sub-campaigns across different days, locations, or audiences. This project began with an open-ended brief. There was no fully defined handoff or set of requirements, so I took ownership of building the context myself. I worked closely with my PM, Gina, and partnered directly with the forward-deployed engineers who used the tool daily. As the only designer, I owned the research, flow design, and prioritization myself.",
       image: "/images/vendelux/campaign-admin-after-creation.png",
       alt: "Vendelux campaign creation view showing sub-campaign setup",
     },
     quickFacts: [
-      { label: "My Role", value: "Product Design Intern" },
+      { label: "My Role", value: "Product Intern" },
       { label: "Timeline", value: "Jul – Aug 2026" },
       { label: "Team", value: "5-person team · 1 lead, 1 PM, 2 engineers" },
       { label: "Users", value: "Forward-deployed engineers" },
       { label: "User Goal", value: "Set up campaigns and related sub-campaigns for event teams" },
       { label: "Outcome", value: "MVP in development; duplicate action reduced the tested repeated-setup flow from 9 to 3 steps" },
     ],
-    credit: { text: "Product Design Internship, Vendelux" },
+    credit: { text: "Product Internship, Vendelux" },
     role: ["Sole designer on this project, working with a PM, engineer, and data lead through tickets and written specs."],
     boxes: [
       {
@@ -444,7 +444,7 @@ export const vendeluxProjects: VendeluxProject[] = [
           "I faced an issue earlier where bulk editing needed backend support that hadn't been scoped in time. Because of that, I want to share the key lesson I took from this project now that the MVP has been handed off to engineering.",
           "The biggest lesson was that cross-functional communication needs to happen early, especially when a design depends on backend support. I could design a solution that solved the user's problem well, like bulk editing, but if the technical foundation wasn't ready, I couldn't deliver it within the MVP. The duplicate action saved the project, but it was a workaround I found late.",
           "This changed how I approach collaboration going forward. I want to bring engineers in during scoping, and ask what's technically feasible before I design the flow. That way, the team can catch constraints like the bulk editing one before they become a deadline problem.",
-          "One open question I'm still working through: my backend engineer wanted to understand the reasoning behind each decision before starting implementation. I built an HTML walkthrough using static page screenshots from a v0 prototype that steps through the user journey. But I realized it's better at showing what the flow looks like than why we made each decision along the way. I'm exploring a few ways to close that gap. One option is a short narrated walkthrough, since saying the reasoning out loud is easier than fitting it into a caption. Another is a written decision log that documents the constraints behind each choice. I don't have a final answer yet, but I know specifically what's missing now, and I'm testing narration and decision logs to see which works. I was the only product designer at Vendelux, so this is also something I'm looking forward to pressure-testing with a larger design team going forward.",
+          "One open question I'm still working through: my backend engineer wanted to understand the reasoning behind each decision before starting implementation. I built an HTML walkthrough using static page screenshots from a v0 prototype that steps through the user journey. But I realized it's better at showing what the flow looks like than why we made each decision along the way. I'm exploring a few ways to close that gap. One option is a short narrated walkthrough, since saying the reasoning out loud is easier than fitting it into a caption. Another is a written decision log that documents the constraints behind each choice. I don't have a final answer yet, but I know specifically what's missing now, and I'm testing narration and decision logs to see which works. I was the only designer at Vendelux, so this is also something I'm looking forward to pressure-testing with a larger design team going forward.",
           "The MVP for this campaign redesign is currently being built by engineering, and duplicate action is what's shipping.",
         ],
       },
@@ -466,14 +466,14 @@ export const vendeluxProjects: VendeluxProject[] = [
       alt: "Vendelux Meetings dashboard showing campaigns and their status",
     },
     quickFacts: [
-      { label: "My Role", value: "Product Design Intern" },
+      { label: "My Role", value: "Product Intern" },
       { label: "Timeline", value: "Jul – Aug 2026" },
       { label: "Team", value: "5-person team · 1 team lead, 1 PM, 2 engineers" },
       { label: "Users", value: "Customers hosting events, setting outreach goals" },
       { label: "User Goal", value: "Find the right outreach audience and see predicted attendees for upcoming events" },
       { label: "Outcome", value: "In design review; not yet shipped to engineering or tested with customers" },
     ],
-    credit: { text: "Product Design Internship, Vendelux" },
+    credit: { text: "Product Internship, Vendelux" },
     role: [
       "I worked as the sole designer, mainly with customer-facing team members who brought recurring customer questions and objections into the design process.",
       "My feedback loop focused on customer-proxy insight: what the team repeatedly had to explain, and which parts of the estimate customers reportedly distrusted.",

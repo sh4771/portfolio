@@ -182,7 +182,7 @@ export const ANSWERS: Record<Exclude<Intent, "skill" | "project-match">, Answer>
   },
   intro: {
     body: [
-      "Violet Hyun is a product designer on Vendelux's Product and Engineering team, designing how event teams target, plan, and connect.",
+      "Violet Hyun is a Product Intern on Vendelux's Product and Engineering team, designing how event teams target, plan, and connect.",
       "She makes complex information approachable, drawing on Interactive Media Arts at NYU Tisch and Computational Design Practices at Columbia GSAPP.",
     ],
     projectIds: ["vendelux", "greener-routes"],
@@ -198,7 +198,7 @@ export const ANSWERS: Record<Exclude<Intent, "skill" | "project-match">, Answer>
   },
   vendelux: {
     body: [
-      "Violet is a Product Designer on Vendelux's Product and Engineering team. Vendelux is an AI-powered event intelligence platform.",
+      "Violet is a Product Intern on Vendelux's Product and Engineering team. Vendelux is an AI-powered event intelligence platform.",
       "She designs how event teams build target audiences, manage outreach campaigns, and plan meetings, across both customer-facing and internal tools.",
     ],
     projectIds: ["vendelux"],

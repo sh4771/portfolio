@@ -20,6 +20,7 @@ import {
 import { useRouter, useSearchParams } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { vendeluxProjects, type InfoBox } from "@/lib/vendelux-projects"
+import { SegmentsCaseStudy } from "./segments-case-study"
 
 const ICONS: Record<InfoBox["icon"], React.ElementType> = {
   route: Route,
@@ -66,6 +67,9 @@ export function VendeluxCaseStudies() {
       </div>
 
       {/* Active project content */}
+      {active.slug === "segments" ? (
+        <SegmentsCaseStudy />
+      ) : (
       <article className="space-y-8">
         <header className="space-y-1.5">
           <h1 className="cs-h1">{active.title}</h1>
@@ -170,6 +174,7 @@ export function VendeluxCaseStudies() {
           </div>
         )}
       </article>
+      )}
     </div>
   )
 }

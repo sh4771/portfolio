@@ -32,7 +32,7 @@ export default function VendeluxPage() {
             <div className="space-y-6">
               <div className="space-y-2">
                 <h1 className="cs-h1">
-                  Product Designer, Vendelux
+                  Product Intern, Vendelux
                 </h1>
                 <p className="text-sm text-text-secondary">
                   Product Design · AI-powered B2B event intelligence platform
@@ -63,7 +63,7 @@ export default function VendeluxPage() {
               those interactions into actual meetings and revenue.
             </p>
             <p className="text-sm leading-relaxed text-text-secondary">
-              As a product designer, I worked across both customer-facing and internal tools. I
+              As a product intern, I worked across both customer-facing and internal tools. I
               designed workflows that help event marketers narrow large amounts of attendee data
               into the right target audience, and tools that help our forward-deployed engineers
               create and manage outreach campaigns more efficiently.
