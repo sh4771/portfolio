@@ -93,7 +93,7 @@ export function VioletGPTLauncher() {
             className="group relative grid h-14 w-14 place-items-center rounded-full border-[3px] border-background bg-background shadow-[0_10px_30px_rgba(0,0,0,0.22)] transition-transform duration-200 hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground sm:h-16 sm:w-16"
           >
             <span className="block overflow-hidden rounded-full">
-              <VioletAvatar mood="idle" size={64} className="h-[50px] w-[50px] sm:h-[58px] sm:w-[58px]" />
+              <VioletAvatar mood="idle" size={50} className="sm:!h-[58px] sm:!w-[58px]" />
             </span>
             <span className="absolute -left-1 -top-1 rounded-full bg-foreground px-1.5 py-0.5 text-[9px] font-semibold tracking-wide text-background">
               Mini
