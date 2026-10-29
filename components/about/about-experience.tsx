@@ -26,8 +26,8 @@ const EXPERIENCE = [
   { org: "Vendelux", role: "Product Intern", when: "Mar 2026 – Present", domain: "vendelux.com", href: "https://www.vendelux.com/", now: true },
   { org: "Stealth AI startup", role: "UX Designer", when: "Nov 2025 – Jan 2026" },
   { org: "Columbia ROAR Lab", role: "Web Designer & Graduate Researcher", when: "May 2025 – Mar 2026", domain: "columbia.edu", href: "https://roar.me.columbia.edu/" },
-  { org: "Miss K Cosmetics", role: "Design", domain: "misskcosmetics.com", href: "https://misskcosmetics.com/" },
-  { org: "K Museum of Contemporary Art", role: "Design", domain: "kmcaseoul.org", href: "https://www.kmcaseoul.org/" },
+  { org: "Miss K Cosmetics", role: "Design", when: "May – Aug 2023", domain: "misskcosmetics.com", href: "https://misskcosmetics.com/" },
+  { org: "K Museum of Contemporary Art", role: "Design", when: "May – Aug 2022", domain: "kmcaseoul.org", href: "https://www.kmcaseoul.org/" },
   { org: "Chloé", role: "Merchandising", domain: "chloe.com", href: "https://www.chloe.com/" },
 ]
 

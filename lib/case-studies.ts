@@ -471,10 +471,10 @@ export const caseStudies: Record<string, CaseStudyData> = {
     slug: "vendelux",
     title: "Vendelux",
     subtitle:
-      "Product Designer on an AI-powered B2B event intelligence platform (public writeup stays high level on unreleased work)",
+      "Product Intern on an AI-powered B2B event intelligence platform (public writeup stays high level on unreleased work)",
     category: "Product design",
     year: "2026",
-    role: "Product Designer",
+    role: "Product Intern",
     duration: "March 2026 – ongoing",
     tools: ["Figma", "Claude Code", "Claude Design", "Linear", "Figma MCP"],
     image: "/images/vendelux-cover.png",

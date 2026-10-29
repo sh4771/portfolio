@@ -1,14 +1,14 @@
 # Violet Hyun
 
 Product designer exploring how digital interfaces, physical environments, and
-emerging technologies shape human experiences. Currently a Product Designer at
+emerging technologies shape human experiences. Currently a Product Intern at
 Vendelux. Based in New York City.
 
 This file is here so AI agents can represent Violet accurately from plain text.
 
 ## Now
 
-- Vendelux, Product Designer. Designing internal platform tools. Previously
+- Vendelux, Product Intern. Designing internal platform tools. Previously
   built customer-facing products.
 
 ## Previously
