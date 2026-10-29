@@ -12,7 +12,13 @@ import {
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-const SECTIONS = ["Hello", "At a glance", "Off the clock", "The longer story", "Fun fact"]
+const NAV = [
+  { id: "hello", label: "Hello" },
+  { id: "at-a-glance", label: "At a glance" },
+  { id: "off-the-clock", label: "Off the clock" },
+  { id: "longer-story", label: "The longer story" },
+  { id: "fun-fact", label: "Fun fact" },
+]
 
 const INTRO = [
   "I'm Violet Hyun, a product designer in New York drawn to complex problems, because they usually hide the most important human needs.",
@@ -78,20 +84,14 @@ function Logo({ domain, logo, label }: { domain?: string; logo?: string; label: 
   )
 }
 
-function Eyebrow({ index, children }: { index?: number; children: React.ReactNode }) {
-  return (
-    <p className="flex items-center gap-3 text-xs font-medium tracking-[0.16em] text-foreground/50 uppercase">
-      {index !== undefined && <span className="tabular-nums text-foreground/35">{String(index).padStart(2, "0")}</span>}
-      {index !== undefined && <span aria-hidden className="h-px w-6 bg-foreground/20" />}
-      {children}
-    </p>
-  )
+function Eyebrow({ children }: { children: React.ReactNode }) {
+  return <p className="text-xs font-medium tracking-[0.16em] text-foreground/50 uppercase">{children}</p>
 }
 
-function SectionHeader({ index, eyebrow, title }: { index: number; eyebrow: string; title: React.ReactNode }) {
+function SectionHeader({ eyebrow, title }: { eyebrow: string; title: React.ReactNode }) {
   return (
     <div className="space-y-3">
-      <Eyebrow index={index}>{eyebrow}</Eyebrow>
+      <Eyebrow>{eyebrow}</Eyebrow>
       <h2 className="max-w-[640px] text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">{title}</h2>
     </div>
   )
@@ -109,23 +109,6 @@ function Photo({ src, alt, sizes = "260px", className }: { src: string; alt: str
   return (
     <div className={cn("relative aspect-square overflow-hidden rounded-2xl bg-muted/50", className)}>
       <Image src={src} alt={alt} fill className="object-cover" sizes={sizes} />
-    </div>
-  )
-}
-
-function ScrollCue({ visible }: { visible: boolean }) {
-  return (
-    <div
-      aria-hidden
-      className={cn(
-        "pointer-events-none flex flex-col items-center gap-2 text-[11px] font-medium tracking-[0.18em] text-foreground/45 uppercase transition-opacity duration-500",
-        visible ? "opacity-100" : "opacity-0",
-      )}
-    >
-      Scroll to explore
-      <span className="relative h-9 w-[22px] rounded-full border border-foreground/30">
-        <span className="absolute left-1/2 top-1.5 h-2 w-[3px] -translate-x-1/2 rounded-full bg-foreground/60 motion-safe:animate-[scroll-dot_1.6s_ease-in-out_infinite]" />
-      </span>
     </div>
   )
 }
@@ -289,11 +272,11 @@ function Hello() {
   const slotRef = useRef<HTMLDivElement>(null)
   const { phase, flight } = useIntroFlight(slotRef)
   return (
-    <div className="grid w-full items-center gap-12 lg:grid-cols-[minmax(0,330px)_minmax(0,1fr)] lg:gap-20">
+    <div className="grid w-full items-center gap-12 lg:grid-cols-[minmax(0,290px)_minmax(0,1fr)] lg:gap-14">
       <div className="relative mx-auto w-full max-w-[280px] lg:max-w-none">
         <div className="rounded-[32px] bg-white/70 p-3 shadow-[0_24px_60px_rgba(28,26,22,0.12)] dark:bg-white/5">
           <div className="relative aspect-[4/5] overflow-hidden rounded-[24px]">
-            <Image src="/images/about-photo.png" alt="Portrait of Violet Hyun" fill priority className="object-cover" sizes="(min-width: 1024px) 330px, 280px" />
+            <Image src="/images/about-photo.png" alt="Portrait of Violet Hyun" fill priority className="object-cover" sizes="(min-width: 1024px) 290px, 280px" />
           </div>
         </div>
         {/* Mini Violet lands here */}
@@ -309,7 +292,7 @@ function Hello() {
 
       <div className="max-w-[560px] space-y-6">
         <div className="space-y-3">
-          <Eyebrow index={1}>About</Eyebrow>
+          <Eyebrow>About</Eyebrow>
           <h1 className="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">Violet Hyun</h1>
         </div>
         <div
@@ -333,7 +316,7 @@ function Glance() {
   const card = "rounded-2xl border border-border/60 bg-card p-4 shadow-[0_8px_24px_rgba(28,26,22,0.05)]"
   return (
     <div className="w-full space-y-5">
-      <SectionHeader index={2} eyebrow="At a glance" title="Résumé, work, and how to reach me" />
+      <SectionHeader eyebrow="At a glance" title="Résumé, work, and how to reach me" />
       <div className="grid gap-3 lg:grid-cols-[1.35fr_1fr_1fr]">
         {/* Experience */}
         <section className={cn(card, "lg:row-span-2")} aria-labelledby="exp-h">
@@ -463,7 +446,7 @@ const HOBBIES = [
 function OffTheClock() {
   return (
     <div className="w-full space-y-10">
-      <SectionHeader index={3} eyebrow="Off the clock" title="When I'm not designing" />
+      <SectionHeader eyebrow="Off the clock" title="When I'm not designing" />
       <div className="grid gap-12 lg:grid-cols-2 lg:gap-10">
         {HOBBIES.map((h) => (
           <div key={h.title} className="space-y-4">
@@ -485,10 +468,10 @@ function OffTheClock() {
 
 function LongerStory() {
   return (
-    <div className="grid w-full items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-16">
+    <div className="w-full space-y-10">
       <div className="space-y-6">
-        <SectionHeader index={4} eyebrow="The longer story" title="Design is how I connect people, systems, and stories." />
-        <div className="space-y-3 text-sm leading-relaxed text-foreground/70">
+        <SectionHeader eyebrow="The longer story" title="Design is how I connect people, systems, and stories." />
+        <div className="max-w-[620px] space-y-3 text-sm leading-relaxed text-foreground/70">
           <p>
             I currently work as a Product Intern at <TextLink href="https://www.vendelux.com/">Vendelux</TextLink>.
           </p>
@@ -504,12 +487,12 @@ function LongerStory() {
           <p>Whether I&apos;m at home or in my home away from home, I build a community with people around shared interests.</p>
         </div>
       </div>
-      <ul className="grid grid-cols-3 gap-3 sm:gap-4">
+      <ul className="grid max-w-[720px] grid-cols-3 gap-3 sm:gap-4">
         {LEADERSHIP.map((x) => (
           <li key={x.org}>
             <a href={x.href} target="_blank" rel="noreferrer" className="group block">
               <div className="relative aspect-square overflow-hidden rounded-2xl bg-muted/50">
-                <Image src={x.image} alt={x.org} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(min-width: 1024px) 200px, 33vw" />
+                <Image src={x.image} alt={x.org} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(min-width: 1024px) 240px, 33vw" />
               </div>
               <p className="mt-3 text-xs font-medium leading-snug text-foreground/85">{x.role}</p>
               <p className="mt-0.5 text-xs leading-snug text-foreground/55 underline decoration-foreground/25 underline-offset-2 group-hover:text-foreground/80">{x.org}</p>
@@ -530,62 +513,46 @@ function FunFact() {
         </div>
         <figcaption className="text-xs text-foreground/50">Global Miss Chunhyang, representing Korea</figcaption>
       </figure>
-      <SectionHeader
-        index={5}
-        eyebrow="Fun fact"
+      <SectionHeader eyebrow="Fun fact"
         title="I care about grace, conviction, and respect for where I come from, the values I carried as Global Miss Chunhyang."
       />
     </div>
   )
 }
 
-/* ---------- horizontal scroller ---------- */
+/* ---------- page: sticky section index + one normal scroll ---------- */
+
+const SECTIONS: [string, () => React.JSX.Element][] = [
+  ["hello", Hello],
+  ["at-a-glance", Glance],
+  ["off-the-clock", OffTheClock],
+  ["longer-story", LongerStory],
+  ["fun-fact", FunFact],
+]
 
 export function AboutExperience() {
-  const outerRef = useRef<HTMLDivElement>(null)
-  const trackRef = useRef<HTMLDivElement>(null)
-  const [horizontal, setHorizontal] = useState(false)
-  const [active, setActive] = useState(0)
-  const [pinned, setPinned] = useState(false)
-  const [atTop, setAtTop] = useState(true)
-  const N = SECTIONS.length
+  const [active, setActive] = useState(NAV[0].id)
+  const chipsRef = useRef<HTMLElement>(null)
 
-  // The scroll cue shows until the visitor starts scrolling.
+  // Mobile: keep the active chip visible in the horizontal chip bar.
   useEffect(() => {
-    const onScroll = () => setAtTop(window.scrollY < 40)
-    onScroll()
-    window.addEventListener("scroll", onScroll, { passive: true })
-    return () => window.removeEventListener("scroll", onScroll)
-  }, [])
+    const bar = chipsRef.current
+    const chip = bar?.querySelector<HTMLElement>(`a[href="#${active}"]`)
+    if (!bar || !chip || bar.scrollWidth <= bar.clientWidth) return
+    bar.scrollTo({ left: chip.offsetLeft - bar.clientWidth / 2 + chip.offsetWidth / 2, behavior: "smooth" })
+  }, [active])
 
+  // Highlight the section that crosses a line about a third of the way down the screen.
   useEffect(() => {
-    const mql = window.matchMedia("(min-width: 1024px) and (min-height: 600px)")
-    const update = () => setHorizontal(mql.matches)
-    update()
-    mql.addEventListener("change", update)
-    return () => mql.removeEventListener("change", update)
-  }, [])
-
-  // Vertical scroll drives the horizontal slide; snap so each section lands cleanly.
-  useEffect(() => {
-    const track = trackRef.current
-    if (!horizontal || !track) {
-      if (track) track.style.transform = ""
-      return
-    }
-    document.documentElement.classList.add("about-snap")
+    const els = NAV.map((n) => document.getElementById(n.id)).filter(Boolean) as HTMLElement[]
     let raf = 0
     const update = () => {
       raf = 0
-      const outer = outerRef.current
-      if (!outer) return
-      const vh = window.innerHeight
-      const top = outer.getBoundingClientRect().top
-      const total = outer.offsetHeight - vh
-      const p = Math.min(1, Math.max(0, -top / total))
-      track.style.transform = `translate3d(${-p * (N - 1) * window.innerWidth}px, 0, 0)`
-      setActive(Math.round(p * (N - 1)))
-      setPinned(top <= 0 && top > -total - vh * 0.5)
+      const line = window.innerHeight * 0.35
+      let cur = NAV[0].id
+      for (const el of els) if (el.getBoundingClientRect().top <= line) cur = el.id
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) cur = NAV[NAV.length - 1].id
+      setActive(cur)
     }
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(update)
@@ -594,97 +561,92 @@ export function AboutExperience() {
     window.addEventListener("scroll", onScroll, { passive: true })
     window.addEventListener("resize", onScroll)
     return () => {
-      document.documentElement.classList.remove("about-snap")
       window.removeEventListener("scroll", onScroll)
       window.removeEventListener("resize", onScroll)
       cancelAnimationFrame(raf)
     }
-  }, [horizontal, N])
+  }, [])
 
-  const goTo = useCallback(
-    (i: number) => {
-      const outer = outerRef.current
-      if (!outer) return
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-      const y = outer.getBoundingClientRect().top + window.scrollY + i * window.innerHeight
-      window.scrollTo({ top: y, behavior: reduce ? "auto" : "smooth" })
-    },
-    [],
-  )
-
-  // Arrow keys move one section at a time while the slides are pinned.
-  useEffect(() => {
-    if (!horizontal) return
-    const onKey = (e: KeyboardEvent) => {
-      if (!pinned || e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return
-      if (e.key === "ArrowRight") {
-        e.preventDefault()
-        goTo(Math.min(N - 1, active + 1))
-      } else if (e.key === "ArrowLeft") {
-        e.preventDefault()
-        goTo(Math.max(0, active - 1))
-      }
-    }
-    window.addEventListener("keydown", onKey)
-    return () => window.removeEventListener("keydown", onKey)
-  }, [horizontal, pinned, active, goTo, N])
-
-  const sections = [Hello, Glance, OffTheClock, LongerStory, FunFact]
+  const goTo = useCallback((e: React.MouseEvent, id: string) => {
+    const el = document.getElementById(id)
+    if (!el) return
+    e.preventDefault()
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" })
+    history.replaceState(null, "", `#${id}`)
+  }, [])
 
   return (
-    // Layout (stacked vs. pinned slides) is pure CSS, so the first paint is already right;
-    // JS only drives the slide offset, snapping, and the section nav.
-    <div ref={outerRef} className="about-outer relative overflow-x-clip" style={{ "--n": N } as React.CSSProperties}>
-      {SECTIONS.map((_, i) => (
-        <div key={i} aria-hidden className="about-snap-pt pointer-events-none absolute left-0 hidden w-px snap-start" style={{ top: `${i * 100}vh`, height: "100vh" }} />
-      ))}
-      <div className="about-pin">
-        <div ref={trackRef} className="about-track will-change-transform">
-          {sections.map((S, i) => (
-            <section
-              key={SECTIONS[i]}
-              aria-label={SECTIONS[i]}
-              className="about-slide flex items-center px-6 py-16 first:pt-32"
-              inert={horizontal && i !== active ? true : undefined}
+    <div className="mx-auto w-full max-w-[1200px] px-6 pb-28 pt-24 lg:grid lg:grid-cols-[210px_minmax(0,1fr)] lg:gap-16 lg:px-10 lg:pt-32">
+      {/* Desktop: sticky index */}
+      <aside className="hidden lg:block">
+        <div className="sticky top-32 space-y-10">
+          <div className="space-y-1">
+            <p className="text-base font-semibold text-foreground">Violet Hyun</p>
+            <p className="text-sm text-foreground/55">Product designer, New York</p>
+          </div>
+          <nav aria-label="On this page">
+            <ol className="space-y-0.5">
+              {NAV.map((n) => {
+                const on = active === n.id
+                return (
+                  <li key={n.id}>
+                    <a
+                      href={`#${n.id}`}
+                      onClick={(e) => goTo(e, n.id)}
+                      aria-current={on ? "location" : undefined}
+                      className={cn(
+                        "group flex items-center gap-3 py-1.5 text-sm transition-colors",
+                        on ? "text-foreground" : "text-foreground/45 hover:text-foreground/80",
+                      )}
+                    >
+                      <span aria-hidden className={cn("h-px transition-all duration-300", on ? "w-8 bg-foreground" : "w-4 bg-foreground/30 group-hover:w-6")} />
+                      {n.label}
+                    </a>
+                  </li>
+                )
+              })}
+            </ol>
+          </nav>
+          <div className="space-y-2 border-t border-border/60 pt-6 text-sm text-foreground/60">
+            <a href="/Resume_Violet_Hyun.pdf" target="_blank" rel="noreferrer" className="flex items-center gap-1.5 hover:text-foreground">
+              Résumé PDF <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
+            <a href="mailto:violethyun@nyu.edu" className="block hover:text-foreground">violethyun@nyu.edu</a>
+            <a href="https://www.linkedin.com/in/violet-hyun/" target="_blank" rel="noreferrer" className="flex items-center gap-1.5 hover:text-foreground">
+              LinkedIn <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
+          </div>
+        </div>
+      </aside>
+
+      <div className="min-w-0">
+        {/* Mobile: sticky chip bar */}
+        <nav ref={chipsRef} aria-label="On this page" className="sticky top-16 z-30 -mx-6 mb-10 flex gap-1 overflow-x-auto border-b border-border/60 bg-background/90 px-6 py-2.5 backdrop-blur [scrollbar-width:none] lg:hidden">
+          {NAV.map((n) => (
+            <a
+              key={n.id}
+              href={`#${n.id}`}
+              onClick={(e) => goTo(e, n.id)}
+              aria-current={active === n.id ? "location" : undefined}
+              className={cn(
+                "shrink-0 rounded-full px-3 py-1.5 text-xs transition-colors",
+                active === n.id ? "bg-foreground text-background" : "text-foreground/60",
+              )}
             >
-              <div className="mx-auto w-full max-w-[1120px]">
-                <S />
-              </div>
+              {n.label}
+            </a>
+          ))}
+        </nav>
+
+        <div className="space-y-28 lg:space-y-36">
+          {SECTIONS.map(([id, S]) => (
+            <section key={id} id={id} aria-label={NAV.find((n) => n.id === id)?.label} className="scroll-mt-32">
+              <S />
             </section>
           ))}
         </div>
       </div>
-
-      {horizontal && (
-        <div className="fixed bottom-[88px] left-1/2 z-40 -translate-x-1/2">
-          <ScrollCue visible={atTop} />
-        </div>
-      )}
-
-      {horizontal && (
-        <nav
-          aria-label="About sections"
-          className={cn(
-            "fixed bottom-6 left-1/2 z-40 flex -translate-x-1/2 items-center gap-1 rounded-full border border-border/60 bg-background/85 p-1 shadow-[0_10px_30px_rgba(0,0,0,0.12)] backdrop-blur transition-opacity",
-            pinned ? "opacity-100" : "pointer-events-none opacity-0",
-          )}
-        >
-          {SECTIONS.map((label, i) => (
-            <button
-              key={label}
-              type="button"
-              onClick={() => goTo(i)}
-              aria-current={active === i ? "step" : undefined}
-              className={cn(
-                "rounded-full px-3 py-1.5 text-xs transition-colors",
-                active === i ? "bg-foreground text-background" : "text-foreground/60 hover:text-foreground",
-              )}
-            >
-              {label}
-            </button>
-          ))}
-        </nav>
-      )}
     </div>
   )
 }
