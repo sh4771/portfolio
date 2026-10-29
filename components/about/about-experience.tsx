@@ -22,7 +22,6 @@ const NAV = [
 
 const INTRO = [
   "I'm Violet Hyun, a product designer in New York drawn to complex problems, because they usually hide the most important human needs.",
-  "I like products where the information, workflows, or systems feel overwhelming at first. I figure out what actually matters, cut the friction, and turn that complexity into something people use with confidence. My background in research, computational design, and art keeps me thinking about the whole system behind an experience.",
 ]
 
 const EXPERIENCE = [
@@ -511,10 +510,9 @@ function FunFact() {
         <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-muted/50">
           <Image src="/images/about-chunhyang.jpg" alt="Violet backstage at the Global Miss Chunhyang pageant, holding a violin" fill className="object-cover" sizes="320px" />
         </div>
-        <figcaption className="text-xs text-foreground/50">Global Miss Chunhyang, representing Korea</figcaption>
       </figure>
       <SectionHeader eyebrow="Fun fact"
-        title="I care about grace, conviction, and respect for where I come from, the values I carried as Global Miss Chunhyang."
+        title="As Global Miss Chunhyang, I learned to carry my roots with confidence and grace."
       />
     </div>
   )
