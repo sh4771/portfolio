@@ -17,17 +17,16 @@ import { cn } from "@/lib/utils"
 const SECTIONS = ["Hello", "At a glance", "Off the clock", "The longer story", "Fun fact"]
 
 const INTRO = [
-  "I'm Violet Hyun, a product designer in New York who is drawn to complex problems because they usually hide the most important human needs.",
-  "I like working on products where the information, workflows, or systems feel overwhelming at first. My role is to understand what actually matters, remove unnecessary friction, and turn that complexity into something people can understand and use with confidence.",
-  "My background across product design, research, computational design, and art has taught me to look beyond individual screens and think about the larger system behind an experience.",
+  "I'm Violet Hyun, a product designer in New York drawn to complex problems, because they usually hide the most important human needs.",
+  "I like products where the information, workflows, or systems feel overwhelming at first. I figure out what actually matters, cut the friction, and turn that complexity into something people use with confidence. My background in research, computational design, and art keeps me thinking about the whole system behind an experience.",
 ]
 
 const EXPERIENCE = [
   { org: "Vendelux", role: "Product Intern", when: "Mar 2026 – Present", domain: "vendelux.com", href: "https://www.vendelux.com/", now: true },
   { org: "Stealth AI startup", role: "UX Designer", when: "Nov 2025 – Jan 2026" },
   { org: "Columbia ROAR Lab", role: "Web Designer & Graduate Researcher", when: "May 2025 – Mar 2026", domain: "columbia.edu", href: "https://roar.me.columbia.edu/" },
-  { org: "Miss K Cosmetics", role: "Design", when: "May – Aug 2023", domain: "misskcosmetics.com", href: "https://misskcosmetics.com/" },
-  { org: "K Museum of Contemporary Art", role: "Design", when: "May – Aug 2022", domain: "kmcaseoul.org", href: "https://www.kmcaseoul.org/" },
+  { org: "Miss K Cosmetics", role: "Design", when: "May – Aug 2023", domain: "misskcosmetics.com", logo: "/images/logos/miss-k.png", href: "https://misskcosmetics.com/" },
+  { org: "K Museum of Contemporary Art", role: "Design", when: "May – Aug 2022", domain: "kmcaseoul.org", logo: "/images/logos/kmca.png", href: "https://www.kmcaseoul.org/" },
   { org: "Chloé", role: "Merchandising", domain: "chloe.com", href: "https://www.chloe.com/" },
 ]
 
@@ -46,24 +45,33 @@ const LEADERSHIP = [
 
 /* ---------- small pieces ---------- */
 
-function Logo({ domain, label }: { domain?: string; label: string }) {
-  const [failed, setFailed] = useState(false)
+function Logo({ domain, logo, label }: { domain?: string; logo?: string; label: string }) {
+  // Try a local logo file first, then two favicon services, then fall back to the initial.
+  const sources = [
+    logo,
+    domain && `https://www.google.com/s2/favicons?domain=${domain}&sz=64`,
+    domain && `https://icons.duckduckgo.com/ip3/${domain}.ico`,
+  ].filter(Boolean) as string[]
+  const [idx, setIdx] = useState(0)
   const imgRef = useRef<HTMLImageElement>(null)
-  // The favicon can fail before hydration attaches onError; check once on mount.
+  const next = useCallback(() => setIdx((i) => i + 1), [])
+  // A source can fail before hydration attaches onError; check after each swap.
   useEffect(() => {
     const img = imgRef.current
-    if (img && img.complete && img.naturalWidth === 0) setFailed(true)
-  }, [])
+    if (img && img.complete && img.naturalWidth === 0) next()
+  }, [idx, next])
+  const src = sources[idx]
   return (
     <span className="grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-xl border border-border/60 bg-white">
-      {domain && !failed ? (
+      {src ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
+          key={src}
           ref={imgRef}
-          src={`https://www.google.com/s2/favicons?domain=${domain}&sz=64`}
+          src={src}
           alt=""
-          className="h-5 w-5 object-contain"
-          onError={() => setFailed(true)}
+          className={src === logo ? "h-7 w-7 object-contain" : "h-5 w-5 object-contain"}
+          onError={next}
         />
       ) : (
         <span className="text-xs font-semibold text-neutral-500">{label.slice(0, 1)}</span>
@@ -265,15 +273,15 @@ function Hello() {
   const slotRef = useRef<HTMLDivElement>(null)
   const { phase, flight } = useIntroFlight(slotRef)
   return (
-    <div className="grid w-full items-center gap-12 lg:grid-cols-[minmax(0,420px)_minmax(0,1fr)] lg:gap-20">
-      <div className="relative mx-auto w-full max-w-[360px] lg:max-w-none">
+    <div className="grid w-full items-center gap-12 lg:grid-cols-[minmax(0,330px)_minmax(0,1fr)] lg:gap-20">
+      <div className="relative mx-auto w-full max-w-[280px] lg:max-w-none">
         <div className="rounded-[32px] bg-white/70 p-3 shadow-[0_24px_60px_rgba(28,26,22,0.12)] dark:bg-white/5">
           <div className="relative aspect-[4/5] overflow-hidden rounded-[24px]">
-            <Image src="/images/about-photo.png" alt="Portrait of Violet Hyun" fill priority className="object-cover" sizes="(min-width: 1024px) 420px, 360px" />
+            <Image src="/images/about-photo.png" alt="Portrait of Violet Hyun" fill priority className="object-cover" sizes="(min-width: 1024px) 330px, 280px" />
           </div>
         </div>
         {/* Mini Violet lands here */}
-        <div ref={slotRef} className="absolute -bottom-6 right-0 h-[230px] w-[112px] sm:-right-14 sm:h-[260px] sm:w-[126px]">
+        <div ref={slotRef} className="absolute -bottom-6 right-0 h-[190px] w-[92px] sm:-right-12 sm:h-[215px] sm:w-[104px]">
           <div className={cn("relative h-full w-full", phase === "landed" ? "opacity-100" : "opacity-0")}>
             <div className="h-full w-full motion-safe:animate-[mv-bob_3.2s_ease-in-out_infinite]">
               <Image src="/images/mini-violet/figure.webp" alt="Mini Violet, a 3D figure of Violet, waving" fill className="object-contain drop-shadow-[0_18px_22px_rgba(28,26,22,0.25)]" sizes="130px" />
@@ -323,7 +331,7 @@ function Glance() {
             {EXPERIENCE.map((e) => {
               const body = (
                 <>
-                  <Logo domain={e.domain} label={e.org} />
+                  <Logo domain={e.domain} logo={"logo" in e ? e.logo : undefined} label={e.org} />
                   <span className="min-w-0 flex-1">
                     <span className="flex items-center gap-2 text-sm font-medium text-foreground">
                       {e.org}
