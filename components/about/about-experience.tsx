@@ -9,8 +9,6 @@ import {
   GraduationCap,
   Linkedin,
   Mail,
-  Sparkles,
-  Users,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -80,12 +78,22 @@ function Logo({ domain, logo, label }: { domain?: string; logo?: string; label: 
   )
 }
 
-function Eyebrow({ icon: Icon, children }: { icon?: React.ElementType; children: React.ReactNode }) {
+function Eyebrow({ index, children }: { index?: number; children: React.ReactNode }) {
   return (
-    <p className="flex items-center gap-2 text-xs font-medium tracking-[0.16em] text-foreground/55 uppercase">
-      {Icon && <Icon className="h-3.5 w-3.5" />}
+    <p className="flex items-center gap-3 text-xs font-medium tracking-[0.16em] text-foreground/50 uppercase">
+      {index !== undefined && <span className="tabular-nums text-foreground/35">{String(index).padStart(2, "0")}</span>}
+      {index !== undefined && <span aria-hidden className="h-px w-6 bg-foreground/20" />}
       {children}
     </p>
+  )
+}
+
+function SectionHeader({ index, eyebrow, title }: { index: number; eyebrow: string; title: React.ReactNode }) {
+  return (
+    <div className="space-y-3">
+      <Eyebrow index={index}>{eyebrow}</Eyebrow>
+      <h2 className="max-w-[640px] text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">{title}</h2>
+    </div>
   )
 }
 
@@ -97,20 +105,28 @@ function TextLink({ href, children }: { href: string; children: React.ReactNode 
   )
 }
 
-function Polaroid({ src, alt, caption, rotate, className }: { src: string; alt: string; caption?: string; rotate: number; className?: string }) {
+function Photo({ src, alt, sizes = "260px", className }: { src: string; alt: string; sizes?: string; className?: string }) {
   return (
-    <figure
+    <div className={cn("relative aspect-square overflow-hidden rounded-2xl bg-muted/50", className)}>
+      <Image src={src} alt={alt} fill className="object-cover" sizes={sizes} />
+    </div>
+  )
+}
+
+function ScrollCue({ visible }: { visible: boolean }) {
+  return (
+    <div
+      aria-hidden
       className={cn(
-        "rounded-md bg-white p-2.5 pb-3 shadow-[0_18px_40px_rgba(28,26,22,0.16)] transition-transform duration-300 ease-out hover:z-10 hover:!rotate-0 hover:scale-[1.03]",
-        className,
+        "pointer-events-none flex flex-col items-center gap-2 text-[11px] font-medium tracking-[0.18em] text-foreground/45 uppercase transition-opacity duration-500",
+        visible ? "opacity-100" : "opacity-0",
       )}
-      style={{ rotate: `${rotate}deg` }}
     >
-      <div className="relative aspect-[4/5] overflow-hidden rounded-sm bg-neutral-100">
-        <Image src={src} alt={alt} fill className="object-cover" sizes="260px" />
-      </div>
-      {caption && <figcaption className="pt-2 text-center text-[13px] font-medium text-neutral-700">{caption}</figcaption>}
-    </figure>
+      Scroll to explore
+      <span className="relative h-9 w-[22px] rounded-full border border-foreground/30">
+        <span className="absolute left-1/2 top-1.5 h-2 w-[3px] -translate-x-1/2 rounded-full bg-foreground/60 motion-safe:animate-[scroll-dot_1.6s_ease-in-out_infinite]" />
+      </span>
+    </div>
   )
 }
 
@@ -293,7 +309,7 @@ function Hello() {
 
       <div className="max-w-[560px] space-y-6">
         <div className="space-y-3">
-          <Eyebrow>About</Eyebrow>
+          <Eyebrow index={1}>About</Eyebrow>
           <h1 className="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">Violet Hyun</h1>
         </div>
         <div
@@ -317,10 +333,7 @@ function Glance() {
   const card = "rounded-2xl border border-border/60 bg-card p-4 shadow-[0_8px_24px_rgba(28,26,22,0.05)]"
   return (
     <div className="w-full space-y-5">
-      <div className="space-y-2">
-        <Eyebrow icon={Sparkles}>At a glance</Eyebrow>
-        <h2 className="cs-h2">Résumé, work, and how to reach me</h2>
-      </div>
+      <SectionHeader index={2} eyebrow="At a glance" title="Résumé, work, and how to reach me" />
       <div className="grid gap-3 lg:grid-cols-[1.35fr_1fr_1fr]">
         {/* Experience */}
         <section className={cn(card, "lg:row-span-2")} aria-labelledby="exp-h">
@@ -421,41 +434,50 @@ function Glance() {
   )
 }
 
+const HOBBIES = [
+  {
+    title: "Food is my biggest love language.",
+    body: (
+      <>
+        I&apos;m in the <TextLink href="https://beliapp.co/">top 5% of restaurant rankers on Beli in NYC</TextLink> and even made a little{" "}
+        <TextLink href="https://editor.p5js.org/sh6363/full/mnrKWZok0">NYC restaurant bot</TextLink>. Ask me what to eat anytime.
+      </>
+    ),
+    photos: [
+      { src: "/images/about-food-1.jpg", alt: "Beli top 5% restaurant ranker badge" },
+      { src: "/images/about-food-2.jpg", alt: "Homemade dishes" },
+      { src: "/images/about-food-3.jpg", alt: "Kitchen party" },
+    ],
+  },
+  {
+    title: "I enjoy all kinds of sports.",
+    body: <>I spend time with friends golfing, playing volleyball, going to the gym, and running.</>,
+    photos: [
+      { src: "/images/about-sports-2.jpg", alt: "Golfing" },
+      { src: "/images/about-sports-1.jpg", alt: "Gym workout" },
+      { src: "/images/about-sports-3.jpg", alt: "Skiing with friends" },
+    ],
+  },
+]
+
 function OffTheClock() {
   return (
-    <div className="w-full space-y-8">
-      <div className="space-y-2">
-        <Eyebrow>When I&apos;m not designing</Eyebrow>
-        <h2 className="cs-h2">Off the clock</h2>
-      </div>
+    <div className="w-full space-y-10">
+      <SectionHeader index={3} eyebrow="Off the clock" title="When I'm not designing" />
       <div className="grid gap-12 lg:grid-cols-2 lg:gap-10">
-        <div className="space-y-5">
-          <div className="relative mx-auto flex h-[260px] max-w-[440px] items-center justify-center">
-            <Polaroid src="/images/about-food-2.jpg" alt="Homemade dishes" rotate={-8} className="absolute left-0 top-4 w-[150px]" />
-            <Polaroid src="/images/about-food-3.jpg" alt="Kitchen party" rotate={7} className="absolute right-0 top-2 w-[150px]" />
-            <Polaroid src="/images/about-food-1.jpg" alt="Beli top 5% restaurant ranker badge" rotate={-1} caption="Top 5% on Beli" className="relative w-[160px]" />
+        {HOBBIES.map((h) => (
+          <div key={h.title} className="space-y-4">
+            <div className="grid grid-cols-3 gap-2.5">
+              {h.photos.map((ph) => (
+                <Photo key={ph.src} src={ph.src} alt={ph.alt} sizes="(min-width: 1024px) 180px, 30vw" />
+              ))}
+            </div>
+            <div className="space-y-1">
+              <p className="text-sm font-semibold text-foreground">{h.title}</p>
+              <p className="max-w-[460px] text-sm leading-relaxed text-foreground/65">{h.body}</p>
+            </div>
           </div>
-          <div className="mx-auto max-w-[440px] space-y-1.5 text-center">
-            <p className="text-sm font-semibold text-foreground">Food is my biggest love language.</p>
-            <p className="text-sm leading-relaxed text-foreground/65">
-              I&apos;m in the <TextLink href="https://beliapp.co/">top 5% of restaurant rankers on Beli in NYC</TextLink>. I even made a little{" "}
-              <TextLink href="https://editor.p5js.org/sh6363/full/mnrKWZok0">NYC restaurant bot</TextLink> for fun. Ask me what to eat anytime, I got you!
-            </p>
-          </div>
-        </div>
-        <div className="space-y-5">
-          <div className="relative mx-auto flex h-[260px] max-w-[440px] items-center justify-center">
-            <Polaroid src="/images/about-sports-1.jpg" alt="Gym workout" rotate={-7} className="absolute left-0 top-3 w-[150px]" />
-            <Polaroid src="/images/about-sports-3.jpg" alt="Skiing with friends" rotate={8} className="absolute right-0 top-5 w-[150px]" />
-            <Polaroid src="/images/about-sports-2.jpg" alt="Golfing" rotate={2} caption="Golf, volleyball, gym, running" className="relative w-[160px]" />
-          </div>
-          <div className="mx-auto max-w-[440px] space-y-1.5 text-center">
-            <p className="text-sm font-semibold text-foreground">I enjoy all kinds of sports.</p>
-            <p className="text-sm leading-relaxed text-foreground/65">
-              I spend time with my friends golfing, playing volleyball, going to the gym, and running.
-            </p>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   )
@@ -463,13 +485,9 @@ function OffTheClock() {
 
 function LongerStory() {
   return (
-    <div className="grid w-full items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16">
-      <div className="space-y-5">
-        <Eyebrow icon={Users}>The longer story</Eyebrow>
-        <p className="text-2xl font-medium leading-snug tracking-tight text-foreground sm:text-3xl">
-          Design is how I connect <span className="scribble-underline">people</span>,{" "}
-          <span className="scribble-underline">systems</span>, and <span className="scribble-underline">stories</span>.
-        </p>
+    <div className="grid w-full items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-16">
+      <div className="space-y-6">
+        <SectionHeader index={4} eyebrow="The longer story" title="Design is how I connect people, systems, and stories." />
         <div className="space-y-3 text-sm leading-relaxed text-foreground/70">
           <p>
             I currently work as a Product Intern at <TextLink href="https://www.vendelux.com/">Vendelux</TextLink>.
@@ -483,20 +501,18 @@ function LongerStory() {
             <TextLink href="https://www.kmcaseoul.org/">K Museum of Contemporary Art</TextLink>, as well as merchandising at{" "}
             <TextLink href="https://www.chloe.com/">Chloé</TextLink>.
           </p>
-          <p className="text-foreground/55">
-            Whether I&apos;m at home or in my home away from home, I build a community with people around shared interests.
-          </p>
+          <p>Whether I&apos;m at home or in my home away from home, I build a community with people around shared interests.</p>
         </div>
       </div>
       <ul className="grid grid-cols-3 gap-3 sm:gap-4">
-        {LEADERSHIP.map((x, i) => (
-          <li key={x.org} className={cn(i === 1 && "lg:translate-y-8")}>
+        {LEADERSHIP.map((x) => (
+          <li key={x.org}>
             <a href={x.href} target="_blank" rel="noreferrer" className="group block">
-              <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-muted/50">
+              <div className="relative aspect-square overflow-hidden rounded-2xl bg-muted/50">
                 <Image src={x.image} alt={x.org} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(min-width: 1024px) 200px, 33vw" />
               </div>
-              <p className="mt-2 text-xs font-medium text-foreground/80">{x.role}</p>
-              <p className="text-xs text-foreground/55 underline decoration-foreground/25 underline-offset-2 group-hover:text-foreground/80">{x.org}</p>
+              <p className="mt-3 text-xs font-medium leading-snug text-foreground/85">{x.role}</p>
+              <p className="mt-0.5 text-xs leading-snug text-foreground/55 underline decoration-foreground/25 underline-offset-2 group-hover:text-foreground/80">{x.org}</p>
             </a>
           </li>
         ))}
@@ -507,20 +523,18 @@ function LongerStory() {
 
 function FunFact() {
   return (
-    <div className="grid w-full items-center gap-10 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)] lg:gap-16">
-      <Polaroid src="/images/about-chunhyang.jpg" alt="Violet backstage at the Chunhyang pageant, holding a violin" rotate={-3} caption="Backstage, contestant no. 4" className="mx-auto w-full max-w-[320px]" />
-      <div className="max-w-[540px] space-y-5">
-        <Eyebrow>Fun fact</Eyebrow>
-        <h2 className="text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">
-          I represented Korea as Global Miss Chunhyang.
-        </h2>
-        <div className="space-y-3 text-[15px] leading-relaxed text-foreground/70">
-          <p>
-            Chunhyang is one of Korea&apos;s most loved stories, about a woman who stays true to herself no matter who pressures her. The pageant celebrates that kind of beauty: grace, conviction, and respect for where you come from.
-          </p>
-          <p>I care about the same things in design: work that looks good, stands for something, and treats people with respect.</p>
+    <div className="grid w-full items-center gap-10 lg:grid-cols-[minmax(0,320px)_minmax(0,1fr)] lg:gap-16">
+      <figure className="mx-auto w-full max-w-[300px] space-y-2.5 lg:max-w-none">
+        <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-muted/50">
+          <Image src="/images/about-chunhyang.jpg" alt="Violet backstage at the Global Miss Chunhyang pageant, holding a violin" fill className="object-cover" sizes="320px" />
         </div>
-      </div>
+        <figcaption className="text-xs text-foreground/50">Global Miss Chunhyang, representing Korea</figcaption>
+      </figure>
+      <SectionHeader
+        index={5}
+        eyebrow="Fun fact"
+        title="I care about grace, conviction, and respect for where I come from, the values I carried as Global Miss Chunhyang."
+      />
     </div>
   )
 }
@@ -533,7 +547,16 @@ export function AboutExperience() {
   const [horizontal, setHorizontal] = useState(false)
   const [active, setActive] = useState(0)
   const [pinned, setPinned] = useState(false)
+  const [atTop, setAtTop] = useState(true)
   const N = SECTIONS.length
+
+  // The scroll cue shows until the visitor starts scrolling.
+  useEffect(() => {
+    const onScroll = () => setAtTop(window.scrollY < 40)
+    onScroll()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
+  }, [])
 
   useEffect(() => {
     const mql = window.matchMedia("(min-width: 1024px) and (min-height: 600px)")
@@ -631,6 +654,12 @@ export function AboutExperience() {
           ))}
         </div>
       </div>
+
+      {horizontal && (
+        <div className="fixed bottom-[88px] left-1/2 z-40 -translate-x-1/2">
+          <ScrollCue visible={atTop} />
+        </div>
+      )}
 
       {horizontal && (
         <nav

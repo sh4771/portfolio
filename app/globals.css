@@ -449,3 +449,9 @@ html.mv-intro [data-violet-gpt] {
 @media (min-width: 1280px) and (min-height: 600px) {
   .about-slide { padding-left: 80px !important; padding-right: 80px !important; }
 }
+
+@keyframes scroll-dot {
+  0% { transform: translate(-50%, 0); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translate(-50%, 12px); opacity: 0; }
+}
