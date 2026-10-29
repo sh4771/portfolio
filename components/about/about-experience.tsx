@@ -16,7 +16,6 @@ const NAV = [
   { id: "hello", label: "Hello" },
   { id: "at-a-glance", label: "At a glance" },
   { id: "off-the-clock", label: "Off the clock" },
-  { id: "longer-story", label: "The longer story" },
   { id: "fun-fact", label: "Fun fact" },
 ]
 
@@ -39,12 +38,6 @@ const EDUCATION = [
 ]
 
 const TOOLS = ["Figma", "Claude Code", "Cursor", "Figma MCP", "v0", "Framer", "HTML/CSS", "Python", "Rhino + Grasshopper"]
-
-const LEADERSHIP = [
-  { image: "/images/experience-roar.jpg", role: "Lead Design Engineer, Web Designer", org: "ROAR Lab, Columbia University", href: "https://roar.me.columbia.edu/" },
-  { image: "/images/experience-design-engineering.jpg", role: "Founder, President", org: "Design & Engineering @ NYU", href: "https://www.instagram.com/de_nyu/" },
-  { image: "/images/experience-louvre.jpg", role: "Team Lead, Visiting Artist", org: "Louvre Abu Dhabi", href: "https://www.louvreabudhabi.ae/" },
-]
 
 /* ---------- small pieces ---------- */
 
@@ -315,7 +308,7 @@ function Glance() {
   const card = "rounded-2xl border border-border/60 bg-card p-4 shadow-[0_8px_24px_rgba(28,26,22,0.05)]"
   return (
     <div className="w-full space-y-5">
-      <SectionHeader eyebrow="At a glance" title="Résumé, work, and how to reach me" />
+      <SectionHeader eyebrow="At a glance" title="Work and contact" />
       <div className="grid gap-3 lg:grid-cols-[1.35fr_1fr_1fr]">
         {/* Experience */}
         <section className={cn(card, "lg:row-span-2")} aria-labelledby="exp-h">
@@ -418,11 +411,11 @@ function Glance() {
 
 const HOBBIES = [
   {
-    title: "Food is my biggest love language.",
+    title: "Food is my love language.",
     body: (
       <>
-        I&apos;m in the <TextLink href="https://beliapp.co/">top 5% of restaurant rankers on Beli in NYC</TextLink> and even made a little{" "}
-        <TextLink href="https://editor.p5js.org/sh6363/full/mnrKWZok0">NYC restaurant bot</TextLink>. Ask me what to eat anytime.
+        <TextLink href="https://beliapp.co/">Top 5% on Beli in NYC</TextLink>, plus a{" "}
+        <TextLink href="https://editor.p5js.org/sh6363/full/mnrKWZok0">restaurant bot</TextLink> I built.
       </>
     ),
     photos: [
@@ -432,8 +425,8 @@ const HOBBIES = [
     ],
   },
   {
-    title: "I enjoy all kinds of sports.",
-    body: <>I spend time with friends golfing, playing volleyball, going to the gym, and running.</>,
+    title: "Sports with friends.",
+    body: <>Golf, volleyball, the gym, and running.</>,
     photos: [
       { src: "/images/about-sports-2.jpg", alt: "Golfing" },
       { src: "/images/about-sports-1.jpg", alt: "Gym workout" },
@@ -465,44 +458,6 @@ function OffTheClock() {
   )
 }
 
-function LongerStory() {
-  return (
-    <div className="w-full space-y-10">
-      <div className="space-y-6">
-        <SectionHeader eyebrow="The longer story" title="Design is how I connect people, systems, and stories." />
-        <div className="max-w-[620px] space-y-3 text-sm leading-relaxed text-foreground/70">
-          <p>
-            I currently work as a Product Intern at <TextLink href="https://www.vendelux.com/">Vendelux</TextLink>.
-          </p>
-          <p>
-            Before Vendelux, I led web design and research at Columbia University&apos;s{" "}
-            <TextLink href="https://roar.me.columbia.edu/">Robotics and Rehabilitation Lab</TextLink>, collaborating with researchers, students, and people with spinal cord injuries to rebuild the lab&apos;s digital experience.
-          </p>
-          <p>
-            My previous experience also includes design roles at <TextLink href="https://misskcosmetics.com/">Miss K Cosmetics</TextLink> and{" "}
-            <TextLink href="https://www.kmcaseoul.org/">K Museum of Contemporary Art</TextLink>, as well as merchandising at{" "}
-            <TextLink href="https://www.chloe.com/">Chloé</TextLink>.
-          </p>
-          <p>Whether I&apos;m at home or in my home away from home, I build a community with people around shared interests.</p>
-        </div>
-      </div>
-      <ul className="grid max-w-[720px] grid-cols-3 gap-3 sm:gap-4">
-        {LEADERSHIP.map((x) => (
-          <li key={x.org}>
-            <a href={x.href} target="_blank" rel="noreferrer" className="group block">
-              <div className="relative aspect-square overflow-hidden rounded-2xl bg-muted/50">
-                <Image src={x.image} alt={x.org} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(min-width: 1024px) 240px, 33vw" />
-              </div>
-              <p className="mt-3 text-xs font-medium leading-snug text-foreground/85">{x.role}</p>
-              <p className="mt-0.5 text-xs leading-snug text-foreground/55 underline decoration-foreground/25 underline-offset-2 group-hover:text-foreground/80">{x.org}</p>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
-}
-
 function FunFact() {
   return (
     <div className="grid w-full items-center gap-10 lg:grid-cols-[minmax(0,320px)_minmax(0,1fr)] lg:gap-16">
@@ -524,7 +479,6 @@ const SECTIONS: [string, () => React.JSX.Element][] = [
   ["hello", Hello],
   ["at-a-glance", Glance],
   ["off-the-clock", OffTheClock],
-  ["longer-story", LongerStory],
   ["fun-fact", FunFact],
 ]
 
