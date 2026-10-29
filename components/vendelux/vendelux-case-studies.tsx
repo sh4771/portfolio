@@ -1,6 +1,7 @@
 "use client"
 
 import type React from "react"
+import { useEffect, useRef } from "react"
 import Image from "next/image"
 import {
   Route,
@@ -41,6 +42,23 @@ export function VendeluxCaseStudies() {
   const active =
     vendeluxProjects.find((p) => p.slug === activeSlug) || vendeluxProjects[0]
 
+  // Arriving with ?project= (from a homepage tile, or after the password screen):
+  // skip the page intro and land on the project tabs.
+  const tabsRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (!searchParams.get("project")) return
+    const frame = requestAnimationFrame(() => {
+      const el = tabsRef.current
+      if (!el) return
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      const top = el.getBoundingClientRect().top + window.scrollY - 96
+      window.scrollTo({ top, behavior: reduce ? "auto" : "smooth" })
+    })
+    return () => cancelAnimationFrame(frame)
+    // Only on first arrival; tab clicks on the page keep their scroll position.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   function selectProject(slug: string) {
     const params = new URLSearchParams(searchParams.toString())
     params.set("project", slug)
@@ -50,7 +68,7 @@ export function VendeluxCaseStudies() {
   return (
     <div>
       {/* Pill switcher */}
-      <div className="mb-10 flex flex-wrap gap-2">
+      <div ref={tabsRef} className="mb-10 flex flex-wrap gap-2">
         {vendeluxProjects.map((project) => (
           <button
             key={project.slug}
