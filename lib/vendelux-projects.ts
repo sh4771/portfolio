@@ -32,6 +32,8 @@ export interface VendeluxProject {
   slug: string
   navLabel: string
   title: string
+  /** The design challenge, shown as the case study's main heading. */
+  challenge?: string
   oneLiner: string
   duration: string
   whatIDid: string
@@ -55,6 +57,7 @@ export const vendeluxProjects: VendeluxProject[] = [
     slug: "segments",
     navLabel: "Segments",
     title: "Segments",
+    challenge: "Guiding marketers to the right audience",
     oneLiner:
       "I kept wondering why organizers were digging through an alphabetical list to do the one thing they always did first. That question led me through three structural directions, and taught me that visual density can't override a system constraint.",
     duration: "Mar – May 2026 · Shipped",
@@ -223,6 +226,7 @@ export const vendeluxProjects: VendeluxProject[] = [
     slug: "campaign-admin",
     navLabel: "Campaign Admin",
     title: "Campaign Admin",
+    challenge: "Turning a cut feature into a faster setup flow",
     oneLiner:
       "I set out to redesign an internal campaign-launch tool and ended up rethinking the shared-setup model for related sub-campaigns along the way. When backend constraints ruled out my first plan, bulk editing, for the MVP, I had to find another path to the same outcome.",
     duration: "July 10 – Aug 28, 2026 · In progress",
@@ -457,6 +461,7 @@ export const vendeluxProjects: VendeluxProject[] = [
     slug: "meeting-planner",
     navLabel: "Meeting Planner",
     title: "Meeting Planner",
+    challenge: "Making a forecast people can trust",
     oneLiner:
       "The product told customers \"Expected Meetings: 36\" like it was a fact, when it was really an estimate built on a handful of assumptions. I redesigned the panel to show its work.",
     duration: "July 21 – Aug 26, 2026 · Ongoing",
@@ -686,6 +691,7 @@ export const vendeluxProjects: VendeluxProject[] = [
     slug: "planner",
     navLabel: "Planner",
     title: "Planner",
+    challenge: "Making dense event data easy to scan",
     oneLiner: "Planner is where event teams build an ROI case for each event.",
     duration: "2026 · In progress",
     whatIDid: "Product design",

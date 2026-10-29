@@ -98,7 +98,8 @@ export function VendeluxCaseStudies() {
       ) : (
       <article className="space-y-8">
         <header className="space-y-1.5">
-          <h1 className="cs-h1">{active.title}</h1>
+          <p className="cs-eyebrow">{active.title}</p>
+          <h1 className="cs-h1">{active.challenge ?? active.title}</h1>
           <p className="text-sm text-foreground/60">
             {active.duration}
             {" · "}

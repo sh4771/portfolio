@@ -29,7 +29,7 @@ export interface CaseStudy {
     label: string
     meta: string
     locked?: boolean
-    items: { slug: string; title: string; blurb: string; image?: string; soon?: boolean }[]
+    items: { slug: string; title: string; challenge: string; image?: string; soon?: boolean }[]
   }
 }
 
@@ -51,10 +51,10 @@ const projects: CaseStudy[] = [
       meta: "Product Intern · 2026",
       locked: true,
       items: [
-        { slug: "segments", title: "Segments", blurb: "Build an audience once, reuse it across events", image: "/images/vendelux/thumbs/segments.jpg" },
-        { slug: "campaign-admin", title: "Campaign Admin", blurb: "Set up related sub-campaigns without repeating work", image: "/images/vendelux/thumbs/campaign-admin.jpg" },
-        { slug: "meeting-planner", title: "Meeting Planner", blurb: "Show how a meeting forecast is calculated", image: "/images/vendelux/thumbs/meeting-planner.jpg" },
-        { slug: "planner", title: "Planner", blurb: "Where customers build an ROI case for each event", soon: true },
+        { slug: "segments", title: "Segments", challenge: "Guiding marketers to the right audience", image: "/images/vendelux/thumbs/segments.jpg" },
+        { slug: "campaign-admin", title: "Campaign Admin", challenge: "Turning a cut feature into a faster setup flow", image: "/images/vendelux/thumbs/campaign-admin.jpg" },
+        { slug: "meeting-planner", title: "Meeting Planner", challenge: "Making a forecast people can trust", image: "/images/vendelux/thumbs/meeting-planner.jpg" },
+        { slug: "planner", title: "Planner", challenge: "Making dense event data easy to scan", soon: true },
       ],
     },
   },
@@ -264,18 +264,15 @@ function GroupedCaseStudy({ project }: { project: CaseStudy }) {
                   </span>
                 )}
                 <span className="min-w-0">
-                  <span className="block text-[11px] font-semibold tracking-[0.08em] text-foreground/40">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="flex items-center gap-2 text-sm font-medium text-foreground">
-                    {item.title}
+                  <span className="flex items-center gap-2 text-[11px] font-semibold tracking-[0.08em] text-foreground/45">
+                    {String(i + 1).padStart(2, "0")} · {item.title}
                     {item.soon && (
                       <span className="rounded-full bg-amber-500/20 px-1.5 py-px text-[10px] font-semibold tracking-wide text-amber-800 uppercase dark:text-amber-300">
                         Coming soon
                       </span>
                     )}
                   </span>
-                  <span className="block text-xs leading-snug text-foreground/60">{item.blurb}</span>
+                  <span className="mt-0.5 block text-sm font-medium leading-snug text-foreground">{item.challenge}</span>
                 </span>
               </Link>
             </li>

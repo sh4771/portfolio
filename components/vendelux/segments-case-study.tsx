@@ -151,7 +151,8 @@ export function SegmentsCaseStudy() {
       {/* Header */}
       <header className="space-y-6">
         <div className="space-y-1.5">
-          <h1 className="cs-h1">Segments</h1>
+          <p className="cs-eyebrow">Segments</p>
+          <h1 className="cs-h1">Guiding marketers to the right audience</h1>
           <p className="text-sm text-foreground/60">Apr – Oct 2026 · Product Intern</p>
         </div>
         <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border/50 bg-border/50 sm:grid-cols-4">
