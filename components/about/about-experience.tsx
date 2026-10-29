@@ -24,16 +24,16 @@ const INTRO = [
 ]
 
 const EXPERIENCE = [
-  { org: "Vendelux", role: "Product Intern", when: "Mar 2026 – Present", domain: "vendelux.com", href: "https://www.vendelux.com/", now: true },
+  { org: "Vendelux", role: "Product Intern", when: "Apr 2026 – Present", logo: "/images/logos/vendelux.png", href: "https://www.vendelux.com/", now: true },
   { org: "Stealth AI startup", role: "UX Designer", when: "Nov 2025 – Jan 2026" },
-  { org: "Columbia ROAR Lab", role: "Web Designer & Graduate Researcher", when: "May 2025 – Mar 2026", domain: "columbia.edu", href: "https://roar.me.columbia.edu/" },
-  { org: "Miss K Cosmetics", role: "Design", when: "May – Aug 2023", domain: "misskcosmetics.com", logo: "/images/logos/miss-k.png", href: "https://misskcosmetics.com/" },
-  { org: "K Museum of Contemporary Art", role: "Design", when: "May – Aug 2022", domain: "kmcaseoul.org", logo: "/images/logos/kmca.png", href: "https://www.kmcaseoul.org/" },
-  { org: "Chloé", role: "Merchandising", domain: "chloe.com", href: "https://www.chloe.com/" },
+  { org: "Columbia University, ROAR Lab", role: "Graduate Student Researcher", when: "Jun 2025 – Mar 2026", logo: "/images/logos/columbia.png", href: "https://roar.me.columbia.edu/" },
+  { org: "Chloé (Richemont)", role: "Merchandising Assistant", when: "Aug 2023 – Jan 2024", logo: "/images/logos/richemont.png", href: "https://www.chloe.com/" },
+  { org: "Miss K Cosmetics", role: "Product Designer", when: "Jul – Sep 2023", logo: "/images/logos/miss-k.png", href: "https://misskcosmetics.com/" },
+  { org: "K Museum of Contemporary Art", role: "Creative Intern", when: "Jun – Sep 2022", logo: "/images/logos/kmca.png", href: "https://www.kmcaseoul.org/" },
 ]
 
 const EDUCATION = [
-  { org: "Columbia University GSAPP", degree: "M.S. Computational Design Practices", when: "May 2026", domain: "columbia.edu" },
+  { org: "Columbia University GSAPP", degree: "M.S. Computational Design Practices", when: "May 2026", domain: "columbia.edu", logo: "/images/logos/columbia.png" },
   { org: "NYU Tisch School of the Arts", degree: "B.F.A. Interactive Media Arts, CS minor", when: "Dec 2024", domain: "nyu.edu" },
 ]
 
@@ -66,7 +66,7 @@ function Logo({ domain, logo, label }: { domain?: string; logo?: string; label: 
           ref={imgRef}
           src={src}
           alt=""
-          className={src === logo ? "h-7 w-7 object-contain" : "h-5 w-5 object-contain"}
+          className={src === logo ? "h-full w-full object-cover" : "h-5 w-5 object-contain"}
           onError={next}
         />
       ) : (
@@ -319,7 +319,7 @@ function Glance() {
             {EXPERIENCE.map((e) => {
               const body = (
                 <>
-                  <Logo domain={e.domain} logo={"logo" in e ? e.logo : undefined} label={e.org} />
+                  <Logo domain={"domain" in e ? (e.domain as string) : undefined} logo={"logo" in e ? e.logo : undefined} label={e.org} />
                   <span className="min-w-0 flex-1">
                     <span className="flex items-center gap-2 text-sm font-medium text-foreground">
                       {e.org}
@@ -385,7 +385,7 @@ function Glance() {
           <ul className="grid gap-2 sm:grid-cols-2">
             {EDUCATION.map((e) => (
               <li key={e.org} className="flex items-center gap-3">
-                <Logo domain={e.domain} label={e.org} />
+                <Logo domain={e.domain} logo={"logo" in e ? e.logo : undefined} label={e.org} />
                 <span>
                   <span className="block text-sm font-medium text-foreground">{e.org}</span>
                   <span className="block text-xs text-foreground/60">{e.degree} · {e.when}</span>
