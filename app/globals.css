@@ -433,3 +433,7 @@ html.mv-intro [data-violet-gpt] {
 @media (prefers-reduced-motion: reduce) {
   .mv-spark { display: none; }
 }
+
+/* Sniffr project panel */
+@keyframes sniffr-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes sniffr-rise { from { opacity: 0; transform: translateY(16px) scale(0.98); } to { opacity: 1; transform: none; } }

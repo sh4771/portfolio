@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import { SniffrCard } from "@/components/sniffr-card"
 
 interface FunProject {
   slug: string
@@ -109,6 +110,7 @@ export function FunGrid() {
               </div>
             </Link>
           ))}
+          <SniffrCard />
         </div>
       </div>
     </section>
