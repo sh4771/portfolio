@@ -3,7 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Hourglass, Lock } from "lucide-react"
-import { ProjectPanel, useDeepLinkedPanel, type PanelProject } from "@/components/fun/project-panel"
+import { CaseStudyPanel, useDeepLinkedPanel } from "@/components/fun/project-panel"
 
 export interface CaseStudy {
   slug: string
@@ -72,6 +72,17 @@ const projects: CaseStudy[] = [
     aiTools: ["Claude Code", "Cursor"],
   },
   {
+    slug: "greener-routes",
+    title: "Greener Walking Routes",
+    description:
+      "A walking-navigation prototype that recommends routes with higher green exposure, built for Computational Modeling at Columbia GSAPP, advised by Luc Wilson and Meli Harvey.",
+    tags: ["2026", "Spatial Design", "In progress"],
+    category: "Spatial Design",
+    softSkills: [],
+    image: "/images/greener-routes/screen-route-choice.png",
+    video: "/videos/greener-routes-cover.mp4",
+  },
+  {
     slug: "games4peace",
     title: "Turning Casual Play into Measurable Social Impact",
     description:
@@ -96,6 +107,7 @@ const projects: CaseStudy[] = [
   },
   {
     slug: "cast",
+    showOnHomepage: false, // shown in For Fun
     title: "Restoring Postural Control: A Cable-Activated Stabilizing Torso (C.A.S.T)",
     description:
       "Designing a wearable assistive device that helps restore postural stability for spinal cord injury patients.",
@@ -107,6 +119,7 @@ const projects: CaseStudy[] = [
   },
   {
     slug: "clinical-trials",
+    showOnHomepage: false, // shown in For Fun
     title: "Designing Decision Clarity in Clinical Trial Systems",
     description:
       "Adobe Designathon: clinical trial intelligence platform for clearer decisions, transparent AI recommendations, and actionable dashboards.",
@@ -119,47 +132,7 @@ const projects: CaseStudy[] = [
   },
 ]
 
-/* ---------- panel content for a case study ---------- */
-
-const NOT_A_FOCUS = new Set(["Case Study"])
-
-function toPanel(p: CaseStudy): PanelProject {
-  const focus = p.tags.slice(1).filter((t) => !NOT_A_FOCUS.has(t))
-  return {
-    slug: p.slug,
-    title: p.title,
-    year: p.tags[0] ?? "",
-    category: p.category,
-    description: p.description,
-    actions: [{ label: "Read the case study", href: `/work/${p.slug}`, primary: true }],
-    openHref: `/work/${p.slug}`,
-    stack: [
-      ...(focus.length ? [{ label: "Focus", items: focus }] : []),
-      { label: "Skills", items: p.softSkills },
-      ...(p.aiTools?.length ? [{ label: "Tools", items: p.aiTools }] : []),
-    ],
-  }
-}
-
-function PanelMedia({ video, image, href, alt }: { video?: string; image: string; href: string; alt: string }) {
-  return (
-    <Link href={href} aria-label={alt} className="group relative block aspect-[16/10] bg-neutral-100">
-      {video ? (
-        <video autoPlay muted loop playsInline preload="auto" poster={image} className="h-full w-full object-cover">
-          <source src={video} type="video/mp4" />
-          <source src={video} type="video/quicktime" />
-        </video>
-      ) : (
-        <Image src={image} alt="" fill className="object-cover" sizes="(max-width: 768px) 100vw, 780px" />
-      )}
-      <span className="absolute bottom-4 right-4 rounded-full bg-white/90 px-3.5 py-1.5 text-xs font-medium text-neutral-800 shadow-sm transition-colors group-hover:bg-white">
-        Read the case study →
-      </span>
-    </Link>
-  )
-}
-
-function CaseStudyCard({ project, inGroup = false, extra, note }: { project: CaseStudy; inGroup?: boolean; extra?: React.ReactNode; note?: React.ReactNode }) {
+export function CaseStudyCard({ project, inGroup = false }: { project: CaseStudy; inGroup?: boolean }) {
   const { open, setOpen, onClose } = useDeepLinkedPanel(project.slug)
   return (
     <>
@@ -232,7 +205,7 @@ function CaseStudyCard({ project, inGroup = false, extra, note }: { project: Cas
               />
             </div>
           )}
-          <div className="pointer-events-none absolute inset-0 flex items-end bg-neutral-950/70 p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
+          {project.softSkills.length > 0 && <div className="pointer-events-none absolute inset-0 flex items-end bg-neutral-950/70 p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
             <div className="flex flex-wrap gap-1.5">
               {project.softSkills.map((skill) => (
                 <span
@@ -243,7 +216,7 @@ function CaseStudyCard({ project, inGroup = false, extra, note }: { project: Cas
                 </span>
               ))}
             </div>
-          </div>
+          </div>}
         </div>
 
         {/* Text below image */}
@@ -257,14 +230,7 @@ function CaseStudyCard({ project, inGroup = false, extra, note }: { project: Cas
         </div>
       </article>
     </button>
-    <ProjectPanel
-      project={toPanel(project)}
-      open={open}
-      onClose={onClose}
-      note={note}
-      extra={extra}
-      preview={() => <PanelMedia video={project.video} image={project.image} href={`/work/${project.slug}`} alt={`Open the ${project.title} case study`} />}
-    />
+    <CaseStudyPanel title={project.title} href={`/work/${project.slug}`} open={open} onClose={onClose} />
     </>
   )
 }
@@ -273,15 +239,6 @@ function CaseStudyCard({ project, inGroup = false, extra, note }: { project: Cas
 function GroupTile({ parent, item, index }: { parent: CaseStudy; item: NonNullable<CaseStudy["group"]>["items"][number]; index: number }) {
   const { open, setOpen, onClose } = useDeepLinkedPanel(`${parent.slug}-${item.slug}`)
   const href = `/work/${parent.slug}?project=${item.slug}`
-  const panel: PanelProject = {
-    slug: `${parent.slug}-${item.slug}`,
-    title: item.title,
-    year: parent.tags[0] ?? "",
-    category: parent.group?.label ?? parent.category,
-    description: item.challenge,
-    actions: item.soon ? [] : [{ label: "Read the case study", href, primary: true }],
-    openHref: item.soon ? `/work/${parent.slug}` : href,
-  }
   return (
     <>
       <button
@@ -311,28 +268,7 @@ function GroupTile({ parent, item, index }: { parent: CaseStudy; item: NonNullab
           <span className="mt-0.5 block text-sm font-medium leading-snug text-foreground">{item.challenge}</span>
         </span>
       </button>
-      <ProjectPanel
-        project={panel}
-        open={open}
-        onClose={onClose}
-        note={
-          item.soon ? (
-            <span className="inline-flex items-center gap-1.5"><Hourglass className="h-3.5 w-3.5" /> Coming soon. This case study is still in progress.</span>
-          ) : parent.group?.locked ? (
-            <span className="inline-flex items-center gap-1.5"><Lock className="h-3.5 w-3.5" /> Password protected</span>
-          ) : null
-        }
-        preview={
-          item.image
-            ? () => (
-                <Link href={href} aria-label={`Open the ${item.title} case study`} className="group relative block aspect-[16/10] bg-white">
-                  <Image src={item.image!} alt="" fill className="object-cover object-left-top" sizes="(max-width: 768px) 100vw, 780px" />
-                  <span className="absolute bottom-4 right-4 rounded-full bg-white/90 px-3.5 py-1.5 text-xs font-medium text-neutral-800 shadow-sm ring-1 ring-neutral-200">Read the case study →</span>
-                </Link>
-              )
-            : undefined
-        }
-      />
+      <CaseStudyPanel title={`${parent.group?.label ?? ""} · ${item.title}`} href={href} open={open} onClose={onClose} />
     </>
   )
 }
@@ -358,37 +294,7 @@ function GroupedCaseStudy({ project }: { project: CaseStudy }) {
         </span>
       </div>
       <div className="grid gap-4 lg:grid-cols-[1.7fr_1fr]">
-        <CaseStudyCard
-          project={project}
-          inGroup
-          note={g.locked ? <span className="inline-flex items-center gap-1.5"><Lock className="h-3.5 w-3.5" /> Password protected</span> : null}
-          extra={
-            <ol className="grid gap-2 sm:grid-cols-2">
-              {g.items.map((item, i) => (
-                <li key={item.slug}>
-                  {item.soon ? (
-                    <div className="flex h-full items-center gap-3 rounded-2xl border border-dashed border-neutral-300 p-3 text-sm text-neutral-500">
-                      <Hourglass className="h-4 w-4 shrink-0" />
-                      <span><span className="font-medium text-neutral-800">{item.title}</span> · Coming soon</span>
-                    </div>
-                  ) : (
-                    <Link href={`/work/${project.slug}?project=${item.slug}`} className="flex h-full items-center gap-3 rounded-2xl border border-neutral-200 p-2.5 transition-colors hover:border-neutral-400">
-                      {item.image && (
-                        <span className="relative block aspect-[4/3] w-20 shrink-0 overflow-hidden rounded-lg bg-white">
-                          <Image src={item.image} alt="" fill className="object-cover object-left-top" sizes="80px" />
-                        </span>
-                      )}
-                      <span className="min-w-0">
-                        <span className="block text-[11px] font-semibold tracking-[0.08em] text-neutral-400">{String(i + 1).padStart(2, "0")} · {item.title}</span>
-                        <span className="block text-sm font-medium leading-snug text-neutral-900">{item.challenge}</span>
-                      </span>
-                    </Link>
-                  )}
-                </li>
-              ))}
-            </ol>
-          }
-        />
+        <CaseStudyCard project={project} inGroup />
         <ol className="grid content-start gap-3 lg:auto-rows-fr lg:content-stretch">
           {g.items.map((item, i) => (
             <li key={item.slug} className="lg:h-full">

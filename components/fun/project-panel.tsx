@@ -180,3 +180,82 @@ export function FunProjectCard({
     </>
   )
 }
+
+/**
+ * The whole case study, inside the panel. It loads the project's page with the
+ * site menu and footer hidden, so scrolling the panel is reading the case study.
+ * A password-protected page shows its password screen right here.
+ */
+export function CaseStudyPanel({ title, href, open, onClose }: { title: string; href: string; open: boolean; onClose: () => void }) {
+  const [loaded, setLoaded] = useState(false)
+  const [copied, setCopied] = useState(false)
+  const closeRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    if (!open) return
+    setLoaded(false)
+    const prevFocus = document.activeElement as HTMLElement | null
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose()
+    document.addEventListener("keydown", onKey)
+    const prev = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+    closeRef.current?.focus()
+    return () => {
+      document.removeEventListener("keydown", onKey)
+      document.body.style.overflow = prev
+      prevFocus?.focus({ preventScroll: true })
+    }
+  }, [open, onClose])
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(`${window.location.origin}${href}`)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1600)
+    } catch {
+      /* clipboard blocked */
+    }
+  }
+
+  if (!open) return null
+  return (
+    <div
+      className="fixed inset-0 z-[80] flex items-end justify-center bg-neutral-900/40 backdrop-blur-sm sm:items-center sm:p-6 motion-safe:animate-[sniffr-fade_.2s_ease-out]"
+      onClick={onClose}
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label={title}
+        onClick={(e) => e.stopPropagation()}
+        className="relative flex h-[94vh] w-full max-w-[1040px] flex-col overflow-hidden rounded-t-[28px] bg-background text-foreground shadow-[0_30px_80px_rgba(0,0,0,0.3)] sm:h-[92vh] sm:rounded-[28px] motion-safe:animate-[sniffr-rise_.28s_cubic-bezier(.2,.8,.3,1)]"
+      >
+        <div className="flex shrink-0 items-center gap-2 border-b border-border/50 px-4 py-3 sm:px-6">
+          <a href={href} aria-label="Open as a full page" className="rounded-full p-1.5 text-foreground/45 transition-colors hover:text-foreground">
+            <Maximize2 className="h-5 w-5" />
+          </a>
+          <p className="min-w-0 flex-1 truncate text-center text-sm font-medium text-foreground/70">{title}</p>
+          <button type="button" onClick={copy} aria-label="Copy link" className="rounded-full p-1.5 text-foreground/45 transition-colors hover:text-foreground">
+            {copied ? <Check className="h-5 w-5 text-emerald-600" /> : <Link2 className="h-5 w-5" />}
+          </button>
+          <button ref={closeRef} type="button" onClick={onClose} aria-label="Close" className="rounded-full p-1.5 text-foreground/45 transition-colors hover:text-foreground">
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+        <div className="relative min-h-0 flex-1">
+          {!loaded && (
+            <div className="absolute inset-0 grid place-items-center" aria-hidden>
+              <span className="h-6 w-6 animate-spin rounded-full border-2 border-foreground/15 border-t-foreground/60" />
+            </div>
+          )}
+          <iframe
+            src={href}
+            title={title}
+            onLoad={() => setLoaded(true)}
+            className={`h-full w-full border-0 transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
+          />
+        </div>
+      </div>
+    </div>
+  )
+}

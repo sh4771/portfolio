@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
 
@@ -13,7 +13,7 @@ const DOGS = [
   { id: "noodle", name: "Noodle", age: 5, breed: "Dachshund", dist: "3.4 mi", tags: ["Digging", "Treat hunts"] },
   { id: "luna", name: "Luna", age: 1, breed: "Siberian Husky", dist: "1.9 mi", tags: ["Running", "Howling"] },
 ]
-// Like, like, pass, like, pass: then the deck loops.
+// Autoplay: like, like, pass, like, pass, then the deck loops.
 const MOVES: ("like" | "nope")[] = ["like", "like", "nope", "like", "nope"]
 
 /* ---------- static phone with the swipe screenshot (cover tile) ---------- */
@@ -98,57 +98,82 @@ function DogCard({ dog, style, stamp }: { dog: (typeof DOGS)[number]; style?: Re
   )
 }
 
+const LIKED_YOU = new Set(["biscuit", "bear", "luna"])
+
+/**
+ * A working mini prototype of the swipe screen. It plays itself until the visitor
+ * touches it; then they drag cards or tap the buttons, and some likes are matches.
+ */
 export function SniffrDemo({ playing }: { playing: boolean }) {
   const [i, setI] = useState(0)
-  const [phase, setPhase] = useState<"idle" | "like" | "nope">("idle")
+  const [fly, setFly] = useState<null | "like" | "nope">(null)
+  const [dx, setDx] = useState(0)
+  const [dragging, setDragging] = useState(false)
+  const [auto, setAuto] = useState(true)
+  const [match, setMatch] = useState<string | null>(null)
   const [reduce, setReduce] = useState(false)
+  const startX = useRef(0)
+  const busy = useRef(false)
 
   useEffect(() => setReduce(window.matchMedia("(prefers-reduced-motion: reduce)").matches), [])
 
-  useEffect(() => {
-    if (!playing || reduce) return
-    let alive = true
-    const timers: ReturnType<typeof setTimeout>[] = []
-    const step = (n: number) => {
-      timers.push(
-        setTimeout(() => {
-          if (!alive) return
-          setPhase(MOVES[n % MOVES.length])
-          timers.push(
-            setTimeout(() => {
-              if (!alive) return
-              setI((x) => x + 1)
-              setPhase("idle")
-              step(n + 1)
-            }, 520),
-          )
-        }, 1300),
-      )
-    }
-    step(0)
-    return () => {
-      alive = false
-      timers.forEach(clearTimeout)
-    }
-  }, [playing, reduce])
-
   const top = DOGS[i % DOGS.length]
   const next = DOGS[(i + 1) % DOGS.length]
-  const fly =
-    phase === "like"
-      ? { transform: "translateX(135%) rotate(18deg)", transition: "transform .5s cubic-bezier(.4,.1,.6,1)" }
-      : phase === "nope"
-        ? { transform: "translateX(-135%) rotate(-18deg)", transition: "transform .5s cubic-bezier(.4,.1,.6,1)" }
-        : { transform: "none", transition: "none" }
+
+  const decide = useCallback(
+    (kind: "like" | "nope") => {
+      if (busy.current) return
+      busy.current = true
+      const dog = DOGS[i % DOGS.length]
+      setFly(kind)
+      setTimeout(() => {
+        setI((x) => x + 1)
+        setFly(null)
+        setDx(0)
+        busy.current = false
+        if (kind === "like" && LIKED_YOU.has(dog.id)) setMatch(dog.id)
+      }, 420)
+    },
+    [i],
+  )
+
+  // Autoplay until the visitor takes over.
+  useEffect(() => {
+    if (!playing || !auto || reduce || match) return
+    const t = setTimeout(() => decide(MOVES[i % MOVES.length]), 1400)
+    return () => clearTimeout(t)
+  }, [playing, auto, reduce, match, i, decide])
+  // An autoplayed match closes itself.
+  useEffect(() => {
+    if (!match || !auto) return
+    const t = setTimeout(() => setMatch(null), 1800)
+    return () => clearTimeout(t)
+  }, [match, auto])
+
+  const takeOver = () => setAuto(false)
+  const onDown = (e: React.PointerEvent) => {
+    if (busy.current || match) return
+    takeOver()
+    startX.current = e.clientX
+    setDragging(true)
+    ;(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId)
+  }
+  const onMove = (e: React.PointerEvent) => dragging && setDx(e.clientX - startX.current)
+  const onUp = () => {
+    if (!dragging) return
+    setDragging(false)
+    if (Math.abs(dx) > 80) decide(dx > 0 ? "like" : "nope")
+    else setDx(0)
+  }
+
+  const stamp = fly ?? (dx > 30 ? "like" : dx < -30 ? "nope" : null)
+  const topStyle: React.CSSProperties = fly
+    ? { transform: `translateX(${fly === "like" ? 140 : -140}%) rotate(${fly === "like" ? 18 : -18}deg)`, transition: "transform .42s cubic-bezier(.4,.1,.6,1)" }
+    : { transform: `translateX(${dx}px) rotate(${dx / 18}deg)`, transition: dragging ? "none" : "transform .25s ease" }
+  const matched = match ? DOGS.find((d) => d.id === match) : null
 
   return (
-    <a
-      href={SNIFFR_URL}
-      target="_blank"
-      rel="noreferrer"
-      aria-label="Open the Sniffr prototype in a new tab"
-      className="group relative flex aspect-[16/11] items-center justify-center bg-[#dce7f0] sm:aspect-[16/10]"
-    >
+    <div className="relative flex aspect-[4/5] items-center justify-center bg-[#dce7f0] sm:aspect-[16/10]">
       <svg width="0" height="0" className="absolute" aria-hidden="true">
         <defs>
           <linearGradient id="sniffr-brand" x1="0" y1="0" x2="1" y2="1">
@@ -158,7 +183,7 @@ export function SniffrDemo({ playing }: { playing: boolean }) {
         </defs>
       </svg>
 
-      <div className="relative aspect-[9/19] h-[90%] rounded-[34px] bg-neutral-900 p-[7px] shadow-[0_24px_60px_rgba(20,24,40,0.28)] ring-1 ring-neutral-400/40">
+      <div className="relative aspect-[9/19] h-[92%] rounded-[34px] bg-neutral-900 p-[7px] shadow-[0_24px_60px_rgba(20,24,40,0.28)] ring-1 ring-neutral-400/40">
         <div className="relative flex h-full w-full flex-col overflow-hidden rounded-[28px] bg-white">
           <div className="relative flex h-8 shrink-0 items-center justify-between px-5 text-[10px] font-semibold text-neutral-900">
             <span>9:41</span>
@@ -169,20 +194,71 @@ export function SniffrDemo({ playing }: { playing: boolean }) {
             <Paw className="h-5 w-5" />
             <span className="bg-gradient-to-br from-[#FD267A] to-[#FF6036] bg-clip-text text-lg font-black tracking-tight text-transparent">sniffr</span>
           </div>
-          <div className="relative mx-2.5 flex-1">
-            <DogCard dog={next} style={{ transform: phase === "idle" ? "scale(.96)" : "scale(1)", transition: "transform .5s ease" }} />
-            <DogCard key={i} dog={top} style={fly} stamp={phase === "idle" ? null : phase} />
+          <div className="relative mx-2.5 flex-1 touch-none select-none">
+            <DogCard dog={next} style={{ transform: fly || Math.abs(dx) > 10 ? "scale(1)" : "scale(.96)", transition: "transform .3s ease" }} />
+            <div
+              className={cn("absolute inset-0", dragging ? "cursor-grabbing" : "cursor-grab")}
+              onPointerDown={onDown}
+              onPointerMove={onMove}
+              onPointerUp={onUp}
+              onPointerCancel={onUp}
+            >
+              <DogCard key={i} dog={top} style={topStyle} stamp={stamp} />
+            </div>
           </div>
           <div className="flex h-16 shrink-0 items-center justify-center gap-4">
-            <span className={cn("grid h-11 w-11 place-items-center rounded-full bg-white text-xl font-bold text-rose-500 shadow-[0_2px_10px_rgba(0,0,0,0.12)] transition-transform", phase === "nope" && "scale-110")}>✕</span>
-            <span className={cn("grid h-11 w-11 place-items-center rounded-full bg-white text-xl text-emerald-500 shadow-[0_2px_10px_rgba(0,0,0,0.12)] transition-transform", phase === "like" && "scale-110")}>♥</span>
+            <button
+              type="button"
+              aria-label={`Pass on ${top.name}`}
+              onClick={() => {
+                takeOver()
+                decide("nope")
+              }}
+              className={cn("grid h-11 w-11 place-items-center rounded-full bg-white text-xl font-bold text-rose-500 shadow-[0_2px_10px_rgba(0,0,0,0.12)] transition-transform hover:scale-110", stamp === "nope" && "scale-110")}
+            >
+              ✕
+            </button>
+            <button
+              type="button"
+              aria-label={`Like ${top.name}`}
+              onClick={() => {
+                takeOver()
+                decide("like")
+              }}
+              className={cn("grid h-11 w-11 place-items-center rounded-full bg-white text-xl text-emerald-500 shadow-[0_2px_10px_rgba(0,0,0,0.12)] transition-transform hover:scale-110", stamp === "like" && "scale-110")}
+            >
+              ♥
+            </button>
           </div>
+
+          {matched && (
+            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 bg-gradient-to-b from-[#FD267A]/95 to-[#FF6036]/95 px-6 text-center text-white motion-safe:animate-[sniffr-fade_.2s_ease-out]">
+              <p className="text-3xl font-black italic tracking-tight">It&apos;s a match!</p>
+              <div className="relative h-24 w-24 overflow-hidden rounded-full ring-4 ring-white">
+                <Image src={`/images/sniffr/${matched.id}.webp`} alt="" fill className="object-cover" sizes="96px" />
+              </div>
+              <p className="text-sm font-medium">{matched.name} wagged at you too.</p>
+              {!auto && (
+                <button type="button" onClick={() => setMatch(null)} className="rounded-full bg-white px-5 py-2.5 text-sm font-bold text-[#D0104F]">
+                  Keep swiping
+                </button>
+              )}
+            </div>
+          )}
         </div>
       </div>
 
-      <span className="absolute bottom-4 right-4 rounded-full bg-white/90 px-3.5 py-1.5 text-xs font-medium text-neutral-800 shadow-sm transition-colors group-hover:bg-white">
-        Try it yourself ↗
-      </span>
-    </a>
+      <p className="pointer-events-none absolute left-4 top-4 rounded-full bg-white/80 px-3 py-1.5 text-xs font-medium text-neutral-700 shadow-sm">
+        {auto ? "Autoplaying · drag a card to try it" : "Drag the card or tap ✕ / ♥"}
+      </p>
+      <a
+        href={SNIFFR_URL}
+        target="_blank"
+        rel="noreferrer"
+        className="absolute bottom-4 right-4 rounded-full bg-white/90 px-3.5 py-1.5 text-xs font-medium text-neutral-800 shadow-sm transition-colors hover:bg-white"
+      >
+        Full prototype ↗
+      </a>
+    </div>
   )
 }

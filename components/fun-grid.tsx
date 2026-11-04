@@ -1,7 +1,8 @@
 "use client"
 
 import Image from "next/image"
-import { FunProjectCard, type PanelProject } from "@/components/fun/project-panel"
+import { CaseStudyCard, projects } from "@/components/case-study-grid"
+import { CaseStudyPanel, FunProjectCard, useDeepLinkedPanel, type PanelProject } from "@/components/fun/project-panel"
 import { SNIFFR_URL, SniffrCover, SniffrDemo } from "@/components/fun/sniffr"
 
 function VideoCover({ video, image, title, softSkills }: { video?: string; image: string; title: string; softSkills?: string[] }) {
@@ -32,54 +33,21 @@ function VideoCover({ video, image, title, softSkills }: { video?: string; image
   )
 }
 
-/* Panel preview: the demo video, restarted and played as soon as the panel opens. */
-function VideoPreview({ video, poster, href, external, label }: { video: string; poster: string; href: string; external?: boolean; label: string }) {
+/* A For Fun project with a case study page: the panel is the case study itself. */
+function FunCaseCard({ slug, title, category, cover }: { slug: string; title: string; category: string; cover: React.ReactNode }) {
+  const { open, setOpen, onClose } = useDeepLinkedPanel(slug)
   return (
-    <a href={href} {...(external ? { target: "_blank", rel: "noreferrer" } : {})} aria-label={label} className="group relative block aspect-[16/10] bg-neutral-100">
-      <video autoPlay muted loop playsInline preload="auto" poster={poster} className="h-full w-full object-cover">
-        <source src={video} type="video/quicktime" />
-        <source src={video} type="video/mp4" />
-      </video>
-      <span className="absolute bottom-4 right-4 rounded-full bg-white/90 px-3.5 py-1.5 text-xs font-medium text-neutral-800 shadow-sm transition-colors group-hover:bg-white">
-        {external ? "Try it yourself ↗" : "Read the case study →"}
-      </span>
-    </a>
+    <>
+      <button type="button" onClick={() => setOpen(true)} className="group block w-full text-left" aria-haspopup="dialog">
+        <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/30 bg-muted/30">{cover}</div>
+        <div className="mt-3 flex items-start justify-between gap-4">
+          <h3 className="min-w-0 flex-1 text-sm font-medium leading-snug tracking-tight text-foreground/80 transition-colors group-hover:text-foreground">{title}</h3>
+          <span className="shrink-0 text-right text-[10px] uppercase tracking-[0.08em] text-foreground/45">{category}</span>
+        </div>
+      </button>
+      <CaseStudyPanel title={title} href={`/work/${slug}`} open={open} onClose={onClose} />
+    </>
   )
-}
-
-const GREENER: PanelProject = {
-  slug: "greener-routes",
-  title: "Greener Walking Routes",
-  year: "2026",
-  category: "Spatial Design",
-  description:
-    "A walking-navigation prototype that recommends routes with higher green exposure, built for Computational Modeling at Columbia GSAPP, advised by Luc Wilson and Meli Harvey.",
-  actions: [{ label: "Read the case study", href: "/work/greener-routes", primary: true }],
-  openHref: "/work/greener-routes",
-  stack: [
-    { label: "Status", items: ["In progress"] },
-    { label: "Focus", items: ["Spatial design", "Route metrics"] },
-    { label: "Tools", items: ["Rhino", "Grasshopper"] },
-  ],
-}
-
-const RESTAURANT: PanelProject = {
-  slug: "restaurant-bot",
-  title: "Restaurant Bot",
-  year: "2026",
-  category: "Creative Technology",
-  description: "A live p5.js chatbot sketch built for Chatbots for Art's Sake at NYU, advised by Carrie Wang.",
-  actions: [
-    { label: "Read the case study", href: "/work/restaurant-bot" },
-    { label: "Try the bot", href: "https://editor.p5js.org/sh6363/full/mnrKWZok0", external: true, primary: true },
-  ],
-  openHref: "https://editor.p5js.org/sh6363/full/mnrKWZok0",
-  openExternal: true,
-  stack: [
-    { label: "Skills", items: ["Creative experimentation", "Iterative prototyping", "Technical communication"] },
-    { label: "Course", items: ["Chatbots for Art's Sake, NYU"] },
-    { label: "Tools", items: ["p5.js"] },
-  ],
 }
 
 const SNIFFR: PanelProject = {
@@ -89,7 +57,7 @@ const SNIFFR: PanelProject = {
   category: "Product Design",
   description:
     "Sniffr, a swipe-to-match app for dogs. Owners browse nearby pups by breed, distance, and favorite activities, then match for park dates.",
-  actions: [{ label: "Try the app", href: SNIFFR_URL, external: true, primary: true }],
+  actions: [{ label: "Open full prototype", href: SNIFFR_URL, external: true, primary: true }],
   openHref: SNIFFR_URL,
   openExternal: true,
   stack: [
@@ -98,6 +66,11 @@ const SNIFFR: PanelProject = {
     { label: "Prototype", items: ["Claude Design"] },
   ],
 }
+
+// Moved here from the main grid.
+const MOVED = ["clinical-trials", "cast"]
+  .map((slug) => projects.find((p) => p.slug === slug))
+  .filter((p): p is (typeof projects)[number] => !!p)
 
 export function FunGrid() {
   return (
@@ -109,17 +82,16 @@ export function FunGrid() {
         </p>
 
         <div className="mt-10 grid grid-cols-1 gap-x-4 gap-y-16 sm:grid-cols-2">
-          <FunProjectCard
-            project={GREENER}
-            cover={<VideoCover video="/videos/greener-routes-cover.mp4" image="/images/greener-routes/screen-route-choice.png" title={GREENER.title} />}
-            preview={() => <VideoPreview video="/videos/greener-routes-cover.mp4" poster="/images/greener-routes/screen-route-choice.png" href="/work/greener-routes" label="Open the Greener Walking Routes case study" />}
-          />
-          <FunProjectCard
-            project={RESTAURANT}
-            cover={<VideoCover video="/videos/restaurant-bot-demo.mov" image="/images/restaurant-bot-cover.png" title={RESTAURANT.title} softSkills={["Creative experimentation", "Iterative prototyping", "Technical communication"]} />}
-            preview={() => <VideoPreview video="/videos/restaurant-bot-demo.mov" poster="/images/restaurant-bot-cover.png" href={RESTAURANT.openHref} external label="Open the Restaurant Bot in a new tab" />}
+          <FunCaseCard
+            slug="restaurant-bot"
+            title="Restaurant Bot"
+            category="Creative Technology"
+            cover={<VideoCover video="/videos/restaurant-bot-demo.mov" image="/images/restaurant-bot-cover.png" title="Restaurant Bot" softSkills={["Creative experimentation", "Iterative prototyping", "Technical communication"]} />}
           />
           <FunProjectCard project={SNIFFR} cover={<SniffrCover />} preview={(open) => <SniffrDemo playing={open} />} />
+          {MOVED.map((p) => (
+            <CaseStudyCard key={p.slug} project={p} />
+          ))}
         </div>
       </div>
     </section>

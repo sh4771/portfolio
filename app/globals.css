@@ -437,3 +437,15 @@ html.mv-intro [data-violet-gpt] {
 /* Sniffr project panel */
 @keyframes sniffr-fade { from { opacity: 0; } to { opacity: 1; } }
 @keyframes sniffr-rise { from { opacity: 0; transform: translateY(16px) scale(0.98); } to { opacity: 1; transform: none; } }
+
+/* Case study shown inside a project panel: no site menu, footer, back links or chat button */
+html.embed [data-site-nav],
+html.embed [data-site-footer],
+html.embed [data-violet-gpt],
+html.embed [data-continue],
+html.embed main a[href="/#work"] {
+  display: none !important;
+}
+html.embed main {
+  padding-top: 2.5rem !important;
+}

@@ -3,7 +3,7 @@ import Link from "next/link"
 /** Shared end-of-case-study link back to the work grid. */
 export function ContinueLink() {
   return (
-    <div className="border-t border-border/40 pt-12 text-center">
+    <div data-continue className="border-t border-border/40 pt-12 text-center">
       <p className="cs-eyebrow">Continue</p>
       <Link
         href="/#work"

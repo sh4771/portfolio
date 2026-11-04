@@ -26,7 +26,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={manrope.variable}>
+    <html lang="en" className={manrope.variable} suppressHydrationWarning>
+      <head>
+        {/* Inside a project panel (an iframe on this site), hide the site chrome before first paint. */}
+        <script dangerouslySetInnerHTML={{ __html: "try{if(window.self!==window.top)document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}" }} />
+      </head>
       <body className="font-sans antialiased">
         <div
           suppressHydrationWarning
