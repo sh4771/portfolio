@@ -34,18 +34,21 @@ function VideoCover({ video, image, title, softSkills }: { video?: string; image
 }
 
 /* A For Fun project with a case study page: the panel is the case study itself. */
-function FunCaseCard({ slug, title, category, cover }: { slug: string; title: string; category: string; cover: React.ReactNode }) {
+function FunCaseCard({ slug, title, category, cover, readMins }: { slug: string; title: string; category: string; cover: React.ReactNode; readMins: number }) {
   const { open, setOpen, onClose } = useDeepLinkedPanel(slug)
   return (
     <>
       <button type="button" onClick={() => setOpen(true)} className="group block w-full text-left" aria-haspopup="dialog">
         <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/30 bg-muted/30">{cover}</div>
         <div className="mt-3 flex items-start justify-between gap-4">
-          <h3 className="min-w-0 flex-1 text-sm font-medium leading-snug tracking-tight text-foreground/80 transition-colors group-hover:text-foreground">{title}</h3>
+          <h3 className="min-w-0 flex-1 text-sm font-medium leading-snug tracking-tight text-foreground/80 transition-colors group-hover:text-foreground">
+            {title}
+            <span className="mt-1 block text-xs font-normal text-foreground/45">{readMins} min read</span>
+          </h3>
           <span className="shrink-0 text-right text-[10px] uppercase tracking-[0.08em] text-foreground/45">{category}</span>
         </div>
       </button>
-      <CaseStudyPanel title={title} href={`/work/${slug}`} open={open} onClose={onClose} />
+      <CaseStudyPanel title={title} readMins={readMins} href={`/work/${slug}`} open={open} onClose={onClose} />
     </>
   )
 }
@@ -53,6 +56,7 @@ function FunCaseCard({ slug, title, category, cover }: { slug: string; title: st
 const SNIFFR: PanelProject = {
   slug: "dating-app-for-dogs",
   title: "Dating App for Dogs",
+  readMins: 1,
   year: "2026",
   category: "Product Design",
   description:
@@ -86,6 +90,7 @@ export function FunGrid() {
             slug="restaurant-bot"
             title="Restaurant Bot"
             category="Creative Technology"
+            readMins={1}
             cover={<VideoCover video="/videos/restaurant-bot-demo.mov" image="/images/restaurant-bot-cover.png" title="Restaurant Bot" softSkills={["Creative experimentation", "Iterative prototyping", "Technical communication"]} />}
           />
           <FunProjectCard project={SNIFFR} cover={<SniffrCover />} preview={(open) => <SniffrDemo playing={open} />} />

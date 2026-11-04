@@ -8,6 +8,8 @@ import { CaseStudyPanel, useDeepLinkedPanel } from "@/components/fun/project-pan
 export interface CaseStudy {
   slug: string
   title: string
+  /** Minutes to read the case study (words / 230 wpm, plus time for images). */
+  readMins?: number
   description: string
   tags: string[]
   category: string
@@ -30,13 +32,14 @@ export interface CaseStudy {
     label: string
     meta: string
     locked?: boolean
-    items: { slug: string; title: string; challenge: string; image?: string; soon?: boolean }[]
+    items: { slug: string; title: string; challenge: string; image?: string; soon?: boolean; readMins?: number }[]
   }
 }
 
 const projects: CaseStudy[] = [
   {
     slug: "vendelux",
+    readMins: 24,
     title: "Designing How Event Teams Target, Plan, and Connect",
     description:
       "At Vendelux I support product UI and system design on an AI-powered B2B event intelligence platform that helps teams identify high-ROI conferences, pre-book qualified meetings, and connect event spend to pipeline in Salesforce and HubSpot.",
@@ -52,15 +55,16 @@ const projects: CaseStudy[] = [
       meta: "Product Intern · 2026",
       locked: true,
       items: [
-        { slug: "segments", title: "Segments", challenge: "Guiding marketers to the right audience", image: "/images/vendelux/thumbs/segments.jpg" },
-        { slug: "campaign-admin", title: "Campaign Admin", challenge: "Turning a cut feature into a faster setup flow", image: "/images/vendelux/thumbs/campaign-admin.jpg" },
-        { slug: "meeting-planner", title: "Meeting Planner", challenge: "Making a forecast people can trust", image: "/images/vendelux/thumbs/meeting-planner.jpg" },
+        { slug: "segments", readMins: 5, title: "Segments", challenge: "Guiding marketers to the right audience", image: "/images/vendelux/thumbs/segments.jpg" },
+        { slug: "campaign-admin", readMins: 10, title: "Campaign Admin", challenge: "Turning a cut feature into a faster setup flow", image: "/images/vendelux/thumbs/campaign-admin.jpg" },
+        { slug: "meeting-planner", readMins: 9, title: "Meeting Planner", challenge: "Making a forecast people can trust", image: "/images/vendelux/thumbs/meeting-planner.jpg" },
         { slug: "planner", title: "Planner", challenge: "Making dense event data easy to scan", soon: true },
       ],
     },
   },
   {
     slug: "passiton",
+    readMins: 8,
     title: "PASSIT ON: Designing Traceable Garment Lifecycles",
     description:
       "Led research and end-to-end design of a blockchain-enabled fashion reuse app focused on extending garment lifecycle through traceability.",
@@ -73,6 +77,7 @@ const projects: CaseStudy[] = [
   },
   {
     slug: "greener-routes",
+    readMins: 5,
     title: "Greener Walking Routes",
     description:
       "A walking-navigation prototype that recommends routes with higher green exposure, built for Computational Modeling at Columbia GSAPP, advised by Luc Wilson and Meli Harvey.",
@@ -84,6 +89,7 @@ const projects: CaseStudy[] = [
   },
   {
     slug: "games4peace",
+    readMins: 4,
     title: "Turning Casual Play into Measurable Social Impact",
     description:
       "Designing an interactive system that transforms playful user interactions into measurable social impact.",
@@ -96,6 +102,7 @@ const projects: CaseStudy[] = [
   },
   {
     slug: "schedulink",
+    readMins: 4,
     title: "Real-Time Availability for Social Planning",
     description:
       "Designing a social scheduling system that helps college students coordinate spontaneous plans.",
@@ -107,6 +114,7 @@ const projects: CaseStudy[] = [
   },
   {
     slug: "cast",
+    readMins: 2,
     showOnHomepage: false, // shown in For Fun
     title: "Restoring Postural Control: A Cable-Activated Stabilizing Torso (C.A.S.T)",
     description:
@@ -119,6 +127,7 @@ const projects: CaseStudy[] = [
   },
   {
     slug: "clinical-trials",
+    readMins: 5,
     showOnHomepage: false, // shown in For Fun
     title: "Designing Decision Clarity in Clinical Trial Systems",
     description:
@@ -223,6 +232,7 @@ export function CaseStudyCard({ project, inGroup = false }: { project: CaseStudy
         <div className="mt-3 flex items-start justify-between gap-4">
           <h3 className={`min-w-0 flex-1 ${project.featured ? "text-base" : "text-sm"} font-medium leading-snug tracking-tight text-foreground/80 transition-colors group-hover:text-foreground`}>
             {project.title}
+            {project.readMins ? <span className="mt-1 block text-xs font-normal text-foreground/45">{project.readMins} min read{project.group ? ` · ${project.group.items.filter((x) => !x.soon).length} projects` : ""}</span> : null}
           </h3>
           <span className="shrink-0 text-right text-[10px] uppercase tracking-[0.08em] text-foreground/45">
             {project.category}
@@ -230,7 +240,7 @@ export function CaseStudyCard({ project, inGroup = false }: { project: CaseStudy
         </div>
       </article>
     </button>
-    <CaseStudyPanel title={project.title} href={`/work/${project.slug}`} open={open} onClose={onClose} />
+    <CaseStudyPanel title={project.title} readMins={project.readMins} href={`/work/${project.slug}`} open={open} onClose={onClose} />
     </>
   )
 }
@@ -266,9 +276,10 @@ function GroupTile({ parent, item, index }: { parent: CaseStudy; item: NonNullab
             )}
           </span>
           <span className="mt-0.5 block text-sm font-medium leading-snug text-foreground">{item.challenge}</span>
+          {item.readMins ? <span className="mt-0.5 block text-xs text-foreground/45">{item.readMins} min read</span> : null}
         </span>
       </button>
-      <CaseStudyPanel title={`${parent.group?.label ?? ""} · ${item.title}`} href={href} open={open} onClose={onClose} />
+      <CaseStudyPanel title={`${parent.group?.label ?? ""} · ${item.title}`} readMins={item.readMins} href={href} open={open} onClose={onClose} />
     </>
   )
 }

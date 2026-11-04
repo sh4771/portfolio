@@ -8,6 +8,7 @@ export type PanelAction = { label: string; href: string; external?: boolean; pri
 export type PanelProject = {
   slug: string
   title: string
+  readMins?: number
   year: string
   category: string
   description: string
@@ -97,6 +98,7 @@ export function ProjectPanel({
                   <h2 id={`fun-${project.slug}-title`} className="text-2xl font-normal tracking-tight sm:text-3xl">
                     {project.title} <span className="text-neutral-400">• {project.year}</span>
                   </h2>
+                  {project.readMins ? <p className="text-sm text-neutral-400">{project.readMins} min read</p> : null}
                   <p className="text-[15px] leading-relaxed text-neutral-600">{project.description}</p>
                   {note ? <div className="text-sm text-neutral-500">{note}</div> : null}
                 </div>
@@ -172,6 +174,7 @@ export function FunProjectCard({
         <div className="mt-3 flex items-start justify-between gap-4">
           <h3 className="min-w-0 flex-1 text-sm font-medium leading-snug tracking-tight text-foreground/80 transition-colors group-hover:text-foreground">
             {project.title}
+            {project.readMins ? <span className="mt-1 block text-xs font-normal text-foreground/45">{project.readMins} min read</span> : null}
           </h3>
           <span className="shrink-0 text-right text-[10px] uppercase tracking-[0.08em] text-foreground/45">{project.category}</span>
         </div>
@@ -186,7 +189,7 @@ export function FunProjectCard({
  * site menu and footer hidden, so scrolling the panel is reading the case study.
  * A password-protected page shows its password screen right here.
  */
-export function CaseStudyPanel({ title, href, open, onClose }: { title: string; href: string; open: boolean; onClose: () => void }) {
+export function CaseStudyPanel({ title, href, open, onClose, readMins }: { title: string; href: string; open: boolean; onClose: () => void; readMins?: number }) {
   const [loaded, setLoaded] = useState(false)
   const [copied, setCopied] = useState(false)
   const closeRef = useRef<HTMLButtonElement>(null)
@@ -234,7 +237,10 @@ export function CaseStudyPanel({ title, href, open, onClose }: { title: string; 
           <a href={href} aria-label="Open as a full page" className="rounded-full p-1.5 text-foreground/45 transition-colors hover:text-foreground">
             <Maximize2 className="h-5 w-5" />
           </a>
-          <p className="min-w-0 flex-1 truncate text-center text-sm font-medium text-foreground/70">{title}</p>
+          <p className="min-w-0 flex-1 truncate text-center text-sm font-medium text-foreground/70">
+            {title}
+            {readMins ? <span className="font-normal text-foreground/45"> · {readMins} min read</span> : null}
+          </p>
           <button type="button" onClick={copy} aria-label="Copy link" className="rounded-full p-1.5 text-foreground/45 transition-colors hover:text-foreground">
             {copied ? <Check className="h-5 w-5 text-emerald-600" /> : <Link2 className="h-5 w-5" />}
           </button>
