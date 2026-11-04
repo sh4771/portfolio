@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { ArrowUpRight, Check, Link2, Maximize2, X } from "lucide-react"
 
 export type PanelAction = { label: string; href: string; external?: boolean; primary?: boolean }
@@ -22,43 +22,44 @@ export type PanelProject = {
  * A For Fun project: a cover tile that opens a panel with the project's details and
  * an autoplaying preview. Every project in the section uses this, so they behave alike.
  */
-export function FunProjectCard({
+export function ProjectPanel({
   project,
-  cover,
+  open,
+  onClose,
   preview,
+  note,
+  extra,
 }: {
   project: PanelProject
-  cover: React.ReactNode
-  preview: (open: boolean) => React.ReactNode
+  open: boolean
+  onClose: () => void
+  preview?: (open: boolean) => React.ReactNode
+  /** A short line under the description, e.g. "Password protected". */
+  note?: React.ReactNode
+  /** Extra content after the preview, e.g. a list of sub-projects. */
+  extra?: React.ReactNode
 }) {
-  const [open, setOpen] = useState(false)
   const [copied, setCopied] = useState(false)
   const closeRef = useRef<HTMLButtonElement>(null)
-  const triggerRef = useRef<HTMLButtonElement>(null)
-
-  // Deep link: violethyun.com/#fun-<slug> opens the panel directly.
-  useEffect(() => {
-    if (window.location.hash === `#fun-${project.slug}`) setOpen(true)
-  }, [project.slug])
 
   useEffect(() => {
     if (!open) return
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false)
+    const prevFocus = document.activeElement as HTMLElement | null
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose()
     document.addEventListener("keydown", onKey)
     const prev = document.body.style.overflow
     document.body.style.overflow = "hidden"
     closeRef.current?.focus()
-    const trigger = triggerRef.current
     return () => {
       document.removeEventListener("keydown", onKey)
       document.body.style.overflow = prev
-      trigger?.focus({ preventScroll: true })
+      prevFocus?.focus({ preventScroll: true })
     }
-  }, [open])
+  }, [open, onClose])
 
   const copy = async () => {
     try {
-      await navigator.clipboard.writeText(project.openExternal ? project.openHref : `${window.location.origin}/#fun-${project.slug}`)
+      await navigator.clipboard.writeText(project.openExternal ? project.openHref : `${window.location.origin}/#p-${project.slug}`)
       setCopied(true)
       setTimeout(() => setCopied(false), 1600)
     } catch {
@@ -69,20 +70,10 @@ export function FunProjectCard({
 
   return (
     <>
-      <button ref={triggerRef} type="button" onClick={() => setOpen(true)} className="group block w-full text-left" aria-haspopup="dialog">
-        <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/30 bg-muted/30">{cover}</div>
-        <div className="mt-3 flex items-start justify-between gap-4">
-          <h3 className="min-w-0 flex-1 text-sm font-medium leading-snug tracking-tight text-foreground/80 transition-colors group-hover:text-foreground">
-            {project.title}
-          </h3>
-          <span className="shrink-0 text-right text-[10px] uppercase tracking-[0.08em] text-foreground/45">{project.category}</span>
-        </div>
-      </button>
-
       {open && (
         <div
           className="fixed inset-0 z-[80] flex items-end justify-center bg-neutral-900/35 backdrop-blur-sm sm:items-center sm:p-6 motion-safe:animate-[sniffr-fade_.2s_ease-out]"
-          onClick={() => setOpen(false)}
+          onClick={() => onClose()}
         >
           <div
             role="dialog"
@@ -95,7 +86,7 @@ export function FunProjectCard({
               <a href={project.openHref} {...ext(project.openExternal)} aria-label={project.openExternal ? "Open in a new tab" : "Open the full case study"} className="rounded-full p-1.5 text-neutral-400 transition-colors hover:text-neutral-900">
                 <Maximize2 className="h-5 w-5" />
               </a>
-              <button ref={closeRef} type="button" onClick={() => setOpen(false)} aria-label="Close" className="rounded-full p-1.5 text-neutral-400 transition-colors hover:text-neutral-900">
+              <button ref={closeRef} type="button" onClick={() => onClose()} aria-label="Close" className="rounded-full p-1.5 text-neutral-400 transition-colors hover:text-neutral-900">
                 <X className="h-5 w-5" />
               </button>
             </div>
@@ -107,6 +98,7 @@ export function FunProjectCard({
                     {project.title} <span className="text-neutral-400">• {project.year}</span>
                   </h2>
                   <p className="text-[15px] leading-relaxed text-neutral-600">{project.description}</p>
+                  {note ? <div className="text-sm text-neutral-500">{note}</div> : null}
                 </div>
                 <div className="flex shrink-0 flex-wrap items-center gap-2">
                   <button type="button" onClick={copy} aria-label="Copy link" className="grid h-10 w-10 place-items-center rounded-full text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-neutral-900">
@@ -142,11 +134,49 @@ export function FunProjectCard({
               </dl>
               )}
 
-              <div className="relative overflow-hidden rounded-3xl border border-neutral-200">{preview(open)}</div>
+              {preview ? <div className="relative overflow-hidden rounded-3xl border border-neutral-200">{preview(open)}</div> : null}
+              {extra}
             </div>
           </div>
         </div>
       )}
+    </>
+  )
+}
+
+export function useDeepLinkedPanel(slug: string) {
+  const [open, setOpen] = useState(false)
+  // violethyun.com/#p-<slug> opens the panel directly (older #fun-<slug> links too).
+  useEffect(() => {
+    const h = window.location.hash
+    if (h === `#p-${slug}` || h === `#fun-${slug}`) setOpen(true)
+  }, [slug])
+  const onClose = useCallback(() => setOpen(false), [])
+  return { open, setOpen, onClose }
+}
+
+export function FunProjectCard({
+  project,
+  cover,
+  preview,
+}: {
+  project: PanelProject
+  cover: React.ReactNode
+  preview: (open: boolean) => React.ReactNode
+}) {
+  const { open, setOpen, onClose } = useDeepLinkedPanel(project.slug)
+  return (
+    <>
+      <button type="button" onClick={() => setOpen(true)} className="group block w-full text-left" aria-haspopup="dialog">
+        <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/30 bg-muted/30">{cover}</div>
+        <div className="mt-3 flex items-start justify-between gap-4">
+          <h3 className="min-w-0 flex-1 text-sm font-medium leading-snug tracking-tight text-foreground/80 transition-colors group-hover:text-foreground">
+            {project.title}
+          </h3>
+          <span className="shrink-0 text-right text-[10px] uppercase tracking-[0.08em] text-foreground/45">{project.category}</span>
+        </div>
+      </button>
+      <ProjectPanel project={project} open={open} onClose={onClose} preview={preview} />
     </>
   )
 }
