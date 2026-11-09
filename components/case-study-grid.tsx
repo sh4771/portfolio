@@ -88,6 +88,18 @@ const projects: CaseStudy[] = [
     video: "/videos/greener-routes-cover.mp4",
   },
   {
+    slug: "along",
+    readMins: 6,
+    title: "Along: Making the Everyday Walk Worth Taking the Long Way",
+    description:
+      "A walking app for New York that tucks small sidequests into the route you already take, with a companion, Lolo, who grows with every walk.",
+    tags: ["2026", "Product Design", "Designathon"],
+    category: "Product Design",
+    softSkills: ["UX research", "Interaction design", "Brand"],
+    image: "/images/along/hero.webp",
+    aiTools: ["Figma"],
+  },
+  {
     slug: "games4peace",
     readMins: 4,
     title: "Turning Casual Play into Measurable Social Impact",
