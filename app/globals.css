@@ -449,3 +449,6 @@ html.embed main a[href="/#work"] {
 html.embed main {
   padding-top: 2.5rem !important;
 }
+
+/* Along case study: step progress bar */
+@keyframes along-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }

@@ -89,7 +89,7 @@ const projects: CaseStudy[] = [
   },
   {
     slug: "along",
-    readMins: 6,
+    readMins: 3,
     title: "Along: Making the Everyday Walk Worth Taking the Long Way",
     description:
       "A walking app for New York that tucks small sidequests into the route you already take, with a companion, Lolo, who grows with every walk.",
