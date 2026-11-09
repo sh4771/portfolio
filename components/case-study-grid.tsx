@@ -96,7 +96,7 @@ const projects: CaseStudy[] = [
     tags: ["2026", "Product Design", "Designathon"],
     category: "Product Design",
     softSkills: ["UX research", "Interaction design", "Brand"],
-    image: "/images/along/hero.webp",
+    image: "/images/along/cover.webp",
     aiTools: ["Figma"],
   },
   {
