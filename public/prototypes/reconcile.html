@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reconcile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Reconcile Design System — generated from tokens.json */
+:root, [data-theme="light"] {
+  --background: #ffffff;
+  --background-secondary: #f7f7f7;
+  --background-tertiary: #f0f0f0;
+  --border-opaque: #e5e5e5;
+  --border-strong: #cccccc;
+  --content-disabled: #b3b3b3;
+  --content-tertiary: #999999;
+  --content-secondary: #666666;
+  --content-primary: #000000;
+  --inverse-primary: #ffffff;
+  --button-primary: #000000;
+  --accent: #5b3fd9;
+  --accent-50: #f2effe;
+  --accent-100: #e1dafd;
+  --accent-300: #9c86f7;
+  --accent-600: #4a31b5;
+  --positive: #07a35a;
+  --positive-50: #ebf8f2;
+  --positive-text: #057c44;
+  --warning: #ed6f0e;
+  --warning-50: #fef3ec;
+  --warning-text: #8e4308;
+  --negative: #e54937;
+  --amount-under: #b4540b;
+  --amount-over: #5b3fd9;
+  --timing: #cccccc;
+  --overlay: rgba(0,0,0,0.48);
+  --positive-100: #cdedde;
+  --warning-100: #fbe2cf;
+  --series-1: #5b3fd9;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --series-4: #eda100;
+  --series-5: #e87ba4;
+  --series-6: #008300;
+  --chart-grid: #eeeeee;
+  --shadow100: 0 1px 2px rgba(0,0,0,0.06);
+  --shadow400: 0 1px 4px rgba(0,0,0,0.16);
+  --shadow600: 0 4px 16px rgba(0,0,0,0.16);
+  --shadow700: 0 8px 24px rgba(0,0,0,0.16);
+}
+:root {
+  --scale100: 4px;
+  --scale200: 6px;
+  --scale300: 8px;
+  --scale500: 12px;
+  --scale600: 16px;
+  --scale700: 20px;
+  --scale800: 24px;
+  --scale900: 32px;
+  --scale1000: 40px;
+  --scale1200: 48px;
+  --scale1600: 64px;
+  --radius200: 4px;
+  --radius300: 8px;
+  --radius400: 12px;
+  --radius500: 16px;
+  --radius-pill: 9999px;
+  --touch-target: 48px;
+  --screen-width: 390px;
+  --control-md: 40px;
+  --control-sm: 32px;
+  --sidebar-width: 240px;
+  --font-sans: Inter, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:var(--font-sans);font-size:16px;line-height:24px;color:var(--content-primary);background:#ececec;-webkit-font-smoothing:antialiased}
+#app{min-height:100%;display:flex;align-items:center;justify-content:center;padding:24px}
+.screen{position:relative;width:390px;height:844px;max-height:calc(100vh - 48px);border-radius:40px;overflow:hidden;background:var(--background);box-shadow:0 0 0 10px #111,0 30px 60px rgba(0,0,0,.25);display:flex;flex-direction:column}
+.screen.dark{background:#000}
+@media (max-width:520px){#app{padding:0;align-items:stretch}.screen{width:100%;height:100dvh;max-height:none;border-radius:0;box-shadow:none}}
+.scroll{flex:1;overflow-y:auto;padding:16px 16px 24px;display:flex;flex-direction:column;gap:24px;-webkit-overflow-scrolling:touch}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.num{font-variant-numeric:tabular-nums;font-weight:500;white-space:nowrap}.under{color:var(--amount-under)}.over{color:var(--amount-over)}.muted{color:var(--content-secondary)}
+.display{font-size:40px;line-height:48px;font-weight:600;letter-spacing:-.02em}
+.cap{margin:0;font-size:14px;line-height:20px;color:var(--content-secondary)}.block{display:block}.center{text-align:center}.mt12{margin-top:12px}
+.s14{font-size:14px}.s12{font-size:12px;line-height:16px}
+.h1{margin:4px 0 0;font-size:32px;line-height:40px;font-weight:600;letter-spacing:-.01em}
+.h2{margin:0;font-size:20px;line-height:28px;font-weight:600}.h2.lg{font-size:24px;line-height:32px}
+.body2{margin:0;color:var(--content-secondary)}
+.between{display:flex;justify-content:space-between;gap:12px}.baseline{align-items:baseline}.center-y{align-items:center}.flex4{display:flex;align-items:center;gap:4px}
+.stack-6{display:flex;flex-direction:column;align-items:flex-start;gap:6px}.stack-8{display:flex;flex-direction:column;align-items:flex-start;gap:8px}.stack-12{display:flex;flex-direction:column;gap:12px}.grow{flex:1;min-width:0}
+a{color:var(--accent)}.link{color:var(--accent);font-weight:500;text-decoration:none}.tap{display:inline-flex;align-items:center;min-height:48px;font-size:14px}
+.hdr{display:flex;align-items:center;justify-content:space-between;margin:-4px 0 -8px}
+.avatar-btn{width:48px;height:48px;margin-right:-8px;border:0;background:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.avatar{width:32px;height:32px;border-radius:9999px;background:var(--accent-50);color:var(--accent-600);display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}.avatar.lg{width:56px;height:56px;font-size:18px}
+.panel{display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:var(--radius400);background:var(--background-secondary);color:inherit;text-decoration:none}
+.big{font-size:32px;line-height:40px;font-weight:600;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.bar{display:block;height:8px;border-radius:4px;background:var(--background-tertiary);overflow:hidden}.bar span{display:block;height:100%;background:#000;border-radius:4px;transition:width .5s}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card-btn{display:flex;flex-direction:column;align-items:flex-start;padding:16px;border:0;border-radius:var(--radius400);box-shadow:inset 0 0 0 1px var(--border-opaque);background:var(--background);font:inherit;text-align:left;color:inherit;cursor:pointer}
+.mid{font-size:24px;line-height:32px;font-weight:600;font-variant-numeric:tabular-nums}
+.list{display:flex;flex-direction:column}.list.tight{margin-top:-8px}
+.row{display:flex;align-items:center;gap:12px;min-height:72px;margin:0 -16px;padding:0 16px;border:0;border-bottom:1px solid var(--border-opaque);background:none;font:inherit;text-align:left;color:inherit;cursor:pointer;text-decoration:none;width:calc(100% + 32px)}
+.row:active,.row-main:active{background:var(--background-secondary)}.row-hl{background:var(--accent-50)}.row.static{cursor:default}
+.row-body,.row-main{flex:1;min-width:0;display:flex;flex-direction:column}
+.row-main{border:0;background:none;padding:8px 0;font:inherit;text-align:left;color:inherit;cursor:pointer;min-height:56px;justify-content:center}
+.row-title{font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.row-sub{font-size:14px;line-height:20px;color:var(--content-secondary)}
+.row-end{display:flex;flex-direction:column;align-items:flex-end;gap:4px}.chev{color:var(--content-tertiary);flex-shrink:0;transition:transform .15s}.chev.flip{transform:rotate(180deg)}
+.tag{display:inline-flex;align-items:center;gap:4px;height:28px;padding:0 10px;border-radius:9999px;font-size:14px;line-height:20px;font-weight:500;white-space:nowrap}
+.tag-pos{background:var(--positive-50);color:var(--positive-text)}.tag-warn{background:var(--warning-50);color:var(--warning-text)}.tag-acc{background:var(--accent-50);color:var(--accent-600)}.tag-acc-o{background:#fff;color:var(--accent-600);box-shadow:inset 0 0 0 1px var(--accent-100)}.tag-mono{background:var(--background-tertiary);color:#000}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.banner{display:flex;gap:8px;align-items:flex-start;padding:12px 16px;border-radius:var(--radius400);background:var(--background-secondary);font-size:14px;line-height:20px;color:var(--content-secondary)}.banner svg{flex-shrink:0;margin-top:2px}.banner strong{color:#000;font-weight:500}
+.banner-warning{background:var(--warning-50);color:var(--warning-text)}.banner-warning strong{color:var(--warning-text)}.banner-positive{background:var(--positive-50);color:var(--positive-text)}.banner-positive strong{color:var(--positive-text)}.banner-timing{background:#fff;box-shadow:inset 0 0 0 1px var(--border-opaque)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 20px;border:0;border-radius:8px;font:inherit;font-size:18px;font-weight:500;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn-full{width:100%}.btn-primary{background:#000;color:#fff}.btn-secondary{background:var(--background-tertiary);color:#000}.btn-tertiary{background:transparent;color:#000}.btn-accent{background:var(--accent);color:#fff}
+.btn-compact{height:40px;padding:0 14px;font-size:14px;border-radius:9999px}.btn:disabled{background:var(--background-tertiary);color:var(--content-disabled);cursor:not-allowed}
+.btn:focus-visible,.row:focus-visible,.card-btn:focus-visible,.chip:focus-visible,.seg:focus-visible,a:focus-visible,.cause-btn:focus-visible,.row-main:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.search{display:flex;align-items:center;gap:8px;height:48px;padding:0 4px 0 12px;border-radius:8px;background:var(--background-secondary);color:var(--content-secondary)}
+.search input{flex:1;min-width:0;height:44px;border:0;background:transparent;font:inherit;font-size:16px;color:#000;outline:none}
+.clear{width:40px;height:40px;border:0;background:none;color:var(--content-secondary);cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.chips{display:flex;gap:8px;overflow-x:auto;margin:-8px -16px 0;padding:0 16px 4px}
+.chip{flex-shrink:0;height:40px;padding:0 16px;border:0;border-radius:9999px;font:inherit;font-size:14px;font-weight:500;cursor:pointer;background:var(--background-tertiary);color:#000}.chip.on{background:#000;color:#fff}
+.segs{display:grid;grid-template-columns:repeat(3,1fr);padding:4px;border-radius:9999px;background:var(--background-tertiary)}
+.seg{height:40px;border:0;border-radius:9999px;font:inherit;font-size:14px;font-weight:500;cursor:pointer;background:transparent;color:var(--content-secondary)}.seg.on{background:#fff;color:#000;box-shadow:var(--shadow400)}
+.empty{padding:32px 0;text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px}
+.tabbar{display:grid;grid-template-columns:repeat(3,1fr);height:64px;border-top:1px solid var(--border-opaque);background:#fff;flex-shrink:0}
+.tabbar a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-decoration:none;font-size:12px;line-height:16px;font-weight:500;color:var(--content-secondary)}.tabbar a.on{color:var(--accent)}
+.topnav{margin:-4px 0 -8px}.iconbtn{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;margin-left:-12px;color:#000}
+.causes{margin-top:4px}.cause{border-bottom:1px solid var(--border-opaque)}
+.cause-btn{display:flex;width:100%;align-items:center;gap:12px;min-height:72px;padding:12px 0;border:0;background:none;font:inherit;text-align:left;color:inherit;cursor:pointer}
+.steps{margin:0;padding:0 0 12px 20px;font-size:14px;line-height:20px;color:var(--content-secondary)}.steps li{margin-bottom:6px}
+.kv{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px;border-radius:8px;background:var(--background-secondary);font-size:14px;line-height:20px}
+.kv.line{padding:0;min-height:48px;border-radius:0;background:none;border-bottom:1px solid var(--border-opaque);font-size:16px}.kv.tall{min-height:56px}
+.kv select{height:40px;padding:0 8px;border:0;border-radius:8px;background:var(--background-tertiary);font:inherit;font-size:16px;color:#000}
+.note{padding:12px;border-radius:12px;background:var(--background-secondary);font-size:14px;line-height:20px}
+textarea{min-height:80px;margin-top:-8px;padding:12px;border:0;border-radius:8px;background:var(--background-secondary);font:inherit;font-size:16px;color:#000;resize:vertical}
+.footer{padding:12px 16px 20px;border-top:1px solid var(--border-opaque);background:#fff;flex-shrink:0}
+.overlay{position:absolute;inset:0;z-index:20;display:flex;flex-direction:column;justify-content:flex-end;background:var(--overlay);animation:fadeIn .15s}
+.scrim{flex:1;border:0;background:transparent;cursor:pointer}
+.sheet{padding:12px 16px 24px;border-radius:16px 16px 0 0;background:#fff;box-shadow:var(--shadow700);display:flex;flex-direction:column;gap:16px;max-height:88%;overflow-y:auto;animation:up .2s cubic-bezier(.2,.8,.2,1)}
+.sheet h2{margin:0;font-size:24px;line-height:32px;font-weight:600}.grab{align-self:center;width:40px;height:4px;border-radius:9999px;background:var(--border-strong)}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.trio div{padding:10px;border-radius:8px;background:var(--background-secondary);display:flex;flex-direction:column}.trio small{font-size:12px;line-height:16px;color:var(--content-secondary)}
+.me{display:flex;align-items:center;gap:12px}.me h2{font-size:20px;line-height:28px}
+.switch{position:relative;width:52px;height:32px;border:0;border-radius:9999px;cursor:pointer;background:var(--border-strong);transition:background .15s;flex-shrink:0}.switch.on{background:var(--accent)}
+.switch span{position:absolute;top:4px;left:4px;width:24px;height:24px;border-radius:9999px;background:#fff;box-shadow:var(--shadow400);transition:left .15s}.switch.on span{left:24px}
+.ack{display:flex;gap:12px;align-items:flex-start;min-height:48px;font-size:14px;line-height:20px;cursor:pointer}.ack input{width:20px;height:20px;margin:0;accent-color:#000;flex-shrink:0}
+.toast{position:absolute;left:16px;right:16px;bottom:84px;z-index:30;padding:12px 16px;border-radius:12px;background:#000;color:#fff;font-size:14px;line-height:20px;animation:up .2s}
+.splash{flex:1;display:flex;flex-direction:column;padding:0 24px 40px;color:#fff;background:#000}
+.splash-mid{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;text-align:center}
+.splash-name{font-size:36px;line-height:44px;font-weight:600;letter-spacing:-.02em}.splash-tag{margin-top:6px;color:#b3b3b3}
+.splash-foot{display:flex;flex-direction:column;gap:16px}.splash-foot p{margin:0;text-align:center;font-size:12px;line-height:20px;color:#999}
+.btn-white{display:inline-flex;align-items:center;justify-content:center;height:56px;border-radius:8px;background:#fff;color:#000;font-size:18px;font-weight:500;text-decoration:none}
+.slide{transform-box:fill-box;animation:slide .7s .35s cubic-bezier(.2,.8,.2,1) both}.fade{animation:fadeUp .6s .9s ease-out both}
+@keyframes slide{from{transform:translateX(18px);opacity:0}to{transform:none;opacity:1}}@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes up{from{transform:translateY(24px);opacity:.6}to{transform:none;opacity:1}}@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.plain{border:0;background:none;font:inherit;cursor:pointer;padding:0}
+.h1.sm{font-size:28px;line-height:36px}
+.intro{justify-content:space-between}.illus-wrap{display:flex;justify-content:center;padding:24px 0 8px}.illus-wrap svg{max-width:100%;height:auto;font-family:var(--font-sans)}
+.center-text{text-align:center;align-items:center}.center-text .body2{max-width:300px}
+.dots{display:flex;justify-content:center;gap:4px}.dot{width:24px;height:24px;border:0;background:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0}
+.dot::after{content:"";width:8px;height:8px;border-radius:9999px;background:var(--border-strong);transition:width .2s}.dot.on::after{width:20px;background:#000}
+.btn-white{border:0;font:inherit;font-size:18px;font-weight:500;cursor:pointer;width:100%}
+.btn-ghost-w{height:48px;border:0;background:none;color:#fff;font:inherit;font-size:16px;font-weight:500;cursor:pointer}
+.splash-foot{gap:8px}
+.or{display:flex;align-items:center;gap:12px;color:var(--content-tertiary);font-size:14px;margin:-8px 0}.or::before,.or::after{content:"";flex:1;height:1px;background:var(--border-opaque)}
+.field{display:flex;flex-direction:column;gap:8px;font-size:14px;line-height:20px;font-weight:500;margin-top:-8px}
+.field input{height:48px;padding:0 14px;border:0;border-radius:8px;background:var(--background-secondary);font:inherit;font-size:16px;font-weight:400;color:#000;outline:none;box-shadow:inset 0 0 0 2px transparent;min-width:0}
+.field input:focus{box-shadow:inset 0 0 0 2px #000;background:#fff}
+.field .inline{display:flex;gap:8px;align-items:center}.field .inline input{flex:1}
+.warn-text{color:var(--warning-text);margin-top:-16px}
+.logo-tile{width:40px;height:40px;flex-shrink:0;border-radius:10px;background:var(--background-tertiary);display:inline-flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#000}.logo-tile.lg{width:56px;height:56px;font-size:18px;border-radius:14px}
+.perm{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:14px;line-height:20px;color:var(--content-secondary)}.perm li{display:flex;gap:8px;align-items:center}.perm svg{color:var(--positive);flex-shrink:0}.perm.no svg{color:var(--content-secondary)}
+.spin{width:16px;height:16px;border-radius:9999px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;animation:spin .8s linear infinite;display:inline-block}.spin.dark{border-color:var(--border-opaque);border-top-color:var(--accent)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.btn:disabled .spin{border-color:var(--border-opaque);border-top-color:var(--content-secondary)}
+.sync{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}.sync li{display:flex;align-items:center;gap:12px;min-height:56px;border-bottom:1px solid var(--border-opaque);font-size:16px}
+.sync-todo{color:var(--content-tertiary)}.sync-now{font-weight:500}
+.sdot{width:24px;height:24px;border-radius:9999px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 2px var(--border-opaque)}.sdot.ok{background:var(--positive);color:#fff;box-shadow:none}.sync-now .sdot{box-shadow:none}
+.dot:focus-visible,.plain:focus-visible,.btn-white:focus-visible,.btn-ghost-w:focus-visible,.field input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.spin{animation:spin 1.6s linear infinite!important}}
+.toast{top:56px;bottom:auto}
+.intro{justify-content:center;gap:32px}.intro>.topnav{position:absolute;top:16px;left:16px;right:16px;margin:0}
+.illus-wrap{padding:0}.illus-wrap svg{width:320px;height:auto}
+.toast{top:12px}
+.rule-card{background:#fff;box-shadow:inset 0 0 0 1.5px var(--accent-100)}.rule-card .accent{color:var(--accent);font-weight:500}.rule-card p{margin:0}
+.flex8{display:flex;gap:8px;align-items:center}
+.warn-strong{color:var(--warning-text);font-weight:500}
+.rule{display:flex;flex-direction:column;border-radius:12px;box-shadow:inset 0 0 0 1px var(--border-opaque)}.rule div{padding:12px;border-bottom:1px solid var(--border-opaque);font-size:14px;line-height:20px}.rule div:last-child{border-bottom:0}.rule small{display:block;font-size:12px;line-height:16px;color:var(--content-secondary);font-weight:500;text-transform:uppercase;letter-spacing:.04em}
+.cause-btn.static{cursor:default}.rem-text{margin:-4px 0 12px}
+a.row-main{text-decoration:none}
+
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>window.RC_DATA = {"PO-30227": {"seller": "Saltmarsh Candles", "cause": "Pending funds +2", "expected": 119287, "recorded": 114125, "status": "needs_review", "owner": "", "note": "Two timing items and a $2.90 fee. All backed by records.", "kind": "timing", "id": "PO-30227", "diff": -5162}, "PO-30234": {"seller": "Hollow Oak Woodworks", "cause": "Missing record", "expected": 242128, "recorded": 118541, "status": "investigating", "owner": "Daniel", "note": "One order has no processor record. Matching it needs the full breakdown, so finish this one on desktop.", "kind": "warning", "id": "PO-30234", "diff": -123587}, "PO-30236": {"seller": "Plume Botanicals", "cause": "Pending funds", "expected": 74886, "recorded": 64023, "status": "needs_review", "owner": "", "note": "Timing. The funds settle in the next payout on Nov 11.", "kind": "timing", "id": "PO-30236", "diff": -10863}, "PO-30230": {"seller": "Ondine Textiles", "cause": "Overdue timing", "expected": 43228, "recorded": 35568, "status": "delayed", "owner": "", "note": "Timing, but overdue. It was due in the Nov 8 batch and hasn’t arrived. Check with the processor.", "kind": "warning", "id": "PO-30230", "diff": -7660}, "PO-30237": {"seller": "Copperline Jewelry", "cause": "Fee adjustment", "expected": 125869, "recorded": 125368, "status": "needs_review", "owner": "", "note": "A cross-border card fee the ledger doesn’t model. Small, but permanent.", "kind": "warning", "id": "PO-30237", "diff": -501}, "PO-30241": {"seller": "Atlas Map Prints", "cause": "Partly explained", "expected": 92493, "recorded": 92076, "status": "needs_review", "owner": "", "note": "Fee and currency conversion found. $0.33 is still unexplained.", "kind": "warning", "id": "PO-30241", "diff": -417}, "PO-30221": {"seller": "Lumen Glassworks", "cause": "Missing record", "expected": 0, "recorded": 0, "diff": -11812, "status": "needs_review", "owner": "", "note": "One order has no processor record. Finish matching it on desktop.", "kind": "warning", "id": "PO-30221"}, "PO-30204": {"seller": "Wrenfield Knits", "cause": "Settlement period", "expected": 0, "recorded": 0, "diff": -14775, "status": "investigating", "owner": "Priya", "note": "Timing. Confirmed in the following payout.", "kind": "timing", "id": "PO-30204"}, "PO-30208": {"seller": "Ember & Ash Soap", "cause": "Unidentified", "expected": 0, "recorded": 0, "diff": -1250, "status": "investigating", "owner": "Daniel", "note": "Waiting on the seller’s bank statement.", "kind": "warning", "id": "PO-30208"}, "PO-30165": {"seller": "Copperline Jewelry", "cause": "Missing record", "expected": 0, "recorded": 0, "diff": -13001, "status": "investigating", "owner": "You", "note": "Waiting on Treasury to confirm the unassigned charge.", "kind": "warning", "id": "PO-30165"}, "PO-30215": {"seller": "Tidewater Leather", "cause": "Late refund", "expected": 0, "recorded": 0, "diff": 3464, "status": "investigating", "owner": "Priya", "note": "Timing. The refund comes off the next payout.", "kind": "timing", "id": "PO-30215"}, "PO-30244": {"seller": "Ember & Ash Soap", "cause": "Matched", "expected": 117632, "recorded": 117632, "status": "matched", "owner": "", "note": "Expected and recorded are identical. Nothing to do.", "kind": "positive", "id": "PO-30244", "diff": 0}, "PO-30243": {"seller": "Little Fern Toys", "cause": "Matched", "expected": 68733, "recorded": 68733, "status": "matched", "owner": "", "note": "Expected and recorded are identical. Nothing to do.", "kind": "positive", "id": "PO-30243", "diff": 0}, "PO-30242": {"seller": "Quarry Stoneware", "cause": "Matched", "expected": 34741, "recorded": 34741, "status": "matched", "owner": "", "note": "Expected and recorded are identical. Nothing to do.", "kind": "positive", "id": "PO-30242", "diff": 0}, "PO-30240": {"seller": "Wrenfield Knits", "cause": "Matched", "expected": 42092, "recorded": 42092, "status": "matched", "owner": "", "note": "Expected and recorded are identical. Nothing to do.", "kind": "positive", "id": "PO-30240", "diff": 0}, "PO-30239": {"seller": "Lumen Glassworks", "cause": "Matched", "expected": 62024, "recorded": 62024, "status": "matched", "owner": "", "note": "Expected and recorded are identical. Nothing to do.", "kind": "positive", "id": "PO-30239", "diff": 0}, "PO-30238": {"seller": "Fieldnote Bindery", "cause": "Matched", "expected": 3772, "recorded": 3772, "status": "matched", "owner": "", "note": "Expected and recorded are identical. Nothing to do.", "kind": "positive", "id": "PO-30238", "diff": 0}, "PO-30235": {"seller": "Tidewater Leather", "cause": "Matched", "expected": 28383, "recorded": 28383, "status": "matched", "owner": "", "note": "Expected and recorded are identical. Nothing to do.", "kind": "positive", "id": "PO-30235", "diff": 0}, "PO-30233": {"seller": "Marigold Print Studio", "cause": "Matched", "expected": 104930, "recorded": 104930, "status": "matched", "owner": "", "note": "Expected and recorded are identical. Nothing to do.", "kind": "positive", "id": "PO-30233", "diff": 0}, "PO-30232": {"seller": "Kettle & Kiln", "cause": "Matched", "expected": 58789, "recorded": 58789, "status": "matched", "owner": "", "note": "Expected and recorded are identical. Nothing to do.", "kind": "positive", "id": "PO-30232", "diff": 0}, "PO-30231": {"seller": "Birch Lane Ceramics", "cause": "Matched", "expected": 35820, "recorded": 35820, "status": "matched", "owner": "", "note": "Expected and recorded are identical. Nothing to do.", "kind": "positive", "id": "PO-30231", "diff": 0}, "PO-30229": {"seller": "Northfold Paper Co.", "cause": "Matched", "expected": 120763, "recorded": 120763, "status": "matched", "owner": "", "note": "Expected and recorded are identical. Nothing to do.", "kind": "positive", "id": "PO-30229", "diff": 0}, "PO-30228": {"seller": "Juniper & Clay", "cause": "Matched", "expected": 41159, "recorded": 41159, "status": "matched", "owner": "", "note": "Expected and recorded are identical. Nothing to do.", "kind": "positive", "id": "PO-30228", "diff": 0}};</script>
+<script>
+(function () {
+  "use strict";
+  var D = window.RC_DATA;
+  var KEY = "reconcile-test:v1";
+  var fresh = function () {
+    return {
+      explained: false, owner: "", notes: [], draft: "", open: { pending: false, refund: false, fee: false },
+      mine: {}, sel: null, acct: false, notif: true, sheet: false, ack: false,
+      payFilter: "open", q: "", caseView: "triage", showOpen: false, showTiming: false, toast: "",
+      onboarded: false, ob: -1, slide: 0, email: "maya@fernhill.co", pw: "", proc: {}, ledger: "", connecting: "", connBusy: false,
+      tz: "ET", tol: "0", timingOn: true, invited: {}, extra: [], invEmail: "", sync: 0,
+      atExplained: false, atNotes: [], atDraft: "", atOpen: {}, atReq: false, atSheet: false, atAck: false, atMine: false,
+      rule: false, ruleNo: false, ruleSheet: false, lost: {}
+    };
+  };
+  var S = fresh();
+  try { var saved = JSON.parse(localStorage.getItem(KEY) || "null"); if (saved) S = Object.assign(fresh(), saved, { sel: null, acct: false, sheet: false, toast: "", connecting: "", connBusy: false, atSheet: false, ruleSheet: false }); } catch (e) {}
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+
+  // ---------- helpers ----------
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function money(c, signed) {
+    var n = Math.abs(c) / 100, b = "$" + n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    return c < 0 ? "−" + b : (signed && c > 0 ? "+" + b : b);
+  }
+  function amt(c, diff) {
+    if (diff && c === 0) return '<span class="num muted">—</span>';
+    return '<span class="num' + (diff ? (c < 0 ? " under" : " over") : "") + '">' + money(c, diff) + "</span>";
+  }
+  var ICON = {
+    check: "M20 6 9 17l-5-5", dot: "M12 12h.01", clock: "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM12 6v6l4 2",
+    alert: "M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z",
+    right: "m9 18 6-6-6-6", back: "m15 18-6-6 6-6", chev: "m6 9 6 6 6-6", search: "M11 3a8 8 0 1 0 0 16 8 8 0 0 0 0-16zM21 21l-4.3-4.3",
+    home: "M3 10.5 12 3l9 7.5V21h-6v-6H9v6H3z", list: "M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01", cases: "M4 4h16v16H4zM4 9h16M9 9v11",
+    lock: "M7 11V7a5 5 0 0 1 10 0v4M5 11h14v11H5z", x: "M18 6 6 18M6 6l12 12"
+  };
+  function ic(n, s, cls) { return '<svg class="' + (cls || "") + '" width="' + (s || 20) + '" height="' + (s || 20) + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="' + (n === "dot" ? 10 : 2) + '" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + ICON[n] + '"/></svg>'; }
+  var TAG = { matched: ["Matched", "pos", "check"], needs_review: ["Needs review", "warn", "dot"], investigating: ["Investigating", "acc", "dot"], explained: ["Explained", "mono", "check"], confirmed: ["Confirmed", "pos", "check"], likely: ["Likely", "acc-o", "dot"], hypothesis: ["Hypothesis", "warn", "alert"], timing: ["Timing", "mono", "clock"], delayed: ["Overdue", "warn", "alert"] };
+  function tag(k) { var t = TAG[k]; return '<span class="tag tag-' + t[1] + '">' + ic(t[2], 12) + t[0] + "</span>"; }
+  function mark(size, fg, acc, cls) {
+    return '<svg width="' + size + '" height="' + size + '" viewBox="0 0 64 64" role="img" aria-label="Reconcile"><rect x="8" y="19" width="48" height="10" rx="5" fill="' + fg + '"/><rect x="8" y="35" width="31" height="10" rx="5" fill="' + fg + '"/><rect class="' + (cls || "") + '" x="42" y="35" width="14" height="10" rx="5" fill="' + acc + '"/></svg>';
+  }
+  function banner(kind, title, body) {
+    var icon = kind === "warning" ? "alert" : kind === "positive" ? "check" : kind === "timing" ? "clock" : "lock";
+    return '<div class="banner banner-' + kind + '" role="' + (kind === "warning" ? "alert" : "status") + '">' + ic(icon, 16) + "<span>" + (title ? "<strong>" + title + "</strong> " : "") + body + "</span></div>";
+  }
+
+  // ---------- model ----------
+  function row(id) {
+    var r = Object.assign({}, D[id]);
+    if (id === "PO-30227") {
+      r.owner = S.owner ? (S.owner === "Maya Chen" ? "You" : S.owner.split(" ")[0]) : "";
+      r.status = S.explained ? "explained" : (S.owner || S.notes.length || S.mine[id]) ? "investigating" : "needs_review";
+      if (S.mine[id] && !S.owner) r.owner = "You";
+    } else if (id === "PO-30241") {
+      r.owner = S.mine[id] ? "You" : "";
+      r.status = S.atExplained ? "explained" : (S.mine[id] || S.atNotes.length || S.atReq) ? "investigating" : "needs_review";
+      if (S.atExplained) r.cause = "Explained with a note";
+    } else if (S.lost[id]) { r.owner = "Daniel"; r.status = "investigating"; }
+    else if (S.mine[id]) { r.owner = "You"; if (r.status === "needs_review") r.status = "investigating"; }
+    r.sub = r.cause + (r.owner ? " · " + r.owner : (r.status === "matched" ? "" : " · unassigned"));
+    return r;
+  }
+  var nExp = function () { return (S.explained ? 1 : 0) + (S.atExplained ? 1 : 0); };
+  var openCount = function () { return 14 - nExp(); };
+  var LINK = { "PO-30227": "#investigate", "PO-30241": "#atlas" };
+
+  // ---------- pieces ----------
+  function rowHTML(r) {
+    var body = '<span class="row-body"><span class="row-title">' + esc(r.seller) + '</span><span class="row-sub">' + esc(r.sub) + '</span></span><span class="row-end">' + amt(r.diff, true) + tag(r.status) + "</span>" + ic("right", 20, "chev");
+    if (LINK[r.id]) return '<a class="row' + (r.status === "explained" ? "" : " row-hl") + '" href="' + LINK[r.id] + '">' + body + "</a>";
+    return '<button type="button" class="row" data-act="sel" data-id="' + r.id + '">' + body + "</button>";
+  }
+  function tabbar(active) {
+    var t = [["home", "Home", "#home", "home"], ["payouts", "Payouts", "#payouts", "list"], ["cases", "Cases", "#cases", "cases"]];
+    return '<nav class="tabbar" aria-label="Tabs">' + t.map(function (x) { return '<a href="' + x[2] + '"' + (x[0] === active ? ' aria-current="page" class="on"' : "") + ">" + ic(x[3], 22) + "<span>" + x[1] + "</span></a>"; }).join("") + "</nav>";
+  }
+  function sheetWrap(closeAct, id, inner) {
+    return '<div class="overlay"><button type="button" class="scrim" data-act="' + closeAct + '" aria-label="Close"></button><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="' + id + '"><span class="grab"></span>' + inner + "</div></div>";
+  }
+  function rowSheet() {
+    if (!S.sel) return "";
+    var r = row(S.sel), canTake = r.status !== "matched" && r.owner !== "You" && r.id !== "PO-30227";
+    var amounts = r.expected > 0
+      ? '<div class="trio"><div><small>Expected</small>' + amt(r.expected) + "</div><div><small>Recorded</small>" + amt(r.recorded) + "</div><div><small>Difference</small>" + amt(r.diff, true) + "</div></div>"
+      : '<div class="kv"><span>Difference</span>' + amt(r.diff, true) + "</div>";
+    var inner = '<div class="stack-6">' + tag(r.status) + '<h2 id="sel-t">' + esc(r.seller) + '</h2><p class="cap">' + r.id + " · " + esc(r.cause) + " · paid Nov 4</p></div>" + amounts +
+      banner(r.kind, "", esc(r.note)) +
+      '<div class="kv line"><span><b>Owner</b></span><span class="muted">' + (r.owner ? (r.owner === "You" ? "You (Maya Chen)" : r.owner) : "Nobody yet") + "</span></div>" +
+      (canTake ? '<button type="button" class="btn btn-primary btn-full" data-act="take">Assign to me</button>' : "") +
+      (r.owner === "You" ? '<p class="cap center">Assigned to you. It’s in Cases › Mine.</p>' : "") +
+      '<button type="button" class="btn btn-tertiary btn-full" data-act="closeSel">Close</button>';
+    return sheetWrap("closeSel", "sel-t", inner);
+  }
+  function acctSheet() {
+    if (!S.acct) return "";
+    var inner = '<div class="me"><span class="avatar lg">MC</span><div><h2 id="acct-t">Maya Chen</h2><p class="cap">Finance Manager · Fernhill Market</p></div></div>' +
+      '<div class="kv line tall"><span><b>New discrepancy alerts</b><span class="cap block">Push when a payout doesn’t match</span></span><button type="button" role="switch" aria-checked="' + S.notif + '" aria-label="New discrepancy alerts" class="switch' + (S.notif ? " on" : "") + '" data-act="notif"><span></span></button></div>' +
+      '<div class="kv line tall"><span><b>Data</b></span><span class="muted">Synced 10:24 AM · USD</span></div>' +
+      '<div class="kv line tall"><span><b>Rules</b></span><span class="muted">' + (S.rule ? "1 active · cross-border card fees" : "None yet") + "</span></div>" +
+      '<button type="button" class="btn btn-secondary btn-full" data-act="restart">Restart demo</button>' +
+      '<a class="btn btn-secondary btn-full" href="#splash" data-act="signout">Sign out</a>' +
+      '<button type="button" class="btn btn-tertiary btn-full" data-act="closeAcct">Close</button>';
+    return sheetWrap("closeAcct", "acct-t", inner);
+  }
+
+  // ---------- onboarding ----------
+  var PROCS = [["stripe", "Stripe", "St", "Payouts, charges, refunds, fees"], ["adyen", "Adyen", "Ad", "Settlement details reports"], ["shopify", "Shopify Payments", "Sh", "Payouts and balance transactions"], ["paypal", "PayPal", "Pp", "Settlement and activity reports"]];
+  var LEDGERS = [["netsuite", "NetSuite", "Ns", "Seller payables and journals"], ["qbo", "QuickBooks Online", "Qb", "Bills, payments, deposits"], ["xero", "Xero", "Xe", "Bills and bank transactions"], ["csv", "Upload a CSV", "Cv", "Expected payouts, one row each"]];
+  var OB_STEPS = ["Sign in", "Processor", "Ledger", "Rules", "Team", "First run"];
+  function obTop(step, title, sub) {
+    var pct = Math.round((step / 5) * 100);
+    return '<nav class="between center-y topnav">' + (step > 0 ? '<button type="button" class="iconbtn plain" data-act="obBack" aria-label="Back">' + ic("back", 24) + "</button>" : '<a class="iconbtn" href="#splash" aria-label="Back">' + ic("back", 24) + "</a>") +
+      '<span class="cap">Step ' + (step + 1) + " of 6 · " + OB_STEPS[step] + '</span><span style="width:36px"></span></nav>' +
+      '<div class="bar" role="progressbar" aria-valuenow="' + (step + 1) + '" aria-valuemin="1" aria-valuemax="6" aria-label="Setup progress"><span style="width:' + Math.max(pct, 6) + '%"></span></div>' +
+      '<header class="stack-8"><h1 class="h1 sm">' + title + '</h1><p class="body2">' + sub + "</p></header>";
+  }
+  function intro() {
+    var slides = [
+      ["Every payout, matched.", "Reconcile compares what each seller should have received with what your processor actually paid.", illus(0)],
+      ["See why it differs.", "Each difference breaks into causes. Timing gaps get a date they clear, so they never read as losses.", illus(1)],
+      ["Close it with evidence.", "Assign, add notes and mark explained. Reconcile reads your data and never changes an amount.", illus(2)]
+    ], s = slides[S.slide];
+    var dots = slides.map(function (_, i) { return '<button type="button" class="dot' + (i === S.slide ? " on" : "") + '" data-act="slide" data-k="' + i + '" aria-label="Slide ' + (i + 1) + '"' + (i === S.slide ? ' aria-current="true"' : "") + "></button>"; }).join("");
+    return '<div class="scroll intro"><div class="between center-y topnav">' + mark(28, "#000", "#5b3fd9") + '<button type="button" class="link tap plain" data-act="skipIntro">Skip</button></div>' +
+      '<div class="illus-wrap" aria-hidden="true">' + s[2] + '</div><div class="stack-12 center-text"><h1 class="h1">' + s[0] + '</h1><p class="body2">' + s[1] + '</p></div><div class="dots">' + dots + "</div></div>" +
+      '<div class="footer">' + (S.slide < 2 ? '<button type="button" class="btn btn-primary btn-full" data-act="slide" data-k="' + (S.slide + 1) + '">Next</button>' : '<button type="button" class="btn btn-primary btn-full" data-act="skipIntro">Set up my workspace</button>') + "</div>";
+  }
+  function illus(i) {
+    if (i === 0) return '<svg viewBox="0 0 280 180" width="280" height="180"><rect x="20" y="40" width="240" height="44" rx="12" fill="#f3f3f3"/><text x="40" y="67" font-size="14" fill="#5e5e5e">Expected</text><text x="240" y="67" font-size="15" font-weight="600" text-anchor="end" fill="#000">$1,192.87</text><rect x="20" y="96" width="240" height="44" rx="12" fill="#f3f3f3"/><text x="40" y="123" font-size="14" fill="#5e5e5e">Paid</text><text x="240" y="123" font-size="15" font-weight="600" text-anchor="end" fill="#000">$1,141.25</text><circle cx="140" cy="90" r="16" fill="#5b3fd9"/><path d="m133 90 5 5 9-10" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    if (i === 1) return '<svg viewBox="0 0 280 180" width="280" height="180"><text x="20" y="34" font-size="13" fill="#5e5e5e">−$51.62 difference</text><rect x="20" y="48" width="160" height="28" rx="8" fill="#e8e8e8"/><text x="32" y="67" font-size="13" fill="#000">Timing · clears Nov 11</text><rect x="186" y="48" width="74" height="28" rx="8" fill="#e1dafd"/><text x="198" y="67" font-size="13" fill="#4a31b5">Refund</text><rect x="20" y="88" width="56" height="28" rx="8" fill="#fdeee5"/><text x="32" y="107" font-size="13" fill="#b4500a">Fee</text><g transform="translate(20 132)"><circle cx="8" cy="8" r="7" stroke="#07a35a" stroke-width="2" fill="none"/><path d="m4.5 8 2.5 2.5 4.5-5" stroke="#07a35a" stroke-width="2" fill="none" stroke-linecap="round"/><text x="22" y="13" font-size="13" fill="#5e5e5e">Causes add up to the difference</text></g></svg>';
+    return '<svg viewBox="0 0 280 180" width="280" height="180"><rect x="40" y="24" width="200" height="132" rx="16" fill="#f3f3f3"/><rect x="60" y="48" width="110" height="10" rx="5" fill="#000"/><rect x="60" y="68" width="150" height="8" rx="4" fill="#cbcbcb"/><rect x="60" y="84" width="130" height="8" rx="4" fill="#cbcbcb"/><rect x="60" y="112" width="96" height="28" rx="14" fill="#e6f6ee"/><text x="74" y="131" font-size="13" fill="#05764a">✓ Explained</text><circle cx="214" cy="128" r="18" fill="#5b3fd9"/><path d="M208 128v-4a6 6 0 0 1 12 0v4" stroke="#fff" stroke-width="2" fill="none"/><rect x="205" y="127" width="18" height="11" rx="2" fill="#fff"/></svg>';
+  }
+  function obSignin() {
+    var ok = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(S.email) && S.pw.length >= 8;
+    return '<div class="scroll">' + obTop(0, S.onboarded ? "Welcome back" : "Create your workspace", S.onboarded ? "Sign in to Fernhill Market." : "Use your work email. We’ll set up Fernhill Market for you.") +
+      '<button type="button" class="btn btn-secondary btn-full" data-act="google">' + '<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="#000" stroke-width="2"/><path d="M12 12h6" stroke="#000" stroke-width="2"/></svg>Continue with Google</button>' +
+      '<div class="or"><span>or</span></div>' +
+      '<label class="field"><span>Work email</span><input id="email" type="email" autocomplete="email" data-input="email" value="' + esc(S.email) + '"></label>' +
+      '<label class="field"><span>Password</span><input id="pw" type="password" autocomplete="' + (S.onboarded ? "current" : "new") + '-password" data-input="pw" value="' + esc(S.pw) + '" placeholder="At least 8 characters"></label>' +
+      (S.pw && S.pw.length < 8 ? '<p class="cap warn-text" role="alert">Use at least 8 characters.</p>' : "") +
+      '<p class="cap">By continuing you agree to the Terms and Privacy Policy.</p></div>' +
+      '<div class="footer"><button type="button" class="btn btn-primary btn-full" data-act="signin"' + (ok ? "" : " disabled") + ">Continue</button></div>";
+  }
+  function connList(list, isProc) {
+    return '<div class="list tight">' + list.map(function (p) {
+      var on = isProc ? S.proc[p[0]] : S.ledger === p[0];
+      return '<div class="row static"><span class="logo-tile" aria-hidden="true">' + p[2] + '</span><span class="row-body"><span class="row-title">' + p[1] + '</span><span class="row-sub">' + p[3] + "</span></span>" +
+        (on ? '<span class="tag tag-pos">' + ic("check", 12) + "Connected</span>" : '<button type="button" class="btn btn-secondary btn-compact" data-act="connect" data-k="' + p[0] + '">' + (p[0] === "csv" ? "Upload" : "Connect") + "</button>") + "</div>";
+    }).join("") + "</div>";
+  }
+  function connSheet() {
+    if (!S.connecting) return "";
+    var all = PROCS.concat(LEDGERS), p = all.filter(function (x) { return x[0] === S.connecting; })[0], isCsv = p[0] === "csv";
+    var inner = '<div class="me"><span class="logo-tile lg" aria-hidden="true">' + p[2] + '</span><div><h2 id="conn-t">' + (isCsv ? "Upload expected payouts" : "Connect " + p[1]) + '</h2><p class="cap">' + (isCsv ? "expected-payouts-nov.csv · 144 rows" : "Read-only access") + "</p></div></div>" +
+      (isCsv ? '<div class="kv">Columns found: payout_id, seller, expected_amount, currency, period_end</div>' :
+        '<div class="stack-8"><b>Reconcile will be able to</b><ul class="perm"><li>' + ic("check", 16) + "Read " + p[3].toLowerCase() + "</li><li>" + ic("check", 16) + "Read account currency and payout schedule</li></ul><b>Reconcile can’t</b><ul class=\"perm no\"><li>" + ic("lock", 16) + "Move money or create payouts</li><li>" + ic("lock", 16) + "Edit, delete or post records</li></ul></div>") +
+      '<button type="button" class="btn btn-primary btn-full" data-act="authorize"' + (S.connBusy ? " disabled" : "") + ">" + (S.connBusy ? '<span class="spin" aria-hidden="true"></span>' + (isCsv ? "Checking file…" : "Connecting…") : isCsv ? "Use this file" : "Allow read-only access") + "</button>" +
+      '<button type="button" class="btn btn-tertiary btn-full" data-act="closeConn">Cancel</button>';
+    return sheetWrap("closeConn", "conn-t", inner);
+  }
+  function obProc() {
+    var n = Object.keys(S.proc).filter(function (k) { return S.proc[k]; }).length;
+    return '<div class="scroll">' + obTop(1, "Where do payouts come from?", "Connect the processor that pays your sellers. You can add more later.") + connList(PROCS, true) +
+      banner("info", "", "Access is read-only. Reconcile can’t move money or change records.") + "</div>" +
+      '<div class="footer"><button type="button" class="btn btn-primary btn-full" data-act="obNext"' + (n ? "" : " disabled") + ">Continue</button></div>" + connSheet();
+  }
+  function obLedger() {
+    return '<div class="scroll">' + obTop(2, "Where are expected amounts?", "Connect the system that records what each seller is owed.") + connList(LEDGERS, false) + "</div>" +
+      '<div class="footer"><button type="button" class="btn btn-primary btn-full" data-act="obNext"' + (S.ledger ? "" : " disabled") + ">Continue</button></div>" + connSheet();
+  }
+  function obRules() {
+    var tols = [["0", "Exact"], ["50", "± $0.50"], ["100", "± $1.00"]].map(function (x) { return '<button type="button" role="radio" aria-checked="' + (S.tol === x[0]) + '" class="seg' + (S.tol === x[0] ? " on" : "") + '" data-act="tol" data-k="' + x[0] + '">' + x[1] + "</button>"; }).join("");
+    var tzs = [["ET", "Eastern (New York)"], ["CT", "Central (Chicago)"], ["PT", "Pacific (Los Angeles)"], ["UTC", "UTC"]].map(function (x) { return '<option value="' + x[0] + '"' + (S.tz === x[0] ? " selected" : "") + ">" + x[1] + "</option>"; }).join("");
+    return '<div class="scroll">' + obTop(3, "How should we match?", "Defaults work for most marketplaces. You can change these in Settings.") +
+      '<section class="stack-12"><b>Match tolerance</b><div class="segs" role="radiogroup" aria-label="Match tolerance">' + tols + '</div><p class="cap">' + (S.tol === "0" ? "Any difference, even 1¢, gets reviewed." : "Differences within this amount count as matched and are logged.") + "</p></section>" +
+      '<label class="kv line tall"><span><b>Payout cutoff time zone</b><span class="cap block">Processor cutoff is 11:59 PM</span></span><select data-input="tz" aria-label="Cutoff time zone">' + tzs + "</select></label>" +
+      '<div class="kv line tall"><span><b>Treat pending funds as timing</b><span class="cap block">Shown with the date they clear, never as a loss</span></span><button type="button" role="switch" aria-checked="' + S.timingOn + '" aria-label="Treat pending funds as timing" class="switch' + (S.timingOn ? " on" : "") + '" data-act="timingOn"><span></span></button></div>' +
+      '<div class="kv line tall"><span><b>Discrepancy alerts</b><span class="cap block">Push when a payout doesn’t match</span></span><button type="button" role="switch" aria-checked="' + S.notif + '" aria-label="Discrepancy alerts" class="switch' + (S.notif ? " on" : "") + '" data-act="notif"><span></span></button></div></div>' +
+      '<div class="footer"><button type="button" class="btn btn-primary btn-full" data-act="obNext">Continue</button></div>';
+  }
+  function obTeam() {
+    var people = [["daniel", "Daniel Okafor", "daniel@fernhill.co", "DO"], ["priya", "Priya Raman", "priya@fernhill.co", "PR"]].concat(S.extra.map(function (e) { return [e, e.split("@")[0], e, e.slice(0, 2).toUpperCase()]; }));
+    var ok = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(S.invEmail);
+    var count = Object.keys(S.invited).filter(function (k) { return S.invited[k]; }).length;
+    return '<div class="scroll">' + obTop(4, "Who reviews with you?", "Teammates can take cases and leave notes. Everyone gets read-only data access.") +
+      '<div class="list tight">' + people.map(function (p) {
+        var on = S.invited[p[0]];
+        return '<div class="row static"><span class="avatar">' + esc(p[3]) + '</span><span class="row-body"><span class="row-title">' + esc(p[1]) + '</span><span class="row-sub">' + esc(p[2]) + "</span></span>" +
+          '<button type="button" class="btn btn-compact ' + (on ? "btn-secondary" : "btn-accent") + '" data-act="invite" data-k="' + esc(p[0]) + '" aria-pressed="' + !!on + '">' + (on ? ic("check", 14) + "Invited" : "Invite") + "</button></div>";
+      }).join("") + "</div>" +
+      '<label class="field"><span>Invite by email</span><span class="inline"><input id="inv" type="email" data-input="invEmail" value="' + esc(S.invEmail) + '" placeholder="name@company.com"><button type="button" class="btn btn-secondary btn-compact" data-act="addInvite"' + (ok ? "" : " disabled") + ">Add</button></span></label></div>" +
+      '<div class="footer"><button type="button" class="btn btn-primary btn-full" data-act="obNext">' + (count ? "Send " + count + " invite" + (count > 1 ? "s" : "") + " and continue" : "Skip for now") + "</button></div>";
+  }
+  var SYNC = ["Importing 144 payouts from " + "your processor", "Reading expected amounts from your ledger", "Matching payouts to sellers", "Explaining differences"];
+  function obSync() {
+    var done = S.sync >= SYNC.length;
+    var steps = SYNC.map(function (t, i) {
+      var st = i < S.sync ? "done" : i === S.sync ? "now" : "todo";
+      return '<li class="sync-' + st + '">' + (st === "done" ? '<span class="sdot ok">' + ic("check", 14) + "</span>" : st === "now" ? '<span class="sdot"><span class="spin dark"></span></span>' : '<span class="sdot"></span>') + "<span>" + (i === 0 ? "Importing 144 payouts from " + procName() : t) + "</span></li>";
+    }).join("");
+    return '<div class="scroll">' + obTop(5, done ? "You’re all set" : "Running your first reconciliation", done ? "Here’s where Fernhill Market stands for the Nov 4 payout run." : "This takes a few seconds. Nothing in your systems changes.") +
+      '<ol class="sync">' + steps + "</ol>" +
+      (done ? '<div class="panel"><div class="between baseline"><b>Reconciliation complete</b><span class="big">90.3%</span></div><span class="bar"><span style="width:90.3%"></span></span><div class="trio"><div><small>Matched</small><b class="num">116</b></div><div><small>Explained</small><b class="num">14</b></div><div><small>Need you</small><b class="num">14</b></div></div></div>' +
+        banner("timing", "$516.28 is timing.", "It clears on its own by Nov 11, so it isn’t counted as a loss.") : "") + "</div>" +
+      '<div class="footer"><button type="button" class="btn btn-primary btn-full" data-act="finishOb"' + (done ? "" : " disabled") + ">" + (done ? "Go to Home" : "Reconciling…") + "</button></div>";
+  }
+  function procName() { var k = PROCS.filter(function (p) { return S.proc[p[0]]; })[0]; return k ? k[1] : "your processor"; }
+  var syncTimer;
+  function runSync() {
+    clearTimeout(syncTimer);
+    if (route() !== "onboard" || S.ob !== 5 || S.sync >= SYNC.length) return;
+    syncTimer = setTimeout(function () { S.sync++; render(); runSync(); }, 900);
+  }
+  function onboard() {
+    if (S.ob === -1) return intro();
+    return [obSignin, obProc, obLedger, obRules, obTeam, obSync][S.ob]();
+  }
+
+  // ---------- screens ----------
+  function splash() {
+    return '<div class="splash"><div class="splash-mid">' + mark(112, "#fff", "#9c86f7", "slide") + '<div class="fade"><div class="splash-name">Reconcile</div><div class="splash-tag">Every dollar accounted for.</div></div></div>' +
+      '<div class="fade splash-foot"><button type="button" class="btn-white" data-act="start">' + (S.onboarded ? "Sign in" : "Get started") + '</button>' + (S.onboarded ? "" : '<button type="button" class="btn-ghost-w" data-act="haveAcct">I already have an account</button>') + '<p>Fernhill Market · synthetic demo data</p></div></div>';
+  }
+  function cents(c) { return money(c).replace("−", ""); }
+  function home() {
+    var order = ["PO-30227", "PO-30230", "PO-30241", "PO-30234", "PO-30236", "PO-30237"];
+    var ids = order.filter(function (id) { return row(id).status !== "explained"; }).slice(0, 4);
+    var n = nExp(), val = (130 + n) / 144, pct = (val * 100).toFixed(1) + "%";
+    var openAmt = 202515 - (S.explained ? 5162 : 0) - (S.atExplained ? 417 : 0), timing = 51628 - (S.explained ? 4872 : 0);
+    var last = S.atExplained ? "PO-30241 explained with a note." : S.explained ? "PO-30227 marked as explained." : "";
+    var ruleCard = S.explained && !S.rule && !S.ruleNo ? '<div class="panel rule-card"><span class="flex4 cap accent">' + ic("check", 14) + ' Suggested rule</span><b>Cross-border card fees keep coming up</b><p class="cap">You’ve seen this 1.5% fee on 3 payouts this week, $10.44 in total. Explain it automatically from now on?</p><div class="flex8"><button type="button" class="btn btn-accent btn-compact" data-act="ruleOpen">Review rule</button><button type="button" class="btn btn-tertiary btn-compact" data-act="ruleNo">Not now</button></div></div>' : "";
+    return '<div class="scroll"><header class="hdr">' + mark(32, "#000", "#5b3fd9") + '<button type="button" class="avatar-btn" data-act="acct" aria-label="Account: Maya Chen"><span class="avatar">MC</span></button></header>' +
+      (last ? banner("positive", last, "Reconciliation moved to " + pct + ". No amounts were edited.") : "") +
+      (S.rule ? banner("info", "Rule on: cross-border card fees.", "It runs on new payouts from Nov 11. Past payouts stay as they are.") : "") +
+      '<div><p class="cap">Tuesday, Nov 10 · Fernhill Market</p><h1 class="h1">Good morning, Maya</h1></div>' +
+      '<a class="panel" href="#payouts"><span class="between baseline"><b class="s14">Reconciliation complete</b><span class="big">' + pct + '</span></span><span class="bar" role="progressbar" aria-label="Reconciliation complete" aria-valuenow="' + Math.round(val * 100) + '" aria-valuemin="0" aria-valuemax="100"><span style="width:' + val * 100 + '%"></span></span><span class="between cap"><span>116 matched · ' + (14 + n) + " explained · " + openCount() + ' open</span><span class="link">Payouts ›</span></span></a>' +
+      ruleCard +
+      '<div class="grid2"><button type="button" class="card-btn" data-act="toggleOpen" aria-expanded="' + S.showOpen + '"><span class="cap">Open differences</span><span class="mid">' + cents(openAmt) + '</span><span class="link s12">' + (S.showOpen ? "Hide" : "What’s in this?") + "</span></button>" +
+      '<button type="button" class="card-btn" data-act="toggleTiming" aria-expanded="' + S.showTiming + '"><span class="cap flex4">' + ic("clock", 14) + ' Timing</span><span class="mid">' + cents(timing) + '</span><span class="s12 warn-strong">1 overdue ›</span></button></div>' +
+      (S.showOpen ? banner("warning", "", openCount() + " payouts don’t match yet. 3 are missing records, which you finish on desktop. The rest you can triage here.") : "") +
+      (S.showTiming ? banner("timing", "", "Pending funds, late refunds and settlement cutoffs clear in a later payout, so they aren’t counted as losses. One is overdue: Ondine Textiles was due Nov 8, so it now needs you.") : "") +
+      '<section><div class="between center-y"><h2 class="h2">Needs you</h2><a class="link tap" href="#cases">See all</a></div><div class="list">' + ids.map(function (id) { return rowHTML(row(id)); }).join("") + "</div></section></div>" +
+      tabbar("home") + rowSheet() + acctSheet() + ruleSheet();
+  }
+  function ruleSheet() {
+    if (!S.ruleSheet) return "";
+    var inner = '<h2 id="rule-t">Explain cross-border card fees automatically</h2>' +
+      '<div class="rule"><div><small>When</small>A payout has a 1.5% cross-border card fee, and a processor record matches it to the cent</div><div><small>Then</small>Explain it as <b>Confirmed</b> and log the record it matched</div><div><small>Starts</small>New payouts from Nov 11. Past payouts don’t change.</div></div>' +
+      '<div class="kv"><span>This week it would have explained</span><b class="num">3 fees · $10.44</b></div>' +
+      '<p class="cap">Saltmarsh Candles −$2.90 · Copperline Jewelry −$5.01 · Atlas Map Prints −$2.53. You can pause or delete the rule in Settings.</p>' +
+      '<button type="button" class="btn btn-primary btn-full" data-act="ruleOn">Turn on rule</button><button type="button" class="btn btn-tertiary btn-full" data-act="ruleClose">Cancel</button>';
+    return sheetWrap("ruleClose", "rule-t", inner);
+  }
+  var PIDS = ["PO-30227", "PO-30234", "PO-30236", "PO-30230", "PO-30237", "PO-30241", "PO-30244", "PO-30243", "PO-30242", "PO-30240", "PO-30239", "PO-30238", "PO-30235", "PO-30233", "PO-30232", "PO-30231", "PO-30229", "PO-30228"];
+  function payouts() {
+    var all = PIDS.map(row);
+    var defs = { open: ["Needs action", function (r) { return r.status !== "matched" && r.status !== "explained"; }], done: ["Done", function (r) { return r.status === "matched" || r.status === "explained"; }], all: ["All", function () { return true; }] };
+    var q = S.q.trim().toLowerCase();
+    var rows = all.filter(defs[S.payFilter][1]).filter(function (r) { return !q || r.seller.toLowerCase().indexOf(q) > -1 || r.id.toLowerCase().indexOf(q) > -1; });
+    var chips = Object.keys(defs).map(function (k) { return '<button type="button" class="chip' + (S.payFilter === k ? " on" : "") + '" aria-pressed="' + (S.payFilter === k) + '" data-act="filter" data-k="' + k + '">' + defs[k][0] + " · " + all.filter(defs[k][1]).length + "</button>"; }).join("");
+    return '<div class="scroll"><header><h1 class="h1">Payouts</h1><p class="cap">Paid Nov 4 · settlement Oct 26 – Nov 1 · 18 sellers</p></header>' +
+      '<div class="search">' + ic("search") + '<label for="q" class="sr">Search payouts</label><input id="q" type="search" value="' + esc(S.q) + '" placeholder="Seller or payout ID" data-input="q" autocomplete="off">' + (S.q ? '<button type="button" class="clear" data-act="clearQ" aria-label="Clear search">' + ic("x", 18) + "</button>" : "") + "</div>" +
+      '<div class="chips" role="group" aria-label="Status">' + chips + "</div>" +
+      '<div class="list tight">' + rows.map(rowHTML).join("") + (rows.length ? "" : '<div class="empty"><p class="cap">No payouts match.</p><button type="button" class="btn btn-secondary btn-compact" data-act="resetFilters">Clear filters</button></div>') + "</div></div>" +
+      tabbar("payouts") + rowSheet();
+  }
+  var TRIAGE = ["PO-30227", "PO-30221", "PO-30236", "PO-30230", "PO-30237", "PO-30241"];
+  var OPENC = ["PO-30234", "PO-30165", "PO-30204", "PO-30208", "PO-30215"];
+  function cases() {
+    var tri = TRIAGE.filter(function (id) { return !S.mine[id] && !S.lost[id] && !(id === "PO-30227" && (S.owner || S.explained)) && !(id === "PO-30241" && S.atExplained); });
+    var taken = TRIAGE.filter(function (id) { return tri.indexOf(id) < 0 && !(id === "PO-30227" && S.explained) && !(id === "PO-30241" && S.atExplained); });
+    var openIds = taken.concat(OPENC);
+    var mineCount = openIds.filter(function (id) { return row(id).owner === "You"; }).length;
+    var segs = [["triage", "Triage " + tri.length], ["mine", "Mine " + mineCount], ["all", "All open"]].map(function (x) { return '<button type="button" role="tab" aria-selected="' + (S.caseView === x[0]) + '" class="seg' + (S.caseView === x[0] ? " on" : "") + '" data-act="caseView" data-k="' + x[0] + '">' + x[1] + "</button>"; }).join("");
+    var body;
+    if (S.caseView === "triage") {
+      body = tri.map(function (id) { var r = row(id); var main = '<span class="row-title">' + esc(r.seller) + '</span><span class="row-sub">' + r.id + " · " + esc(r.cause) + "</span>"; return '<div class="row static">' + (LINK[id] ? '<a class="row-main" href="' + LINK[id] + '">' + main + "</a>" : '<button type="button" class="row-main" data-act="sel" data-id="' + id + '">' + main + "</button>") + amt(r.diff, true) + '<button type="button" class="btn btn-accent btn-compact" data-act="takeId" data-id="' + id + '">Assign to me</button></div>'; }).join("") ||
+        '<div class="empty"><p class="cap">Triage is clear. Everything has an owner.</p><button type="button" class="btn btn-secondary btn-compact" data-act="caseView" data-k="mine">See my cases</button></div>';
+    } else {
+      var rows = openIds.map(row).filter(function (r) { return S.caseView === "all" || r.owner === "You"; });
+      body = rows.map(rowHTML).join("") || '<div class="empty"><p class="cap">Nothing assigned to you yet.</p><button type="button" class="btn btn-secondary btn-compact" data-act="caseView" data-k="triage">Go to triage</button></div>';
+    }
+    return '<div class="scroll"><header><h1 class="h1">Cases</h1><p class="cap">' + openIds.length + " open · " + mineCount + " yours · " + tri.length + ' to triage</p></header><div class="segs" role="tablist" aria-label="Case views">' + segs + '</div><div class="list tight">' + body + "</div></div>" + tabbar("cases") + rowSheet();
+  }
+  var CAUSES = [
+    ["pending", "Payment still pending", "confirmed", true, -13916, ["Charge ch_3QAyZ5z4Aaj for $153.93 succeeded Nov 1, 7:01 PM ET.", "Funds became available Nov 5, after this payout’s cutoff.", "Net seller amount $139.16. Settles Nov 11."]],
+    ["refund", "Refund after cutoff", "confirmed", true, 9044, ["Refund requested Nov 1 (ledger date).", "Processor created re_C6Tc Nov 2, 5:59 PM ET, after the cutoff.", "Net −$90.44 is deducted from the Nov 11 payout."]],
+    ["fee", "Fee adjustment", "confirmed", false, -290, ["Cross-border card fee (1.5%) of $2.90, record adj_MC2M.", "Not in the ledger’s fee schedule. Permanent."]]
+  ];
+  function investigate() {
+    var r = row("PO-30227");
+    var causes = CAUSES.map(function (c) {
+      var open = S.open[c[0]];
+      return '<div class="cause"><button type="button" class="cause-btn" data-act="cause" data-k="' + c[0] + '" aria-expanded="' + open + '"><span class="stack-6 grow"><b>' + c[1] + '</b><span class="tags">' + tag(c[2]) + (c[3] ? tag("timing") : "") + "</span></span>" + amt(c[4], true) + ic("chev", 20, "chev" + (open ? " flip" : "")) + "</button>" +
+        (open ? '<ol class="steps">' + c[5].map(function (s) { return "<li>" + s + "</li>"; }).join("") + "</ol>" : "") + "</div>";
+    }).join("");
+    var notes = S.notes.map(function (n) { return '<div class="note"><b>Maya Chen · just now</b><br>' + esc(n) + "</div>"; }).join("");
+    var owners = ["", "Maya Chen", "Daniel Okafor", "Priya Raman"].map(function (o) { return '<option value="' + o + '"' + (S.owner === o ? " selected" : "") + ">" + (o ? o + (o === "Maya Chen" ? " (you)" : "") : "Unassigned") + "</option>"; }).join("");
+    var foot = S.explained ? '<a class="btn btn-primary btn-full" href="#home">Back to home</a>' : '<button type="button" class="btn btn-primary btn-full" data-act="openSheet">Mark as explained</button>';
+    var sheet = S.sheet ? sheetWrap("closeSheet", "sheet-t", '<h2 id="sheet-t" class="h2 lg">Mark as explained?</h2><p class="body2">All −$51.62 is backed by processor records. This documents the difference and closes the case. No amounts change.</p><div class="kv">Pending funds −$139.16 · late refund +$90.44 · fee −$2.90</div>' +
+      '<label class="ack"><input type="checkbox" data-act="ack"' + (S.ack ? " checked" : "") + "><span>I reviewed the records. This doesn’t change any amounts.</span></label>" +
+      '<button type="button" class="btn btn-primary btn-full" data-act="confirm"' + (S.ack ? "" : " disabled") + '>Mark as explained</button><button type="button" class="btn btn-tertiary btn-full" data-act="closeSheet">Cancel</button>') : "";
+    return '<div class="scroll"><nav class="between center-y topnav"><a class="iconbtn" href="#payouts" aria-label="Back to payouts">' + ic("back", 24) + '</a><span class="cap">PO-30227</span><span style="width:36px"></span></nav>' +
+      (S.explained ? banner("positive", "Marked as explained.", "Logged in the audit trail. Reconciliation is now 91.0%.") : "") +
+      '<header class="stack-8">' + tag(r.status) + '<h1 class="h2 lg">Saltmarsh Candles</h1><span class="num display under">−$51.62</span><p class="cap">Expected $1,192.87 · recorded $1,141.25. Two timing items and one fee.</p></header>' +
+      banner("timing", "", "$48.72 is timing and clears Nov 11. Only the $2.90 fee is permanent.") +
+      '<section><h2 class="h2">Why it differs</h2><div class="causes">' + causes + '</div><p class="cap mt12">Causes net to −$51.62 ✓</p></section>' +
+      '<section class="stack-12"><h2 class="h2">Case</h2><label class="kv line"><b>Owner</b><select data-input="owner">' + owners + "</select></label>" + notes +
+      '<label for="note" class="s14"><b>Add a note</b></label><textarea id="note" data-input="draft" placeholder="What did you verify?">' + esc(S.draft) + '</textarea><button type="button" class="btn btn-secondary btn-full" data-act="post"' + (S.draft.trim() ? "" : " disabled") + ">Post note</button></section>" +
+      banner("info", "Read-only records.", "Investigating never edits charges, fees, transfers or payouts.") + "</div>" +
+      '<div class="footer">' + foot + "</div>" + sheet;
+  }
+
+  var AT_CAUSES = [
+    ["fee", "Cross-border card fee", "confirmed", -253, ["1.5% fee on a $168.67 card charge, record adj_7KQ2.", "The ledger’s fee schedule doesn’t model it. Permanent."]],
+    ["fx", "Currency conversion", "likely", -131, ["Order #A-2291 was paid in CAD (C$112.00).", "The processor converted at 1.3876 on Nov 2. The ledger used 1.3655 from Nov 1.", "That rate gap is −$1.31. Likely, not confirmed: the processor doesn’t publish the rate it used."]]
+  ];
+  function atlas() {
+    var r = row("PO-30241"), done = S.atExplained, hasNote = S.atNotes.length > 0;
+    var causes = AT_CAUSES.map(function (c) {
+      var open = S.atOpen[c[0]];
+      return '<div class="cause"><button type="button" class="cause-btn" data-act="atCause" data-k="' + c[0] + '" aria-expanded="' + !!open + '"><span class="stack-6 grow"><b>' + c[1] + '</b><span class="tags">' + tag(c[2]) + "</span></span>" + amt(c[3], true) + ic("chev", 20, "chev" + (open ? " flip" : "")) + "</button>" +
+        (open ? '<ol class="steps">' + c[4].map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ol>" : "") + "</div>";
+    }).join("") +
+      '<div class="cause rem"><div class="cause-btn static"><span class="stack-6 grow"><b>' + (done ? "Explained with a note" : "Not explained yet") + '</b><span class="tags">' + (done ? tag("explained") : '<span class="tag tag-warn">' + ic("alert", 12) + "No record</span>") + '</span></span><span class="num under">−$0.33</span><span style="width:20px"></span></div>' +
+      (done ? "" : '<p class="cap rem-text">No processor record covers this. Ask Stripe for the records, or explain it in a note.</p>') + "</div>";
+    var notes = S.atNotes.map(function (n) { return '<div class="note"><b>Maya Chen · just now</b><br>' + esc(n) + "</div>"; }).join("");
+    var foot = done ? '<a class="btn btn-primary btn-full" href="#home">Back to home</a>' : hasNote ? '<button type="button" class="btn btn-primary btn-full" data-act="atOpenSheet">Mark as explained</button>' : '<button type="button" class="btn btn-primary btn-full" disabled>Add a note to explain −$0.33</button>';
+    var sheet = S.atSheet ? sheetWrap("atCloseSheet", "at-t", '<h2 id="at-t" class="h2 lg">Close with a note?</h2><p class="body2">$3.84 is backed by records. The other $0.33 rests on your note, so it’s logged as <b>Explained with a note</b>. No amounts change.</p><div class="kv">Fee −$2.53 · conversion −$1.31 (Likely) · your note −$0.33</div>' +
+      '<label class="ack"><input type="checkbox" data-act="atAck"' + (S.atAck ? " checked" : "") + "><span>I’m confident in this explanation and accept it isn’t fully backed by records.</span></label>" +
+      '<button type="button" class="btn btn-primary btn-full" data-act="atConfirm"' + (S.atAck ? "" : " disabled") + '>Mark as explained</button><button type="button" class="btn btn-tertiary btn-full" data-act="atCloseSheet">Cancel</button>') : "";
+    return '<div class="scroll"><nav class="between center-y topnav"><a class="iconbtn" href="#payouts" aria-label="Back to payouts">' + ic("back", 24) + '</a><span class="cap">PO-30241</span><span style="width:36px"></span></nav>' +
+      (done ? banner("positive", "Explained with a note.", "Logged in the audit trail with your reason.") : "") +
+      '<header class="stack-8">' + tag(r.status) + '<h1 class="h2 lg">Atlas Map Prints</h1><span class="num display under">−$4.17</span><p class="cap">Expected $924.93 · recorded $920.76. One fee, one currency conversion, and $0.33 nobody can source yet.</p></header>' +
+      (done ? "" : banner("warning", "Causes cover −$3.84 of −$4.17.", "Reconcile won’t mark this explained until the last $0.33 has a reason.")) +
+      '<section><h2 class="h2">Why it differs</h2><div class="causes">' + causes + '</div><p class="cap mt12">' + (done ? "Causes and note net to −$4.17 ✓" : "Causes net to −$3.84 · −$0.33 left") + "</p></section>" +
+      '<section class="stack-12"><h2 class="h2">Case</h2><div class="kv line"><b>Owner</b>' + (S.mine["PO-30241"] ? '<span class="muted">You (Maya Chen)</span>' : '<button type="button" class="btn btn-accent btn-compact" data-act="takeId" data-id="PO-30241">Assign to me</button>') + "</div>" +
+      '<div class="kv line tall"><span><b>Processor records</b><span class="cap block">' + (S.atReq ? "Requested Nov 10. The reply attaches here." : "Ask Stripe for the records behind −$0.33") + "</span></span>" + (S.atReq ? tag("investigating") : '<button type="button" class="btn btn-secondary btn-compact" data-act="atReq"' + (done ? " disabled" : "") + ">Request</button>") + "</div>" +
+      notes + (done ? "" : '<label for="atnote" class="s14"><b>Add a note</b></label><textarea id="atnote" data-input="atDraft" placeholder="Why is the last $0.33 off?">' + esc(S.atDraft) + '</textarea><button type="button" class="btn btn-secondary btn-full" data-act="atPost"' + (S.atDraft.trim() ? "" : " disabled") + ">Post note</button>") + "</section>" +
+      banner("info", "Read-only records.", "Investigating never edits charges, fees, transfers or payouts.") + "</div>" +
+      '<div class="footer">' + foot + "</div>" + sheet;
+  }
+
+  // ---------- render / routing ----------
+  var app = document.getElementById("app"), lastRoute = null;
+  function route() { var h = (location.hash || "").replace("#", ""); return ["splash", "onboard", "home", "payouts", "investigate", "atlas", "cases"].indexOf(h) > -1 ? h : "splash"; }
+  function render() {
+    var r = route(), sc = app.querySelector(".scroll"), top = sc && lastRoute === r ? sc.scrollTop : 0;
+    var a = document.activeElement, fid = a && a.id, pos = a && a.selectionStart;
+    var html = { splash: splash, onboard: onboard, home: home, payouts: payouts, investigate: investigate, atlas: atlas, cases: cases }[r]();
+    app.innerHTML = '<div class="screen' + (r === "splash" ? " dark" : "") + '">' + html + (S.toast ? '<div class="toast" role="status">' + S.toast + "</div>" : "") + "</div>";
+    var sc2 = app.querySelector(".scroll"); if (sc2) sc2.scrollTop = top;
+    if (fid) { var el = document.getElementById(fid); if (el) { el.focus(); try { el.setSelectionRange(pos, pos); } catch (e) {} } }
+    var dlg = app.querySelector(".sheet"); if (dlg && !app.querySelector(".sheet :focus")) { var f = dlg.querySelector("button:not(.scrim), a, input, select"); if (f && !fid) f.focus({ preventScroll: true }); }
+    lastRoute = r;
+    document.title = { splash: "Reconcile", onboard: "Set up · Reconcile", home: "Home · Reconcile", payouts: "Payouts · Reconcile", investigate: "PO-30227 · Reconcile", atlas: "PO-30241 · Reconcile", cases: "Cases · Reconcile" }[r];
+    save(); runSync();
+  }
+  function assign(id) {
+    if (id === "PO-30221" && !S.lost[id]) { S.lost[id] = true; toast("Daniel Okafor took Lumen Glassworks a moment ago. It’s in All open."); return; }
+    S.mine[id] = true; toast(D[id].seller + " assigned to you");
+  }
+  var toastTimer;
+  function toast(msg) { S.toast = msg; clearTimeout(toastTimer); toastTimer = setTimeout(function () { S.toast = ""; render(); }, 2600); }
+  function set(patch) { Object.assign(S, patch); render(); }
+
+  app.addEventListener("click", function (e) {
+    var t = e.target.closest("[data-act]"); if (!t) return;
+    var a = t.getAttribute("data-act"), k = t.getAttribute("data-k"), id = t.getAttribute("data-id");
+    switch (a) {
+      case "start": location.hash = "#onboard"; set({ ob: S.onboarded ? 0 : -1, slide: 0 }); break;
+      case "haveAcct": location.hash = "#onboard"; set({ ob: 0, onboarded: true }); break;
+      case "slide": set({ slide: +k }); break;
+      case "skipIntro": set({ ob: 0 }); break;
+      case "obBack": set({ ob: S.ob === 0 ? -1 : S.ob - 1, sync: S.ob === 5 ? 0 : S.sync }); break;
+      case "obNext":
+        if (S.ob === 4) { var c = Object.keys(S.invited).filter(function (x) { return S.invited[x]; }).length; if (c) toast(c + " invite" + (c > 1 ? "s" : "") + " sent"); }
+        set({ ob: S.ob + 1, sync: S.ob + 1 === 5 ? 0 : S.sync }); break;
+      case "google": S.email = "maya@fernhill.co"; toast("Signed in as maya@fernhill.co"); if (S.onboarded) { location.hash = "#home"; } else set({ ob: 1 }); break;
+      case "signin": if (S.onboarded) { toast("Welcome back, Maya"); S.pw = ""; location.hash = "#home"; } else { toast("Workspace created"); set({ ob: 1, pw: "" }); } break;
+      case "connect": set({ connecting: k, connBusy: false }); break;
+      case "closeConn": set({ connecting: "", connBusy: false }); break;
+      case "authorize":
+        set({ connBusy: true });
+        setTimeout(function () { var key = S.connecting; if (!key) return; var isP = PROCS.some(function (p) { return p[0] === key; }); if (isP) S.proc[key] = true; else S.ledger = key; var nm = PROCS.concat(LEDGERS).filter(function (p) { return p[0] === key; })[0][1]; toast(key === "csv" ? "144 expected payouts loaded" : nm + " connected"); set({ connecting: "", connBusy: false }); }, 1100); break;
+      case "tol": set({ tol: k }); break;
+      case "timingOn": set({ timingOn: !S.timingOn }); break;
+      case "invite": S.invited[k] = !S.invited[k]; set({}); break;
+      case "addInvite": var em = S.invEmail.trim().toLowerCase(); if (/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) { if (S.extra.indexOf(em) < 0) S.extra.push(em); S.invited[em] = true; set({ invEmail: "" }); } break;
+      case "finishOb": S.onboarded = true; S.ob = 0; location.hash = "#home"; toast("Welcome to Reconcile"); break;
+      case "sel": set({ sel: id }); break;
+      case "atCause": S.atOpen[k] = !S.atOpen[k]; set({}); break;
+      case "atReq": toast("Request sent to Stripe support"); set({ atReq: true }); break;
+      case "atPost": if (S.atDraft.trim()) { S.atNotes.push(S.atDraft.trim()); toast("Note added. You can close the case now."); set({ atDraft: "" }); } break;
+      case "atOpenSheet": set({ atSheet: true, atAck: false }); break;
+      case "atCloseSheet": set({ atSheet: false }); break;
+      case "atAck": set({ atAck: t.checked }); break;
+      case "atConfirm": if (S.atAck) { toast("PO-30241 explained with a note"); set({ atSheet: false, atExplained: true }); } break;
+      case "ruleOpen": set({ ruleSheet: true }); break;
+      case "ruleClose": set({ ruleSheet: false }); break;
+      case "ruleNo": toast("Okay. We’ll ask again if it keeps happening."); set({ ruleNo: true }); break;
+      case "ruleOn": toast("Rule on. It starts with the Nov 11 payouts."); set({ rule: true, ruleSheet: false }); break;
+      case "closeSel": set({ sel: null }); break;
+      case "take": assign(S.sel); set({}); break;
+      case "takeId": assign(id); set({}); break;
+      case "acct": set({ acct: true }); break;
+      case "closeAcct": set({ acct: false }); break;
+      case "notif": set({ notif: !S.notif }); break;
+      case "signout": S.acct = false; S.ob = 0; S.pw = ""; break;
+      case "restart": e.preventDefault(); clearTimeout(syncTimer); S = fresh(); save(); location.hash = "#splash"; render(); break;
+      case "toggleOpen": set({ showOpen: !S.showOpen, showTiming: false }); break;
+      case "toggleTiming": set({ showTiming: !S.showTiming, showOpen: false }); break;
+      case "filter": set({ payFilter: k }); break;
+      case "clearQ": set({ q: "" }); document.getElementById("q") && document.getElementById("q").focus(); break;
+      case "resetFilters": set({ q: "", payFilter: "all" }); break;
+      case "caseView": set({ caseView: k }); break;
+      case "cause": S.open[k] = !S.open[k]; set({}); break;
+      case "post": if (S.draft.trim()) { S.notes.push(S.draft.trim()); toast("Note added"); set({ draft: "" }); } break;
+      case "openSheet": set({ sheet: true, ack: false }); break;
+      case "closeSheet": set({ sheet: false }); break;
+      case "ack": set({ ack: t.checked }); break;
+      case "confirm": if (S.ack) { toast("PO-30227 marked as explained"); set({ sheet: false, explained: true }); } break;
+    }
+  });
+  app.addEventListener("input", function (e) {
+    var k = e.target.getAttribute("data-input"); if (!k) return;
+    S[k] = e.target.value;
+    if (k === "q") render();
+    if (k === "email" || k === "pw" || k === "invEmail") render();
+    if (k === "atDraft") { var b2 = app.querySelector('[data-act="atPost"]'); if (b2) b2.disabled = !S.atDraft.trim(); save(); }
+    if (k === "draft") { var b = app.querySelector('[data-act="post"]'); if (b) b.disabled = !S.draft.trim(); save(); }
+  });
+  app.addEventListener("change", function (e) {
+    if (e.target.getAttribute("data-input") === "tz") { S.tz = e.target.value; render(); return; }
+    if (e.target.getAttribute("data-input") === "owner") { S.owner = e.target.value; toast(S.owner ? "Owner: " + S.owner : "Owner removed"); render(); }
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape") return;
+    if (S.ruleSheet) set({ ruleSheet: false }); else if (S.atSheet) set({ atSheet: false }); else if (S.connecting) set({ connecting: "", connBusy: false }); else if (S.sheet) set({ sheet: false }); else if (S.sel) set({ sel: null }); else if (S.acct) set({ acct: false });
+  });
+  window.addEventListener("hashchange", function () { S.sel = null; S.acct = false; S.sheet = false; S.connecting = ""; S.atSheet = false; S.ruleSheet = false; render(); });
+  render();
+})();
+
+</script>
+</body>
+</html>

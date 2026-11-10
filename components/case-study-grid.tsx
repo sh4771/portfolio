@@ -100,6 +100,18 @@ const projects: CaseStudy[] = [
     aiTools: ["Figma"],
   },
   {
+    slug: "reconcile",
+    readMins: 4,
+    title: "Reconcile: Explaining Why a Seller Payout Doesn't Match",
+    description:
+      "A payout reconciliation app that tells a marketplace finance manager why a seller payout differs from what the ledger expected, without touching the numbers.",
+    tags: ["2026", "Fintech", "Product Design"],
+    category: "Product Design",
+    softSkills: ["Research to decisions", "Edge-case thinking", "Design systems"],
+    image: "/images/reconcile/cover.webp",
+    aiTools: ["Claude Design", "Claude Code"],
+  },
+  {
     slug: "games4peace",
     readMins: 4,
     title: "Turning Casual Play into Measurable Social Impact",
