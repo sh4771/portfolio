@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import { CaseHero } from "@/components/case-hero"
 import { notFound } from "next/navigation"
 import { ArrowLeft } from "lucide-react"
 import { caseStudies } from "@/lib/case-studies"
@@ -48,40 +49,26 @@ export default async function CaseStudyPage({
             Back
           </Link>
 
-          {/* Header */}
-          <div id="overview" className="space-y-6 scroll-mt-32">
-            <div className="space-y-2">
-              <h1 className="cs-h1">
-                {study.title}
-              </h1>
-              <p className="text-sm text-foreground/50">{study.subtitle}</p>
-              {study.credit ? (
-                <p className="text-xs text-foreground/40">
-                  {study.credit.text}{" "}
-                  <a
-                    href={study.credit.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="underline decoration-foreground/30 underline-offset-2 hover:text-foreground/70"
-                  >
+          <CaseHero
+            slug={study.slug}
+            title={study.title}
+            roles={study.role.split(",").map((r) => r.trim())}
+            tagline={study.subtitle}
+            when={study.duration}
+            forWhom={
+              study.credit ? (
+                <>
+                  {study.category}. {study.credit.text}{" "}
+                  <a href={study.credit.url} target="_blank" rel="noreferrer" className="underline decoration-foreground/20 underline-offset-4">
                     {study.credit.name}
                   </a>
-                </p>
-              ) : null}
-            </div>
-
-            <div className="flex flex-wrap gap-x-12 gap-y-4 pt-4 text-sm">
-              <MetaItem label="Context" value={study.category} />
-              <MetaItem label="Timeline" value={study.duration} />
-              <MetaItem label="What I did" value={study.role} />
-            </div>
-
-            {study.overview ? (
-              <p className="max-w-2xl text-pretty text-sm leading-relaxed text-foreground/60">
-                {study.overview}
-              </p>
-            ) : null}
-          </div>
+                </>
+              ) : (
+                study.category
+              )
+            }
+            summary={study.overview ?? study.subtitle}
+          />
 
           {/* Hero: demo video, live embed, or static image */}
           {study.video ? (

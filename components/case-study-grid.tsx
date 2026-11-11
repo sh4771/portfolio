@@ -3,8 +3,9 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Hourglass, Lock } from "lucide-react"
-import { CaseStudyPanel, useDeepLinkedPanel } from "@/components/fun/project-panel"
+import { useEffect } from "react"
 import { CoverMeta, ProjectCover, type CoverSpec } from "@/components/project-cover"
+import { COVERS } from "@/lib/covers"
 
 export interface CaseStudy {
   slug: string
@@ -45,7 +46,7 @@ const projects: CaseStudy[] = [
   {
     slug: "vendelux",
     name: "Vendelux: How event teams target, plan, and connect",
-    cover: { kind: "video", bg: "#e7ebf2", video: "/videos/vendelux-cover.mp4", screens: ["/images/vendelux-cover-poster.jpg"] },
+    cover: COVERS["vendelux"],
     readMins: 24,
     title: "Designing How Event Teams Target, Plan, and Connect",
     description:
@@ -72,7 +73,7 @@ const projects: CaseStudy[] = [
   {
     slug: "passiton",
     name: "PASSIT ON: Traceable garment lifecycles",
-    cover: { kind: "phone", bg: "#ece6dd", video: "/videos/covers/passiton.mp4", screens: ["/images/covers/posters/covers-passiton-poster.jpg"] },
+    cover: COVERS["passiton"],
     readMins: 8,
     title: "PASSIT ON: Designing Traceable Garment Lifecycles",
     description:
@@ -87,19 +88,7 @@ const projects: CaseStudy[] = [
   {
     slug: "greener-routes",
     name: "Greener Walking Routes",
-    cover: {
-      kind: "phone",
-      bg: "#dde8da",
-      screens: ["/images/covers/greener-routes/p1.webp"],
-      flow: [
-        { src: "/images/covers/greener-routes/p1.webp", tap: [50, 92] },
-        { src: "/images/covers/greener-routes/p2.webp", tap: [50, 92] },
-        { src: "/images/covers/greener-routes/p3.webp", tap: [50, 63], next: "none", hold: 900 },
-        { src: "/images/covers/greener-routes/p3.webp", tap: [50, 92], hold: 500 },
-        { src: "/images/covers/greener-routes/p4.webp", tap: [50, 92], hold: 1300 },
-        { src: "/images/covers/greener-routes/p5.webp", hold: 1600 },
-      ],
-    },
+    cover: COVERS["greener-routes"],
     readMins: 5,
     title: "Greener Walking Routes",
     description:
@@ -113,19 +102,7 @@ const projects: CaseStudy[] = [
   {
     slug: "along",
     name: "Along: Sidequests on your everyday walk",
-    cover: {
-      kind: "phone",
-      bg: "#f7dc6f",
-      screens: ["/images/covers/along/0.webp"],
-      flow: [
-        { src: "/images/covers/along/0.webp", tap: [50, 85] },
-        { src: "/images/covers/along/1.webp", tap: [86, 57], next: "none", hold: 900 },
-        { src: "/images/covers/along/1.webp", tap: [86, 68], hold: 450 },
-        { src: "/images/covers/along/2.webp", tap: [39, 94], hold: 1300 },
-        { src: "/images/covers/along/3.webp", tap: [62, 95], next: "fade", hold: 1400 },
-        { src: "/images/covers/along/4.webp", hold: 1600 },
-      ],
-    },
+    cover: COVERS["along"],
     readMins: 3,
     title: "Along: Making the Everyday Walk Worth Taking the Long Way",
     description:
@@ -139,7 +116,7 @@ const projects: CaseStudy[] = [
   {
     slug: "reconcile",
     name: "Reconcile: Explaining seller payouts",
-    cover: { kind: "phone", bg: "#e6e0fb", video: "/videos/covers/reconcile.mp4", screens: ["/images/covers/posters/covers-reconcile-poster.jpg"] },
+    cover: COVERS["reconcile"],
     readMins: 4,
     title: "Reconcile: Explaining Why a Seller Payout Doesn't Match",
     description:
@@ -153,7 +130,7 @@ const projects: CaseStudy[] = [
   {
     slug: "games4peace",
     name: "Games4Peace: Casual play for social impact",
-    cover: { kind: "phone", bg: "#a3c2bb", video: "/videos/covers/games4peace.mp4", screens: ["/images/covers/posters/covers-games4peace-poster.jpg"] },
+    cover: COVERS["games4peace"],
     readMins: 4,
     title: "Turning Casual Play into Measurable Social Impact",
     description:
@@ -168,20 +145,7 @@ const projects: CaseStudy[] = [
   {
     slug: "schedulink",
     name: "Schedulink: Real-time plans with friends",
-    cover: {
-      kind: "phone",
-      bg: "#111111",
-      dark: true,
-      screens: ["/images/covers/schedulink/t2.webp"],
-      flow: [
-        { src: "/images/covers/schedulink/t2.webp", tap: [65, 12], next: "fade" },
-        { src: "/images/covers/schedulink/t3.webp", next: "fade", hold: 1300 },
-        { src: "/images/covers/schedulink/t4.webp", tap: [65, 12], next: "fade", hold: 900 },
-        { src: "/images/covers/schedulink/t5.webp", next: "fade", hold: 1300 },
-        { src: "/images/covers/schedulink/t6.webp", tap: [65, 12], next: "fade", hold: 900 },
-        { src: "/images/covers/schedulink/t7.webp", hold: 1300 },
-      ],
-    },
+    cover: COVERS["schedulink"],
     readMins: 4,
     title: "Real-Time Availability for Social Planning",
     description:
@@ -195,7 +159,7 @@ const projects: CaseStudy[] = [
   {
     slug: "cast",
     name: "C.A.S.T: A stabilizing torso for postural control",
-    cover: { kind: "image", fit: "cover", bg: "#eef1f4", screens: ["/images/cast.jpg"] },
+    cover: COVERS["cast"],
     readMins: 2,
     showOnHomepage: false, // shown in For Fun
     title: "Restoring Postural Control: A Cable-Activated Stabilizing Torso (C.A.S.T)",
@@ -210,7 +174,7 @@ const projects: CaseStudy[] = [
   {
     slug: "clinical-trials",
     name: "Decision Clarity in Clinical Trials",
-    cover: { kind: "desktop", bg: "#eceef3", video: "/videos/covers/clinical-trials.mp4", screens: ["/images/covers/posters/covers-clinical-trials-poster.jpg"] },
+    cover: COVERS["clinical-trials"],
     readMins: 5,
     showOnHomepage: false, // shown in For Fun
     title: "Designing Decision Clarity in Clinical Trial Systems",
@@ -226,11 +190,10 @@ const projects: CaseStudy[] = [
 ]
 
 export function CaseStudyCard({ project, inGroup = false }: { project: CaseStudy; inGroup?: boolean }) {
-  const { open, setOpen, onClose } = useDeepLinkedPanel(project.slug)
   const year = project.tags[0] ?? ""
   return (
     <>
-      <button type="button" onClick={() => setOpen(true)} aria-haspopup="dialog" className="group block w-full text-left">
+      <Link href={`/work/${project.slug}`} className="group block w-full text-left">
         <article>
           {project.cover ? (
             <ProjectCover spec={project.cover} alt={`${project.name ?? project.title} cover`} large={inGroup} className={project.cover.bg === "#ffffff" ? "ring-1 ring-inset ring-black/5" : undefined} />
@@ -246,22 +209,18 @@ export function CaseStudyCard({ project, inGroup = false }: { project: CaseStudy
             extra={project.group ? ` · ${project.group.items.filter((x) => !x.soon).length} projects` : undefined}
           />
         </article>
-      </button>
-      <CaseStudyPanel title={project.title} readMins={project.readMins} href={`/work/${project.slug}`} open={open} onClose={onClose} />
+      </Link>
     </>
   )
 }
 
 /* A Vendelux sub-project tile, opening its own panel. */
 function GroupTile({ parent, item, index }: { parent: CaseStudy; item: NonNullable<CaseStudy["group"]>["items"][number]; index: number }) {
-  const { open, setOpen, onClose } = useDeepLinkedPanel(`${parent.slug}-${item.slug}`)
   const href = `/work/${parent.slug}?project=${item.slug}`
   return (
     <>
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        aria-haspopup="dialog"
+      <Link
+        href={href}
         className={`group/tile grid h-full w-full grid-cols-[104px_1fr] items-center gap-3 rounded-2xl p-2.5 text-left transition-[border-color,transform] duration-200 hover:translate-x-0.5 sm:grid-cols-[120px_1fr] ${
           item.soon ? "border border-dashed border-foreground/25 hover:border-foreground/45" : "border border-border/60 bg-card hover:border-foreground/30"
         }`}
@@ -285,8 +244,7 @@ function GroupTile({ parent, item, index }: { parent: CaseStudy; item: NonNullab
           <span className="mt-0.5 block text-sm font-medium leading-snug text-foreground">{item.challenge}</span>
           {item.readMins ? <span className="mt-0.5 block text-xs text-foreground/45">{item.readMins} min read</span> : null}
         </span>
-      </button>
-      <CaseStudyPanel title={`${parent.group?.label ?? ""} · ${item.title}`} readMins={item.readMins} href={href} open={open} onClose={onClose} />
+      </Link>
     </>
   )
 }
@@ -328,6 +286,15 @@ function GroupedCaseStudy({ project }: { project: CaseStudy }) {
 const homepageProjects = projects.filter((p) => p.showOnHomepage !== false)
 
 export function CaseStudyGrid() {
+  // Old shared links pointed at a panel (#p-slug). Send them to the case study page.
+  useEffect(() => {
+    const m = window.location.hash.match(/^#p-(.+)$/)
+    if (!m || m[1] === "dating-app-for-dogs") return
+    const slug = m[1]
+    const sub = slug.match(/^vendelux-(.+)$/)
+    window.location.replace(sub ? `/work/vendelux?project=${sub[1]}` : `/work/${slug}`)
+  }, [])
+
   return (
     <section id="work" className="pb-24 pt-6">
       <div className="mx-auto w-full max-w-[1200px] px-4">

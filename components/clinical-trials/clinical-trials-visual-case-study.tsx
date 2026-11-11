@@ -1,6 +1,7 @@
 import Image from "next/image"
 import { BarChart3, Database, EyeOff, ArrowRight } from "lucide-react"
 import { ScreensGallery } from "./screens-gallery"
+import { CaseHero } from "@/components/case-hero"
 
 function SectionHeader({ label, title }: { label: string; title: string }) {
   return (
@@ -15,32 +16,15 @@ function SectionHeader({ label, title }: { label: string; title: string }) {
 export function ClinicalTrialsVisualCaseStudy({ prototypeVideoSrc }: { prototypeVideoSrc: string }) {
   return (
     <div className="space-y-24">
-      {/* 1 — Project overview */}
-      <section id="overview" className="space-y-8 scroll-mt-32">
-        <div className="space-y-2">
-          <h1 className="cs-h1">Designing decision clarity in clinical trial systems</h1>
-          <p className="text-sm text-text-secondary">UI/UX design · Adobe Designathon</p>
-        </div>
-        <p className="max-w-3xl text-sm leading-relaxed text-foreground ">
-          We redesigned a clinical intelligence workspace for faster, defensible decisions under time pressure. The sprint
-          centered trust, transparent AI signals, and a calmer hierarchy than typical enterprise dashboards. The full
-          flow was built end-to-end in 10 hours with Hongxin Li under rapid critique loops.
-        </p>
-        <div className="flex flex-wrap gap-x-12 gap-y-4 text-sm pt-2">
-          <div>
-            <span className="mb-1 block text-xs text-muted-foreground">Context</span>
-            <span className="text-foreground">Adobe Designathon, with Hongxin Li</span>
-          </div>
-          <div>
-            <span className="mb-1 block text-xs text-muted-foreground">Timeline</span>
-            <span className="text-foreground">10 hr build · April 2026</span>
-          </div>
-          <div>
-            <span className="mb-1 block text-xs text-muted-foreground">What I did</span>
-            <span className="text-foreground">UX / UI, Strategy</span>
-          </div>
-        </div>
-      </section>
+      <CaseHero
+        slug="clinical-trials"
+        title="Decision Clarity in Clinical Trials"
+        roles={["UX/UI", "Strategy"]}
+        tagline="A clinical intelligence workspace for faster, defensible decisions under time pressure."
+        when="April 2026 · 10-hour build"
+        forWhom="Adobe Designathon, with Hongxin Li"
+        summary="We centered trust, transparent AI signals and a calmer hierarchy than typical enterprise dashboards, and built the full flow end to end under rapid critique loops."
+      />
 
       {/* Demo video — compact, visual, moved to the top */}
       <section id="demo" className="space-y-4 scroll-mt-32">

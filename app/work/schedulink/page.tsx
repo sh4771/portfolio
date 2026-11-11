@@ -4,6 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { ArrowLeft, Calendar, Lock, Circle } from "lucide-react"
 import { useState, useEffect } from "react"
+import { CaseHero } from "@/components/case-hero"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { ContinueLink } from "@/components/continue-link"
@@ -37,52 +38,17 @@ export default function Page() {
 
         {/* Hero Section */}
         <header id="overview" className="space-y-12 scroll-mt-32">
-          {/* Project Title & Meta */}
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <h1 className="cs-h1">
-                Real-Time Availability for Social Planning
-              </h1>
-              <p className="text-sm text-foreground/50">
-                UX Director / Product Designer @ ScheduLink
-              </p>
-            </div>
-            
-            <div className="flex flex-wrap gap-x-12 gap-y-4 text-sm pt-4">
-              <div>
-                <span className="block text-xs text-foreground/40 mb-1">Context</span>
-                <span className="text-foreground/70">Stealth startup, iOS beta (pre-launch)</span>
-              </div>
-              <div>
-                <span className="block text-xs text-foreground/40 mb-1">Timeline</span>
-                <span className="text-foreground/70">2025 – 2026 (pre-launch)</span>
-              </div>
-              <div>
-                <span className="block text-xs text-foreground/40 mb-1">What I did</span>
-                <span className="text-foreground/70">UX Director / Product Designer</span>
-              </div>
-            </div>
-
-            <p className="text-sm text-foreground/60 max-w-2xl text-pretty leading-relaxed">
-              ScheduLink is a social scheduling app for college students. My focus was on defining 
-              the core interaction system and building a flexible calendar structure that powers 
-              spontaneous connections.
-            </p>
-
-            {/* Hero Mockup Image */}
-            <div className="relative w-full mt-8 h-[280px] md:h-[360px] lg:h-[420px] rounded-2xl overflow-hidden">
-              <Image
-                src="/images/schedulink.jpg"
-                alt="ScheduLink app mockup showing calendar interface"
-                width={1200}
-                height={800}
-                className="w-full h-full object-cover object-center"
-                priority
-              />
-            </div>
-          </div>
-
-          {/* The Problem */}
+          <CaseHero
+            nested
+            slug="schedulink"
+            title="ScheduLink"
+            roles={["UX Director", "Product Design"]}
+            tagline="A social scheduling app that shows when friends are free, without sharing a whole calendar."
+            when="2025 – 2026"
+            forWhom="Stealth startup, iOS beta (pre-launch)"
+            summary="I defined the core interaction system and built a flexible calendar structure that powers spontaneous plans for college students."
+          />
+{/* The Problem */}
           <div className="space-y-6">
             <div className="space-y-2">
               <p className="cs-eyebrow">01 · The problem</p>

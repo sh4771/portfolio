@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
+import { CaseHero } from "@/components/case-hero"
 import { C, EdgeCaseGrid, LivePrototype, PositionMap } from "@/components/reconcile/story"
 
 /**
@@ -77,17 +78,18 @@ export function VersionA() {
   const step = STEPS[active]
   return (
     <div className="space-y-28">
-      {/* Hero */}
-      <header className="space-y-6 pt-4">
-        <p className="cs-eyebrow">Fintech product design · Solo · 2026</p>
-        <h1 className="max-w-3xl text-4xl font-semibold leading-[1.05] tracking-tight text-balance sm:text-6xl">
-          Every dollar <span style={{ color: C.accent }}>accounted for.</span>
-        </h1>
-        <p className="max-w-xl text-base text-foreground/65">Reconcile helps marketplace finance teams identify and explain differences between expected and actual seller payouts.</p>
-        <div className="flex items-center gap-2 text-xs text-foreground/45">
-          <span className="inline-block h-6 w-[2px] animate-pulse rounded-full bg-foreground/30" /> Scroll
-        </div>
-      </header>
+      <CaseHero
+        nested
+        slug="reconcile"
+        title="Reconcile"
+        roles={["Research", "Product strategy", "UX/UI Design", "Prototyping"]}
+        tagline="Every dollar accounted for."
+        when="November 2026"
+        forWhom="Self-initiated fintech project"
+        summary="Reconcile helps marketplace finance teams identify and explain differences between expected and actual seller payouts."
+        scope="A read-only connection to the processor and ledger, a breakdown that explains each payout to the cent, confidence labels, shared cases and automation rules."
+        useCase="A finance manager sees a seller payout come in $51.62 short and needs to know which part is delayed, which part is lost, and how sure the app is."
+      />
 
       {/* Scrolly */}
       <section className="relative grid gap-10 lg:grid-cols-[1fr_320px] lg:gap-16">

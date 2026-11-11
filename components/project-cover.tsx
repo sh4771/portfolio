@@ -117,7 +117,7 @@ function Flow({ steps, playing, sizes, alt }: { steps: FlowStep[]; playing: bool
 
 /* ---------- the cover ---------- */
 
-export function ProjectCover({ spec, alt, large = false, className }: { spec: CoverSpec; alt: string; large?: boolean; className?: string }) {
+export function ProjectCover({ spec, alt, large = false, hero = false, className }: { spec: CoverSpec; alt: string; large?: boolean; hero?: boolean; className?: string }) {
   const { ref, inView } = useInView<HTMLDivElement>()
   const [paused, setPaused] = useState(false)
   const [reduced, setReduced] = useState(false)
@@ -142,8 +142,8 @@ export function ProjectCover({ spec, alt, large = false, className }: { spec: Co
     setPaused((p) => !p)
   }
 
-  const phoneSizes = "(min-width: 1024px) 200px, (min-width: 640px) 30vw, 45vw"
-  const deskSizes = large ? "(min-width: 1024px) 900px, 100vw" : "(min-width: 1024px) 400px, (min-width: 640px) 45vw, 90vw"
+  const phoneSizes = hero ? "(min-width: 1024px) 320px, 45vw" : "(min-width: 1024px) 200px, (min-width: 640px) 30vw, 45vw"
+  const deskSizes = large || hero ? "(min-width: 1024px) 900px, 100vw" : "(min-width: 1024px) 400px, (min-width: 640px) 45vw, 90vw"
 
   const screen = (sizes: string) =>
     spec.video ? (
@@ -157,7 +157,7 @@ export function ProjectCover({ spec, alt, large = false, className }: { spec: Co
     )
 
   return (
-    <div ref={ref} className={cn("relative w-full overflow-hidden rounded-2xl", large ? "aspect-[4/3] sm:aspect-[16/9]" : "aspect-[3/2]", className)} style={{ background: spec.bg }}>
+    <div ref={ref} className={cn("relative w-full overflow-hidden rounded-2xl", hero ? "aspect-[4/3] sm:aspect-[16/10]" : large ? "aspect-[4/3] sm:aspect-[16/9]" : "aspect-[3/2]", className)} style={{ background: spec.bg }}>
       {spec.kind === "video" && spec.video && (
         <video ref={videoRef} muted loop playsInline preload="metadata" poster={spec.screens[0]} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]">
           <source src={spec.video} type="video/mp4" />
@@ -165,15 +165,17 @@ export function ProjectCover({ spec, alt, large = false, className }: { spec: Co
       )}
 
       {spec.kind === "phone" && (
-        <div className="absolute left-1/2 top-[8%] w-[34%] -translate-x-1/2 transition-transform duration-700 ease-out group-hover:-translate-y-[3%]">
+        <div className={cn("absolute left-1/2 -translate-x-1/2", hero ? "top-[7%] w-[42%] sm:w-[30%]" : "top-[8%] w-[34%]")}>
+          <div className="transition-transform duration-700 ease-out group-hover:-translate-y-[3%]">
           <div className={cn("aspect-[9/19.5] rounded-[16%/7.4%] p-[3.2%] shadow-[0_24px_60px_-20px_rgba(0,0,0,0.35)]", spec.dark ? "bg-neutral-800 ring-1 ring-white/10" : "bg-neutral-950 ring-1 ring-black/5")}>
             <div className="relative h-full w-full overflow-hidden rounded-[13%/6%] bg-white">{screen(phoneSizes)}</div>
+          </div>
           </div>
         </div>
       )}
 
       {spec.kind === "desktop" && (
-        <div className={cn("absolute left-1/2 -translate-x-1/2 transition-transform duration-700 ease-out group-hover:-translate-y-[2%]", large ? "top-[9%] w-[78%]" : "top-[12%] w-[84%]")}>
+        <div className={cn("absolute left-1/2 -translate-x-1/2 transition-transform duration-700 ease-out group-hover:-translate-y-[2%]", hero ? "top-[8%] w-[80%]" : large ? "top-[9%] w-[78%]" : "top-[12%] w-[84%]")}>
           <div className={cn("overflow-hidden rounded-[10px] shadow-[0_24px_60px_-20px_rgba(0,0,0,0.35)] ring-1", spec.dark ? "bg-neutral-800 ring-white/10" : "bg-white ring-black/10")}>
             <div className={cn("flex h-[18px] items-center gap-1 px-2.5 sm:h-[22px]", spec.dark ? "bg-neutral-800" : "bg-neutral-100")}>
               {[0, 1, 2].map((d) => (

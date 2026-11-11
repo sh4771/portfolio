@@ -2,6 +2,7 @@ import { Suspense } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowLeft } from "lucide-react"
+import { CaseHero } from "@/components/case-hero"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { ContinueLink } from "@/components/continue-link"
@@ -28,57 +29,16 @@ export default function VendeluxPage() {
             Back to Portfolio
           </Link>
 
-          <div className="mb-14 space-y-8">
-            <div className="space-y-6">
-              <div className="space-y-2">
-                <h1 className="cs-h1">
-                  Product Intern, Vendelux
-                </h1>
-                <p className="text-sm text-text-secondary">
-                  Product Design · AI-powered B2B event intelligence platform
-                </p>
-              </div>
-
-              <div className="flex flex-wrap gap-x-12 gap-y-4 text-sm pt-4">
-                <div>
-                  <span className="block text-xs text-text-secondary mb-1">Context</span>
-                  <span className="text-foreground/70">Vendelux</span>
-                </div>
-                <div>
-                  <span className="block text-xs text-foreground/40 mb-1">Timeline</span>
-                  <span className="text-foreground/70">March 2026 – Present</span>
-                </div>
-                <div>
-                  <span className="block text-xs text-foreground/40 mb-1">What I did</span>
-                  <span className="text-foreground/70">
-                    Product design across segment building, campaign tooling, and forecasting
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <p className="text-sm leading-relaxed text-text-secondary">
-              Vendelux is an AI event-marketing platform that helps companies figure out which
-              events are worth attending, who they should target at those events, and how to turn
-              those interactions into actual meetings and revenue.
-            </p>
-            <p className="text-sm leading-relaxed text-text-secondary">
-              As a product intern, I worked across both customer-facing and internal tools. I
-              designed workflows that help event marketers narrow large amounts of attendee data
-              into the right target audience, and tools that help our forward-deployed engineers
-              create and manage outreach campaigns more efficiently.
-            </p>
-
-            <div className="flex justify-center rounded-lg border border-border/40 bg-white py-10">
-              <Image
-                src="/images/vendelux-cover.png"
-                alt="Vendelux logo"
-                width={220}
-                height={115}
-                className="h-auto w-[200px]"
-              />
-            </div>
-          </div>
+          <CaseHero
+            slug="vendelux"
+            title="Vendelux"
+            roles={["Product design", "Product Intern"]}
+            tagline="An AI event-marketing platform that helps companies pick the right events, people and meetings."
+            when="March 2026 – Present"
+            forWhom="Vendelux, B2B event intelligence"
+            summary="I designed workflows that help event marketers narrow huge attendee lists to the right audience, and tools that help forward-deployed engineers run outreach campaigns faster."
+            scope="Segment building, campaign tooling and attendance forecasting, across customer-facing and internal tools."
+          />
 
           <Suspense fallback={null}>
             <VendeluxCaseStudies />

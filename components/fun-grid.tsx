@@ -1,21 +1,19 @@
 "use client"
 
 import { CaseStudyCard, projects } from "@/components/case-study-grid"
-import { CaseStudyPanel, FunProjectCard, useDeepLinkedPanel, type PanelProject } from "@/components/fun/project-panel"
+import Link from "next/link"
+import { FunProjectCard, type PanelProject } from "@/components/fun/project-panel"
 import { SNIFFR_URL, SniffrDemo } from "@/components/fun/sniffr"
 import { CoverMeta, ProjectCover, type CoverSpec } from "@/components/project-cover"
+import { COVERS } from "@/lib/covers"
 
 /* A For Fun project with a case study page: the panel is the case study itself. */
 function FunCaseCard({ slug, title, year, cover, readMins }: { slug: string; title: string; year: string; cover: CoverSpec; readMins: number }) {
-  const { open, setOpen, onClose } = useDeepLinkedPanel(slug)
   return (
-    <>
-      <button type="button" onClick={() => setOpen(true)} className="group block w-full text-left" aria-haspopup="dialog">
-        <ProjectCover spec={cover} alt={`${title} cover`} />
-        <CoverMeta year={year} title={title} readMins={readMins} />
-      </button>
-      <CaseStudyPanel title={title} readMins={readMins} href={`/work/${slug}`} open={open} onClose={onClose} />
-    </>
+    <Link href={`/work/${slug}`} className="group block w-full text-left">
+      <ProjectCover spec={cover} alt={`${title} cover`} />
+      <CoverMeta year={year} title={title} readMins={readMins} />
+    </Link>
   )
 }
 
@@ -57,7 +55,7 @@ export function FunGrid() {
             title="Restaurant Bot"
             year="2026"
             readMins={1}
-            cover={{ kind: "desktop", bg: "#f9e3ee", video: "/videos/covers/restaurant-bot.mp4", screens: ["/images/covers/posters/covers-restaurant-bot-poster.jpg"] }}
+            cover={COVERS["restaurant-bot"]}
           />
           <FunProjectCard
             project={SNIFFR}

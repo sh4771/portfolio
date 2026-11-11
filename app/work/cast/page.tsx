@@ -1,6 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowLeft, Hand, Lock, Move, Shield } from "lucide-react"
+import { CaseHero } from "@/components/case-hero"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { ContinueLink } from "@/components/continue-link"
@@ -23,54 +24,16 @@ export default function Page() {
         </Link>
 
         {/* Header */}
-        <header id="overview" className="space-y-6 scroll-mt-32">
-          <div className="space-y-2">
-            <h1 className="cs-h1">
-              C.A.S.T — Cable-Activated Stabilizing Torso
-            </h1>
-            <p className="text-sm text-foreground/50">
-              Columbia Robotics and Rehabilitation Lab
-            </p>
-          </div>
-
-          <div className="flex flex-wrap gap-x-12 gap-y-4 text-sm pt-4">
-            <div>
-              <span className="block text-xs text-foreground/40 mb-1">Context</span>
-              <span className="text-foreground/70">Columbia GSAPP, ROAR Lab</span>
-            </div>
-            <div>
-              <span className="block text-xs text-foreground/40 mb-1">Timeline</span>
-              <span className="text-foreground/70">May 2025 – March 2026</span>
-            </div>
-            <div>
-              <span className="block text-xs text-foreground/40 mb-1">What I did</span>
-              <span className="text-foreground/70">Interaction Design, Wearable Design</span>
-            </div>
-          </div>
-
-          {/* Project Overview - 2-3 lines max */}
-          <p className="text-sm text-foreground/60 max-w-2xl leading-relaxed">
-            A wearable assistive device that restores postural stability for spinal cord injury patients 
-            using cable-driven trunk support.
-          </p>
-
-          {/* Hero Image */}
-          <div className="relative w-full h-[300px] md:h-[400px] rounded-2xl overflow-hidden">
-            <Image
-              src="/images/cast.jpg"
-              alt="C.A.S.T wearable vest CAD render"
-              width={1200}
-              height={800}
-              className="w-full h-full object-cover object-center"
-              priority
-            />
-          </div>
-
-          {/* NDA Notice */}
-          <p className="text-xs text-foreground/40 text-center">
-            Due to NDA restrictions, only limited visuals can be shown.
-          </p>
-        </header>
+        <CaseHero
+          slug="cast"
+          title="C.A.S.T"
+          roles={["Interaction design", "Wearable design"]}
+          tagline="A cable-activated stabilizing torso that restores postural stability for spinal cord injury patients."
+          when="May 2025 – March 2026"
+          forWhom="Columbia Robotics and Rehabilitation (ROAR) Lab"
+          summary="A wearable assistive device that uses cable-driven trunk support to help people with spinal cord injuries stay upright."
+          note="Due to NDA restrictions, only limited visuals can be shown."
+        />
 
         {/* My Role */}
         <section id="role" className="space-y-8 scroll-mt-32">

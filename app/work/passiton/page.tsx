@@ -10,6 +10,7 @@ import CircularPricingModel from "@/components/infographics/circular-pricing-mod
 import ClothingLifecycle from "@/components/infographics/clothing-lifecycle"
 import PassitOnLivePrototypeSection from "@/components/passiton/live-prototype-nfc-section"
 import ProblemDownstreamImpact from "@/components/passiton/problem-downstream-impact"
+import { CaseHero } from "@/components/case-hero"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { ContinueLink } from "@/components/continue-link"
@@ -33,107 +34,30 @@ export default function Page() {
 
           {/* Hero Section */}
           <header id="overview" className="space-y-12 scroll-mt-32">
-            {/* Project Title & Meta */}
-            <div className="space-y-6">
-              <div className="space-y-2">
-                <h1 className="cs-h1">
-                  Designing Traceable Garment Lifecycles
-                </h1>
-                <p className="text-sm text-text-secondary">
-                  UI/UX Design · Columbia University Prototyping in Urban Tech
-                </p>
-                <p className="text-xs text-text-secondary">
-                  {"Capstone, advised by Michael Krisch — featured on "}
-                  <a
-                    href="https://gsapp-cdp.github.io/archive/projects/2026/pass-it-on/"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="underline decoration-text-muted underline-offset-2 hover:text-foreground"
-                  >
-                    Columbia GSAPP&apos;s thesis archive
+            <CaseHero
+              nested
+              slug="passiton"
+              title="PASSIT ON"
+              roles={["Research", "UX/UI Design", "Prototyping"]}
+              tagline="An NFC-tagged fashion reuse app that keeps a garment's story with it, owner to owner."
+              when="January – April 2026"
+              forWhom={
+                <>
+                  Columbia Prototyping in Urban Tech. Capstone advised by Michael Krisch, featured on the{" "}
+                  <a href="https://gsapp-cdp.github.io/archive/projects/2026/pass-it-on/" target="_blank" rel="noreferrer" className="underline decoration-foreground/20 underline-offset-4">
+                    GSAPP thesis archive
                   </a>
-                </p>
-              </div>
-              
-              <div className="flex flex-wrap gap-x-12 gap-y-4 text-sm pt-4">
-                <div>
-                  <span className="block text-xs text-text-secondary mb-1">Context</span>
-                  <span className="text-foreground/70">
-                    Columbia University Prototyping in Urban Tech
-                  </span>
-                </div>
-                <div>
-                  <span className="block text-xs text-foreground/40 mb-1">Timeline</span>
-                  <span className="text-foreground/70">January 2026 – April 2026</span>
-                </div>
-                <div>
-                  <span className="block text-xs text-foreground/40 mb-1">What I did</span>
-                  <span className="text-foreground/70">Research, UX/UI Design, Prototyping</span>
-                </div>
-              </div>
-
-              <p className="text-sm text-foreground/60 max-w-2xl text-pretty leading-relaxed">
-                Led research and end-to-end design of a blockchain-enabled fashion reuse app 
-                focused on extending garment lifecycle through traceability.
-              </p>
-
-              <div className="grid max-w-2xl gap-8 border-t border-border/40 pt-8 sm:grid-cols-2 sm:gap-10">
-                <div className="space-y-2">
-                  <h2 className="cs-h2">
-                    Product scope
-                  </h2>
-                  <p className="text-sm text-foreground/60 text-pretty leading-relaxed">
-                    NFC-backed garment identity, a companion app for reading and updating custody
-                    history, listing flows (condition, materials, pricing), and incentives that keep
-                    pieces in circulation rather than landfill.
-                  </p>
-                </div>
-                <div className="space-y-2">
-                  <h2 className="cs-h2">Use case</h2>
-                  <p className="text-sm text-foreground/60 text-pretty leading-relaxed">
-                    Someone reselling or donating a tagged item needs a trustworthy handoff: show
-                    what the piece is made of, how worn it is, what it cost versus what it should
-                    list for next, and who has owned it before—so the next person can decide with
-                    confidence.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-1">
-                <a
-                  href="https://github.com/sh4771/PassitOn"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm text-foreground/60 transition-colors hover:text-foreground"
-                >
-                  <Github className="h-4 w-4 shrink-0 opacity-80" strokeWidth={1.75} />
-                  GitHub: PassitOn
-                </a>
-                <a
-                  href="https://passit-on-lac.vercel.app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm text-foreground/60 transition-colors hover:text-foreground"
-                >
-                  <Globe className="h-4 w-4 shrink-0 opacity-80" strokeWidth={1.75} />
-                  Live: passit-on-lac.vercel.app
-                </a>
-              </div>
-
-              {/* Hero Mockup Image */}
-              <div className="relative w-full mt-8 h-[280px] md:h-[360px] lg:h-[420px] rounded-2xl overflow-hidden">
-                <Image
-                  src="/images/passiton-mockup.png"
-                  alt="PASSIT ON app mockup showing garment tracking interface"
-                  width={1200}
-                  height={800}
-                  className="w-full h-full object-cover object-center"
-                  priority
-                />
-              </div>
-            </div>
-
-            {/* The Problem Statement */}
+                </>
+              }
+              summary="I led research and end-to-end design of a blockchain-enabled reuse app that extends a garment's life by making its history traceable."
+              scope="NFC garment identity, an app to read and update custody history, listing flows for condition, materials and price, and incentives that keep pieces out of landfill."
+              useCase="Someone passing on a tagged item shows what it's made of, how worn it is, its fair next price and who owned it before, so the next person can decide with confidence."
+              links={[
+                { label: "Live app", href: "https://passit-on-lac.vercel.app" },
+                { label: "GitHub", href: "https://github.com/sh4771/PassitOn" },
+              ]}
+            />
+{/* The Problem Statement */}
             <div className="border border-border/50 rounded-2xl p-6 md:p-8 space-y-6">
               <ProblemDownstreamImpact />
 

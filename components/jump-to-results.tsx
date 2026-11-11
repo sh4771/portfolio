@@ -62,7 +62,7 @@ export function JumpToResults() {
         if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1")
         target.focus({ preventScroll: true })
       }}
-      className="fixed bottom-5 left-5 z-40 inline-flex min-h-11 items-center gap-1.5 rounded-full border border-border bg-background/90 px-4 text-sm font-medium text-foreground shadow-[0_10px_30px_rgba(0,0,0,0.14)] backdrop-blur transition-colors hover:border-foreground/40 sm:bottom-6 sm:left-6 motion-safe:animate-in motion-safe:fade-in"
+      className="fixed bottom-[92px] left-5 z-40 inline-flex min-h-11 items-center gap-1.5 rounded-full border border-border bg-background/90 px-4 text-sm font-medium text-foreground shadow-[0_10px_30px_rgba(0,0,0,0.14)] backdrop-blur transition-colors hover:border-foreground/40 sm:left-6 min-[1360px]:bottom-6 motion-safe:animate-in motion-safe:fade-in"
     >
       Jump to results
       <ArrowDown className="h-4 w-4" />

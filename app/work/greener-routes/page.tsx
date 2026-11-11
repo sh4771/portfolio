@@ -1,6 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowLeft, Lightbulb, MessageCirclePlus, Rocket } from "lucide-react"
+import { CaseHero } from "@/components/case-hero"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { ContinueLink } from "@/components/continue-link"
@@ -55,84 +56,25 @@ export default function Page() {
           </Link>
 
           {/* Overview */}
-          <header id="overview" className="space-y-12 scroll-mt-32">
-            <div className="space-y-6">
-              <div className="space-y-2">
-                <h1 className="cs-h1">Designing Walking Routes Around How a Walk Feels</h1>
-                <p className="text-sm text-text-secondary">
-                  Spatial Analysis + Product Design · Columbia GSAPP Computational Modeling
-                </p>
-                <p className="text-xs text-text-secondary">
-                  {"Course project, advised by Luc Wilson and "}
-                  <a
-                    href="https://www.arch.columbia.edu/faculty/2411-meli-harvey"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="underline decoration-text-muted underline-offset-2 hover:text-foreground"
-                  >
-                    Meli Harvey
-                  </a>
-                </p>
-              </div>
-
-              <div className="flex flex-wrap gap-x-12 gap-y-4 pt-4 text-sm">
-                <div>
-                  <span className="mb-1 block text-xs text-text-secondary">Context</span>
-                  <span className="text-foreground/70">Columbia GSAPP, Computational Modeling</span>
-                </div>
-                <div>
-                  <span className="mb-1 block text-xs text-foreground/40">Timeline</span>
-                  <span className="text-foreground/70">July 2026 – Present</span>
-                </div>
-                <div>
-                  <span className="mb-1 block text-xs text-foreground/40">What I did</span>
-                  <span className="text-foreground/70">Spatial analysis, Grasshopper scripting, Prototyping</span>
-                </div>
-              </div>
-
-              <p className="max-w-2xl text-sm leading-relaxed text-foreground/60 text-pretty">
-                The shortest way isn&apos;t always the best one. I built a green exposure metric from NYC Parks
-                data, then turned it into a walking app that shows what a route feels like, not just how long it
-                takes.
-              </p>
-
-              <div className="grid max-w-2xl gap-8 border-t border-border/40 pt-8 sm:grid-cols-2 sm:gap-10">
-                <div className="space-y-2">
-                  <h2 className="cs-h2">Product scope</h2>
-                  <p className="text-sm leading-relaxed text-foreground/60 text-pretty">
-                    A route-scoring pipeline in Rhino and Grasshopper, plus a mobile flow for setting a detour limit,
-                    comparing a shortest, balanced and greenest route, and walking it turn by turn.
-                  </p>
-                </div>
-                <div className="space-y-2">
-                  <h2 className="cs-h2">Use case</h2>
-                  <p className="text-sm leading-relaxed text-foreground/60 text-pretty">
-                    Someone walking somewhere on a hot afternoon wants to know if a slightly longer route would be
-                    calmer and shadier, and exactly how much time it would cost them.
-                  </p>
-                </div>
-              </div>
-
-              <p className="text-xs text-muted-foreground">
-                Tools: Rhino, Grasshopper, NYC Parks Open Data, Claude Design
-              </p>
-
-              <div className="mt-8 overflow-hidden rounded-2xl">
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="auto"
-                  poster="/images/greener-routes/cover-poster.png"
-                  aria-label="Animated mockup of the Greener Routes app screens"
-                  className="block aspect-[4/3] h-auto w-full object-cover"
-                >
-                  <source src="/videos/greener-routes-cover.mp4" type="video/mp4" />
-                </video>
-              </div>
-            </div>
-          </header>
+          <CaseHero
+            slug="greener-routes"
+            title="Greener Walking Routes"
+            roles={["Spatial analysis", "Grasshopper scripting", "Prototyping"]}
+            tagline="A walking app that shows what a route feels like, not just how long it takes."
+            when="July 2026 – Present"
+            forWhom={
+              <>
+                Columbia GSAPP, Computational Modeling. Advised by Luc Wilson and{" "}
+                <a href="https://www.arch.columbia.edu/faculty/2411-meli-harvey" target="_blank" rel="noreferrer" className="underline decoration-foreground/20 underline-offset-4">
+                  Meli Harvey
+                </a>
+              </>
+            }
+            summary="I built a green exposure metric from NYC Parks data, then turned it into an app that compares a shortest, balanced and greenest route."
+            scope="A route-scoring pipeline in Rhino and Grasshopper, plus a mobile flow to set a detour limit, compare three routes and walk one turn by turn."
+            useCase="On a hot afternoon, someone wants to know if a slightly longer route is shadier, and exactly how much time it costs."
+            note="Tools: Rhino, Grasshopper, NYC Parks Open Data, Claude Design"
+          />
 
           {/* 01 Quiz */}
           <section id="walk-check" className="space-y-8 scroll-mt-32">

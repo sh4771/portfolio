@@ -1,6 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowLeft } from "lucide-react"
+import { CaseHero } from "@/components/case-hero"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { ContinueLink } from "@/components/continue-link"
@@ -51,23 +52,15 @@ export default function Page() {
           </Link>
 
           {/* Overview */}
-          <header id="overview" className="scroll-mt-32 space-y-8">
-            <div className="space-y-3">
-              <h1 className="cs-h1">Along: Making the Everyday Walk Worth Taking the Long Way</h1>
-              <p className="text-sm text-text-secondary">Product Design · Designathon, team project · November 2026</p>
-              <p className="max-w-xl text-base leading-relaxed text-foreground/75 text-pretty">
-                A New York walking app that tucks small sidequests into the route you already take.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-2 text-xs">
-              {["UX research", "Interaction design", "Brand", "Prototyping", "Figma"].map((t) => (
-                <span key={t} className="rounded-full border border-border/60 px-3 py-1 text-foreground/65">{t}</span>
-              ))}
-            </div>
-            <div className="overflow-hidden rounded-2xl">
-              <Image src="/images/along/hero.webp" alt="Along splash screen with Lolo and the line Take the long way." width={1600} height={900} priority className="h-auto w-full" sizes="(max-width: 900px) 100vw, 900px" />
-            </div>
-          </header>
+          <CaseHero
+            slug="along"
+            title="Along"
+            roles={["UX research", "Interaction design", "Brand", "Prototyping"]}
+            tagline="A New York walking app that tucks small sidequests into the route you already take."
+            when="November 2026"
+            forWhom="Designathon, team project"
+            summary="Map apps get you there fast. Along adds a reason to slow down: a few sidequests on your way, and a companion, Lolo, who grows with every walk."
+          />
 
           {/* Problem */}
           <Section id="problem" eyebrow="The problem" title="Map apps get you there fast. None care what happens on the way.">

@@ -2,6 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { ArrowLeft } from "lucide-react"
 import SwotAnalysis from "@/components/infographics/swot-analysis"
+import { CaseHero } from "@/components/case-hero"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { ContinueLink } from "@/components/continue-link"
@@ -25,75 +26,17 @@ export default function Page() {
 
         {/* Hero Section */}
         <header className="space-y-12">
-          {/* Project Title & Meta */}
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <h1 className="cs-h1">
-                Turning Casual Play into Measurable Social Impact
-              </h1>
-              <p className="text-sm text-foreground/50">
-                UI/UX Design @ Games4Peace
-              </p>
-            </div>
-            
-            <div className="flex flex-wrap gap-x-12 gap-y-4 text-sm pt-4">
-              <div>
-                <span className="block text-xs text-foreground/40 mb-1">Context</span>
-                <span className="text-foreground/70">Web, personal project</span>
-              </div>
-              <div>
-                <span className="block text-xs text-foreground/40 mb-1">Timeline</span>
-                <span className="text-foreground/70">May 2024 – January 2025</span>
-              </div>
-              <div>
-                <span className="block text-xs text-foreground/40 mb-1">What I did</span>
-                <span className="text-foreground/70">UI/UX Designer</span>
-              </div>
-            </div>
-
-            {/* Hero Mockup Video */}
-            <div 
-              className="relative w-full mt-8 rounded-[24px] md:rounded-[32px] overflow-hidden"
-              style={{
-                boxShadow: "0 20px 60px rgba(0,0,0,0.12), 0 4px 20px rgba(0,0,0,0.08)",
-              }}
-            >
-              <video 
-                autoPlay 
-                loop 
-                muted 
-                playsInline
-                className="w-full h-auto"
-              >
-                <source src="/videos/games4peace-hero.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
-          </div>
-
-          {/* Overview */}
-          <div 
-            id="overview"
-            className="rounded-[24px] md:rounded-[32px] p-6 md:p-8 space-y-4 scroll-mt-32"
-            style={{
-              background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-              boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
-            }}
-          >
-            <h2 className="cs-h2">
-              Overview
-            </h2>
-            <p className="text-sm text-foreground/60 text-pretty max-w-3xl leading-relaxed">
-              Games4Peace is a casual gaming platform designed to make philanthropy more accessible 
-              by transforming everyday play into real-world impact.
-            </p>
-            <p className="text-sm text-foreground/60 text-pretty max-w-3xl leading-relaxed">
-              As the UI/UX Designer, I worked across research, interaction design, and visual design 
-              to shape the core experience—from onboarding and game discovery to impact tracking and profile systems.
-            </p>
-          </div>
-
-          {/* The Problem */}
+          <CaseHero
+            nested
+            slug="games4peace"
+            title="Games4Peace"
+            roles={["UI/UX Design", "Research", "Visual design"]}
+            tagline="A casual gaming platform that turns everyday play into real-world impact."
+            when="May 2024 – January 2025"
+            forWhom="Games4Peace, web"
+            summary="As the UI/UX designer, I shaped the core experience across research, interaction and visual design, from onboarding and game discovery to impact tracking and profiles."
+          />
+{/* The Problem */}
           <div id="problem" className="space-y-6 scroll-mt-32">
             <div className="space-y-2">
               <p className="cs-eyebrow">01 · The problem</p>
