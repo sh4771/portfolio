@@ -348,7 +348,7 @@ function Glance() {
         </section>
 
         {/* Résumé */}
-        <a href="/Resume_Violet_Hyun.pdf" target="_blank" rel="noreferrer" className={cn(card, "group flex flex-col justify-between gap-6 transition-colors hover:border-foreground/30")}>
+        <a href="/resume" className={cn(card, "group flex flex-col justify-between gap-6 transition-colors hover:border-foreground/30")}>
           <span className="flex items-center justify-between">
             <FileText className="h-6 w-6 text-foreground/70" />
             <ArrowUpRight className="h-4 w-4 text-foreground/40 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -561,7 +561,7 @@ export function AboutExperience() {
             </ol>
           </nav>
           <div className="space-y-2 border-t border-border/60 pt-6 text-sm text-foreground/60">
-            <a href="/Resume_Violet_Hyun.pdf" target="_blank" rel="noreferrer" className="flex items-center gap-1.5 hover:text-foreground">
+            <a href="/resume" className="flex items-center gap-1.5 hover:text-foreground">
               Résumé PDF <ArrowUpRight className="h-3.5 w-3.5" />
             </a>
             <a href="mailto:violethyun@nyu.edu" className="block hover:text-foreground">violethyun@nyu.edu</a>

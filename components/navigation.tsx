@@ -26,7 +26,7 @@ const ITEMS: Item[] = [
     ),
   },
   { key: "work", label: "Work", href: "/#work", icon: <LayoutGrid className="h-[19px] w-[19px]" strokeWidth={2} /> },
-  { key: "resume", label: "Resume", href: "/Resume_Violet_Hyun.pdf", external: true, icon: <FileText className="h-[19px] w-[19px]" strokeWidth={2} /> },
+  { key: "resume", label: "Resume", href: "/resume", icon: <FileText className="h-[19px] w-[19px]" strokeWidth={2} /> },
 ]
 
 const SIDE_X = 28
