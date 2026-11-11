@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
-import { Bridge, C, EdgeCaseGrid, LivePrototype, PositionMap } from "@/components/reconcile/story"
+import { C, EdgeCaseGrid, LivePrototype, PositionMap } from "@/components/reconcile/story"
 
 /**
  * Version A · Scroll story
@@ -12,45 +12,24 @@ import { Bridge, C, EdgeCaseGrid, LivePrototype, PositionMap } from "@/component
  */
 
 type Step = {
-  chain: string[]
   kicker: string
   title: string
   body: string
+  decision?: boolean
   shot: string
   visual?: "question" | "gap" | "split" | "ladder" | "lock" | "rule" | "race"
 }
 
 const STEPS: Step[] = [
-  { chain: ["The question"], kicker: "A Tuesday morning", title: "Saltmarsh expected $1,192.87. It got $1,141.25.", body: "Finance has to explain the −$51.62. Today, they rebuild a spreadsheet every payout to do it.", shot: "/images/reconcile/splash.webp", visual: "question" },
-  { chain: ["R2", "H1", "D2"], kicker: "Tools say what. Nobody says why.", title: "So I made the core screen a bridge that adds up.", body: "Expected, one row per cause, recorded. A check line proves the causes net to the gap.", shot: "/images/reconcile/why.webp", visual: "split" },
-  { chain: ["Gap", "H4", "D1"], kicker: "Tools work per bank line or period", title: "Marketplaces think in sellers, so every screen does too.", body: "Every list, case and number hangs off one seller payout.", shot: "/images/reconcile/payouts.webp", visual: "gap" },
-  { chain: ["R4", "H2", "D3"], kicker: "Tools hide timing", title: "I gave timing a grey clock and a date, never a red flag.", body: "When timing misses its date, it turns amber and moves to Needs you.", shot: "/images/reconcile/ondine.webp" },
-  { chain: ["R3", "H3", "D4"], kicker: "Trust comes from visible reasoning", title: "Every cause says how sure it is.", body: "Confirmed closes itself. Anything without a record needs a written reason.", shot: "/images/reconcile/atlas.webp", visual: "ladder" },
-  { chain: ["R3", "H6", "D5"], kicker: "Connecting books is scary", title: "Say what it can't do, before asking for access.", body: "No edit controls anywhere. Closing a case confirms no amounts change.", shot: "/images/reconcile/connect.webp", visual: "lock" },
-  { chain: ["R1", "H5", "D6"], kicker: "The same fee, every week", title: "Reconcile turns repeats into rules, but only with a preview.", body: "After three repeats, Reconcile suggests a rule that only touches future payouts.", shot: "/images/reconcile/rule.webp", visual: "rule" },
-  { chain: ["Edge case"], kicker: "Two people, one case", title: "First tap wins, and the other person sees who.", body: "One of 45 edge cases. Three of them changed the design.", shot: "/images/reconcile/conflict.webp", visual: "race" },
+  { kicker: "The problem", title: "A seller received $51.62 less than expected.", body: "Saltmarsh expected $1,192.87 but received $1,141.25. Finance teams manually review transactions and spreadsheets to explain differences like this every payout cycle.", shot: "/images/reconcile/splash.webp", visual: "question" },
+  { kicker: "01 · Explaining payout differences", title: "Existing tools show the numbers, not the reasons.", decision: true, body: "I designed a reconciliation breakdown that connects the expected payout to the recorded amount. Each row identifies a cause, and the total accounts for the difference.", shot: "/images/reconcile/why.webp", visual: "split" },
+  { kicker: "02 · Organizing by seller", title: "Existing tools organize transactions, not sellers.", decision: true, body: "I organized the interface around individual seller payouts, so finance teams can review transactions, investigate differences, and manage cases in one place.", shot: "/images/reconcile/payouts.webp", visual: "gap" },
+  { kicker: "03 · Making timing visible", title: "Delayed payments look like missing money.", decision: true, body: "I separated temporary delays from actual losses using status indicators and expected settlement dates. Overdue payments move into \u201cNeeds you\u201d for review.", shot: "/images/reconcile/ondine.webp" },
+  { kicker: "04 · Communicating confidence", title: "Not every discrepancy has a confirmed explanation.", decision: true, body: "I introduced three confidence levels: Confirmed, Likely, and Hypothesis. Confirmed causes can resolve automatically, while unsupported explanations require manual review.", shot: "/images/reconcile/atlas.webp", visual: "ladder" },
+  { kicker: "05 · Building trust", title: "Connecting financial accounts raises concerns about data access.", decision: true, body: "I made read-only permissions explicit during onboarding and removed editing controls. Closing a case records the decision without changing financial data.", shot: "/images/reconcile/connect.webp", visual: "lock" },
+  { kicker: "06 · Automating recurring issues", title: "Finance teams investigate the same fees repeatedly.", decision: true, body: "Reconcile identifies recurring discrepancies and suggests automation rules after three occurrences. Users preview each rule before applying it to future payouts.", shot: "/images/reconcile/rule.webp", visual: "rule" },
+  { kicker: "Edge case · Concurrent editing", title: "Two finance managers open the same case.", body: "The first action takes priority. The second manager sees who updated the case, preventing conflicting decisions.", shot: "/images/reconcile/conflict.webp", visual: "race" },
 ]
-
-function ChainChips({ chain, active }: { chain: string[]; active: boolean }) {
-  return (
-    <div className="flex flex-wrap items-center gap-1.5">
-      {chain.map((c, i) => {
-        const tone = c.startsWith("R") || c === "Gap" ? "#737373" : c.startsWith("H") ? C.warn : c.startsWith("D") ? C.accent : C.under
-        return (
-          <span key={c} className="flex items-center gap-1.5">
-            <span
-              className="rounded-full px-2.5 py-1 text-[11px] font-semibold transition-all duration-500"
-              style={{ background: active ? tone : "transparent", color: active ? "#fff" : tone, boxShadow: `inset 0 0 0 1px ${tone}`, transitionDelay: `${i * 120}ms` }}
-            >
-              {c}
-            </span>
-            {i < chain.length - 1 && <span className="text-foreground/30">→</span>}
-          </span>
-        )
-      })}
-    </div>
-  )
-}
 
 function StepVisual({ kind, active }: { kind?: Step["visual"]; active: boolean }) {
   if (kind === "split")
@@ -102,9 +81,9 @@ export function VersionA() {
       <header className="space-y-6 pt-4">
         <p className="cs-eyebrow">Fintech product design · Solo · 2026</p>
         <h1 className="max-w-3xl text-4xl font-semibold leading-[1.05] tracking-tight text-balance sm:text-6xl">
-          Payout discrepancies are <span style={{ color: C.accent }}>hard to explain.</span>
+          Every dollar <span style={{ color: C.accent }}>accounted for.</span>
         </h1>
-        <p className="max-w-xl text-base text-foreground/65">Finance teams manually compare transactions and spreadsheets to identify missing amounts. Reconcile shows exactly where each discrepancy comes from.</p>
+        <p className="max-w-xl text-base text-foreground/65">Reconcile helps marketplace finance teams identify and explain differences between expected and actual seller payouts.</p>
         <div className="flex items-center gap-2 text-xs text-foreground/45">
           <span className="inline-block h-6 w-[2px] animate-pulse rounded-full bg-foreground/30" /> Scroll
         </div>
@@ -122,10 +101,12 @@ export function VersionA() {
               data-i={i}
               className={cn("flex min-h-[78vh] flex-col justify-center gap-5 transition-opacity duration-500", active === i ? "opacity-100" : "opacity-30")}
             >
-              <ChainChips chain={s.chain} active={active === i} />
-              <p className="text-sm text-foreground/50">{s.kicker}</p>
+              <p className="cs-eyebrow">{s.kicker}</p>
               <h2 className="max-w-lg text-3xl font-semibold leading-tight tracking-tight text-balance">{s.title}</h2>
-              <p className="max-w-md text-sm text-foreground/65">{s.body}</p>
+              <div className="max-w-md space-y-1.5">
+                {s.decision && <p className="text-xs font-semibold" style={{ color: C.accent }}>Design decision</p>}
+                <p className="text-sm text-foreground/65">{s.body}</p>
+              </div>
               <StepVisual kind={s.visual} active={active === i} />
               {/* phone inline on small screens */}
               <div className="mx-auto mt-2 w-[220px] lg:hidden">
@@ -148,29 +129,35 @@ export function VersionA() {
                 <span key={i} className="h-1.5 rounded-full transition-all duration-300" style={{ width: active === i ? 20 : 6, background: active === i ? C.accent : "color-mix(in srgb, currentColor 20%, transparent)" }} />
               ))}
             </div>
-            <p className="mt-3 text-center text-xs text-foreground/45">{step.chain.join(" → ")}</p>
+            <p className="mt-3 text-center text-xs text-foreground/45">{step.kicker}</p>
           </div>
         </div>
       </section>
 
       <section className="space-y-6">
-        <p className="cs-eyebrow">Where it sits</p>
-        <h2 className="cs-h2">Competitors solved matching. Nobody explains the gap.</h2>
+        <div className="max-w-2xl space-y-2">
+          <p className="cs-eyebrow">Competitive landscape</p>
+          <h2 className="cs-h2">Existing tools focus on matching transactions.</h2>
+          <p className="text-sm text-foreground/60">I reviewed publicly available product documentation to identify opportunities for clearer, seller-level explanations.</p>
+        </div>
         <PositionMap />
       </section>
       <section className="space-y-6">
-        <p className="cs-eyebrow">The bridge, live</p>
-        <h2 className="cs-h2">Toggle to see what&apos;s really lost.</h2>
-        <Bridge />
-      </section>
-      <section className="space-y-6">
-        <p className="cs-eyebrow">Edge cases</p>
-        <h2 className="cs-h2">I mapped 45 edge cases. Tap any dot.</h2>
+        <div className="max-w-2xl space-y-2">
+          <p className="cs-eyebrow">Edge cases</p>
+          <h2 className="cs-h2">I mapped 45 edge cases to test the system.</h2>
+          <p className="text-sm text-foreground/60">Three directly influenced the design, including how Reconcile handles unexplained differences.</p>
+          <p className="text-sm text-foreground/60">When causes don&apos;t account for the full gap, Reconcile displays the remaining amount as &ldquo;Unexplained&rdquo; and prevents the case from closing.</p>
+        </div>
         <EdgeCaseGrid />
       </section>
       <section className="space-y-6">
-        <p className="cs-eyebrow">Prototype v3</p>
-        <h2 className="cs-h2">Try it yourself.</h2>
+        <div className="max-w-2xl space-y-2">
+          <p className="cs-eyebrow">Interactive prototype</p>
+          <h2 className="cs-h2">Test the reconciliation workflow.</h2>
+          <p className="text-sm text-foreground/60">Connect accounts, investigate a delayed payment, explain a payout difference, create an automation rule, and close a case.</p>
+          <p className="text-xs text-foreground/45">All prototype data is synthetic and reconciles to the cent.</p>
+        </div>
         <LivePrototype />
       </section>
     </div>
