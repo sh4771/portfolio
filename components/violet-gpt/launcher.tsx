@@ -1,11 +1,11 @@
 "use client"
 
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import dynamic from "next/dynamic"
 import { usePathname } from "next/navigation"
 import { X } from "lucide-react"
 import { HOME_HINT, PAGE_HINTS } from "@/lib/violet-gpt/hints"
-import { VioletAvatar } from "./avatar"
+import { DOCK, MINI_OPEN_EVENT, MINI_UNREAD_EVENT, miniOffsetFromCenter } from "@/lib/dock"
 
 // The chat engine and knowledge base load only after the first click.
 const VioletChat = dynamic(() => import("./chat"), { ssr: false })
@@ -16,8 +16,20 @@ export function VioletGPTLauncher() {
   const [open, setOpen] = useState(false)
   const [loaded, setLoaded] = useState(false)
   const [hint, setHint] = useState<string | null>(null)
-  const buttonRef = useRef<HTMLButtonElement>(null)
   const pathname = usePathname()
+
+  // Mini Violet lives in the dock now; the dock asks to open her and shows an unread dot.
+  const setUnread = (v: boolean) => window.dispatchEvent(new CustomEvent(MINI_UNREAD_EVENT, { detail: v }))
+  const openChat = useCallback(() => {
+    setHint(null)
+    setLoaded(true)
+    setOpen(true)
+    setUnread(false)
+  }, [])
+  useEffect(() => {
+    window.addEventListener(MINI_OPEN_EVENT, openChat)
+    return () => window.removeEventListener(MINI_OPEN_EVENT, openChat)
+  }, [openChat])
 
   // One bubble per page per visit: a greeting on the homepage, a "why this project matters" line on each project.
   useEffect(() => {
@@ -32,6 +44,7 @@ export function VioletGPTLauncher() {
     if (seen) return
     const show = setTimeout(() => {
       setHint(text)
+      setUnread(true)
       try {
         sessionStorage.setItem(HINT_KEY + path, "1")
       } catch {}
@@ -45,60 +58,35 @@ export function VioletGPTLauncher() {
 
   const close = useCallback(() => {
     setOpen(false)
-    requestAnimationFrame(() => buttonRef.current?.focus())
+    requestAnimationFrame(() => document.querySelector<HTMLButtonElement>('[aria-label^="Open Mini Violet"]')?.focus())
   }, [])
 
   return (
     <div data-violet-gpt>
-      {!open && (
-        <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-2 sm:bottom-6 sm:right-6 sm:flex-row">
-          {hint && (
-            <div
-              role="status"
-              className="relative max-w-[250px] sm:mb-3 sm:max-w-[280px] rounded-2xl rounded-br-md border border-border bg-background shadow-[0_12px_32px_rgba(0,0,0,0.12)] motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-right-2"
+      {/* The bubble rises out of Mini's slot in the dock, with its tail pointing at her. */}
+      {!open && hint && (
+        <div
+          role="status"
+          className="fixed z-50 w-[min(280px,calc(100vw-32px))] -translate-x-full motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2"
+          style={{
+            left: `calc(50% + ${miniOffsetFromCenter() + 26}px)`,
+            bottom: `calc(${DOCK.bottom + DOCK.height + 12}px + env(safe-area-inset-bottom, 0px))`,
+          }}
+        >
+          <div className="relative rounded-2xl rounded-br-md border border-border bg-background shadow-[0_12px_32px_rgba(0,0,0,0.14)]">
+            <button type="button" onClick={openChat} className="block w-full py-2.5 pl-4 pr-8 text-left text-[13px] leading-snug text-foreground sm:text-sm">
+              {hint}
+            </button>
+            <button
+              type="button"
+              aria-label="Dismiss"
+              onClick={() => setHint(null)}
+              className="absolute right-1 top-1 grid h-7 w-7 place-items-center rounded-full text-muted-foreground hover:text-foreground"
             >
-              <button
-                type="button"
-                onClick={() => {
-                  setHint(null)
-                  setLoaded(true)
-                  setOpen(true)
-                }}
-                className="block w-full py-2.5 pl-4 pr-8 text-left text-[13px] leading-snug text-foreground sm:text-sm"
-              >
-                {hint}
-              </button>
-              <button
-                type="button"
-                aria-label="Dismiss"
-                onClick={() => setHint(null)}
-                className="absolute right-1 top-1 grid h-7 w-7 place-items-center rounded-full text-muted-foreground hover:text-foreground"
-              >
-                <X className="h-3.5 w-3.5" />
-              </button>
-            </div>
-          )}
-          <button
-            ref={buttonRef}
-            type="button"
-            aria-label="Open Mini Violet, a guide to Violet's work"
-            aria-expanded={open}
-            aria-controls="violet-gpt-panel"
-            onClick={() => {
-              setHint(null)
-              setLoaded(true)
-              setOpen(true)
-            }}
-            onPointerEnter={() => setLoaded(true)}
-            className="group relative grid h-14 w-14 place-items-center rounded-full border-[3px] border-background bg-background shadow-[0_10px_30px_rgba(0,0,0,0.22)] transition-transform duration-200 hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground sm:h-16 sm:w-16"
-          >
-            <span className="block overflow-hidden rounded-full">
-              <VioletAvatar mood="idle" size={50} className="sm:!h-[58px] sm:!w-[58px]" />
-            </span>
-            <span className="absolute -left-1 -top-1 rounded-full bg-foreground px-1.5 py-0.5 text-[9px] font-semibold tracking-wide text-background">
-              Mini
-            </span>
-          </button>
+              <X className="h-3.5 w-3.5" />
+            </button>
+            <span aria-hidden className="absolute -bottom-[7px] right-[18px] h-3 w-3 rotate-45 border-b border-r border-border bg-background" />
+          </div>
         </div>
       )}
       {loaded && <VioletChat open={open} onClose={close} />}

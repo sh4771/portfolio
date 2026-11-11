@@ -158,7 +158,7 @@ export default function VioletChat({ open, onClose }: { open: boolean; onClose: 
       className={cn(
         "fixed z-[60] flex flex-col overflow-hidden border border-border bg-background text-foreground shadow-[0_24px_80px_rgba(0,0,0,0.22)]",
         "inset-x-0 bottom-0 max-h-[min(90dvh,760px)] rounded-t-3xl pb-[env(safe-area-inset-bottom)]",
-        "sm:inset-x-auto sm:bottom-6 sm:right-6 sm:w-[420px] sm:max-h-[min(680px,calc(100dvh-48px))] sm:rounded-3xl sm:pb-0",
+        "sm:inset-x-auto sm:bottom-[96px] sm:left-[calc(50%-210px)] sm:w-[420px] sm:max-h-[min(640px,calc(100dvh-128px))] sm:rounded-3xl sm:pb-0",
         "motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:duration-200",
       )}
     >

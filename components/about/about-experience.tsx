@@ -19,6 +19,7 @@ import {
   type LucideIcon,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { DOCK, miniOffsetFromCenter } from "@/lib/dock"
 
 export const ABOUT_NAV: { id: string; label: string; icon: LucideIcon }[] = [
   { id: "hello", label: "Hello", icon: Hand },
@@ -126,11 +127,10 @@ function useIntroFlight(slotRef: React.RefObject<HTMLDivElement | null>) {
 
   useEffect(() => {
     if (phase !== "flying" || !overlay || !figRef.current || !discRef.current) return
-    // Where the chat button sits (bottom-right corner).
-    const size = window.innerWidth >= 640 ? 64 : 56
-    const inset = window.innerWidth >= 640 ? 24 : 20
-    const fromCx = window.innerWidth - inset - size / 2
-    const fromCy = window.innerHeight - inset - size / 2
+    // Where Mini Violet sits in the dock.
+    const size = 38
+    const fromCx = window.innerWidth / 2 + miniOffsetFromCenter()
+    const fromCy = window.innerHeight - DOCK.bottom - DOCK.height / 2
     const toCx = overlay.x + overlay.w / 2
     const toCy = overlay.y + overlay.h / 2
     const dx = fromCx - toCx
@@ -185,10 +185,10 @@ function useIntroFlight(slotRef: React.RefObject<HTMLDivElement | null>) {
           aria-hidden
           className="pointer-events-none fixed z-[70] overflow-hidden rounded-full shadow-[0_0_40px_10px_rgba(217,166,221,0.6)]"
           style={{
-            width: window.innerWidth >= 640 ? 64 : 56,
-            height: window.innerWidth >= 640 ? 64 : 56,
-            right: window.innerWidth >= 640 ? 24 : 20,
-            bottom: window.innerWidth >= 640 ? 24 : 20,
+            width: 38,
+            height: 38,
+            left: window.innerWidth / 2 + miniOffsetFromCenter() - 19,
+            bottom: DOCK.bottom + (DOCK.height - 38) / 2,
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -201,8 +201,8 @@ function useIntroFlight(slotRef: React.RefObject<HTMLDivElement | null>) {
             className="mv-spark pointer-events-none fixed z-[70] h-3 w-3"
             style={
               {
-                right: (window.innerWidth >= 640 ? 24 : 20) + 26,
-                bottom: (window.innerWidth >= 640 ? 24 : 20) + 26,
+                left: window.innerWidth / 2 + miniOffsetFromCenter() - 6,
+                bottom: DOCK.bottom + DOCK.height / 2 - 6,
                 "--a": `${i * 60 + 15}deg`,
                 animationDelay: `${i * 30}ms`,
               } as React.CSSProperties
@@ -583,10 +583,10 @@ export function AboutExperience() {
   }, [])
 
   return (
-    <div className="site-col pb-28 pt-24 min-[1280px]:pt-32">
+    <div className="site-col pb-28 pt-24">
       <div className="min-w-0">
         {/* Mobile: sticky chip bar */}
-        <nav ref={chipsRef} aria-label="On this page" className="sticky top-0 z-30 -mx-6 mb-10 flex gap-1 overflow-x-auto border-b border-border/60 bg-background/90 py-4 pl-[72px] pr-6 backdrop-blur [scrollbar-width:none] min-[1280px]:hidden">
+        <nav ref={chipsRef} aria-label="On this page" className="sticky top-0 z-30 -mx-6 mb-10 flex gap-1 overflow-x-auto border-b border-border/60 bg-background/90 py-4 pl-[72px] pr-6 backdrop-blur [scrollbar-width:none] ">
           {NAV.map((n) => (
             <a
               key={n.id}

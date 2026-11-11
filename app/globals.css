@@ -411,9 +411,13 @@ html[data-presentation] {
 [data-violet-gpt] {
   transition: opacity 0.3s ease;
 }
-html.mv-intro [data-violet-gpt] {
+html.mv-intro [data-violet-gpt],
+html.mv-intro [aria-label^="Open Mini Violet"] > span {
   opacity: 0;
   pointer-events: none;
+}
+[aria-label^="Open Mini Violet"] > span {
+  transition: opacity 0.3s ease;
 }
 @keyframes mv-bob {
   0%, 100% { transform: translateY(0); }
@@ -458,24 +462,12 @@ html.embed main {
 @keyframes cover-push-out { from { transform: translateX(0); filter: brightness(1); } to { transform: translateX(-28%); filter: brightness(.82); } }
 @keyframes cover-fade-in { from { opacity: 0; } to { opacity: 1; } }
 
-/*
- * One content column for every page. On wide screens it sits right of a 180px lane
- * for the sidebar, and the pair is centered together, so the menu always stays next
- * to the content. components/navigation.tsx uses the same numbers.
- */
+/* One content column for every page: same width and the same left edge everywhere. */
 .site-col {
   width: 100%;
   max-width: calc(1080px + 48px);
   margin-inline: auto;
   padding-inline: 24px;
-}
-@media (min-width: 1280px) {
-  .site-col {
-    --site-ml: calc(max(200px, (100vw - 1260px) / 2 + 180px) - 24px);
-    margin-left: var(--site-ml);
-    margin-right: auto;
-    width: min(calc(1080px + 48px), calc(100vw - var(--site-ml) - 16px));
-  }
 }
 
 @keyframes bloom { from { transform: scale(.6) rotate(-20deg); opacity: 0; } to { transform: none; opacity: 1; } }
