@@ -10,11 +10,11 @@ const STATS = [
 ]
 
 /** Where each stat lands, relative to the flower's center (desktop / phone). */
-// Desktop: the flower sits at the left edge and its stats fan out in a row to its right.
+// Desktop: the flower sits right of the intro text and its stats fan out in an arc above it.
 const SPOTS_DESKTOP = [
-  { x: 250, y: -6, r: -4 },
-  { x: 510, y: -22, r: 0 },
-  { x: 770, y: -6, r: 4 },
+  { x: -205, y: -96, r: -6 },
+  { x: -55, y: -168, r: 0 },
+  { x: 100, y: -112, r: 6 },
 ]
 const SPOTS_MOBILE = [
   { x: -112, y: -125, r: -6 },
@@ -66,9 +66,9 @@ function FlowerStats() {
   const spots = mobile ? SPOTS_MOBILE : SPOTS_DESKTOP
 
   return (
-    <div className="relative mx-auto h-[300px] w-full lg:mx-0 lg:h-[200px]">
+    <div className="relative mx-auto h-[300px] w-full lg:h-[230px] lg:w-[380px]">
       {/* Flower: turns clockwise only while hovered (pauses in place), stats bloom around it */}
-      <div className="absolute left-1/2 top-[230px] -translate-x-1/2 -translate-y-1/2 lg:left-[74px] lg:top-[90px]">
+      <div className="absolute left-1/2 top-[230px] -translate-x-1/2 -translate-y-1/2 lg:top-[110px]">
         <button
           type="button"
           aria-label={open ? "Hide highlights" : "Show highlights"}
@@ -126,14 +126,14 @@ function FlowerStats() {
               <span className="text-3xl font-extrabold leading-none tracking-tight text-foreground/50 lg:text-5xl">
                 {s.num}
               </span>
-              <span className="mt-1 w-[175px] whitespace-normal text-center text-sm font-semibold leading-snug text-foreground lg:w-[240px] lg:text-xl">{s.label}</span>
+              <span className="mt-1 w-[175px] whitespace-normal text-center text-sm font-semibold leading-snug text-foreground lg:w-[170px] lg:text-base">{s.label}</span>
             </div>
           )
         })}
       </div>
 
       <p
-        className="absolute left-1/2 top-[310px] -translate-x-1/2 text-[11px] tracking-[0.14em] text-text-muted transition-opacity duration-300 lg:left-[74px] lg:top-[180px]"
+        className="absolute left-1/2 top-[310px] -translate-x-1/2 text-[11px] tracking-[0.14em] text-text-muted transition-opacity duration-300 lg:top-[200px]"
         style={{ opacity: open ? 0 : 1 }}
       >
         {mobile ? "TAP ME" : "HOVER ME"}
@@ -177,13 +177,15 @@ export function Hero() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="relative pt-32 pb-20 lg:pt-36 lg:pb-24">
-      <div ref={containerRef} className="site-col text-center lg:text-left">
-        <div data-animate>
+    <section ref={sectionRef} className="relative overflow-x-clip pt-32 pb-16 lg:pt-40 lg:pb-20">
+      {/* One row on desktop: intro on the left, the flower on the right. */}
+      <div ref={containerRef} className="site-col text-center lg:grid lg:grid-cols-[minmax(0,1fr)_380px] lg:items-center lg:gap-10 lg:text-left">
+        <div data-animate className="lg:order-last">
           <FlowerStats />
         </div>
 
-        <h1 data-animate className="mt-14 text-3xl font-extrabold leading-tight tracking-tight text-foreground lg:mt-8 lg:text-4xl">
+        <div>
+        <h1 data-animate className="mt-14 text-3xl font-extrabold leading-tight tracking-tight text-foreground lg:mt-0 lg:text-[2.75rem]">
           Hi, I&apos;m Violet Hyun
         </h1>
 
@@ -212,6 +214,7 @@ export function Hero() {
             </MetaLink>
           </span>
         </p>
+        </div>
       </div>
 
       <style jsx>{`

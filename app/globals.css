@@ -471,7 +471,9 @@ html.embed main {
 }
 @media (min-width: 1280px) {
   .site-col {
-    margin-left: calc(max(200px, (100vw - 1260px) / 2 + 180px) - 24px);
+    --site-ml: calc(max(200px, (100vw - 1260px) / 2 + 180px) - 24px);
+    margin-left: var(--site-ml);
     margin-right: auto;
+    width: min(calc(1080px + 48px), calc(100vw - var(--site-ml) - 16px));
   }
 }
