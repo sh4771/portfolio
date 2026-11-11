@@ -103,27 +103,34 @@ const GENERA = [
   "Velutina", "Celesta", "Primula", "Zephyra", "Amaryllis", "Clementia", "Noctua", "Solaria",
 ]
 const SUFFIX = ["iflora", "ensis", "ella", "ia", "aris", "ina"]
-/** Epithets for unsigned flowers: a mood, a place, a little joke. */
-const EPITHETS = [
-  "nocturna", "dulcis", "aurora", "lucida", "mirabilis", "festiva", "fugax", "serendipita",
-  "gothamensis", "brooklynensis", "subwayensis", "bodegaria", "matchiflora", "ramenensis",
-  "somnia", "pluvialis", "vespertina", "matutina", "timida", "audax", "gaudens", "errabunda",
-  "pixelata", "figmensis", "kimchiflora", "seoulensis", "solitaria", "amicalis", "curiosa", "tenera",
-]
+/** Things a flower can be named after: a mood, a food or a memory. */
+export const INSPIRATION = {
+  mood: ["cozy", "sleepy", "giddy", "homesick", "restless", "dreamy", "brave", "nostalgic", "hopeful", "curious", "lazy Sunday", "butterflies"],
+  food: ["matcha latte", "tteokbokki", "bagel", "kimchi", "mango sticky rice", "ramen", "hotteok", "dumplings", "croissant", "boba", "bingsu", "pizza slice"],
+  memory: ["first snow", "late subway", "summer rain", "grandma's kitchen", "last day of school", "rooftop sunset", "Han river picnic", "first apartment", "road trip", "midnight snack"],
+}
+const ALL_INSPIRATION = [...INSPIRATION.mood, ...INSPIRATION.food, ...INSPIRATION.memory]
+const STOP = new Set(["a", "an", "the", "in", "at", "of", "on", "my", "to", "and", "with", "for", "s", "nyc"])
+
 const pickFrom = <T,>(arr: readonly T[], r: () => number) => arr[Math.floor(r() * arr.length)]
 
-function speciesName(words: string, r: () => number) {
-  const base = words.toLowerCase().replace(/[^a-z]/g, "").slice(0, 9) || "mystica"
-  const stem = base.replace(/[aeiouy]+$/, "") || base
-  return `${pickFrom(GENERA, r)} ${stem}${pickFrom(SUFFIX, r)}`
+
+/** Latinizes the heart of a phrase: "first snow in NYC" becomes "firstsnowia". */
+function epithetFrom(words: string) {
+  const parts = words.normalize("NFD").toLowerCase().replace(/'s\b/g, "").split(/[^a-z]+/).filter((w) => w && !STOP.has(w))
+  if (!parts.length) return "mystica"
+  let core = parts[0].length >= 6 || !parts[1] ? parts[0] : parts[0] + parts[1]
+  core = core.slice(0, 12)
+  const stem = core.replace(/[aeiouy]+$/, "") || core
+  return stem + SUFFIX[hash(core) % SUFFIX.length]
 }
 
-/** Turns a visitor's name into a botanical epithet, the way plants are named after their finders. */
-function finderEpithet(by: string, r: () => number) {
-  const letters = by.normalize("NFD").toLowerCase().replace(/[^a-z]/g, "").slice(0, 10)
-  if (letters.length < 2) return null
-  const stem = letters.replace(/[aeiouy]+$/, "") || letters
-  return stem + pickFrom(["iana", "ii", "iae", "ella", "iflora"], r)
+export const randomGenus = () => GENERA[Math.floor(Math.random() * GENERA.length)]
+export const randomInspiration = () => ALL_INSPIRATION[Math.floor(Math.random() * ALL_INSPIRATION.length)]
+
+/** Names a flower after a mood, a food or a memory. */
+export function nameFrom(words: string, genus = randomGenus()) {
+  return `${genus} ${epithetFrom(words)}`
 }
 
 /** Turns any words (a mood, a food, a memory) into a flower and its botanical name. */
@@ -136,7 +143,7 @@ export function growFromWords(words: string): Omit<Flower, "id" | "by" | "at"> {
   let color2 = pick()
   if (color2 === color) color2 = PALETTE[(PALETTE.indexOf(color) + 3) % 11]
   return {
-    name: speciesName(text.split(/\s+/)[0] ?? text, r),
+    name: `${pickFrom(GENERA, r)} ${epithetFrom(text)}`,
     mode: "grow",
     petals: 5 + Math.floor(r() * 9),
     shape: SHAPES[Math.floor(r() * SHAPES.length)],
@@ -147,10 +154,9 @@ export function growFromWords(words: string): Omit<Flower, "id" | "by" | "at"> {
   }
 }
 
-/** A fresh name every time. With a visitor's name, the flower is named after them. */
-export function randomName(by = "") {
-  const r = rng(Math.floor(Math.random() * 1e9))
-  return `${pickFrom(GENERA, r)} ${finderEpithet(by, r) ?? pickFrom(EPITHETS, r)}`
+/** A fresh name every time, after a random mood, food or memory. */
+export function randomName() {
+  return nameFrom(randomInspiration())
 }
 
 /* ---------- strict validation for anything a visitor sends ---------- */

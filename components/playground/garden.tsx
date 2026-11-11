@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { CloudRain, X } from "lucide-react"
+import { CloudRain, Droplet, Music, Sun, X, type LucideIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { Flower } from "@/lib/flower"
 import type { Care, CareKind } from "@/lib/garden-care"
@@ -9,11 +9,11 @@ import { FlowerArt } from "@/components/playground/flower-art"
 
 const CARE_LOCAL = "vh-garden-care-v1"
 
-const ACTIONS: { kind: CareKind; emoji: string; label: string; done: string; say: (name: string) => string }[] = [
-  { kind: "water", emoji: "💧", label: "Water", done: "Watered", say: (n) => `${n} drinks it up and grows a little.` },
-  { kind: "sun", emoji: "☀️", label: "Sunshine", done: "Sunned", say: (n) => `${n} turns toward the light.` },
-  { kind: "song", emoji: "🎵", label: "Sing to it", done: "Sung to", say: (n) => `${n} sways along.` },
-  { kind: "butterfly", emoji: "🦋", label: "Send a butterfly", done: "Butterfly sent", say: (n) => `A butterfly lands on ${n}.` },
+const ACTIONS: { kind: CareKind; icon: LucideIcon | typeof ButterflyIcon; label: string; done: string; say: (name: string) => string }[] = [
+  { kind: "water", icon: Droplet, label: "Water", done: "Watered", say: (n) => `${n} drinks it up and grows a little.` },
+  { kind: "sun", icon: Sun, label: "Sunshine", done: "Sunned", say: (n) => `${n} turns toward the light.` },
+  { kind: "song", icon: Music, label: "Sing to it", done: "Sung to", say: (n) => `${n} sways along.` },
+  { kind: "butterfly", icon: ButterflyIcon, label: "Send a butterfly", done: "Butterfly sent", say: (n) => `A butterfly lands on ${n}.` },
 ]
 
 function seeded(id: string, salt: number) {
@@ -189,9 +189,7 @@ export function Garden({
                     onClick={() => give(current, a.kind)}
                     className={cn("flex flex-col items-center gap-1 rounded-xl border px-1 py-2.5 text-[11px] font-medium transition-all active:scale-95", done ? "border-[#b06ad6]/30 bg-[#f4ecfb] text-[#6b3f8f]" : "border-neutral-200 bg-white text-neutral-700 hover:border-neutral-400")}
                   >
-                    <span className="text-xl leading-none" aria-hidden>
-                      {a.emoji}
-                    </span>
+                    <a.icon aria-hidden className={cn("h-5 w-5", done ? "text-[#8a5bc0]" : "text-neutral-700")} strokeWidth={1.75} />
                     <span className="leading-tight">{done ? a.done : a.label}</span>
                     <span className="tabular-nums text-neutral-400">{n}</span>
                   </button>
@@ -205,6 +203,20 @@ export function Garden({
         {note}
       </p>
     </section>
+  )
+}
+
+/** Butterfly in the same outline style as the lucide icons. */
+function ButterflyIcon({ className, strokeWidth = 1.75 }: { className?: string; strokeWidth?: number; "aria-hidden"?: boolean }) {
+  return (
+    <svg aria-hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M12 8.5v10" />
+      <path d="M12 10C10 5.5 6.5 3.5 4.3 4.6 2.6 5.5 3.2 9.4 6.2 11c1.6.8 3.8.6 5.8-.4" />
+      <path d="M12 10c2-4.5 5.5-6.5 7.7-5.4 1.7.9 1.1 4.8-1.9 6.4-1.6.8-3.8.6-5.8-.4" />
+      <path d="M11.8 12.2c-2.6.2-5.1 2-5.2 4.2-.1 1.9 2.1 2.6 3.6 1.2 1-.9 1.6-2.7 1.8-4.4" />
+      <path d="M12.2 12.2c2.6.2 5.1 2 5.2 4.2.1 1.9-2.1 2.6-3.6 1.2-1-.9-1.6-2.7-1.8-4.4" />
+      <path d="M10.6 5.6 9.5 3.5M13.4 5.6l1.1-2.1" />
+    </svg>
   )
 }
 

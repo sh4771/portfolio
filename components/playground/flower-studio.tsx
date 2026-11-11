@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { Brush, Eraser, Shuffle, Sparkles, SlidersHorizontal, Sprout, Undo2, Dices } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { PALETTE, SEED_FLOWERS, SHAPES, growFromWords, petalOutline, randomName, type Flower, type PetalShape, type Stroke } from "@/lib/flower"
+import { PALETTE, SEED_FLOWERS, SHAPES, growFromWords, petalOutline, nameFrom, randomGenus, randomInspiration, type Flower, type PetalShape, type Stroke } from "@/lib/flower"
 import { FlowerArt } from "@/components/playground/flower-art"
 import { Garden } from "@/components/playground/garden"
 import type { Care, CareKind } from "@/lib/garden-care"
@@ -77,22 +77,26 @@ export function FlowerStudio() {
   const drawing = useRef<number[] | null>(null)
   const [live, setLive] = useState<number[] | null>(null)
 
-  // The name rerolls on its own until the visitor types one, and takes the visitor's name once they sign.
+  // Every flower is named after a mood, a food or a memory. Grow mode uses its own words;
+  // Draw and Build start from a random one, and the dice picks another.
+  const [inspo, setInspo] = useState("")
+  const [genus, setGenus] = useState("Viola")
   const [nameTouched, setNameTouched] = useState(false)
   const [nudged, setNudged] = useState(false)
   const [signHint] = useState(() => SIGN_EXAMPLES[Math.floor(Math.random() * SIGN_EXAMPLES.length)])
+  useEffect(() => {
+    setInspo(randomInspiration())
+    setGenus(randomGenus())
+  }, [])
   const reroll = () => {
     setNameTouched(false)
-    setName(randomName(by))
+    setGenus(randomGenus())
+    if (mode !== "grow") setInspo(randomInspiration())
   }
+  const source = mode === "grow" ? words : inspo
   useEffect(() => {
-    // Keep the genus while the visitor types; only the epithet follows their name.
-    if (!nameTouched) setName((prev) => {
-      const fresh = randomName(by)
-      return prev ? `${prev.split(" ")[0]} ${fresh.split(" ").slice(1).join(" ")}` : fresh
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [by, mode])
+    if (!nameTouched) setName(nameFrom(source, genus))
+  }, [source, genus, nameTouched])
 
   // Grow mode: the same words always grow the same flower shape.
   const grown = useMemo(() => growFromWords(words), [words])
@@ -212,9 +216,8 @@ export function FlowerStudio() {
     setPlanting(false)
     say(`${saved.name} is planted 🌱`)
     document.getElementById("garden")?.scrollIntoView({ behavior: "smooth", block: "center" })
-    setNameTouched(false)
     setNudged(false)
-    setName(randomName(by))
+    reroll()
   }
 
   const TABS: { id: Mode; label: string; icon: typeof Brush }[] = [
@@ -373,9 +376,28 @@ export function FlowerStudio() {
               <span id="flower-by-note" className="block text-xs leading-relaxed text-foreground/55">
                 {nudged && !by.trim()
                   ? "Leave something before you plant it? A name, initials, a nickname, your city, even an emoji. It stays next to your flower in the garden."
-                  : "Botanists name flowers after whoever finds them. Sign yours and it becomes part of the name."}
+                  : "Your name grows next to your flower in the garden."}
               </span>
             </label>
+            {mode !== "grow" && (
+              <label className="block space-y-1.5">
+                <span className="text-xs font-semibold tracking-[0.12em] text-foreground/50 uppercase">Name it after a mood, a food, a memory</span>
+                <span className="flex gap-2">
+                  <input
+                    value={inspo}
+                    onChange={(e) => {
+                      setNameTouched(false)
+                      setInspo(e.target.value.slice(0, 40))
+                    }}
+                    placeholder="Matcha latte"
+                    className="min-w-0 flex-1 rounded-xl border border-border/70 bg-background px-3 py-2.5 text-sm outline-none focus:border-foreground/50"
+                  />
+                  <button type="button" onClick={reroll} aria-label="Pick a random mood, food or memory" title="Surprise me" className="grid h-[42px] w-[42px] shrink-0 place-items-center rounded-xl border border-border/70 bg-background text-foreground/70 transition-colors hover:border-foreground/40 hover:text-foreground">
+                    <Dices className="h-4 w-4" />
+                  </button>
+                </span>
+              </label>
+            )}
             <label className="block space-y-1.5">
               <span className="text-xs font-semibold tracking-[0.12em] text-foreground/50 uppercase">Flower name</span>
               <span className="flex gap-2">
@@ -385,12 +407,20 @@ export function FlowerStudio() {
                     setNameTouched(true)
                     setName(e.target.value.slice(0, 32))
                   }}
+                  aria-describedby="flower-name-note"
                   className="min-w-0 flex-1 rounded-xl border border-border/70 bg-background px-3 py-2.5 text-sm italic outline-none focus:border-foreground/50"
                 />
-                <button type="button" onClick={reroll} aria-label="New random name" title="New random name" className="grid h-[42px] w-[42px] shrink-0 place-items-center rounded-xl border border-border/70 bg-background text-foreground/70 transition-colors hover:border-foreground/40 hover:text-foreground">
-                  <Dices className="h-4 w-4" />
-                </button>
+                {mode === "grow" && (
+                  <button type="button" onClick={reroll} aria-label="Try another name" title="Try another name" className="grid h-[42px] w-[42px] shrink-0 place-items-center rounded-xl border border-border/70 bg-background text-foreground/70 transition-colors hover:border-foreground/40 hover:text-foreground">
+                    <Dices className="h-4 w-4" />
+                  </button>
+                )}
               </span>
+              {!nameTouched && source.trim() && (
+                <span id="flower-name-note" className="block text-xs text-foreground/55">
+                  Named after &ldquo;{source.trim()}&rdquo;
+                </span>
+              )}
             </label>
             <button type="button" onClick={plant} disabled={planting} className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 py-3.5 text-sm font-semibold text-background transition-opacity hover:opacity-85 disabled:opacity-50">
               <Sprout className="h-4 w-4" /> {planting ? "Planting…" : by.trim() ? `Plant it as ${by.trim()}` : nudged ? "Plant it without a name" : "Plant it in the garden"}
