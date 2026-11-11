@@ -102,9 +102,9 @@ export function VersionA() {
       <header className="space-y-6 pt-4">
         <p className="cs-eyebrow">Fintech product design · Solo · 2026</p>
         <h1 className="max-w-3xl text-4xl font-semibold leading-[1.05] tracking-tight text-balance sm:text-6xl">
-          Every dollar <span style={{ color: C.accent }}>accounted for.</span>
+          Seller payouts don&apos;t match the ledger, and <span style={{ color: C.accent }}>finance can&apos;t see why.</span>
         </h1>
-        <p className="max-w-xl text-base text-foreground/65">Reconcile tells a marketplace finance manager why a seller payout differs from what the ledger expected. Scroll to follow one payout from research to screen.</p>
+        <p className="max-w-xl text-base text-foreground/65">Finance rebuilds the answer in a spreadsheet every payout cycle. I designed Reconcile to explain each gap to the cent. Scroll to follow one payout from research to screen.</p>
         <div className="flex items-center gap-2 text-xs text-foreground/45">
           <span className="inline-block h-6 w-[2px] animate-pulse rounded-full bg-foreground/30" /> Scroll
         </div>
