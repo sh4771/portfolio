@@ -5,7 +5,7 @@ import Image from "next/image"
 import { cn } from "@/lib/utils"
 
 /* Reconcile's own palette, taken from its design system tokens */
-const C = {
+export const C = {
   accent: "#5b3fd9",
   accent50: "#f2effe",
   accent100: "#e1dafd",
@@ -16,7 +16,7 @@ const C = {
   warn: "#ed6f0e",
 }
 
-function useInView<T extends HTMLElement>(threshold = 0.3) {
+export function useInView<T extends HTMLElement>(threshold = 0.3) {
   const ref = useRef<T>(null)
   const [seen, setSeen] = useState(false)
   useEffect(() => {
@@ -118,15 +118,15 @@ export function PositionMap() {
  * 3. Traceability map: research → hypothesis → decision → screen    *
  * ---------------------------------------------------------------- */
 
-type Node = { id: string; label: string; detail: string }
-const R: Node[] = [
+export type Node = { id: string; label: string; detail: string }
+export const R: Node[] = [
   { id: "R1", label: "Matching is table stakes", detail: "The fight is over the exceptions left after automation." },
   { id: "R2", label: "The “why” is still manual", detail: "Tools list what's in a payout, not why it differs." },
   { id: "R3", label: "Trust needs visible reasoning", detail: "Leading tools show why a match was made." },
   { id: "R4", label: "Timing is hidden, not explained", detail: "Absorbing timing also hides when money arrives." },
   { id: "G", label: "Nobody works per seller payout", detail: "Tools work per bank line, GL entry or period." },
 ]
-const HY: Node[] = [
+export const HY: Node[] = [
   { id: "H1", label: "Causes that add up to the cent", detail: "Wrong if testers still ask for a spreadsheet." },
   { id: "H2", label: "Timing apart from loss stops false alarms", detail: "Wrong if testers call the $516.28 money lost." },
   { id: "H3", label: "Evidence labels build trust", detail: "Wrong if a Hypothesis closes as fast as Confirmed." },
@@ -134,7 +134,7 @@ const HY: Node[] = [
   { id: "H5", label: "Repeats become rules, with a preview", detail: "Wrong if testers can't tell what a rule changes." },
   { id: "H6", label: "Read-only, said up front, earns the connect", detail: "Wrong if testers quit at the connect step." },
 ]
-const DE: Node[] = [
+export const DE: Node[] = [
   { id: "D1", label: "Seller payout as the unit", detail: "Every list, case and number hangs off a payout." },
   { id: "D2", label: "A bridge that adds up", detail: "Expected → one row per cause → recorded, with a check." },
   { id: "D3", label: "Timing apart from loss", detail: "Grey clock tag and a clear date. Late timing turns amber." },
@@ -142,7 +142,7 @@ const DE: Node[] = [
   { id: "D5", label: "Read-only, said out loud", detail: "No edit controls. Connect sheets say what we can't do." },
   { id: "D6", label: "Rules, with a preview", detail: "After 3 repeats, suggest a rule for future payouts only." },
 ]
-const SC: Node[] = [
+export const SC: Node[] = [
   { id: "S1", label: "Home · Payouts · Cases", detail: "/images/reconcile/payouts.webp" },
   { id: "S2", label: "Why it differs", detail: "/images/reconcile/why.webp" },
   { id: "S3", label: "Timing card · Overdue", detail: "/images/reconcile/ondine.webp" },
@@ -150,13 +150,13 @@ const SC: Node[] = [
   { id: "S5", label: "Connect sheet", detail: "/images/reconcile/connect.webp" },
   { id: "S6", label: "Suggested rule", detail: "/images/reconcile/rule.webp" },
 ]
-const EDGES: [string, string][] = [
+export const EDGES: [string, string][] = [
   ["R2", "H1"], ["R4", "H2"], ["R3", "H3"], ["G", "H4"], ["R1", "H5"], ["R3", "H5"], ["R3", "H6"],
   ["H4", "D1"], ["H1", "D2"], ["H2", "D3"], ["H3", "D4"], ["H6", "D5"], ["H5", "D6"],
   ["D1", "S1"], ["D2", "S2"], ["D3", "S3"], ["D4", "S4"], ["D5", "S5"], ["D6", "S6"],
 ]
 
-function chainOf(id: string) {
+export function chainOf(id: string) {
   const set = new Set([id])
   // walk left and right separately so a node only lights its own chain
   const walk = (dir: 0 | 1) => {
@@ -403,7 +403,7 @@ export function EvidenceLadder() {
  * 6. Decisions: rejected vs chosen, with the screen                 *
  * ---------------------------------------------------------------- */
 
-const DECISIONS = [
+export const DECISIONS = [
   { id: "D1", title: "Make the seller payout the unit of work", from: "H4 · the gap no competitor fills", rejected: "A bank-line view or a period summary", chose: "Every list, case and number hangs off a seller payout", shot: "/images/reconcile/payouts.webp" },
   { id: "D2", title: "Explain the difference as a bridge", from: "H1 · R2", rejected: "A transaction list, or a one-line AI summary", chose: "Expected, one row per cause, recorded, and a check that it adds up", shot: "/images/reconcile/why.webp" },
   { id: "D3", title: "Keep timing apart from loss", from: "H2 · R4", rejected: "Hiding timing gaps like Ledge does", chose: "Grey clock tag with the date it clears. Late timing turns amber", shot: "/images/reconcile/home-timing.webp" },
