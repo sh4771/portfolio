@@ -89,7 +89,9 @@ export default function VioletChat({ open, onClose }: { open: boolean; onClose: 
   const headingRef = useRef<HTMLHeadingElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   // Wide screens get the compact bar that replaces the dock; phones keep the bottom sheet.
-  const [wide, setWide] = useState(false)
+  const [wide, setWide] = useState(() => typeof window !== "undefined" && window.matchMedia("(min-width: 640px)").matches)
+  // `shown` trails `open` by a frame so the bar can animate in instead of popping.
+  const [shown, setShown] = useState(false)
   const [expanded, setExpanded] = useState(false)
   const compact = wide && !expanded
 
@@ -103,18 +105,31 @@ export default function VioletChat({ open, onClose }: { open: boolean; onClose: 
 
   // While Mini is open as a bar, the dock steps aside for her.
   useEffect(() => {
-    document.documentElement.classList.toggle("mini-open", open && compact)
+    if (!open) return setShown(false)
+    let b = 0
+    const a = requestAnimationFrame(() => (b = requestAnimationFrame(() => setShown(true))))
+    return () => {
+      cancelAnimationFrame(a)
+      cancelAnimationFrame(b)
+    }
+  }, [open])
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("mini-open", shown && compact)
     return () => document.documentElement.classList.remove("mini-open")
-  }, [open, compact])
+  }, [shown, compact])
 
   useEffect(() => {
     if (!open) {
       setExpanded(false)
       return
     }
-    if (compact) inputRef.current?.focus()
-    else headingRef.current?.focus()
+    if (!compact) headingRef.current?.focus()
   }, [open, compact])
+
+  useEffect(() => {
+    if (shown && compact) inputRef.current?.focus({ preventScroll: true })
+  }, [shown, compact])
 
   useEffect(() => {
     for (const el of [scrollRef.current, stackRef.current]) if (el) el.scrollTo({ top: el.scrollHeight, behavior: "smooth" })
@@ -177,7 +192,7 @@ export default function VioletChat({ open, onClose }: { open: boolean; onClose: 
   const thread = (floating: boolean) => (
     <>
         {messages.map((m, i) => (
-        <div key={m.id} className={cn("flex gap-2", m.role === "user" && "justify-end")}>
+        <div key={m.id} className={cn("flex gap-2 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2 motion-safe:duration-300", m.role === "user" && "justify-end")}>
           {m.role === "assistant" && (
             <span className="mt-0.5 h-8 w-8 shrink-0 overflow-hidden rounded-full">
               <VioletAvatar mood={i === 0 ? "wave" : "idle"} size={32} />
@@ -303,31 +318,43 @@ export default function VioletChat({ open, onClose }: { open: boolean; onClose: 
         id="violet-gpt-panel"
         role="dialog"
         aria-label="Mini Violet"
-        hidden={!open}
-        className="fixed bottom-[calc(24px+env(safe-area-inset-bottom,0px))] left-1/2 z-[60] w-[min(600px,calc(100vw-32px))] -translate-x-1/2 text-foreground"
+        aria-hidden={!open}
+        inert={!open}
+        className={cn(
+          "fixed bottom-[calc(24px+env(safe-area-inset-bottom,0px))] left-1/2 z-[60] w-[min(560px,calc(100vw-32px))] -translate-x-1/2 text-foreground",
+          !open && "pointer-events-none",
+        )}
       >
-        {/* Replies stack just above the bar; the page behind stays visible. */}
-        <div ref={stackRef} className="mb-3 max-h-[min(52vh,520px)] space-y-3 overflow-y-auto px-1 pb-1 [mask-image:linear-gradient(to_bottom,transparent,black_28px)] [scrollbar-width:none]">
-          <div className="h-6" aria-hidden />
-          <p className="mx-auto w-fit rounded-full bg-white/90 px-3 py-1 text-center text-[11px] text-muted-foreground shadow-sm ring-1 ring-black/5 dark:bg-neutral-900/90">
-            Typed questions are answered by Google Gemini. Please don&apos;t share personal info.
+        {/* One solid card grows out of the dock: the bar first, then the conversation unfolds above it. */}
+        <div
+          className={cn(
+            "flex origin-bottom flex-col overflow-hidden rounded-[28px] bg-white shadow-[0_24px_60px_-16px_rgba(0,0,0,0.3)] ring-1 ring-black/5 transition-[opacity,transform,visibility] duration-[450ms] ease-[cubic-bezier(.2,.8,.2,1)] motion-reduce:transition-none dark:bg-neutral-900 dark:ring-white/10",
+            shown ? "visible translate-y-0 scale-100 opacity-100 delay-75" : "invisible translate-y-3 scale-x-[0.72] scale-y-[0.9] opacity-0",
+          )}
+        >
+          <div className={cn("grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(.2,.8,.2,1)] motion-reduce:transition-none", shown ? "grid-rows-[1fr] delay-150" : "grid-rows-[0fr]")}>
+            <div className="min-h-0 overflow-hidden">
+              <div ref={stackRef} className="max-h-[min(48vh,460px)] space-y-4 overflow-y-auto overscroll-contain px-4 pt-4 pb-3">
+                <p className="text-center text-[11px] text-muted-foreground">Typed questions are answered by Google Gemini. Please don&apos;t share personal info.</p>
+                {thread(false)}
+              </div>
+            </div>
+          </div>
+          <p className="sr-only" aria-live="polite">
+            {announce}
           </p>
-          {thread(true)}
-        </div>
-        <p className="sr-only" aria-live="polite">
-          {announce}
-        </p>
-        <div className="flex items-center gap-2 rounded-full bg-white/90 p-1.5 shadow-[0_10px_40px_-8px_rgba(0,0,0,0.25)] ring-1 ring-black/5 backdrop-blur-xl motion-safe:animate-in motion-safe:fade-in motion-safe:zoom-in-95 motion-safe:duration-300 dark:bg-neutral-900/90 dark:ring-white/10">
-          <span className="overflow-hidden rounded-full">
-            <VioletAvatar mood={pending ? "thinking" : "idle"} size={40} />
-          </span>
-          {form}
-          <button type="button" onClick={() => setExpanded(true)} aria-label="See the full chat" title="See the full chat" className="grid h-10 w-10 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
-            <Maximize2 className="h-4 w-4" />
-          </button>
-          <button type="button" onClick={onClose} aria-label="Close Mini Violet" className="grid h-10 w-10 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
-            <X className="h-5 w-5" />
-          </button>
+          <div className="flex items-center gap-2 border-t border-border/60 p-2">
+            <span className="overflow-hidden rounded-full">
+              <VioletAvatar mood={pending ? "thinking" : "idle"} size={40} />
+            </span>
+            {form}
+            <button type="button" onClick={() => setExpanded(true)} aria-label="See the full chat" title="See the full chat" className="grid h-10 w-10 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
+              <Maximize2 className="h-4 w-4" />
+            </button>
+            <button type="button" onClick={onClose} aria-label="Close Mini Violet" className="grid h-10 w-10 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
+              <X className="h-5 w-5" />
+            </button>
+          </div>
         </div>
       </section>
     )
@@ -342,7 +369,7 @@ export default function VioletChat({ open, onClose }: { open: boolean; onClose: 
         "fixed z-[60] flex flex-col overflow-hidden border border-border bg-background text-foreground shadow-[0_24px_80px_rgba(0,0,0,0.22)]",
         "inset-x-0 bottom-0 max-h-[min(90dvh,760px)] rounded-t-3xl pb-[env(safe-area-inset-bottom)]",
         "sm:inset-x-auto sm:bottom-[96px] sm:left-[calc(50%-210px)] sm:w-[420px] sm:max-h-[min(640px,calc(100dvh-128px))] sm:rounded-3xl sm:pb-0",
-        "motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:duration-200",
+        "motion-safe:animate-in motion-safe:fade-in motion-safe:zoom-in-95 motion-safe:slide-in-from-bottom-4 motion-safe:duration-300 motion-safe:ease-[cubic-bezier(.2,.8,.2,1)]",
       )}
     >
       <header className="flex items-center gap-3 border-b border-border/70 px-4 py-3">
