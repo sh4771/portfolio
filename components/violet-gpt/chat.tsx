@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
-import { ArrowUpRight, Lock, RotateCcw, Send, X } from "lucide-react"
+import { ArrowUpRight, Lock, Maximize2, Minimize2, RotateCcw, Send, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { CONTACT_LINKS, PROJECTS, PROMPTS, type Project } from "@/lib/violet-gpt/knowledge"
 import { MAX_INPUT, reply, replyForPrompt, resolveIntent, type Reply } from "@/lib/violet-gpt/engine"
@@ -85,15 +85,39 @@ export default function VioletChat({ open, onClose }: { open: boolean; onClose: 
   const [announce, setAnnounce] = useState("")
   const [pending, setPending] = useState(false)
   const scrollRef = useRef<HTMLDivElement>(null)
+  const stackRef = useRef<HTMLDivElement>(null)
   const headingRef = useRef<HTMLHeadingElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+  // Wide screens get the compact bar that replaces the dock; phones keep the bottom sheet.
+  const [wide, setWide] = useState(false)
+  const [expanded, setExpanded] = useState(false)
+  const compact = wide && !expanded
 
   useEffect(() => {
-    if (open) headingRef.current?.focus()
-  }, [open])
+    const mql = window.matchMedia("(min-width: 640px)")
+    const update = () => setWide(mql.matches)
+    update()
+    mql.addEventListener("change", update)
+    return () => mql.removeEventListener("change", update)
+  }, [])
+
+  // While Mini is open as a bar, the dock steps aside for her.
+  useEffect(() => {
+    document.documentElement.classList.toggle("mini-open", open && compact)
+    return () => document.documentElement.classList.remove("mini-open")
+  }, [open, compact])
 
   useEffect(() => {
-    const el = scrollRef.current
-    if (el) el.scrollTo({ top: el.scrollHeight, behavior: "smooth" })
+    if (!open) {
+      setExpanded(false)
+      return
+    }
+    if (compact) inputRef.current?.focus()
+    else headingRef.current?.focus()
+  }, [open, compact])
+
+  useEffect(() => {
+    for (const el of [scrollRef.current, stackRef.current]) if (el) el.scrollTo({ top: el.scrollHeight, behavior: "smooth" })
     const last = messages[messages.length - 1]
     if (last?.role === "assistant" && messages.length > 1) setAnnounce(last.text.join(" "))
   }, [messages])
@@ -149,6 +173,165 @@ export default function VioletChat({ open, onClose }: { open: boolean; onClose: 
 
   const lastIndex = messages.length - 1
 
+  /** The conversation. In the bar, each message floats as its own card above the bar. */
+  const thread = (floating: boolean) => (
+    <>
+        {messages.map((m, i) => (
+        <div key={m.id} className={cn("flex gap-2", m.role === "user" && "justify-end")}>
+          {m.role === "assistant" && (
+            <span className="mt-0.5 h-8 w-8 shrink-0 overflow-hidden rounded-full">
+              <VioletAvatar mood={i === 0 ? "wave" : "idle"} size={32} />
+            </span>
+          )}
+          <div className={cn("max-w-[85%] space-y-2", m.role === "user" && "max-w-[80%]")}>
+            <div
+              className={cn(
+                "space-y-2 rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed",
+                m.role === "assistant"
+                  ? cn("rounded-tl-md text-foreground", floating ? "bg-white shadow-[0_10px_30px_-12px_rgba(0,0,0,0.3)] ring-1 ring-black/5 dark:bg-neutral-900" : "bg-muted/70")
+                  : cn("rounded-tr-md bg-foreground text-background", floating && "shadow-[0_10px_30px_-12px_rgba(0,0,0,0.35)]"),
+              )}
+            >
+              {m.text.map((t) => (
+                <p key={t}>{t}</p>
+              ))}
+            </div>
+            {m.source === "ai" && (
+              <p className="px-1 text-[11px] text-muted-foreground">Answered by Gemini from Violet&apos;s published work</p>
+            )}
+            {m.projects && m.projects.length > 0 && (
+              <div className="space-y-2">
+                {m.projects.map((p) => (
+                  <ProjectCard key={p.id} project={p} />
+                ))}
+              </div>
+            )}
+            {m.showContact && (
+              <div className="flex flex-wrap gap-2">
+                {CONTACT_LINKS.map((c) => (
+                  <a
+                    key={c.label}
+                    href={c.href}
+                    target={c.href.startsWith("http") ? "_blank" : undefined}
+                    rel={c.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-border px-4 text-sm text-foreground hover:border-foreground/40"
+                  >
+                    {c.label}
+                    <ArrowUpRight className="h-3.5 w-3.5" />
+                  </a>
+                ))}
+              </div>
+            )}
+            {i === lastIndex && m.role === "assistant" && m.next && m.next.length > 0 && (
+              <div className="flex flex-wrap gap-1.5 pt-1">
+                {m.next.map((id) =>
+                  PROMPTS[id] ? (
+                    <button
+                      key={id}
+                      type="button"
+                      onClick={() => choose(id)}
+                      disabled={pending}
+                      className={cn("min-h-9 rounded-full border border-border px-3 py-1.5", floating ? "bg-white shadow-sm dark:bg-neutral-900" : "bg-background", " text-left text-xs text-foreground/85 transition-colors hover:border-foreground/40 hover:text-foreground")}
+                    >
+                      {PROMPTS[id].label}
+                    </button>
+                  ) : null,
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      ))}
+      {pending && (
+        <div className="flex gap-2" aria-label="Mini Violet is thinking">
+          <span className="mt-0.5 h-8 w-8 shrink-0 overflow-hidden rounded-full">
+            <VioletAvatar mood="thinking" size={32} />
+          </span>
+          <div className={cn("flex items-center gap-1 rounded-2xl rounded-tl-md px-4 py-3", floating ? "bg-white shadow-sm ring-1 ring-black/5 dark:bg-neutral-900" : "bg-muted/70")}>
+            {[0, 1, 2].map((d) => (
+              <span
+                key={d}
+                className="h-1.5 w-1.5 rounded-full bg-foreground/50 motion-safe:animate-bounce"
+                style={{ animationDelay: `${d * 120}ms` }}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+    </>
+  )
+
+
+  const form = (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault()
+        void send()
+      }}
+      className={cn(
+        "flex items-center gap-2 rounded-full border border-border bg-background py-1.5 pl-4 pr-1.5 focus-within:border-foreground/50",
+        compact ? "min-w-0 flex-1" : "mx-3 mb-2",
+      )}
+    >
+      <label htmlFor="violet-gpt-input" className="sr-only">
+        Ask about Violet&apos;s work
+      </label>
+      <input
+        id="violet-gpt-input"
+        ref={inputRef}
+        value={input}
+        maxLength={MAX_INPUT}
+        autoComplete="off"
+        onChange={(e) => setInput(e.target.value)}
+        placeholder="Ask about Violet's work..."
+        className="min-w-0 flex-1 bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground"
+      />
+      <button
+        type="submit"
+        aria-label="Send"
+        disabled={!input.trim() || pending}
+        className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-foreground text-background transition-opacity disabled:opacity-30"
+      >
+        <Send className="h-4 w-4" />
+      </button>
+    </form>
+  )
+
+  if (compact)
+    return (
+      <section
+        id="violet-gpt-panel"
+        role="dialog"
+        aria-label="Mini Violet"
+        hidden={!open}
+        className="fixed bottom-[calc(24px+env(safe-area-inset-bottom,0px))] left-1/2 z-[60] w-[min(600px,calc(100vw-32px))] -translate-x-1/2 text-foreground"
+      >
+        {/* Replies stack just above the bar; the page behind stays visible. */}
+        <div ref={stackRef} className="mb-3 max-h-[min(52vh,520px)] space-y-3 overflow-y-auto px-1 pb-1 [mask-image:linear-gradient(to_bottom,transparent,black_28px)] [scrollbar-width:none]">
+          <div className="h-6" aria-hidden />
+          <p className="mx-auto w-fit rounded-full bg-white/90 px-3 py-1 text-center text-[11px] text-muted-foreground shadow-sm ring-1 ring-black/5 dark:bg-neutral-900/90">
+            Typed questions are answered by Google Gemini. Please don&apos;t share personal info.
+          </p>
+          {thread(true)}
+        </div>
+        <p className="sr-only" aria-live="polite">
+          {announce}
+        </p>
+        <div className="flex items-center gap-2 rounded-full bg-white/90 p-1.5 shadow-[0_10px_40px_-8px_rgba(0,0,0,0.25)] ring-1 ring-black/5 backdrop-blur-xl motion-safe:animate-in motion-safe:fade-in motion-safe:zoom-in-95 motion-safe:duration-300 dark:bg-neutral-900/90 dark:ring-white/10">
+          <span className="overflow-hidden rounded-full">
+            <VioletAvatar mood={pending ? "thinking" : "idle"} size={40} />
+          </span>
+          {form}
+          <button type="button" onClick={() => setExpanded(true)} aria-label="See the full chat" title="See the full chat" className="grid h-10 w-10 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
+            <Maximize2 className="h-4 w-4" />
+          </button>
+          <button type="button" onClick={onClose} aria-label="Close Mini Violet" className="grid h-10 w-10 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+      </section>
+    )
+
   return (
     <section
       id="violet-gpt-panel"
@@ -172,6 +355,11 @@ export default function VioletChat({ open, onClose }: { open: boolean; onClose: 
           </h2>
           <p className="text-xs text-muted-foreground">A guide to Violet&apos;s work as a product designer</p>
         </div>
+        {wide && (
+          <button type="button" onClick={() => setExpanded(false)} aria-label="Back to the chat bar" className="grid h-11 w-11 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
+            <Minimize2 className="h-4 w-4" />
+          </button>
+        )}
         <button
           type="button"
           onClick={reset}
@@ -191,120 +379,14 @@ export default function VioletChat({ open, onClose }: { open: boolean; onClose: 
       </header>
 
       <div ref={scrollRef} className="min-h-[280px] flex-1 space-y-4 overflow-y-auto px-4 py-4">
-        {messages.map((m, i) => (
-          <div key={m.id} className={cn("flex gap-2", m.role === "user" && "justify-end")}>
-            {m.role === "assistant" && (
-              <span className="mt-0.5 h-8 w-8 shrink-0 overflow-hidden rounded-full">
-                <VioletAvatar mood={i === 0 ? "wave" : "idle"} size={32} />
-              </span>
-            )}
-            <div className={cn("max-w-[85%] space-y-2", m.role === "user" && "max-w-[80%]")}>
-              <div
-                className={cn(
-                  "space-y-2 rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed",
-                  m.role === "assistant" ? "rounded-tl-md bg-muted/70 text-foreground" : "rounded-tr-md bg-foreground text-background",
-                )}
-              >
-                {m.text.map((t) => (
-                  <p key={t}>{t}</p>
-                ))}
-              </div>
-              {m.source === "ai" && (
-                <p className="px-1 text-[11px] text-muted-foreground">Answered by Gemini from Violet&apos;s published work</p>
-              )}
-              {m.projects && m.projects.length > 0 && (
-                <div className="space-y-2">
-                  {m.projects.map((p) => (
-                    <ProjectCard key={p.id} project={p} />
-                  ))}
-                </div>
-              )}
-              {m.showContact && (
-                <div className="flex flex-wrap gap-2">
-                  {CONTACT_LINKS.map((c) => (
-                    <a
-                      key={c.label}
-                      href={c.href}
-                      target={c.href.startsWith("http") ? "_blank" : undefined}
-                      rel={c.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                      className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-border px-4 text-sm text-foreground hover:border-foreground/40"
-                    >
-                      {c.label}
-                      <ArrowUpRight className="h-3.5 w-3.5" />
-                    </a>
-                  ))}
-                </div>
-              )}
-              {i === lastIndex && m.role === "assistant" && m.next && m.next.length > 0 && (
-                <div className="flex flex-wrap gap-1.5 pt-1">
-                  {m.next.map((id) =>
-                    PROMPTS[id] ? (
-                      <button
-                        key={id}
-                        type="button"
-                        onClick={() => choose(id)}
-                        disabled={pending}
-                        className="min-h-9 rounded-full border border-border bg-background px-3 py-1.5 text-left text-xs text-foreground/85 transition-colors hover:border-foreground/40 hover:text-foreground"
-                      >
-                        {PROMPTS[id].label}
-                      </button>
-                    ) : null,
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
-        ))}
-        {pending && (
-          <div className="flex gap-2" aria-label="Mini Violet is thinking">
-            <span className="mt-0.5 h-8 w-8 shrink-0 overflow-hidden rounded-full">
-              <VioletAvatar mood="thinking" size={32} />
-            </span>
-            <div className="flex items-center gap-1 rounded-2xl rounded-tl-md bg-muted/70 px-4 py-3">
-              {[0, 1, 2].map((d) => (
-                <span
-                  key={d}
-                  className="h-1.5 w-1.5 rounded-full bg-foreground/50 motion-safe:animate-bounce"
-                  style={{ animationDelay: `${d * 120}ms` }}
-                />
-              ))}
-            </div>
-          </div>
-        )}
+{thread(false)}
       </div>
 
       <p className="sr-only" aria-live="polite">
         {announce}
       </p>
 
-      <form
-        onSubmit={(e) => {
-          e.preventDefault()
-          void send()
-        }}
-        className="mx-3 mb-2 flex items-center gap-2 rounded-full border border-border bg-background py-1.5 pl-4 pr-1.5 focus-within:border-foreground/50"
-      >
-        <label htmlFor="violet-gpt-input" className="sr-only">
-          Ask about Violet&apos;s work
-        </label>
-        <input
-          id="violet-gpt-input"
-          value={input}
-          maxLength={MAX_INPUT}
-          autoComplete="off"
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Ask about Violet's work..."
-          className="min-w-0 flex-1 bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground"
-        />
-        <button
-          type="submit"
-          aria-label="Send"
-          disabled={!input.trim() || pending}
-          className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-foreground text-background transition-opacity disabled:opacity-30"
-        >
-          <Send className="h-4 w-4" />
-        </button>
-      </form>
+      {form}
       <p className="px-4 pb-3 text-center text-[11px] text-muted-foreground">
         Typed questions are answered by Google Gemini and sent to Google. Please don&apos;t share personal info. Not a live chat with Violet.
       </p>

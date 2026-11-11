@@ -472,3 +472,7 @@ html.embed main {
 
 @keyframes bloom { from { transform: scale(.6) rotate(-20deg); opacity: 0; } to { transform: none; opacity: 1; } }
 @keyframes sway { from { transform: rotate(-3deg); } to { transform: rotate(3deg); } }
+
+/* Mini Violet's chat bar takes the dock's place while it's open. */
+nav[aria-label="Main"] { transition: opacity .25s ease, transform .35s cubic-bezier(.2,.8,.2,1); }
+html.mini-open nav[aria-label="Main"] { opacity: 0; pointer-events: none; transform: translate(-50%, 12px) scale(.96); }
