@@ -22,6 +22,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { vendeluxProjects, type InfoBox } from "@/lib/vendelux-projects"
 import { SegmentsCaseStudy } from "./segments-case-study"
+import { RoiCaseStudy } from "./roi-case-study"
 import { ComingSoon } from "./coming-soon"
 
 const ICONS: Record<InfoBox["icon"], React.ElementType> = {
@@ -93,6 +94,8 @@ export function VendeluxCaseStudies() {
       {/* Active project content */}
       {active.slug === "segments" ? (
         <SegmentsCaseStudy />
+      ) : active.slug === "roi-calculator" ? (
+        <RoiCaseStudy />
       ) : active.comingSoon ? (
         <ComingSoon project={active} />
       ) : (
