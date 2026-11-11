@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { del, get, list, put } from "@vercel/blob"
+import { get, list, put } from "@vercel/blob"
 import { sanitizeFlower, type Flower } from "@/lib/flower"
 import { CARE_PREFIX, tallyCare } from "@/lib/garden-care"
 
@@ -32,18 +32,8 @@ async function read(b: { pathname: string; url: string }) {
   return r.ok ? await r.text() : null
 }
 
-export async function GET(request: Request) {
+export async function GET() {
   if (!ready()) return NextResponse.json({ shared: false, flowers: [] })
-  // Temporary self-test: writes and removes one marker so a deploy can confirm planting works.
-  if (new URL(request.url).searchParams.get("check") === "1") {
-    try {
-      const b = await save(`check/${Date.now()}`, "ok", "text/plain")
-      await del(b.url).catch(() => {})
-      return NextResponse.json({ write: "ok" })
-    } catch (err) {
-      return NextResponse.json({ write: "failed", reason: err instanceof Error ? err.message.slice(0, 300) : "unknown" })
-    }
-  }
   try {
     const page = await list({ prefix: PREFIX, limit: 1000 })
     // File names start with the timestamp, so sorting by name sorts by time.
