@@ -477,3 +477,6 @@ html.embed main {
     width: min(calc(1080px + 48px), calc(100vw - var(--site-ml) - 16px));
   }
 }
+
+@keyframes bloom { from { transform: scale(.6) rotate(-20deg); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes sway { from { transform: rotate(-3deg); } to { transform: rotate(3deg); } }

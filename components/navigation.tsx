@@ -4,7 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
-import { Coffee, FileText, Hand, LayoutGrid, Sparkles } from "lucide-react"
+import { Coffee, FileText, Flower2, Hand, LayoutGrid, Sparkles } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 /**
@@ -26,6 +26,7 @@ const ITEMS: Item[] = [
     ),
   },
   { key: "work", label: "Work", href: "/#work", icon: <LayoutGrid className="h-[19px] w-[19px]" strokeWidth={2} /> },
+  { key: "playground", label: "Playground", href: "/playground", icon: <Flower2 className="h-[19px] w-[19px]" strokeWidth={2} /> },
   { key: "resume", label: "Resume", href: "/about#resume", icon: <FileText className="h-[19px] w-[19px]" strokeWidth={2} /> },
 ]
 
