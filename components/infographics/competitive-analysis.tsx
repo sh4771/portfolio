@@ -107,7 +107,7 @@ export default function CompetitiveAnalysis() {
       <div 
         className="rounded-2xl p-8 md:p-10"
         style={{
-          background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
+          background: "var(--card)",
         }}
       >
         <h3 className="text-sm font-medium mb-6">Key Insights Extracted</h3>

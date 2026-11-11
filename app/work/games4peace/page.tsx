@@ -53,8 +53,8 @@ export default function Page() {
               <div 
                 className="rounded-xl p-5 space-y-3"
                 style={{
-                  background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-                  boxShadow: "0 4px 20px rgba(0,0,0,0.04)",
+                  background: "var(--card)",
+                  boxShadow: "inset 0 0 0 1px var(--border)",
                 }}
               >
                 <div className="w-10 h-10 rounded-xl bg-foreground/5 flex items-center justify-center text-foreground/40 text-sm font-mono">
@@ -68,8 +68,8 @@ export default function Page() {
               <div 
                 className="rounded-xl p-5 space-y-3"
                 style={{
-                  background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-                  boxShadow: "0 4px 20px rgba(0,0,0,0.04)",
+                  background: "var(--card)",
+                  boxShadow: "inset 0 0 0 1px var(--border)",
                 }}
               >
                 <div className="w-10 h-10 rounded-xl bg-foreground/5 flex items-center justify-center text-foreground/40 text-sm font-mono">
@@ -83,8 +83,8 @@ export default function Page() {
               <div 
                 className="rounded-xl p-5 space-y-3"
                 style={{
-                  background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-                  boxShadow: "0 4px 20px rgba(0,0,0,0.04)",
+                  background: "var(--card)",
+                  boxShadow: "inset 0 0 0 1px var(--border)",
                 }}
               >
                 <div className="w-10 h-10 rounded-xl bg-foreground/5 flex items-center justify-center text-foreground/40 text-sm font-mono">
@@ -98,10 +98,10 @@ export default function Page() {
             </div>
 
             <div 
-              className="rounded-[20px] p-6 mt-4"
+              className="rounded-2xl p-6 mt-4"
               style={{
-                background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-                boxShadow: "0 4px 30px rgba(0,0,0,0.06)",
+                background: "var(--card)",
+                boxShadow: "inset 0 0 0 1px var(--border)",
               }}
             >
               <p className="text-sm text-foreground/70 text-pretty leading-relaxed">
@@ -123,13 +123,13 @@ export default function Page() {
           </div>
 
           <div 
-            className="rounded-[24px] md:rounded-[32px] p-4 md:p-6 overflow-hidden"
+            className="rounded-3xl p-4 md:p-6 overflow-hidden"
             style={{
-              background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-              boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
+              background: "var(--card)",
+              boxShadow: "inset 0 0 0 1px var(--border)",
             }}
           >
-            <div className="rounded-xl overflow-hidden" style={{ boxShadow: "0 8px 30px rgba(0,0,0,0.08)" }}>
+            <div className="rounded-xl overflow-hidden" style={{ boxShadow: "inset 0 0 0 1px var(--border)" }}>
               <Image
                 src="/images/games4peace-competitor-analysis.png"
                 alt="Competitive analysis of casual gaming apps, donation platforms, and gamified social impact products"
@@ -142,17 +142,17 @@ export default function Page() {
 
           {/* Key Insights */}
           <div 
-            className="rounded-[24px] md:rounded-[32px] p-8 md:p-10"
+            className="rounded-3xl p-8 md:p-10"
             style={{
-              background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-              boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
+              background: "var(--card)",
+              boxShadow: "inset 0 0 0 1px var(--border)",
             }}
           >
             <h3 className="text-sm font-medium mb-6">Key Insights Extracted</h3>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               <div 
                 className="p-4 rounded-xl space-y-2"
-                style={{ background: "var(--background)", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}
+                style={{ background: "var(--background)", boxShadow: "inset 0 0 0 1px var(--border)" }}
               >
                 <div className="w-8 h-8 rounded-lg bg-foreground/5 flex items-center justify-center text-foreground/40 text-xs font-mono">
                   01
@@ -162,7 +162,7 @@ export default function Page() {
               </div>
               <div 
                 className="p-4 rounded-xl space-y-2"
-                style={{ background: "var(--background)", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}
+                style={{ background: "var(--background)", boxShadow: "inset 0 0 0 1px var(--border)" }}
               >
                 <div className="w-8 h-8 rounded-lg bg-foreground/5 flex items-center justify-center text-foreground/40 text-xs font-mono">
                   02
@@ -172,7 +172,7 @@ export default function Page() {
               </div>
               <div 
                 className="p-4 rounded-xl space-y-2"
-                style={{ background: "var(--background)", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}
+                style={{ background: "var(--background)", boxShadow: "inset 0 0 0 1px var(--border)" }}
               >
                 <div className="w-8 h-8 rounded-lg bg-foreground/5 flex items-center justify-center text-foreground/40 text-xs font-mono">
                   03
@@ -182,7 +182,7 @@ export default function Page() {
               </div>
               <div 
                 className="p-4 rounded-xl space-y-2"
-                style={{ background: "var(--background)", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}
+                style={{ background: "var(--background)", boxShadow: "inset 0 0 0 1px var(--border)" }}
               >
                 <div className="w-8 h-8 rounded-lg bg-foreground/5 flex items-center justify-center text-foreground/40 text-xs font-mono">
                   04
@@ -223,16 +223,16 @@ export default function Page() {
           <div className="grid md:grid-cols-2 gap-6">
             {/* Information Architecture */}
             <div 
-              className="rounded-[24px] md:rounded-[32px] p-6 md:p-8 space-y-4"
+              className="rounded-3xl p-6 md:p-8 space-y-4"
               style={{
-                background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-                boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
+                background: "var(--card)",
+                boxShadow: "inset 0 0 0 1px var(--border)",
               }}
             >
               <p className="cs-eyebrow">User Flow</p>
               <div 
                 className="rounded-xl overflow-hidden h-[350px] md:h-[420px]"
-                style={{ boxShadow: "0 8px 30px rgba(0,0,0,0.08)" }}
+                style={{ boxShadow: "inset 0 0 0 1px var(--border)" }}
               >
                 <Image
                   src="/images/games4peace-userflow.png"
@@ -246,16 +246,16 @@ export default function Page() {
 
             {/* Early Wireframes */}
             <div 
-              className="rounded-[24px] md:rounded-[32px] p-6 md:p-8 space-y-4"
+              className="rounded-3xl p-6 md:p-8 space-y-4"
               style={{
-                background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-                boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
+                background: "var(--card)",
+                boxShadow: "inset 0 0 0 1px var(--border)",
               }}
             >
               <p className="cs-eyebrow">Early Wireframes</p>
               <div 
                 className="rounded-xl overflow-hidden h-[350px] md:h-[420px]"
-                style={{ boxShadow: "0 8px 30px rgba(0,0,0,0.08)" }}
+                style={{ boxShadow: "inset 0 0 0 1px var(--border)" }}
               >
                 <Image
                   src="/images/games4peace-wireframes.png"
@@ -285,10 +285,10 @@ export default function Page() {
 
           {/* Onboarding */}
           <div 
-            className="rounded-[24px] md:rounded-[32px] p-6 md:p-8 overflow-hidden"
+            className="rounded-3xl p-6 md:p-8 overflow-hidden"
             style={{
-              background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-              boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
+              background: "var(--card)",
+              boxShadow: "inset 0 0 0 1px var(--border)",
             }}
           >
             <div className="flex items-center gap-3 mb-4">
@@ -300,7 +300,7 @@ export default function Page() {
             <p className="text-sm text-foreground/60 mb-6">
               Low-fidelity onboarding screen built with key insights from competitive analysis
             </p>
-            <div className="rounded-xl overflow-hidden" style={{ boxShadow: "0 8px 30px rgba(0,0,0,0.08)" }}>
+            <div className="rounded-xl overflow-hidden" style={{ boxShadow: "inset 0 0 0 1px var(--border)" }}>
               <Image
                 src="/images/games4peace-onboarding-wireframe.png"
                 alt="Low-fidelity onboarding wireframe showing community, how it works, and real change screens"
@@ -313,10 +313,10 @@ export default function Page() {
 
           {/* Home Screen */}
           <div 
-            className="rounded-[24px] md:rounded-[32px] p-6 md:p-8 overflow-hidden"
+            className="rounded-3xl p-6 md:p-8 overflow-hidden"
             style={{
-              background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-              boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
+              background: "var(--card)",
+              boxShadow: "inset 0 0 0 1px var(--border)",
             }}
           >
             <div className="flex items-center gap-3 mb-4">
@@ -328,7 +328,7 @@ export default function Page() {
             <p className="text-sm text-foreground/60 mb-6">
               Low-fidelity home screen built with key insights from competitive analysis
             </p>
-            <div className="rounded-xl overflow-hidden" style={{ boxShadow: "0 8px 30px rgba(0,0,0,0.08)" }}>
+            <div className="rounded-xl overflow-hidden" style={{ boxShadow: "inset 0 0 0 1px var(--border)" }}>
               <Image
                 src="/images/games4peace-home-wireframe.png"
                 alt="Low-fidelity home screen wireframe showing personalized game selection and impact visualization"
@@ -341,10 +341,10 @@ export default function Page() {
 
           {/* Supporting Screens */}
           <div 
-            className="rounded-[24px] md:rounded-[32px] p-6 md:p-8 overflow-hidden"
+            className="rounded-3xl p-6 md:p-8 overflow-hidden"
             style={{
-              background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-              boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
+              background: "var(--card)",
+              boxShadow: "inset 0 0 0 1px var(--border)",
             }}
           >
             <div className="flex items-center gap-3 mb-4">
@@ -356,7 +356,7 @@ export default function Page() {
             <p className="text-sm text-foreground/60 mb-6">
               Low-fidelity Leaderboard, Daily Progress, Impact, and Profile screens built with key insights from competitive analysis
             </p>
-            <div className="rounded-xl overflow-hidden" style={{ boxShadow: "0 8px 30px rgba(0,0,0,0.08)" }}>
+            <div className="rounded-xl overflow-hidden" style={{ boxShadow: "inset 0 0 0 1px var(--border)" }}>
               <Image
                 src="/images/games4peace-supporting-wireframes.png"
                 alt="Low-fidelity wireframes for Leaderboard, Daily Progress, Impact, and Profile screens"
@@ -380,7 +380,7 @@ export default function Page() {
 
           {/* Final Screens Showcase — dark frame + white inner (matches low-fi showcase format) */}
           <div
-            className="rounded-[24px] md:rounded-[32px] p-6 md:p-8 overflow-hidden"
+            className="rounded-3xl p-6 md:p-8 overflow-hidden"
             style={{
               background: "#1a1a1a",
               boxShadow: "0 4px 40px rgba(0,0,0,0.35)",
@@ -423,8 +423,8 @@ export default function Page() {
               <div 
                 className="rounded-2xl p-4 overflow-hidden"
                 style={{
-                  background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-                  boxShadow: "0 4px 30px rgba(0,0,0,0.06)",
+                  background: "var(--card)",
+                  boxShadow: "inset 0 0 0 1px var(--border)",
                 }}
               >
                 <div className="rounded-xl overflow-hidden mb-3 h-[280px] md:h-[320px] bg-white"
@@ -442,8 +442,8 @@ export default function Page() {
               <div 
                 className="rounded-2xl p-4 overflow-hidden"
                 style={{
-                  background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-                  boxShadow: "0 4px 30px rgba(0,0,0,0.06)",
+                  background: "var(--card)",
+                  boxShadow: "inset 0 0 0 1px var(--border)",
                 }}
               >
                 <div className="rounded-xl overflow-hidden mb-3 h-[280px] md:h-[320px] bg-white"
@@ -461,8 +461,8 @@ export default function Page() {
               <div 
                 className="rounded-2xl p-4 overflow-hidden"
                 style={{
-                  background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-                  boxShadow: "0 4px 30px rgba(0,0,0,0.06)",
+                  background: "var(--card)",
+                  boxShadow: "inset 0 0 0 1px var(--border)",
                 }}
               >
                 <div className="rounded-xl overflow-hidden mb-3 h-[280px] md:h-[320px] bg-white"
@@ -478,7 +478,7 @@ export default function Page() {
             </div>
 
             <div
-              className="rounded-[24px] md:rounded-[32px] p-6 md:p-8 overflow-hidden"
+              className="rounded-3xl p-6 md:p-8 overflow-hidden"
               style={{
                 background: "#1a1a1a",
                 boxShadow: "0 4px 40px rgba(0,0,0,0.35)",
@@ -521,10 +521,10 @@ export default function Page() {
         {/* Reflection */}
         <section id="reflection" className="space-y-8 scroll-mt-32">
           <div 
-            className="rounded-[24px] md:rounded-[32px] p-8 md:p-10 space-y-6"
+            className="rounded-3xl p-8 md:p-10 space-y-6"
             style={{
-              background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-              boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
+              background: "var(--card)",
+              boxShadow: "inset 0 0 0 1px var(--border)",
             }}
           >
             <div className="space-y-2">

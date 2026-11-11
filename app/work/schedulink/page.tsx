@@ -58,10 +58,10 @@ export default function Page() {
             </div>
 
             <div 
-              className="rounded-[24px] md:rounded-[32px] p-8 md:p-12 lg:p-16"
+              className="rounded-3xl p-8 md:p-12 lg:p-16"
               style={{
-                background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-                boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
+                background: "var(--card)",
+                boxShadow: "inset 0 0 0 1px var(--border)",
               }}
             >
               {/* Floating Cards Layout */}
@@ -171,10 +171,10 @@ export default function Page() {
 
           {/* Main Wireframe Video - Centered & Smaller */}
           <div 
-            className="rounded-[24px] md:rounded-[32px] p-8 md:p-12 flex justify-center"
+            className="rounded-3xl p-8 md:p-12 flex justify-center"
             style={{
-              background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-              boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
+              background: "var(--card)",
+              boxShadow: "inset 0 0 0 1px var(--border)",
             }}
           >
             <div 
@@ -198,10 +198,10 @@ export default function Page() {
           <div className="space-y-4">
             <p className="cs-eyebrow">Onboarding Flow</p>
             <div 
-              className="rounded-[24px] md:rounded-[32px] p-6 md:p-8"
+              className="rounded-3xl p-6 md:p-8"
               style={{
-                background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-                boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
+                background: "var(--card)",
+                boxShadow: "inset 0 0 0 1px var(--border)",
               }}
             >
               <div 
@@ -228,14 +228,14 @@ export default function Page() {
             <div 
               className="rounded-2xl p-5 space-y-4"
               style={{
-                background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-                boxShadow: "0 4px 20px rgba(0,0,0,0.04)",
+                background: "var(--card)",
+                boxShadow: "inset 0 0 0 1px var(--border)",
               }}
             >
               <div className="flex items-center gap-3">
                 <div 
                   className="w-10 h-10 rounded-xl flex items-center justify-center"
-                  style={{ background: "var(--background)", boxShadow: "0 2px 8px rgba(0,0,0,0.06)" }}
+                  style={{ background: "var(--background)", boxShadow: "inset 0 0 0 1px var(--border)" }}
                 >
                   <Calendar className="w-5 h-5 text-foreground/50" />
                 </div>
@@ -250,14 +250,14 @@ export default function Page() {
             <div 
               className="rounded-2xl p-5 space-y-4"
               style={{
-                background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-                boxShadow: "0 4px 20px rgba(0,0,0,0.04)",
+                background: "var(--card)",
+                boxShadow: "inset 0 0 0 1px var(--border)",
               }}
             >
               <div className="flex items-center gap-3">
                 <div 
                   className="w-10 h-10 rounded-xl flex items-center justify-center"
-                  style={{ background: "var(--background)", boxShadow: "0 2px 8px rgba(0,0,0,0.06)" }}
+                  style={{ background: "var(--background)", boxShadow: "inset 0 0 0 1px var(--border)" }}
                 >
                   <Lock className="w-5 h-5 text-foreground/50" />
                 </div>
@@ -272,14 +272,14 @@ export default function Page() {
             <div 
               className="rounded-2xl p-5 space-y-4"
               style={{
-                background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-                boxShadow: "0 4px 20px rgba(0,0,0,0.04)",
+                background: "var(--card)",
+                boxShadow: "inset 0 0 0 1px var(--border)",
               }}
             >
               <div className="flex items-center gap-3">
                 <div 
                   className="w-10 h-10 rounded-xl flex items-center justify-center"
-                  style={{ background: "var(--background)", boxShadow: "0 2px 8px rgba(0,0,0,0.06)" }}
+                  style={{ background: "var(--background)", boxShadow: "inset 0 0 0 1px var(--border)" }}
                 >
                   <Circle className="w-5 h-5 text-foreground/50 fill-foreground/20" />
                 </div>
@@ -303,10 +303,10 @@ export default function Page() {
 
           {/* Theme Variations - Animated Gallery */}
           <div 
-            className="rounded-[24px] md:rounded-[32px] p-8 md:p-12"
+            className="rounded-3xl p-8 md:p-12"
             style={{
-              background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-              boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
+              background: "var(--card)",
+              boxShadow: "inset 0 0 0 1px var(--border)",
             }}
           >
             <div className="flex justify-center">
@@ -351,10 +351,10 @@ export default function Page() {
           {/* Home */}
           <div className="space-y-4">
             <div 
-              className="rounded-[24px] md:rounded-[32px] p-6 md:p-8 overflow-hidden"
+              className="rounded-3xl p-6 md:p-8 overflow-hidden"
               style={{
-                background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-                boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
+                background: "var(--card)",
+                boxShadow: "inset 0 0 0 1px var(--border)",
               }}
             >
               <p className="cs-eyebrow mb-4">Home</p>
@@ -379,10 +379,10 @@ export default function Page() {
           {/* Profile */}
           <div className="space-y-4">
             <div 
-              className="rounded-[24px] md:rounded-[32px] p-6 md:p-8 overflow-hidden"
+              className="rounded-3xl p-6 md:p-8 overflow-hidden"
               style={{
-                background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-                boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
+                background: "var(--card)",
+                boxShadow: "inset 0 0 0 1px var(--border)",
               }}
             >
               <p className="cs-eyebrow mb-4">Profile</p>
@@ -415,10 +415,10 @@ export default function Page() {
           </div>
 
           <div 
-            className="rounded-[24px] md:rounded-[32px] p-8 md:p-10"
+            className="rounded-3xl p-8 md:p-10"
             style={{
-              background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-              boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
+              background: "var(--card)",
+              boxShadow: "inset 0 0 0 1px var(--border)",
             }}
           >
             <div className="space-y-4 max-w-3xl">

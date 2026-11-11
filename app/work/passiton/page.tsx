@@ -251,14 +251,14 @@ export default function Page() {
 
           {/* Feature 1: Garment Journey & User Engagement */}
           <div 
-            className="relative mx-auto rounded-[32px] md:rounded-[40px] p-8 md:p-12 lg:p-16 overflow-hidden"
+            className="relative mx-auto rounded-3xl p-8 md:p-12 lg:p-16 overflow-hidden"
             style={{
-              background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-              boxShadow: "0 4px 60px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04)",
+              background: "var(--card)",
+              boxShadow: "inset 0 0 0 1px var(--border)",
             }}
           >
             <div 
-              className="absolute inset-0 rounded-[32px] md:rounded-[40px] pointer-events-none"
+              className="absolute inset-0 rounded-3xl pointer-events-none"
               style={{
                 background: "radial-gradient(ellipse at 70% 30%, rgba(255,255,255,0.4) 0%, transparent 50%)",
               }}
@@ -267,7 +267,7 @@ export default function Page() {
             <div className="relative z-10 space-y-8">
               {/* Section Title */}
               <div className="text-center space-y-2">
-                <h3 className="text-base md:text-lg font-medium tracking-tight">
+                <h3 className="cs-h3">
                   Garment Journey & User Engagement
                 </h3>
                 <p className="text-sm text-foreground/60 max-w-2xl mx-auto">
@@ -357,14 +357,14 @@ export default function Page() {
 
           {/* Feature 2: Item Tag Scanner & Material Information */}
           <div 
-            className="relative mx-auto rounded-[32px] md:rounded-[40px] p-8 md:p-12 lg:p-16 overflow-hidden"
+            className="relative mx-auto rounded-3xl p-8 md:p-12 lg:p-16 overflow-hidden"
             style={{
-              background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-              boxShadow: "0 4px 60px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04)",
+              background: "var(--card)",
+              boxShadow: "inset 0 0 0 1px var(--border)",
             }}
           >
             <div 
-              className="absolute inset-0 rounded-[32px] md:rounded-[40px] pointer-events-none"
+              className="absolute inset-0 rounded-3xl pointer-events-none"
               style={{
                 background: "radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.4) 0%, transparent 50%)",
               }}
@@ -420,7 +420,7 @@ export default function Page() {
                 {/* Feature Description - With Border */}
                 <div className="w-full max-w-2xl border border-foreground/10 rounded-2xl p-6 md:p-8">
                   {/* Level 1: Title */}
-                  <h3 className="text-base md:text-lg font-medium tracking-tight">
+                  <h3 className="cs-h3">
                     Item Tag Scanner & Material Information
                   </h3>
                   
@@ -451,14 +451,14 @@ export default function Page() {
 
           {/* Feature 3: High-Fidelity Condition & Materials (revisited in Claude Design) */}
           <div 
-            className="relative mx-auto rounded-[32px] md:rounded-[40px] p-8 md:p-12 lg:p-16 overflow-hidden"
+            className="relative mx-auto rounded-3xl p-8 md:p-12 lg:p-16 overflow-hidden"
             style={{
-              background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-              boxShadow: "0 4px 60px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04)",
+              background: "var(--card)",
+              boxShadow: "inset 0 0 0 1px var(--border)",
             }}
           >
             <div 
-              className="absolute inset-0 rounded-[32px] md:rounded-[40px] pointer-events-none"
+              className="absolute inset-0 rounded-3xl pointer-events-none"
               style={{
                 background: "radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.4) 0%, transparent 50%)",
               }}
@@ -510,7 +510,7 @@ export default function Page() {
 
                 {/* Feature Description */}
                 <div className="w-full max-w-2xl border border-foreground/10 rounded-2xl p-6 md:p-8">
-                  <h3 className="text-base md:text-lg font-medium tracking-tight">
+                  <h3 className="cs-h3">
                     High-Fidelity: Condition & Materials
                   </h3>
 
@@ -551,7 +551,7 @@ export default function Page() {
             }}
           />
           <div className="relative space-y-6 md:space-y-8">
-            <article className="group relative overflow-hidden rounded-[28px] bg-gradient-to-br from-card via-background to-muted/60 p-6 shadow-[0_20px_60px_-24px_rgba(0,0,0,0.15)] transition-[box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:shadow-[0_28px_70px_-20px_rgba(0,0,0,0.18)] md:p-8">
+            <article className="group relative overflow-hidden rounded-3xl border border-border/60 bg-card p-6 transition-[box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:shadow-[0_28px_70px_-20px_rgba(0,0,0,0.18)] md:p-8">
               <span
                 className="pointer-events-none absolute -right-2 -top-4 select-none text-[5rem] font-light leading-none text-foreground/[0.07] transition-opacity group-hover:text-foreground/[0.09] md:text-[6.5rem]"
                 aria-hidden
@@ -580,7 +580,7 @@ export default function Page() {
               </div>
             </article>
 
-            <article className="group relative overflow-hidden rounded-[28px] bg-gradient-to-br from-muted/70 via-background to-card p-6 shadow-[0_20px_60px_-24px_rgba(0,0,0,0.12)] transition-[box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:shadow-[0_28px_70px_-20px_rgba(0,0,0,0.16)] md:ml-4 md:p-8 lg:ml-8">
+            <article className="group relative overflow-hidden rounded-3xl border border-border/60 bg-card p-6 transition-[box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:shadow-[0_28px_70px_-20px_rgba(0,0,0,0.16)] md:ml-4 md:p-8 lg:ml-8">
               <span
                 className="pointer-events-none absolute -right-2 -top-4 select-none text-[5rem] font-light leading-none text-foreground/[0.07] group-hover:text-foreground/[0.09] md:text-[6.5rem]"
                 aria-hidden
@@ -610,7 +610,7 @@ export default function Page() {
               </div>
             </article>
 
-            <article className="group relative overflow-hidden rounded-[28px] bg-gradient-to-tl from-background via-muted/50 to-foreground/[0.06] p-6 shadow-[0_24px_64px_-20px_rgba(0,0,0,0.2)] transition-[box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:to-foreground/[0.09] md:mr-4 md:p-8 lg:mr-10">
+            <article className="group relative overflow-hidden rounded-3xl border border-border/60 bg-card p-6 transition-[box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:to-foreground/[0.09] md:mr-4 md:p-8 lg:mr-10">
               <span
                 className="pointer-events-none absolute -right-2 -top-4 select-none text-[5rem] font-light leading-none text-foreground/[0.08] group-hover:text-foreground/[0.11] md:text-[6.5rem]"
                 aria-hidden

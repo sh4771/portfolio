@@ -4,37 +4,9 @@ import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { Check, ChevronDown, Info, MousePointer2, User, Bot } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { Live, PLUM, PLUM_TEXT, Section, BeforeAfter } from "./kit"
 
-const PLUM = "#4a0e4e"
-const PLUM_TEXT = "text-[#4a0e4e] dark:text-[#d9a6dd]"
 const BASELINE = 0.6
-
-function Section({ eyebrow, title, children, id }: { eyebrow: string; title: string; children: React.ReactNode; id?: string }) {
-  return (
-    <section id={id} className="scroll-mt-28 space-y-6">
-      <div className="space-y-2">
-        <p className="cs-eyebrow">{eyebrow}</p>
-        <h2 className="cs-h2">{title}</h2>
-      </div>
-      {children}
-    </section>
-  )
-}
-
-function Live({ value, className }: { value: string; className?: string }) {
-  const [flash, setFlash] = useState(false)
-  const first = useRef(true)
-  useEffect(() => {
-    if (first.current) {
-      first.current = false
-      return
-    }
-    setFlash(true)
-    const t = setTimeout(() => setFlash(false), 700)
-    return () => clearTimeout(t)
-  }, [value])
-  return <span className={cn("rounded px-1 tabular-nums transition-colors duration-500", flash ? "bg-amber-300/60 dark:bg-amber-400/30" : "bg-transparent", className)}>{value}</span>
-}
 
 /* ---------- live estimate, shown three ways ---------- */
 
@@ -159,7 +131,6 @@ function EstimateLab() {
   )
 }
 
-/* ---------- before / after, one pair at a time ---------- */
 
 const PAIRS = [
   { label: "Main page", note: "A flat table became a “Needs attention” panel plus campaign cards.", before: "/images/vendelux/mp-before-mainpage.png", after: "/images/vendelux/mp-after-mainpage.png" },
@@ -167,41 +138,6 @@ const PAIRS = [
   { label: "Email sequences", note: "Expanded emails became a collapsible list, plus call and LinkedIn scripts.", before: "/images/vendelux/mp-before-emailsequence.png", after: "/images/vendelux/mp-after-emailsequence.png" },
   { label: "Event detail", note: "Flat text became sections plus a “Fix to launch” checklist.", before: "/images/vendelux/mp-before-eventdetail.png", after: "/images/vendelux/mp-after-eventdetail.png" },
 ]
-
-function BeforeAfter() {
-  const [i, setI] = useState(0)
-  const [after, setAfter] = useState(true)
-  const p = PAIRS[i]
-  return (
-    <div className="space-y-3">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex flex-wrap gap-1.5">
-          {PAIRS.map((x, k) => (
-            <button key={x.label} type="button" onClick={() => setI(k)} aria-pressed={i === k} className={cn("rounded-full border px-3 py-1.5 text-xs transition-colors", i === k ? "border-foreground bg-foreground text-background" : "border-border/70 text-foreground/70 hover:border-foreground/40")}>
-              {x.label}
-            </button>
-          ))}
-        </div>
-        <div role="radiogroup" aria-label="Version" className="inline-flex rounded-full bg-muted p-1 text-xs font-semibold">
-          {(
-            [
-              [false, "Before"],
-              [true, "After"],
-            ] as const
-          ).map(([k, label]) => (
-            <button key={label} type="button" role="radio" aria-checked={after === k} onClick={() => setAfter(k)} className={cn("rounded-full px-3 py-1.5", after === k ? "bg-background text-foreground shadow-sm" : "text-foreground/55")}>
-              {label}
-            </button>
-          ))}
-        </div>
-      </div>
-      <div className="relative aspect-[16/10] overflow-hidden rounded-xl border border-border/50 bg-white">
-        <Image key={(after ? p.after : p.before) + i} src={after ? p.after : p.before} alt={`${p.label}, ${after ? "after" : "before"}`} fill sizes="(min-width: 900px) 800px, 100vw" className="object-contain motion-safe:animate-in motion-safe:fade-in" />
-      </div>
-      <p className="cs-caption">{p.note}</p>
-    </div>
-  )
-}
 
 /* ---------- page ---------- */
 
@@ -325,7 +261,7 @@ export function MeetingPlannerCaseStudy() {
       </Section>
 
       <Section eyebrow="07 · Across the app" title="Before and after">
-        <BeforeAfter />
+        <BeforeAfter pairs={PAIRS} />
       </Section>
 
       <Section eyebrow="08 · Where it stands" title="In review, customer validation next">

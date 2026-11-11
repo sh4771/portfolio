@@ -24,6 +24,7 @@ import { vendeluxProjects, type InfoBox } from "@/lib/vendelux-projects"
 import { SegmentsCaseStudy } from "./segments-case-study"
 import { RoiCaseStudy } from "./roi-case-study"
 import { MeetingPlannerCaseStudy } from "./meeting-planner-case-study"
+import { CampaignAdminCaseStudy } from "./campaign-admin-case-study"
 import { ComingSoon } from "./coming-soon"
 
 const ICONS: Record<InfoBox["icon"], React.ElementType> = {
@@ -99,6 +100,8 @@ export function VendeluxCaseStudies() {
         <RoiCaseStudy />
       ) : active.slug === "meeting-planner" ? (
         <MeetingPlannerCaseStudy />
+      ) : active.slug === "campaign-admin" ? (
+        <CampaignAdminCaseStudy />
       ) : active.comingSoon ? (
         <ComingSoon project={active} />
       ) : (

@@ -13,7 +13,7 @@ export default function ProblemDownstreamImpact() {
       <div className="grid gap-5 sm:grid-cols-2 sm:gap-6">
         {/* 15 million */}
         <div
-          className="passiton-stat-card relative overflow-hidden rounded-[28px] border border-foreground/10 bg-gradient-to-br from-card/90 via-background to-muted/40 p-6 shadow-[0_20px_60px_-24px_rgba(0,0,0,0.15)]"
+          className="passiton-stat-card relative overflow-hidden rounded-2xl border border-border/60 bg-card p-6"
           style={{ animationDelay: "0ms" }}
         >
           <p className="cs-eyebrow relative">
@@ -31,7 +31,7 @@ export default function ProblemDownstreamImpact() {
 
         {/* 40% */}
         <div
-          className="passiton-stat-card relative overflow-hidden rounded-[28px] border border-foreground/10 bg-gradient-to-br from-card/90 via-background to-muted/40 p-6 shadow-[0_20px_60px_-24px_rgba(0,0,0,0.15)]"
+          className="passiton-stat-card relative overflow-hidden rounded-2xl border border-border/60 bg-card p-6"
           style={{ animationDelay: "120ms" }}
         >
           <p className="cs-eyebrow relative">

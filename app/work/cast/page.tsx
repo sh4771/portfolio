@@ -43,16 +43,16 @@ export default function Page() {
           </div>
           
           <div 
-            className="rounded-[24px] md:rounded-[32px] p-6 md:p-8"
+            className="rounded-3xl p-6 md:p-8"
             style={{
-              background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-              boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
+              background: "var(--card)",
+              boxShadow: "inset 0 0 0 1px var(--border)",
             }}
           >
             <div className="grid sm:grid-cols-2 gap-4">
               <div 
                 className="rounded-xl p-5 space-y-2"
-                style={{ background: "var(--background)", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}
+                style={{ background: "var(--background)", boxShadow: "inset 0 0 0 1px var(--border)" }}
               >
                 <div className="w-8 h-8 rounded-lg bg-foreground/5 flex items-center justify-center">
                   <span className="text-xs text-foreground/40 font-mono">01</span>
@@ -63,7 +63,7 @@ export default function Page() {
               </div>
               <div 
                 className="rounded-xl p-5 space-y-2"
-                style={{ background: "var(--background)", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}
+                style={{ background: "var(--background)", boxShadow: "inset 0 0 0 1px var(--border)" }}
               >
                 <div className="w-8 h-8 rounded-lg bg-foreground/5 flex items-center justify-center">
                   <span className="text-xs text-foreground/40 font-mono">02</span>
@@ -74,7 +74,7 @@ export default function Page() {
               </div>
               <div 
                 className="rounded-xl p-5 space-y-2"
-                style={{ background: "var(--background)", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}
+                style={{ background: "var(--background)", boxShadow: "inset 0 0 0 1px var(--border)" }}
               >
                 <div className="w-8 h-8 rounded-lg bg-foreground/5 flex items-center justify-center">
                   <span className="text-xs text-foreground/40 font-mono">03</span>
@@ -85,7 +85,7 @@ export default function Page() {
               </div>
               <div 
                 className="rounded-xl p-5 space-y-2"
-                style={{ background: "var(--background)", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}
+                style={{ background: "var(--background)", boxShadow: "inset 0 0 0 1px var(--border)" }}
               >
                 <div className="w-8 h-8 rounded-lg bg-foreground/5 flex items-center justify-center">
                   <span className="text-xs text-foreground/40 font-mono">04</span>
@@ -112,16 +112,16 @@ export default function Page() {
           <div className="grid md:grid-cols-2 gap-6">
             {/* Problem */}
             <div 
-              className="rounded-[24px] md:rounded-[32px] p-6 space-y-4"
+              className="rounded-3xl p-6 space-y-4"
               style={{
-                background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-                boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
+                background: "var(--card)",
+                boxShadow: "inset 0 0 0 1px var(--border)",
               }}
             >
               <span className="cs-eyebrow">Problem</span>
               <div 
                 className="rounded-xl overflow-hidden bg-background/50 h-[280px] flex items-center justify-center"
-                style={{ boxShadow: "0 8px 30px rgba(0,0,0,0.08)" }}
+                style={{ boxShadow: "inset 0 0 0 1px var(--border)" }}
               >
                 <Image
                   src="/images/cast-problem.png"
@@ -138,16 +138,16 @@ export default function Page() {
 
             {/* Solution */}
             <div 
-              className="rounded-[24px] md:rounded-[32px] p-6 space-y-4"
+              className="rounded-3xl p-6 space-y-4"
               style={{
-                background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-                boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
+                background: "var(--card)",
+                boxShadow: "inset 0 0 0 1px var(--border)",
               }}
             >
               <span className="cs-eyebrow">Solution</span>
               <div 
                 className="rounded-xl overflow-hidden bg-background/50 h-[280px] flex items-center justify-center"
-                style={{ boxShadow: "0 8px 30px rgba(0,0,0,0.08)" }}
+                style={{ boxShadow: "inset 0 0 0 1px var(--border)" }}
               >
                 <Image
                   src="/images/cast-solution.png"
@@ -176,17 +176,17 @@ export default function Page() {
           </div>
           
           <div 
-            className="rounded-[24px] md:rounded-[32px] p-8 md:p-10"
+            className="rounded-3xl p-8 md:p-10"
             style={{
-              background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-              boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
+              background: "var(--card)",
+              boxShadow: "inset 0 0 0 1px var(--border)",
             }}
           >
             <div className="grid md:grid-cols-3 gap-8">
               {/* Neutral Lock */}
               <div className="text-center space-y-4">
                 <div className="w-14 h-14 mx-auto rounded-2xl bg-background flex items-center justify-center"
-                  style={{ boxShadow: "0 4px 20px rgba(0,0,0,0.08)" }}
+                  style={{ boxShadow: "inset 0 0 0 1px var(--border)" }}
                 >
                   <Lock className="w-6 h-6 text-foreground/60" />
                 </div>
@@ -202,7 +202,7 @@ export default function Page() {
               {/* Free Mode */}
               <div className="text-center space-y-4">
                 <div className="w-14 h-14 mx-auto rounded-2xl bg-background flex items-center justify-center"
-                  style={{ boxShadow: "0 4px 20px rgba(0,0,0,0.08)" }}
+                  style={{ boxShadow: "inset 0 0 0 1px var(--border)" }}
                 >
                   <Move className="w-6 h-6 text-foreground/60" />
                 </div>
@@ -218,7 +218,7 @@ export default function Page() {
               {/* Stabilize Mode */}
               <div className="text-center space-y-4">
                 <div className="w-14 h-14 mx-auto rounded-2xl bg-background flex items-center justify-center"
-                  style={{ boxShadow: "0 4px 20px rgba(0,0,0,0.08)" }}
+                  style={{ boxShadow: "inset 0 0 0 1px var(--border)" }}
                 >
                   <Hand className="w-6 h-6 text-foreground/60" />
                 </div>
@@ -246,30 +246,30 @@ export default function Page() {
           </div>
           
           <div 
-            className="rounded-[24px] md:rounded-[32px] p-6 md:p-8"
+            className="rounded-3xl p-6 md:p-8"
             style={{
-              background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
-              boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
+              background: "var(--card)",
+              boxShadow: "inset 0 0 0 1px var(--border)",
             }}
           >
             <div className="flex flex-wrap gap-3">
               <div 
                 className="inline-flex items-center gap-2 px-4 py-3 rounded-xl"
-                style={{ background: "var(--background)", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}
+                style={{ background: "var(--background)", boxShadow: "inset 0 0 0 1px var(--border)" }}
               >
                 <Shield className="w-4 h-4 text-foreground/50" />
                 <span className="text-sm text-foreground/70">Safety for SCI users</span>
               </div>
               <div 
                 className="inline-flex items-center gap-2 px-4 py-3 rounded-xl"
-                style={{ background: "var(--background)", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}
+                style={{ background: "var(--background)", boxShadow: "inset 0 0 0 1px var(--border)" }}
               >
                 <Lock className="w-4 h-4 text-foreground/50" />
                 <span className="text-sm text-foreground/70">Prevent accidental activation</span>
               </div>
               <div 
                 className="inline-flex items-center gap-2 px-4 py-3 rounded-xl"
-                style={{ background: "var(--background)", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}
+                style={{ background: "var(--background)", boxShadow: "inset 0 0 0 1px var(--border)" }}
               >
                 <Move className="w-4 h-4 text-foreground/50" />
                 <span className="text-sm text-foreground/70">Balance stability and flexibility</span>

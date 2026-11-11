@@ -116,7 +116,7 @@ export default function DiscardReasons() {
 
       <div
         className="space-y-6 rounded-2xl border border-foreground/10 bg-muted/20 p-6 md:p-8"
-        style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.04)" }}
+        style={{ boxShadow: "inset 0 0 0 1px var(--border)" }}
       >
         <p className="cs-eyebrow">
           What this proposal responds to
@@ -158,7 +158,7 @@ export default function DiscardReasons() {
       {/* Key takeaway: challenge-first + visual */}
       <div
         className="space-y-6 rounded-2xl border border-foreground/10 bg-muted/15 p-6 md:p-8"
-        style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.04)" }}
+        style={{ boxShadow: "inset 0 0 0 1px var(--border)" }}
       >
         <div className="space-y-1">
           <p className="cs-eyebrow">

@@ -104,7 +104,7 @@ export function VersionA() {
               className={cn("flex min-h-[78vh] flex-col justify-center gap-5 transition-opacity duration-500", active === i ? "opacity-100" : "opacity-30")}
             >
               <p className="cs-eyebrow">{s.kicker}</p>
-              <h2 className="max-w-lg text-3xl font-semibold leading-tight tracking-tight text-balance">{s.title}</h2>
+              <h2 className="cs-h2 max-w-lg text-balance">{s.title}</h2>
               <div className="max-w-md space-y-1.5">
                 {s.decision && <p className="text-xs font-semibold" style={{ color: C.accent }}>Design decision</p>}
                 <p className="text-sm text-foreground/65">{s.body}</p>

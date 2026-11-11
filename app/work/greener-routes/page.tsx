@@ -96,7 +96,7 @@ export default function Page() {
               <h2 className="cs-h2">Heat keeps people from walking, and green space helps</h2>
             </div>
             <div className="grid gap-5 sm:grid-cols-2 sm:gap-6">
-              <div className="passiton-stat-card relative overflow-hidden rounded-[28px] border border-foreground/10 bg-gradient-to-br from-card/90 via-background to-muted/40 p-6 shadow-[0_20px_60px_-24px_rgba(0,0,0,0.15)]">
+              <div className="passiton-stat-card relative overflow-hidden rounded-2xl border border-border/60 bg-card p-6">
                 <p className="cs-eyebrow">US adults</p>
                 <p className="mt-2 flex items-baseline gap-1 font-light tracking-tight text-foreground">
                   <span className="text-5xl tabular-nums sm:text-6xl md:text-7xl">36</span>
@@ -116,7 +116,7 @@ export default function Page() {
                 </a>
               </div>
               <div
-                className="passiton-stat-card relative overflow-hidden rounded-[28px] border border-foreground/10 bg-gradient-to-br from-card/90 via-background to-muted/40 p-6 shadow-[0_20px_60px_-24px_rgba(0,0,0,0.15)]"
+                className="passiton-stat-card relative overflow-hidden rounded-2xl border border-border/60 bg-card p-6"
                 style={{ animationDelay: "120ms" }}
               >
                 <p className="cs-eyebrow">On average</p>
@@ -300,7 +300,7 @@ export default function Page() {
             ].map(({ n, icon: Icon, title, body }) => (
               <article
                 key={n}
-                className="group relative overflow-hidden rounded-[28px] bg-gradient-to-br from-card via-background to-muted/60 p-6 shadow-[0_20px_60px_-24px_rgba(0,0,0,0.15)] transition-[box-shadow,transform] duration-300 hover:-translate-y-0.5 md:p-8"
+                className="group relative overflow-hidden rounded-3xl border border-border/60 bg-card p-6 transition-[box-shadow,transform] duration-300 hover:-translate-y-0.5 md:p-8"
               >
                 <span
                   className="pointer-events-none absolute -right-2 -top-4 select-none text-[5rem] font-light leading-none text-foreground/[0.07] md:text-[6.5rem]"

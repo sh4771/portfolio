@@ -28,7 +28,7 @@ export default function UserFlow() {
       <div 
         className="rounded-2xl p-8 md:p-10 overflow-x-auto"
         style={{
-          background: "linear-gradient(145deg, var(--muted) 0%, var(--card) 100%)",
+          background: "var(--card)",
         }}
       >
         <div className="flex items-center justify-between min-w-[600px] gap-2">
@@ -38,7 +38,7 @@ export default function UserFlow() {
                 <div 
                   className="w-14 h-14 rounded-2xl bg-background flex items-center justify-center mb-3"
                   style={{
-                    boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
+                    boxShadow: "inset 0 0 0 1px var(--border)",
                   }}
                 >
                   <step.icon className="w-6 h-6 text-foreground/70" />

@@ -4,51 +4,14 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import Image from "next/image"
 import { ArrowRight, Check, ExternalLink, Link2Off, MousePointer2, X } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { Live, PLUM, PLUM_TEXT, Section } from "./kit"
 
-const PLUM = "#4a0e4e"
-const PLUM_TEXT = "text-[#4a0e4e] dark:text-[#d9a6dd]"
 
 /* The calculator's own demo inputs (Microsoft Ignite 2026). Not customer data. */
 const DEMO = { booth: 30000, sponsorship: 15000, travel: 9000, other: 5000, attendees: 1012, capture: 15, opp: 40, deal: 30000, win: 25, ltv: 60000 }
 
 const money = (n: number) =>
   n >= 1_000_000 ? `$${(n / 1_000_000).toFixed(2)}M` : n >= 10_000 ? `$${Math.round(n / 1000)}k` : `$${Math.round(n).toLocaleString()}`
-
-function Eyebrow({ children }: { children: React.ReactNode }) {
-  return <p className="cs-eyebrow">{children}</p>
-}
-
-function Section({ eyebrow, title, children, id }: { eyebrow: string; title: string; children: React.ReactNode; id?: string }) {
-  return (
-    <section id={id} className="scroll-mt-28 space-y-6">
-      <div className="space-y-2">
-        <Eyebrow>{eyebrow}</Eyebrow>
-        <h2 className="cs-h2">{title}</h2>
-      </div>
-      {children}
-    </section>
-  )
-}
-
-/** A number that briefly highlights whenever its value changes, so cause and effect is visible. */
-function Live({ value, className }: { value: string; className?: string }) {
-  const [flash, setFlash] = useState(false)
-  const first = useRef(true)
-  useEffect(() => {
-    if (first.current) {
-      first.current = false
-      return
-    }
-    setFlash(true)
-    const t = setTimeout(() => setFlash(false), 700)
-    return () => clearTimeout(t)
-  }, [value])
-  return (
-    <span className={cn("rounded px-1 tabular-nums transition-colors duration-500", flash ? "bg-amber-300/60 dark:bg-amber-400/30" : "bg-transparent", className)}>
-      {value}
-    </span>
-  )
-}
 
 function Slider({ id, label, value, min, max, step, suffix, prefix, onChange }: { id: string; label: string; value: number; min: number; max: number; step: number; suffix?: string; prefix?: string; onChange: (v: number) => void }) {
   return (
@@ -185,7 +148,8 @@ export function RoiCaseStudy() {
       <header className="space-y-6">
         <div className="space-y-1.5">
           <p className="cs-eyebrow">Vendelux · ROI Calculator</p>
-          <h1 className="cs-h1">Same event. Same inputs. 2x the projected return.</h1>
+          <h1 className="cs-h1">Making Event ROI Forecasts More Reliable</h1>
+          <p className="text-base text-foreground/75">Same event. Same inputs. 2x the projected return.</p>
           <p className="text-sm text-foreground/60">Sep – Nov 2026 · Sole product designer · Handed off to engineering</p>
         </div>
         <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border/50 bg-border/50 sm:grid-cols-4">

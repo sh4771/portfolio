@@ -336,7 +336,7 @@ export const vendeluxProjects: VendeluxProject[] = [
     slug: "roi-calculator",
     navLabel: "ROI Calculator",
     title: "ROI Calculator",
-    challenge: "Turning a guessed budget into a return people can defend",
+    challenge: "Making Event ROI Forecasts More Reliable",
     oneLiner: "Planner's budget was a free-text guess. I moved the ROI math into the event panel and found the old calculator overstated return by about 2x.",
     duration: "Sep – Nov 2026 · Live in dev",
     whatIDid: "Product design, reviewed with our PM and CEO",
