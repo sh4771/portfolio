@@ -102,9 +102,9 @@ export function VersionA() {
       <header className="space-y-6 pt-4">
         <p className="cs-eyebrow">Fintech product design · Solo · 2026</p>
         <h1 className="max-w-3xl text-4xl font-semibold leading-[1.05] tracking-tight text-balance sm:text-6xl">
-          Why a seller payout comes up short <span style={{ color: C.accent }}>is unclear.</span>
+          Payout discrepancies are <span style={{ color: C.accent }}>hard to explain.</span>
         </h1>
-        <p className="max-w-xl text-base text-foreground/65">Finance teams rebuild a spreadsheet every cycle to find out. Reconcile names each cause, down to the cent.</p>
+        <p className="max-w-xl text-base text-foreground/65">Finance teams manually compare transactions and spreadsheets to identify missing amounts. Reconcile shows exactly where each discrepancy comes from.</p>
         <div className="flex items-center gap-2 text-xs text-foreground/45">
           <span className="inline-block h-6 w-[2px] animate-pulse rounded-full bg-foreground/30" /> Scroll
         </div>
