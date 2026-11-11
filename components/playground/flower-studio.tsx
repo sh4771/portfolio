@@ -56,9 +56,9 @@ export function FlowerStudio() {
   const [layers, setLayers] = useState<1 | 2>(2)
   const [color, setColor] = useState("#e9a4c7")
   const [color2, setColor2] = useState("#b48ef0")
-  const [center, setCenter] = useState("#f4d35e")
+  const [center, setCenter] = useState("#a3174a")
   const [strokes, setStrokes] = useState<Stroke[]>([])
-  const [brush, setBrush] = useState("#d98ae0")
+  const [brush, setBrush] = useState("#b48ef0")
   const [brushW, setBrushW] = useState(0.035)
   const [words, setWords] = useState("Sunday morning")
   const [name, setName] = useState("")
@@ -187,7 +187,7 @@ export function FlowerStudio() {
     <div className="space-y-20">
       {/* Studio */}
       <section aria-label="Flower studio" className="grid gap-8 lg:grid-cols-[minmax(0,540px)_minmax(0,1fr)] lg:gap-12">
-        <div className="relative overflow-hidden rounded-3xl" style={{ background: "radial-gradient(circle at 50% 45%, #fdf6fb 0%, #f5e9f2 55%, #ecdcea 100%)" }}>
+        <div className="relative overflow-hidden rounded-3xl" style={{ background: "radial-gradient(circle at 50% 45%, #ffffff 0%, #f8f3f7 60%, #efe6ee 100%)" }}>
           <svg
             ref={svgRef}
             viewBox="-1.12 -1.12 2.24 2.24"

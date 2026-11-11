@@ -29,7 +29,7 @@ export type Flower = {
 export const PALETTE = [
   "#e9a4c7", "#d98ae0", "#b48ef0", "#8fa8f5", "#79c4e8", "#7fd1b9",
   "#a6d46e", "#f4d35e", "#f7a35c", "#f2786d", "#e05d8a", "#fff6e8",
-  "#5b3f86", "#2f2a33",
+  "#5b3f86", "#2f2a33", "#a3174a", "#3b2a6b",
 ]
 
 const HEX = /^#[0-9a-f]{6}$/i
@@ -111,7 +111,7 @@ export function growFromWords(words: string): Omit<Flower, "id" | "by" | "at"> {
   const text = words.trim().toLowerCase() || "violet"
   const r = rng(hash(text))
   const hinted = WORD_COLORS.find(([re]) => re.test(text))?.[1]
-  const pick = () => PALETTE[Math.floor(r() * 11)]
+  const pick = () => PALETTE[Math.floor(r() * 12)]
   const color = hinted ?? pick()
   let color2 = pick()
   if (color2 === color) color2 = PALETTE[(PALETTE.indexOf(color) + 3) % 11]
@@ -123,7 +123,7 @@ export function growFromWords(words: string): Omit<Flower, "id" | "by" | "at"> {
     layers: r() > 0.4 ? 2 : 1,
     color,
     color2,
-    center: r() > 0.5 ? "#f4d35e" : "#f6c9b3",
+    center: ["#a3174a", "#3b2a6b", "#5b3f86", "#e05d8a"][Math.floor(r() * 4)],
   }
 }
 
@@ -186,9 +186,9 @@ export function sanitizeFlower(input: unknown): Flower | null {
 
 /** A few flowers so the garden never starts empty. */
 export const SEED_FLOWERS: Flower[] = [
-  { id: "seed-violet", name: "Viola hyunensis", by: "Violet", mode: "build", petals: 10, shape: "round", layers: 2, color: "#e9a4c7", color2: "#d98ae0", center: "#f6c9b3", at: "2026-11-11T00:00:00Z" },
-  { id: "seed-mini", name: "Bellis minivioletta", by: "Mini Violet", mode: "build", petals: 6, shape: "heart", layers: 1, color: "#b48ef0", color2: "#fff6e8", center: "#f4d35e", at: "2026-11-11T00:00:00Z" },
-  { id: "seed-matcha", name: "Petalia matchiflora", by: "Violet", mode: "grow", petals: 8, shape: "pointed", layers: 2, color: "#a6d46e", color2: "#fff6e8", center: "#f4d35e", at: "2026-11-11T00:00:00Z" },
-  { id: "seed-sunday", name: "Lumina sundayella", by: "Violet", mode: "grow", petals: 12, shape: "spoon", layers: 1, color: "#f4d35e", color2: "#f7a35c", center: "#f7a35c", at: "2026-11-11T00:00:00Z" },
-  { id: "seed-subway", name: "Rosella subwayaris", by: "Violet", mode: "grow", petals: 5, shape: "frill", layers: 2, color: "#8fa8f5", color2: "#79c4e8", center: "#fff6e8", at: "2026-11-11T00:00:00Z" },
+  { id: "seed-violet", name: "Viola hyunensis", by: "Violet", mode: "build", petals: 10, shape: "round", layers: 2, color: "#e9a4c7", color2: "#d98ae0", center: "#a3174a", at: "2026-11-11T00:00:00Z" },
+  { id: "seed-mini", name: "Bellis minivioletta", by: "Mini Violet", mode: "build", petals: 6, shape: "heart", layers: 1, color: "#b48ef0", color2: "#e9a4c7", center: "#3b2a6b", at: "2026-11-11T00:00:00Z" },
+  { id: "seed-matcha", name: "Petalia matchiflora", by: "Violet", mode: "grow", petals: 8, shape: "pointed", layers: 2, color: "#a6d46e", color2: "#f4d35e", center: "#5b3f86", at: "2026-11-11T00:00:00Z" },
+  { id: "seed-sunday", name: "Lumina sundayella", by: "Violet", mode: "grow", petals: 12, shape: "spoon", layers: 1, color: "#f4d35e", color2: "#f7a35c", center: "#a3174a", at: "2026-11-11T00:00:00Z" },
+  { id: "seed-subway", name: "Rosella subwayaris", by: "Violet", mode: "grow", petals: 5, shape: "frill", layers: 2, color: "#8fa8f5", color2: "#b48ef0", center: "#3b2a6b", at: "2026-11-11T00:00:00Z" },
 ]
