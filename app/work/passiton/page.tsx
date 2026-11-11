@@ -448,7 +448,7 @@ export default function Page() {
 
             <div className="relative z-10">
               {/* Images Left + Text Right Layout */}
-              <div className="flex flex-col lg:flex-row items-center lg:items-start gap-10 lg:gap-14">
+              <div className="flex flex-col items-center gap-10">
                 
                 {/* Two Images */}
                 <div className="flex flex-col sm:flex-row items-center gap-6 md:gap-8 shrink-0">
@@ -464,8 +464,8 @@ export default function Page() {
                       <Image
                         src="/images/passiton-scanner.png"
                         alt="Item tag scanner interface"
-                        width={240}
-                        height={520}
+                        width={417}
+                        height={918}
                         className="w-[180px] md:w-[200px] lg:w-[220px] h-auto"
                       />
                     </div>
@@ -484,8 +484,8 @@ export default function Page() {
                       <Image
                         src="/images/passiton-scanner-detail.png"
                         alt="Material information detail view showing chemical impacts"
-                        width={240}
-                        height={520}
+                        width={417}
+                        height={918}
                         className="w-[180px] md:w-[200px] lg:w-[220px] h-auto"
                       />
                     </div>
@@ -494,7 +494,7 @@ export default function Page() {
                 </div>
 
                 {/* Feature Description - With Border */}
-                <div className="border border-foreground/10 rounded-2xl p-6 md:p-8 lg:self-center">
+                <div className="w-full max-w-2xl border border-foreground/10 rounded-2xl p-6 md:p-8">
                   {/* Level 1: Title */}
                   <h3 className="text-base md:text-lg font-medium tracking-tight">
                     Item Tag Scanner & Material Information
@@ -541,7 +541,7 @@ export default function Page() {
             />
 
             <div className="relative z-10">
-              <div className="flex flex-col lg:flex-row items-center lg:items-start gap-10 lg:gap-14">
+              <div className="flex flex-col items-center gap-10">
 
                 {/* Two Images */}
                 <div className="flex flex-col sm:flex-row items-center gap-6 md:gap-8 shrink-0">
@@ -556,8 +556,8 @@ export default function Page() {
                       <Image
                         src="/images/passiton-condition-listing.png"
                         alt="Condition and listing screen showing purchase price versus suggested resale price"
-                        width={240}
-                        height={520}
+                        width={417}
+                        height={918}
                         className="w-[180px] md:w-[200px] lg:w-[220px] h-auto"
                       />
                     </div>
@@ -575,8 +575,8 @@ export default function Page() {
                       <Image
                         src="/images/passiton-materials-chain.png"
                         alt="Material disclosure screen tied to the garment's ownership chain"
-                        width={240}
-                        height={520}
+                        width={417}
+                        height={918}
                         className="w-[180px] md:w-[200px] lg:w-[220px] h-auto"
                       />
                     </div>
@@ -585,7 +585,7 @@ export default function Page() {
                 </div>
 
                 {/* Feature Description */}
-                <div className="border border-foreground/10 rounded-2xl p-6 md:p-8 lg:self-center">
+                <div className="w-full max-w-2xl border border-foreground/10 rounded-2xl p-6 md:p-8">
                   <h3 className="text-base md:text-lg font-medium tracking-tight">
                     High-Fidelity: Condition & Materials
                   </h3>
