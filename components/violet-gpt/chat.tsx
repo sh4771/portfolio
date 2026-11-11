@@ -123,6 +123,18 @@ export default function VioletChat({ open, onClose }: { open: boolean; onClose: 
     if (!compact) headingRef.current?.focus()
   }, [open, compact])
 
+  // A click or tap anywhere outside Mini closes her. The dock button toggles on its own.
+  useEffect(() => {
+    if (!open) return
+    const onDown = (e: PointerEvent) => {
+      const t = e.target as Element | null
+      if (!t || t.closest("#violet-gpt-panel") || t.closest('[aria-label^="Open Mini Violet"]')) return
+      onClose()
+    }
+    document.addEventListener("pointerdown", onDown)
+    return () => document.removeEventListener("pointerdown", onDown)
+  }, [open, onClose])
+
   useEffect(() => {
     if (shown && compact) inputRef.current?.focus({ preventScroll: true })
   }, [shown, compact])

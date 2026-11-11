@@ -10,10 +10,10 @@ import { cn } from "@/lib/utils"
 /* ---------- what I built: the numbers lead ---------- */
 
 const BUILT = [
-  { n: 0, to: 1, show: "0→1", label: "event platform launched at Vendelux", img: "/images/vendelux-cover-poster.jpg" },
-  { n: 200, suffix: "+", label: "screens shipped for an AI scheduling app", img: "/images/schedulink.jpg" },
-  { n: 4, label: "product surfaces running on one component schema", img: "/images/vendelux/segments-library.png" },
-  { n: 1, label: "wearable designed for spinal cord injury patients", img: "/images/cast.jpg" },
+  { n: 0, to: 1, show: "0→1", label: "event platform launched at Vendelux", href: "/work/vendelux" },
+  { n: 200, suffix: "+", label: "screens shipped for an AI scheduling app", href: "/work/schedulink" },
+  { n: 4, label: "product surfaces running on one component schema", href: "/work/vendelux" },
+  { n: 1, label: "wearable designed for spinal cord injury patients", href: "/work/cast" },
 ]
 
 /** One short line per card: what was built there. */
@@ -27,6 +27,15 @@ const HEADLINE: Record<string, string> = {
   "Women in Computing, NYU": "Helped place 30+ women in roles",
 }
 
+/** Where each card's peek leads, and the picture it shows. */
+const PAGE: Record<string, string> = {
+  Vendelux: "/work/vendelux",
+  "Columbia Robotics and Rehabilitation Lab": "/work/cast",
+  "Stealth Startup": "/work/schedulink",
+  "PASSIT ON": "/work/passiton",
+  "Greener Walking Routes": "/work/greener-routes",
+}
+
 const PREVIEW: Record<string, string> = {
   Vendelux: "/images/vendelux-cover-poster.jpg",
   "Columbia Robotics and Rehabilitation Lab": "/images/robotics-lab.jpg",
@@ -34,40 +43,6 @@ const PREVIEW: Record<string, string> = {
   "PASSIT ON": "/images/covers/posters/covers-passiton-poster.jpg",
   "Greener Walking Routes": "/images/covers/greener-routes/p1.webp",
   "Design and Engineering Club, NYU": "/images/experience-design-engineering.jpg",
-}
-
-/* ---------- hover preview: an image follows the cursor over anything with a preview ---------- */
-
-type Preview = { src: string; x: number; y: number } | null
-
-function usePreview() {
-  const [preview, setPreview] = useState<Preview>(null)
-  const [fine, setFine] = useState(false)
-  useEffect(() => setFine(window.matchMedia("(hover: hover) and (pointer: fine)").matches), [])
-  const bind = useCallback(
-    (src?: string) =>
-      !src || !fine
-        ? {}
-        : {
-            onMouseEnter: (e: React.MouseEvent) => setPreview({ src, x: e.clientX, y: e.clientY }),
-            onMouseMove: (e: React.MouseEvent) => setPreview({ src, x: e.clientX, y: e.clientY }),
-            onMouseLeave: () => setPreview(null),
-          },
-    [fine],
-  )
-  const layer = (
-    <div
-      aria-hidden
-      className={cn(
-        "pointer-events-none fixed left-0 top-0 z-[70] h-[170px] w-[240px] overflow-hidden rounded-2xl bg-muted shadow-[0_24px_50px_-16px_rgba(28,26,22,0.45)] ring-1 ring-black/5 transition-[opacity,scale] duration-200 ease-out",
-        preview ? "scale-100 opacity-100" : "scale-90 opacity-0",
-      )}
-      style={{ transform: preview ? `translate(${Math.min(preview.x + 20, window.innerWidth - 260)}px, ${preview.y - 190}px) rotate(-3deg)` : undefined }}
-    >
-      {preview && <Image key={preview.src} src={preview.src} alt="" fill sizes="240px" className="object-cover" />}
-    </div>
-  )
-  return { bind, layer }
 }
 
 /* ---------- small pieces ---------- */
@@ -132,7 +107,7 @@ function Count({ to, suffix = "", show }: { to: number; suffix?: string; show?: 
   )
 }
 
-function DeckCard({ e, bind, i }: { e: ResumeEntry; bind: ReturnType<typeof usePreview>["bind"]; i: number }) {
+function DeckCard({ e, i }: { e: ResumeEntry; i: number }) {
   const [open, setOpen] = useState(false)
   const title = e.link ? (
     <Link href={e.link} className="inline-flex items-center gap-1 hover:underline hover:underline-offset-4">
@@ -144,7 +119,6 @@ function DeckCard({ e, bind, i }: { e: ResumeEntry; bind: ReturnType<typeof useP
   )
   return (
     <article
-      {...bind(PREVIEW[e.name])}
       className="flex w-[min(320px,82vw)] shrink-0 snap-start flex-col gap-4 rounded-3xl border border-border/60 bg-card p-5 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-20px_rgba(28,26,22,0.35)] motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-3 motion-safe:fill-mode-both"
       style={{ animationDelay: `${i * 60}ms` }}
     >
@@ -160,17 +134,32 @@ function DeckCard({ e, bind, i }: { e: ResumeEntry; bind: ReturnType<typeof useP
       <div className="mt-auto">
         <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} className="inline-flex items-center gap-1.5 text-xs font-semibold text-foreground/60 transition-colors hover:text-foreground">
           {open ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
-          {open ? "Less" : "Details"}
+          {open ? "Close" : PAGE[e.name] ? "Quick peek" : "Details"}
         </button>
-        {open && (
-          <ul className="mt-3 space-y-2 motion-safe:animate-in motion-safe:fade-in">
-            {e.bullets.map((b) => (
-              <li key={b} className="text-[13px] leading-relaxed text-foreground/65 text-pretty">
-                <Rich text={b} />
-              </li>
-            ))}
-          </ul>
-        )}
+        {/* A quick look at what was built, with a way into the full project. */}
+        <div className={cn("grid transition-[grid-template-rows,opacity] duration-500 ease-[cubic-bezier(.2,.8,.2,1)]", open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0")}>
+          <div className="min-h-0 overflow-hidden">
+            <div className="space-y-3 pt-3">
+              {PREVIEW[e.name] ? (
+                <div className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-muted">
+                  <Image src={PREVIEW[e.name]} alt={`${e.name} preview`} fill sizes="300px" className={cn("object-cover transition-transform duration-700", open ? "scale-100" : "scale-110")} />
+                </div>
+              ) : null}
+              <ul className="space-y-1.5">
+                {e.bullets.slice(0, PAGE[e.name] ? 1 : 3).map((b) => (
+                  <li key={b} className="text-[13px] leading-relaxed text-foreground/65 text-pretty">
+                    <Rich text={b} />
+                  </li>
+                ))}
+              </ul>
+              {PAGE[e.name] && (
+                <Link href={PAGE[e.name]} tabIndex={open ? 0 : -1} className="inline-flex items-center gap-1.5 rounded-full bg-foreground px-4 py-2 text-xs font-semibold text-background transition-opacity hover:opacity-85">
+                  View project <ArrowUpRight className="h-3.5 w-3.5" />
+                </Link>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
     </article>
   )
@@ -179,7 +168,6 @@ function DeckCard({ e, bind, i }: { e: ResumeEntry; bind: ReturnType<typeof useP
 /* ---------- the section ---------- */
 
 export function ResumeDeck() {
-  const { bind, layer } = usePreview()
   const deckRef = useRef<HTMLDivElement>(null)
   const nudge = (dir: 1 | -1) => deckRef.current?.scrollBy({ left: dir * 336, behavior: "smooth" })
   const cards = [...EXPERIENCE, ...PROJECTS, ...LEADERSHIP]
@@ -198,16 +186,18 @@ export function ResumeDeck() {
 
       <ul className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         {BUILT.map((b, i) => (
-          <li
-            key={b.label}
-            {...bind(b.img)}
-            className="group rounded-3xl border border-border/60 bg-card p-5 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-20px_rgba(28,26,22,0.35)] motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-3 motion-safe:fill-mode-both"
+          <li key={b.label}>
+          <Link
+            href={b.href}
+            className="group block h-full rounded-3xl border border-border/60 bg-card p-5 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-20px_rgba(28,26,22,0.35)] motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-3 motion-safe:fill-mode-both"
             style={{ animationDelay: `${i * 70}ms` }}
           >
             <p className="text-4xl font-semibold tracking-tight text-foreground">
               <Count to={b.to ?? b.n} suffix={b.suffix} show={b.show} />
             </p>
             <p className="mt-2 text-sm leading-snug text-foreground/60">{b.label}</p>
+            <ArrowUpRight className="mt-3 h-4 w-4 text-foreground/30 transition-[color,transform] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground" />
+          </Link>
           </li>
         ))}
       </ul>
@@ -224,9 +214,9 @@ export function ResumeDeck() {
             </button>
           </div>
         </div>
-        <div ref={deckRef} className="-mx-6 flex snap-x snap-mandatory scroll-px-6 items-stretch gap-3 overflow-x-auto px-6 pb-3 pt-1 [scrollbar-width:none]">
+        <div ref={deckRef} className="-mx-6 flex snap-x snap-mandatory scroll-px-6 items-start gap-3 overflow-x-auto px-6 pb-3 pt-1 [scrollbar-width:none]">
           {cards.map((e, i) => (
-            <DeckCard key={e.name} e={e} bind={bind} i={i} />
+            <DeckCard key={e.name} e={e} i={i} />
           ))}
         </div>
       </div>
@@ -278,7 +268,6 @@ export function ResumeDeck() {
           </div>
         </div>
       </div>
-      {layer}
     </div>
   )
 }

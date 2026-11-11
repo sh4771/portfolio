@@ -58,8 +58,10 @@ export function VioletGPTLauncher() {
   }, [pathname])
 
   const close = useCallback(() => {
+    // Return focus to the dock only if it was inside Mini; an outside click keeps focus where the visitor put it.
+    const inside = !!document.activeElement?.closest("#violet-gpt-panel")
     setOpen(false)
-    requestAnimationFrame(() => document.querySelector<HTMLButtonElement>('[aria-label^="Open Mini Violet"]')?.focus())
+    if (inside) requestAnimationFrame(() => document.querySelector<HTMLButtonElement>('[aria-label^="Open Mini Violet"]')?.focus())
   }, [])
 
   return (
