@@ -5,18 +5,23 @@ import Image from "next/image"
 import {
   ArrowUpRight,
   Briefcase,
+  Coffee,
   FileText,
   GraduationCap,
+  Hand,
+  Eye,
   Linkedin,
   Mail,
+  Sparkles,
+  type LucideIcon,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-const NAV = [
-  { id: "hello", label: "Hello" },
-  { id: "at-a-glance", label: "At a glance" },
-  { id: "off-the-clock", label: "Off the clock" },
-  { id: "fun-fact", label: "Fun fact" },
+const NAV: { id: string; label: string; icon: LucideIcon }[] = [
+  { id: "hello", label: "Hello", icon: Hand },
+  { id: "at-a-glance", label: "At a glance", icon: Eye },
+  { id: "off-the-clock", label: "Off the clock", icon: Coffee },
+  { id: "fun-fact", label: "Fun fact", icon: Sparkles },
 ]
 
 const INTRO = [
@@ -538,9 +543,10 @@ export function AboutExperience() {
             <p className="text-sm text-foreground/55">Product designer, New York</p>
           </div>
           <nav aria-label="On this page">
-            <ol className="space-y-0.5">
+            <ol>
               {NAV.map((n) => {
                 const on = active === n.id
+                const Icon = n.icon
                 return (
                   <li key={n.id}>
                     <a
@@ -548,11 +554,11 @@ export function AboutExperience() {
                       onClick={(e) => goTo(e, n.id)}
                       aria-current={on ? "location" : undefined}
                       className={cn(
-                        "group flex items-center gap-3 py-1.5 text-sm transition-colors",
+                        "group flex h-11 items-center gap-3 text-[15px] font-medium transition-colors",
                         on ? "text-foreground" : "text-foreground/45 hover:text-foreground/80",
                       )}
                     >
-                      <span aria-hidden className={cn("h-px transition-all duration-300", on ? "w-8 bg-foreground" : "w-4 bg-foreground/30 group-hover:w-6")} />
+                      <Icon aria-hidden className="h-[19px] w-[19px] shrink-0" strokeWidth={2} />
                       {n.label}
                     </a>
                   </li>
@@ -560,13 +566,19 @@ export function AboutExperience() {
               })}
             </ol>
           </nav>
-          <div className="space-y-2 border-t border-border/60 pt-6 text-sm text-foreground/60">
-            <a href="/resume" className="flex items-center gap-1.5 hover:text-foreground">
-              Résumé PDF <ArrowUpRight className="h-3.5 w-3.5" />
+          <div className="border-t border-border/60 pt-4 text-[15px] font-medium text-foreground/45">
+            <a href="/resume" className="flex h-11 items-center gap-3 transition-colors hover:text-foreground/80">
+              <FileText aria-hidden className="h-[19px] w-[19px] shrink-0" strokeWidth={2} />
+              Resume
             </a>
-            <a href="mailto:violethyun@nyu.edu" className="block hover:text-foreground">violethyun@nyu.edu</a>
-            <a href="https://www.linkedin.com/in/violet-hyun/" target="_blank" rel="noreferrer" className="flex items-center gap-1.5 hover:text-foreground">
-              LinkedIn <ArrowUpRight className="h-3.5 w-3.5" />
+            <a href="mailto:violethyun@nyu.edu" className="flex h-11 items-center gap-3 transition-colors hover:text-foreground/80">
+              <Mail aria-hidden className="h-[19px] w-[19px] shrink-0" strokeWidth={2} />
+              Email
+            </a>
+            <a href="https://www.linkedin.com/in/violet-hyun/" target="_blank" rel="noreferrer" className="flex h-11 items-center gap-3 transition-colors hover:text-foreground/80">
+              <Linkedin aria-hidden className="h-[19px] w-[19px] shrink-0" strokeWidth={2} />
+              LinkedIn
+              <ArrowUpRight className="h-3.5 w-3.5" />
             </a>
           </div>
         </div>
