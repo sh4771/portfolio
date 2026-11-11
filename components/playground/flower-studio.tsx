@@ -113,7 +113,15 @@ export function FlowerStudio() {
         if (d.shared) {
           setShared(true)
           setCare(d.care ?? {})
-          setGarden([...d.flowers, ...SEED_FLOWERS])
+          // Flowers this visitor planted stay too, even if one never reached the shared garden.
+          let mine: Flower[] = []
+          try {
+            mine = JSON.parse(localStorage.getItem(LOCAL_KEY) || "[]") as Flower[]
+          } catch {
+            /* none */
+          }
+          const ids = new Set(d.flowers.map((f) => f.id))
+          setGarden([...mine.filter((f) => !ids.has(f.id)), ...d.flowers, ...SEED_FLOWERS])
         } else throw new Error("local")
       })
       .catch(() => {
@@ -194,8 +202,9 @@ export function FlowerStudio() {
         /* falls through */
       }
     }
-    if (!saved) {
-      saved = { ...payload, at: new Date().toISOString() } as Flower
+    if (!saved) saved = { ...payload, at: new Date().toISOString() } as Flower
+    {
+      // Every visitor keeps a copy of what they planted, so it's always there when they come back.
       try {
         const mine = JSON.parse(localStorage.getItem(LOCAL_KEY) || "[]") as Flower[]
         localStorage.setItem(LOCAL_KEY, JSON.stringify([saved, ...mine].slice(0, 40)))

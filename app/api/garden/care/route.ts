@@ -21,7 +21,10 @@ export async function POST(request: Request) {
   if (!id || !kind) return NextResponse.json({ error: "Unknown flower." }, { status: 400 })
   try {
     const stamp = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
-    await put(`${CARE_PREFIX}${id}/${kind}/${stamp}`, "1", { access: "private", contentType: "text/plain", addRandomSuffix: false })
+    const path = `${CARE_PREFIX}${id}/${kind}/${stamp}`
+    await put(path, "1", { access: "private", contentType: "text/plain", addRandomSuffix: false }).catch(() =>
+      put(path, "1", { access: "public", contentType: "text/plain", addRandomSuffix: false }),
+    )
     return NextResponse.json({ ok: true })
   } catch (err) {
     console.error("[garden] care failed", err)

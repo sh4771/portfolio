@@ -46,7 +46,9 @@ export function Garden({
   care: Record<string, Care>
   onCare: (id: string, kind: CareKind) => void
 }) {
-  const shown = flowers.slice(0, 36)
+  // Every flower stays. Past about 36 the meadow grows wider and scrolls sideways.
+  const shown = flowers
+  const meadow = Math.max(100, Math.ceil(shown.length / 36) * 100)
   const [open, setOpen] = useState<string | null>(null)
   const [effect, setEffect] = useState<{ id: string; kind: CareKind; key: number } | null>(null)
   const [raining, setRaining] = useState(false)
@@ -109,6 +111,8 @@ export function Garden({
       </div>
 
       <div className="relative h-[440px] overflow-hidden rounded-3xl sm:h-[480px]" style={{ background: "linear-gradient(#eaf5ff 0%, #f4f9ee 55%, #d9ecc6 56%, #c4e0ab 100%)" }}>
+        <div className="absolute inset-0 overflow-x-auto overflow-y-hidden [scrollbar-width:thin]">
+        <div className="relative h-full" style={{ width: `${meadow}%` }}>
         {/* hills */}
         <svg aria-hidden viewBox="0 0 100 40" preserveAspectRatio="none" className="absolute inset-x-0 bottom-0 h-[52%] w-full">
           <path d="M0 14 C18 4 34 10 50 12 C68 14 82 4 100 10 L100 40 L0 40Z" fill="#cfe6b6" />
@@ -162,6 +166,9 @@ export function Garden({
             </div>
           )
         })}
+
+        </div>
+        </div>
 
         {/* The care card sits at the top of the garden so it never gets cut off. */}
         {current && (

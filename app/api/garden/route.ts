@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { get, list, put } from "@vercel/blob"
+import { del, get, list, put } from "@vercel/blob"
 import { sanitizeFlower, type Flower } from "@/lib/flower"
 import { CARE_PREFIX, tallyCare } from "@/lib/garden-care"
 
@@ -11,26 +11,60 @@ import { CARE_PREFIX, tallyCare } from "@/lib/garden-care"
 const PREFIX = "garden/"
 const ready = () => !!(process.env.BLOB_READ_WRITE_TOKEN || process.env.BLOB_STORE_ID)
 
-export async function GET() {
+/** Stores are created private or public; write private when the store allows it, public otherwise. */
+async function save(path: string, body: string, contentType: string) {
+  try {
+    return await put(path, body, { access: "private", contentType, addRandomSuffix: false })
+  } catch (err) {
+    console.warn("[garden] private write failed, trying public", err)
+    return await put(path, body, { access: "public", contentType, addRandomSuffix: false })
+  }
+}
+
+async function read(b: { pathname: string; url: string }) {
+  try {
+    const res = await get(b.pathname, { access: "private" })
+    if (res && res.statusCode === 200) return await new Response(res.stream).text()
+  } catch {
+    /* public store */
+  }
+  const r = await fetch(b.url, { cache: "no-store" })
+  return r.ok ? await r.text() : null
+}
+
+export async function GET(request: Request) {
   if (!ready()) return NextResponse.json({ shared: false, flowers: [] })
+  // Temporary self-test: writes and removes one marker so a deploy can confirm planting works.
+  if (new URL(request.url).searchParams.get("check") === "1") {
+    try {
+      const b = await save(`check/${Date.now()}`, "ok", "text/plain")
+      await del(b.url).catch(() => {})
+      return NextResponse.json({ write: "ok" })
+    } catch (err) {
+      return NextResponse.json({ write: "failed", reason: err instanceof Error ? err.message.slice(0, 300) : "unknown" })
+    }
+  }
   try {
     const page = await list({ prefix: PREFIX, limit: 1000 })
     // File names start with the timestamp, so sorting by name sorts by time.
-    const newest = page.blobs.sort((a, b) => (a.pathname < b.pathname ? 1 : -1)).slice(0, 60)
+    const newest = page.blobs.sort((a, b) => (a.pathname < b.pathname ? 1 : -1)).slice(0, 300)
     const flowers = (
       await Promise.all(
         newest.map(async (b) => {
           try {
-            const res = await get(b.pathname, { access: "private" })
-            if (!res || res.statusCode !== 200) return null
-            return sanitizeFlower(JSON.parse(await new Response(res.stream).text()))
+            const text = await read(b)
+            if (!text) return null
+            const f = sanitizeFlower(JSON.parse(text))
+            // Keep the original planting time instead of the time it was read.
+            if (f) f.at = b.pathname.slice(PREFIX.length, PREFIX.length + 24)
+            return f
           } catch {
             return null
           }
         }),
       )
     ).filter((f): f is Flower => !!f)
-    return NextResponse.json({ shared: true, flowers, care: await readCare() }, { headers: { "Cache-Control": "s-maxage=15, stale-while-revalidate=60" } })
+    return NextResponse.json({ shared: true, flowers, care: await readCare() }, { headers: { "Cache-Control": "no-store" } })
   } catch (err) {
     console.error("[garden] read failed", err)
     return NextResponse.json({ shared: false, flowers: [] })
@@ -50,11 +84,7 @@ export async function POST(request: Request) {
   const flower = sanitizeFlower(body)
   if (!flower) return NextResponse.json({ error: "Draw or build a flower first." }, { status: 400 })
   try {
-    await put(`${PREFIX}${flower.at.replace(/[:.]/g, "-")}-${flower.id}.json`, JSON.stringify(flower), {
-      access: "private",
-      contentType: "application/json",
-      addRandomSuffix: false,
-    })
+    await save(`${PREFIX}${flower.at.replace(/[:.]/g, "-")}-${flower.id}.json`, JSON.stringify(flower), "application/json")
     return NextResponse.json({ flower })
   } catch (err) {
     console.error("[garden] save failed", err)
