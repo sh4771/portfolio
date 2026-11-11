@@ -2,19 +2,13 @@
 
 import { useCallback, useEffect, useRef, useState } from "react"
 import Image from "next/image"
-import Link from "next/link"
-import { COURSEWORK, EARLIER, EDUCATION, EXPERIENCE, LEADERSHIP, PROJECTS, RESUME_PDF, SKILLS, type ResumeEntry } from "@/lib/resume"
+import { RESUME_PDF } from "@/lib/resume"
+import { ResumeDeck } from "@/components/about/resume-deck"
 import {
-  ArrowUpRight,
-  Briefcase,
   Coffee,
   Download,
   FileText,
-  GraduationCap,
   Hand,
-  Eye,
-  Linkedin,
-  Mail,
   Sparkles,
   type LucideIcon,
 } from "lucide-react"
@@ -34,41 +28,6 @@ const INTRO = [
 ]
 
 /* ---------- small pieces ---------- */
-
-function Logo({ domain, logo, label }: { domain?: string; logo?: string; label: string }) {
-  // Try a local logo file first, then two favicon services, then fall back to the initial.
-  const sources = [
-    logo,
-    domain && `https://www.google.com/s2/favicons?domain=${domain}&sz=64`,
-    domain && `https://icons.duckduckgo.com/ip3/${domain}.ico`,
-  ].filter(Boolean) as string[]
-  const [idx, setIdx] = useState(0)
-  const imgRef = useRef<HTMLImageElement>(null)
-  const next = useCallback(() => setIdx((i) => i + 1), [])
-  // A source can fail before hydration attaches onError; check after each swap.
-  useEffect(() => {
-    const img = imgRef.current
-    if (img && img.complete && img.naturalWidth === 0) next()
-  }, [idx, next])
-  const src = sources[idx]
-  return (
-    <span className="grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-xl border border-border/60 bg-white">
-      {src ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          key={src}
-          ref={imgRef}
-          src={src}
-          alt=""
-          className={src === logo ? "h-full w-full object-cover" : "h-5 w-5 object-contain"}
-          onError={next}
-        />
-      ) : (
-        <span className="text-xs font-semibold text-neutral-500">{label.slice(0, 1)}</span>
-      )}
-    </span>
-  )
-}
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return <p className="text-xs font-medium tracking-[0.16em] text-foreground/50 uppercase">{children}</p>
@@ -321,154 +280,6 @@ function Hello() {
 }
 
 /* Numbers in **double stars** render bold, matching the PDF. */
-function Rich({ text }: { text: string }) {
-  return (
-    <>
-      {text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
-        part.startsWith("**") ? (
-          <strong key={i} className="font-semibold text-foreground">
-            {part.slice(2, -2)}
-          </strong>
-        ) : (
-          <span key={i}>{part}</span>
-        ),
-      )}
-    </>
-  )
-}
-
-function ResumeGroup({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <section className="space-y-7">
-      <h3 className="border-b border-border/60 pb-3 text-xs font-semibold tracking-[0.14em] text-foreground/55 uppercase">{title}</h3>
-      {children}
-    </section>
-  )
-}
-
-function EntryBlock({ e }: { e: ResumeEntry }) {
-  const name = e.link ? (
-    <Link href={e.link} className="group/l inline-flex items-center gap-1 hover:underline hover:decoration-foreground/30 hover:underline-offset-4">
-      {e.name}
-      <ArrowUpRight className="h-4 w-4 text-foreground/40 transition-colors group-hover/l:text-foreground" />
-    </Link>
-  ) : (
-    e.name
-  )
-  return (
-    <article className="grid grid-cols-[36px_minmax(0,1fr)] gap-x-4">
-      <Logo logo={e.logo} domain={e.domain} label={e.name} />
-      <div className="space-y-2">
-        <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5">
-          <h4 className="text-base font-semibold tracking-tight text-foreground">{name}</h4>
-          {e.when ? <span className="text-sm tabular-nums text-foreground/50">{e.when}</span> : null}
-        </div>
-        <p className="text-sm text-foreground/55">{e.role}</p>
-        <ul className="space-y-1.5 pt-1">
-          {e.bullets.map((b) => (
-            <li key={b} className="relative pl-4 text-[15px] leading-relaxed text-foreground/70 text-pretty before:absolute before:left-0 before:top-[0.8em] before:h-px before:w-2 before:bg-foreground/40">
-              <Rich text={b} />
-            </li>
-          ))}
-        </ul>
-      </div>
-    </article>
-  )
-}
-
-function Resume() {
-  return (
-    <div className="w-full space-y-10">
-      <div className="flex flex-wrap items-end justify-between gap-6">
-        <SectionHeader eyebrow="Resume" title="Experience and education" />
-        <a href={RESUME_PDF} download className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-85">
-          <Download className="h-4 w-4" />
-          Download PDF
-        </a>
-      </div>
-
-      <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-16">
-        <div className="space-y-14">
-          <ResumeGroup title="Experience">
-            {EXPERIENCE.map((e) => (
-              <EntryBlock key={e.name} e={e} />
-            ))}
-            <div className="space-y-2 pt-2">
-              <p className="text-xs font-medium text-foreground/45">Earlier</p>
-              <ul className="space-y-1">
-                {EARLIER.map((e) => (
-                  <li key={e.name}>
-                    <a href={e.href} target="_blank" rel="noreferrer" className="-mx-2 flex items-center gap-4 rounded-xl px-2 py-1.5 transition-colors hover:bg-muted/60">
-                      <Logo logo={e.logo} label={e.name} />
-                      <span className="min-w-0 flex-1">
-                        <span className="block text-sm font-medium text-foreground">{e.name}</span>
-                        <span className="block text-xs text-foreground/55">{e.role}</span>
-                      </span>
-                      <span className="text-xs tabular-nums text-foreground/45">{e.when}</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </ResumeGroup>
-          <ResumeGroup title="Projects">
-            {PROJECTS.map((e) => (
-              <EntryBlock key={e.name} e={e} />
-            ))}
-          </ResumeGroup>
-          <ResumeGroup title="Leadership">
-            {LEADERSHIP.map((e) => (
-              <EntryBlock key={e.name} e={e} />
-            ))}
-          </ResumeGroup>
-        </div>
-
-        <aside className="space-y-12">
-          <ResumeGroup title="Education">
-            {EDUCATION.map((ed) => (
-              <div key={ed.school} className="grid grid-cols-[36px_minmax(0,1fr)] gap-x-4">
-                <Logo logo={"logo" in ed ? ed.logo : undefined} domain={"domain" in ed ? ed.domain : undefined} label={ed.school} />
-                <div className="space-y-0.5">
-                  <p className="text-sm tabular-nums text-foreground/50">{ed.when}</p>
-                  <p className="font-semibold tracking-tight text-foreground">{ed.school}</p>
-                  <p className="text-sm text-foreground/60">{ed.degree}</p>
-                </div>
-              </div>
-            ))}
-          </ResumeGroup>
-          <ResumeGroup title="Coursework">
-            <ul className="flex flex-wrap gap-2">
-              {COURSEWORK.map((c) => (
-                <li key={c} className="rounded-full border border-border/70 px-3 py-1 text-sm text-foreground/70">
-                  {c}
-                </li>
-              ))}
-            </ul>
-          </ResumeGroup>
-          <ResumeGroup title="Skills">
-            {SKILLS.map((sk) => (
-              <div key={sk.k} className="space-y-1">
-                <p className="text-sm font-semibold text-foreground">{sk.k}</p>
-                <p className="text-sm text-foreground/60">{sk.v}</p>
-              </div>
-            ))}
-          </ResumeGroup>
-          <ResumeGroup title="Contact">
-            <div className="space-y-1 text-sm text-foreground/70">
-              <a href="mailto:violethyun@nyu.edu" className="flex items-center gap-2.5 py-1 hover:text-foreground">
-                <Mail className="h-4 w-4" /> violethyun@nyu.edu
-              </a>
-              <a href="https://www.linkedin.com/in/violet-hyun/" target="_blank" rel="noreferrer" className="flex items-center gap-2.5 py-1 hover:text-foreground">
-                <Linkedin className="h-4 w-4" /> linkedin.com/in/violet-hyun <ArrowUpRight className="h-3.5 w-3.5" />
-              </a>
-            </div>
-          </ResumeGroup>
-        </aside>
-      </div>
-    </div>
-  )
-}
-
 const HOBBIES = [
   {
     title: "Food is my love language.",
@@ -499,15 +310,15 @@ function OffTheClock() {
   return (
     <div className="w-full space-y-10">
       <SectionHeader eyebrow="Off the clock" title="When I'm not designing" />
-      <div className="grid gap-12 lg:grid-cols-2 lg:gap-10">
-        {HOBBIES.map((h) => (
-          <div key={h.title} className="space-y-4">
+      <div className="grid gap-3 lg:grid-cols-2">
+        {HOBBIES.map((h, i) => (
+          <div key={h.title} className="space-y-4 rounded-3xl border border-border/60 bg-card p-4 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-20px_rgba(28,26,22,0.35)] motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-3 motion-safe:fill-mode-both" style={{ animationDelay: `${i * 80}ms` }}>
             <div className="grid grid-cols-3 gap-2.5">
               {h.photos.map((ph) => (
                 <Photo key={ph.src} src={ph.src} alt={ph.alt} sizes="(min-width: 1024px) 180px, 30vw" />
               ))}
             </div>
-            <div className="space-y-1">
+            <div className="space-y-1 px-1 pb-1">
               <p className="text-sm font-semibold text-foreground">{h.title}</p>
               <p className="max-w-[460px] text-sm leading-relaxed text-foreground/65">{h.body}</p>
             </div>
@@ -520,8 +331,8 @@ function OffTheClock() {
 
 function FunFact() {
   return (
-    <div className="grid w-full items-center gap-10 sm:grid-cols-[minmax(0,220px)_minmax(0,1fr)] lg:gap-14">
-      <figure className="mx-auto w-full max-w-[220px]">
+    <div className="grid w-full items-center gap-8 rounded-[32px] bg-[#f4ecfb] p-5 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)] sm:p-8 lg:gap-12 dark:bg-[#2a2230]">
+      <figure className="mx-auto w-full max-w-[200px] -rotate-2 transition-transform duration-500 hover:rotate-0">
         <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-muted/50">
           <Image src="/images/about-chunhyang.jpg" alt="Violet backstage at the Global Miss Chunhyang pageant, holding a violin" fill className="object-cover" sizes="220px" />
         </div>
@@ -543,7 +354,7 @@ function FunFact() {
 
 const SECTIONS: [string, () => React.JSX.Element][] = [
   ["hello", Hello],
-  ["resume", Resume],
+  ["resume", ResumeDeck],
   ["off-the-clock", OffTheClock],
   ["fun-fact", FunFact],
 ]
@@ -615,7 +426,7 @@ export function AboutExperience() {
           ))}
         </nav>
 
-        <div className="space-y-28 lg:space-y-36">
+        <div className="space-y-20 lg:space-y-24">
           {SECTIONS.map(([id, S]) => (
             <section key={id} id={id} aria-label={NAV.find((n) => n.id === id)?.label} className="scroll-mt-32">
               <S />

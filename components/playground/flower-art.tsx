@@ -18,8 +18,13 @@ const isPale = (hex: string) => {
   return 0.2126 * r + 0.7152 * g + 0.0722 * b > 225
 }
 
-/** Faint veins running from the base of a petal toward its tip. */
-const VEINS = ["M0 -0.02 C0.01 -0.35 0 -0.6 0 -0.9", "M0 -0.04 C0.06 -0.3 0.12 -0.55 0.16 -0.78", "M0 -0.04 C-0.06 -0.3 -0.12 -0.55 -0.16 -0.78", "M0 -0.06 C0.1 -0.25 0.2 -0.4 0.24 -0.58", "M0 -0.06 C-0.1 -0.25 -0.2 -0.4 -0.24 -0.58"]
+/** Fine striations fanning from the base past the tip; clipped to the petal so every shape works. */
+const STRIATIONS = Array.from({ length: 15 }, (_, i) => {
+  const t = (i / 14) * 2 - 1
+  return `M0 0 Q${(t * 0.22).toFixed(3)} -0.5 ${(t * 0.42).toFixed(3)} -1.05`
+})
+/** Nested, slightly twisted copies of the outline: the spirograph line texture. */
+const RINGS = Array.from({ length: 18 }, (_, i) => ({ s: 0.22 + i * 0.046, r: (i - 9) * 0.9 }))
 
 /**
  * Draws any playground flower as SVG, in a translucent x-ray style: layered petals that
@@ -34,6 +39,9 @@ export function FlowerArt({ f, className, title, ...svg }: { f: Art; className?:
   const g1 = `fa-${uid}-1`
   const g2 = `fa-${uid}-2`
   const glow = `fa-${uid}-g`
+  const clip = `fa-${uid}-c`
+  const pet = (t: number) => `fa-${uid}-p${t}`
+  const len = (t: number) => `fa-${uid}-l${t}`
 
   // Outer tier, a second tier of the same color tucked between them, then the inner color.
   const tiers: { scale: number; offset: number; grad: string; ink: string; count: number }[] = [
@@ -61,6 +69,34 @@ export function FlowerArt({ f, className, title, ...svg }: { f: Art; className?:
           <stop offset="0" stopColor={f.center} stopOpacity="0.55" />
           <stop offset="1" stopColor={f.center} stopOpacity="0" />
         </radialGradient>
+        <clipPath id={clip}>
+          <path d={outline} />
+        </clipPath>
+        {tiers.map((t, ti) => {
+          const base = t.grad === g2 ? f.color2 : f.color
+          return (
+            <g key={ti}>
+              {/* Along the petal: deeper at the base, light in the middle, color returning at the rim. */}
+              <linearGradient id={len(ti)} x1="0" y1="0" x2="0" y2="-1" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stopColor={t.ink} stopOpacity="0.9" />
+                <stop offset="0.45" stopColor={base} stopOpacity="0.35" />
+                <stop offset="1" stopColor={t.ink} stopOpacity="0.85" />
+              </linearGradient>
+              <g id={pet(ti)}>
+                <path d={outline} fill={`url(#${t.grad})`} />
+                <g clipPath={`url(#${clip})`}>
+                  {STRIATIONS.map((d, i) => (
+                    <path key={i} d={d} fill="none" stroke={t.ink} strokeOpacity={0.22} strokeWidth={0.003} />
+                  ))}
+                  {RINGS.map((r, i) => (
+                    <path key={i} d={outline} fill="none" stroke={`url(#${len(ti)})`} strokeOpacity={0.5} vectorEffect="non-scaling-stroke" strokeWidth={0.5} transform={`rotate(${r.r}) scale(${r.s})`} />
+                  ))}
+                </g>
+                <path d={outline} fill="none" stroke={`url(#${len(ti)})`} strokeWidth={0.008} />
+              </g>
+            </g>
+          )
+        })}
       </defs>
 
       {f.mode === "draw" && f.strokes ? (
@@ -79,14 +115,7 @@ export function FlowerArt({ f, className, title, ...svg }: { f: Art; className?:
           Array.from({ length: t.count }, (_, k) => {
             const rot = k * step + t.offset + (jitter(k, ti) - 0.5) * 8
             const sc = t.scale * (0.94 + jitter(k, ti + 3) * 0.1)
-            return (
-              <g key={`${ti}-${k}`} transform={`rotate(${rot}) scale(${sc})`}>
-                <path d={outline} fill={`url(#${t.grad})`} stroke={t.ink} strokeOpacity={0.7} strokeWidth={0.01} />
-                {VEINS.map((v, vi) => (
-                  <path key={vi} d={v} fill="none" stroke={t.ink} strokeOpacity={0.3} strokeWidth={0.005} />
-                ))}
-              </g>
-            )
+            return <use key={`${ti}-${k}`} href={`#${pet(ti)}`} transform={`rotate(${rot}) scale(${sc})`} />
           }),
         )
       )}
