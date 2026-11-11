@@ -19,6 +19,7 @@ const PROJECT_NAMES: Record<string, string> = {
   segments: "Segments",
   "campaign-admin": "Campaign Admin",
   "meeting-planner": "Meeting Planner",
+  "roi-calculator": "ROI Calculator",
   planner: "Planner",
 }
 

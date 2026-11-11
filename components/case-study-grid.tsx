@@ -66,6 +66,7 @@ const projects: CaseStudy[] = [
         { slug: "segments", readMins: 5, title: "Segments", challenge: "Guiding marketers to the right audience", image: "/images/vendelux/thumbs/segments.jpg" },
         { slug: "campaign-admin", readMins: 10, title: "Campaign Admin", challenge: "Turning a cut feature into a faster setup flow", image: "/images/vendelux/thumbs/campaign-admin.jpg" },
         { slug: "meeting-planner", readMins: 9, title: "Meeting Planner", challenge: "Making a forecast people can trust", image: "/images/vendelux/thumbs/meeting-planner.jpg" },
+        { slug: "roi-calculator", readMins: 6, title: "ROI Calculator", challenge: "Turning a guessed budget into a return people can defend", image: "/images/vendelux/thumbs/roi-calculator.jpg" },
         { slug: "planner", title: "Planner", challenge: "Making dense event data easy to scan", soon: true },
       ],
     },
