@@ -13,9 +13,10 @@ const RESULTS: Record<string, string> = {
   "/work/clinical-trials": "final",
   "/work/cast": "problem",
   "/work/schedulink": "screens",
+  "/work/reconcile": "results",
 }
 
-/** A small "Jump to results" pill on every project page. Hides once the results are on screen. */
+/** A small "Jump to results" pill on every project page that takes 4+ minutes to read. Hides once the results are on screen. */
 export function JumpToResults() {
   const pathname = (usePathname() || "/").replace(/\/$/, "")
   const searchParams = useSearchParams()

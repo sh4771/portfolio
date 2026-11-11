@@ -23,9 +23,9 @@ import { DOCK, miniOffsetFromCenter } from "@/lib/dock"
 
 export const ABOUT_NAV: { id: string; label: string; icon: LucideIcon }[] = [
   { id: "hello", label: "Hello", icon: Hand },
+  { id: "resume", label: "Resume", icon: FileText },
   { id: "off-the-clock", label: "Off the clock", icon: Coffee },
   { id: "fun-fact", label: "Fun fact", icon: Sparkles },
-  { id: "resume", label: "Resume", icon: FileText },
 ]
 const NAV = ABOUT_NAV
 
@@ -304,6 +304,17 @@ function Hello() {
           </p>
           <TypedIntro start={phase === "landed"} />
         </div>
+        {/* The fastest way to the resume: right under the intro */}
+        <div className="flex flex-wrap gap-2">
+          <a href="#resume" className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-85">
+            <FileText className="h-4 w-4" />
+            See my resume
+          </a>
+          <a href={RESUME_PDF} download className="inline-flex items-center gap-2 rounded-full border border-border/70 px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-foreground/40">
+            <Download className="h-4 w-4" />
+            Download PDF
+          </a>
+        </div>
       </div>
     </div>
   )
@@ -517,10 +528,11 @@ function FunFact() {
       </figure>
       <div className="max-w-[560px] space-y-4">
         <Eyebrow>Fun fact</Eyebrow>
-        <h2 className="text-2xl font-semibold leading-snug tracking-tight text-foreground sm:text-[1.75rem]">I care about stories that make people care.</h2>
+        <h2 className="text-2xl font-semibold leading-snug tracking-tight text-foreground sm:text-[1.75rem]">I want to share where I&apos;m from through what I design.</h2>
         <p className="text-[15px] leading-relaxed text-foreground/65">
-          I was Global Miss Chunhyang, a title named after a classic Korean folk tale, and I performed on violin on that stage. It taught me
-          how a story can move a room from knowing something to caring about it, the same gap I try to close in design.
+          I was Global Miss Chunhyang, a title from one of Korea&apos;s representative beauty pageants, and I performed on violin on that stage.
+          Representing Korea made me want to carry its culture into my work, and to tell stories that move people from knowing something to
+          caring about it.
         </p>
       </div>
     </div>
@@ -531,9 +543,9 @@ function FunFact() {
 
 const SECTIONS: [string, () => React.JSX.Element][] = [
   ["hello", Hello],
+  ["resume", Resume],
   ["off-the-clock", OffTheClock],
   ["fun-fact", FunFact],
-  ["resume", Resume],
 ]
 
 export function AboutExperience() {

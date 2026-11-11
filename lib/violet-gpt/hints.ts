@@ -3,11 +3,11 @@ export const HOME_HINT = "Want to get to know Violet? I can help 👋"
 
 export const PAGE_HINTS: Record<string, string> = {
   "/work/vendelux":
-    "Vendelux was Violet's first project she owned end to end, from the first structure to the fixes after launch.",
+    "Vendelux is where Violet's work first shipped to real customers. Her segment filters were queried nearly 2,000 times in week one.",
   "/work/vendelux-locked":
-    "Vendelux was Violet's first project she owned end to end, from the first structure to the fixes after launch.",
+    "Vendelux is where Violet's work first shipped to real customers. Her segment filters were queried nearly 2,000 times in week one.",
   "/work/passiton":
-    "PASSIT ON is Violet's deepest research project. She ran surveys and interviews with Gen Z before she designed a single screen.",
+    "PASSIT ON is Violet's capstone, featured on Columbia GSAPP's thesis archive. She surveyed 50 Gen Z users before designing a single screen.",
   "/work/games4peace":
     "Games4Peace started with one question Violet chased hard: what makes an experience feel fun and rewarding?",
   "/work/greener-routes":
@@ -17,7 +17,13 @@ export const PAGE_HINTS: Record<string, string> = {
   "/work/cast":
     "C.A.S.T is Violet's accessibility work: she designed alongside researchers and people with spinal cord injuries at Columbia's ROAR Lab.",
   "/work/schedulink":
-    "Schedulink grew from Violet's own frustration: texting back and forth while schedules never lined up.",
+    "Schedulink is Violet's startup work. She led design on a 4-person team and took the MVP from concept to shipped in 2 weeks.",
+  "/work/reconcile":
+    "Reconcile is Violet's fintech project. She mapped 45 edge cases so every dollar in a seller payout could be explained.",
+  "/work/along":
+    "Along was a designathon team project. The team talked to 10 New York walkers and turned what they said into sidequests on the way.",
+  "/playground":
+    "This is Violet's playground. Make a flower and plant it so the next visitor can find it 🌸",
   "/work/restaurant-bot":
     "Restaurant Bot is pure love of the game: a live p5.js chatbot Violet built at NYU for the fun of making it.",
 }

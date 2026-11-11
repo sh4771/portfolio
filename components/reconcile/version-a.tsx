@@ -153,7 +153,7 @@ export function VersionA() {
         </div>
         <EdgeCaseGrid />
       </section>
-      <section className="space-y-6">
+      <section id="results" className="scroll-mt-32 space-y-6">
         <div className="max-w-2xl space-y-2">
           <p className="cs-eyebrow">Interactive prototype</p>
           <h2 className="cs-h2">Test the reconciliation workflow.</h2>
