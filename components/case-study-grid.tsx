@@ -4,10 +4,15 @@ import Image from "next/image"
 import Link from "next/link"
 import { Hourglass, Lock } from "lucide-react"
 import { CaseStudyPanel, useDeepLinkedPanel } from "@/components/fun/project-panel"
+import { CoverMeta, ProjectCover, type CoverSpec } from "@/components/project-cover"
 
 export interface CaseStudy {
   slug: string
   title: string
+  /** Short name shown under the cover. */
+  name?: string
+  /** Clean gallery cover built from prototype screens. */
+  cover?: CoverSpec
   /** Minutes to read the case study (words / 230 wpm, plus time for images). */
   readMins?: number
   description: string
@@ -39,6 +44,8 @@ export interface CaseStudy {
 const projects: CaseStudy[] = [
   {
     slug: "vendelux",
+    name: "Vendelux: How event teams target, plan, and connect",
+    cover: { kind: "desktop", bg: "#e7ebf2", screens: [0, 1, 2, 3].map((i) => `/images/covers/vendelux/${i}.webp`) },
     readMins: 24,
     title: "Designing How Event Teams Target, Plan, and Connect",
     description:
@@ -64,6 +71,8 @@ const projects: CaseStudy[] = [
   },
   {
     slug: "passiton",
+    name: "PASSIT ON: Traceable garment lifecycles",
+    cover: { kind: "phone", bg: "#ece6dd", screens: [0, 1, 2, 3].map((i) => `/images/covers/passiton/${i}.webp`) },
     readMins: 8,
     title: "PASSIT ON: Designing Traceable Garment Lifecycles",
     description:
@@ -77,6 +86,8 @@ const projects: CaseStudy[] = [
   },
   {
     slug: "greener-routes",
+    name: "Greener Walking Routes",
+    cover: { kind: "phone", bg: "#dde8da", screens: [0, 1, 2, 3].map((i) => `/images/covers/greener-routes/${i}.webp`) },
     readMins: 5,
     title: "Greener Walking Routes",
     description:
@@ -89,6 +100,8 @@ const projects: CaseStudy[] = [
   },
   {
     slug: "along",
+    name: "Along: Sidequests on your everyday walk",
+    cover: { kind: "phone", bg: "#f7dc6f", screens: [0, 1, 2, 3, 4].map((i) => `/images/covers/along/${i}.webp`) },
     readMins: 3,
     title: "Along: Making the Everyday Walk Worth Taking the Long Way",
     description:
@@ -101,6 +114,8 @@ const projects: CaseStudy[] = [
   },
   {
     slug: "reconcile",
+    name: "Reconcile: Explaining seller payouts",
+    cover: { kind: "phone", bg: "#e6e0fb", screens: [1, 2, 3, 4, 0].map((i) => `/images/covers/reconcile/${i}.webp`) },
     readMins: 4,
     title: "Reconcile: Explaining Why a Seller Payout Doesn't Match",
     description:
@@ -113,6 +128,8 @@ const projects: CaseStudy[] = [
   },
   {
     slug: "games4peace",
+    name: "Games4Peace: Casual play for social impact",
+    cover: { kind: "phone", bg: "#a3c2bb", screens: [0, 1, 2, 3].map((i) => `/images/covers/games4peace/${i}.webp`) },
     readMins: 4,
     title: "Turning Casual Play into Measurable Social Impact",
     description:
@@ -126,6 +143,8 @@ const projects: CaseStudy[] = [
   },
   {
     slug: "schedulink",
+    name: "Schedulink: Real-time plans with friends",
+    cover: { kind: "phone", bg: "#111111", dark: true, screens: [0, 1, 2, 3, 4, 5].map((i) => `/images/covers/schedulink/${i}.webp`) },
     readMins: 4,
     title: "Real-Time Availability for Social Planning",
     description:
@@ -138,6 +157,8 @@ const projects: CaseStudy[] = [
   },
   {
     slug: "cast",
+    name: "C.A.S.T: A stabilizing torso for postural control",
+    cover: { kind: "image", fit: "cover", bg: "#eef1f4", screens: ["/images/cast.jpg"] },
     readMins: 2,
     showOnHomepage: false, // shown in For Fun
     title: "Restoring Postural Control: A Cable-Activated Stabilizing Torso (C.A.S.T)",
@@ -151,6 +172,8 @@ const projects: CaseStudy[] = [
   },
   {
     slug: "clinical-trials",
+    name: "Decision Clarity in Clinical Trials",
+    cover: { kind: "desktop", bg: "#eceef3", screens: [0, 1, 2, 3].map((i) => `/images/covers/clinical-trials/${i}.webp`) },
     readMins: 5,
     showOnHomepage: false, // shown in For Fun
     title: "Designing Decision Clarity in Clinical Trial Systems",
@@ -167,104 +190,27 @@ const projects: CaseStudy[] = [
 
 export function CaseStudyCard({ project, inGroup = false }: { project: CaseStudy; inGroup?: boolean }) {
   const { open, setOpen, onClose } = useDeepLinkedPanel(project.slug)
+  const year = project.tags[0] ?? ""
   return (
     <>
-    <button
-      type="button"
-      onClick={() => setOpen(true)}
-      aria-haspopup="dialog"
-      className={`group block w-full text-left ${project.featured && !inGroup ? "sm:col-span-2" : ""}`}
-    >
-      <article>
-        {/* Image / video mockup */}
-        <div
-          className={`relative w-full overflow-hidden rounded-2xl ${inGroup ? "aspect-[4/3] sm:aspect-[16/10]" : project.featured ? "aspect-[4/3] sm:aspect-[2/1]" : "aspect-[4/3]"} ${project.cardTreatAsLogo ? "bg-white" : "bg-card"}`}
-        >
-          {project.video && project.mockupFrame && project.mockupBounds ? (
-            <div className="absolute inset-0">
-              <div className="relative h-full w-full">
-                <Image
-                  src={project.mockupFrame}
-                  alt={`${project.title} device mockup`}
-                  fill
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                  sizes={project.featured ? "(max-width: 768px) 100vw, 1200px" : "(max-width: 768px) 100vw, 640px"}
-                />
-                <div
-                  className="absolute overflow-hidden rounded-[2px] bg-black"
-                  style={{
-                    left: `${project.mockupBounds.left}%`,
-                    right: `${project.mockupBounds.right}%`,
-                    top: `${project.mockupBounds.top}%`,
-                    bottom: `${project.mockupBounds.bottom}%`,
-                  }}
-                >
-                  <video
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="auto"
-                    className="h-full w-full object-cover"
-                  >
-                    <source src={project.video} type="video/quicktime" />
-                    <source src={project.video} type="video/mp4" />
-                  </video>
-                </div>
-              </div>
-            </div>
-          ) : project.video ? (
-            <div className="absolute inset-0">
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                poster={project.image}
-                className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-              >
-                <source src={project.video} type="video/mp4" />
-              </video>
-            </div>
+      <button type="button" onClick={() => setOpen(true)} aria-haspopup="dialog" className="group block w-full text-left">
+        <article>
+          {project.cover ? (
+            <ProjectCover spec={project.cover} alt={`${project.name ?? project.title} cover`} large={inGroup} className={project.cover.bg === "#ffffff" ? "ring-1 ring-inset ring-black/5" : undefined} />
           ) : (
-            <div className="absolute inset-0">
-              <Image
-                src={project.image}
-                alt={`${project.title} case study preview`}
-                fill
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                sizes={project.featured ? "(max-width: 768px) 100vw, 1200px" : "(max-width: 768px) 100vw, 640px"}
-              />
+            <div className="relative aspect-[3/2] w-full overflow-hidden rounded-2xl bg-card">
+              <Image src={project.image} alt={`${project.title} preview`} fill className="object-cover" sizes="400px" />
             </div>
           )}
-          {project.softSkills.length > 0 && <div className="pointer-events-none absolute inset-0 flex items-end bg-neutral-950/70 p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
-            <div className="flex flex-wrap gap-1.5">
-              {project.softSkills.map((skill) => (
-                <span
-                  key={skill}
-                  className="rounded-full border border-white/30 bg-white/90 px-2.5 py-1 text-xs font-medium text-neutral-900"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>}
-        </div>
-
-        {/* Text below image */}
-        <div className="mt-3 flex items-start justify-between gap-4">
-          <h3 className={`min-w-0 flex-1 ${project.featured ? "text-base" : "text-sm"} font-medium leading-snug tracking-tight text-foreground/80 transition-colors group-hover:text-foreground`}>
-            {project.title}
-            {project.readMins ? <span className="mt-1 block text-xs font-normal text-foreground/45">{project.readMins} min read{project.group ? ` · ${project.group.items.filter((x) => !x.soon).length} projects` : ""}</span> : null}
-          </h3>
-          <span className="shrink-0 text-right text-[10px] uppercase tracking-[0.08em] text-foreground/45">
-            {project.category}
-          </span>
-        </div>
-      </article>
-    </button>
-    <CaseStudyPanel title={project.title} readMins={project.readMins} href={`/work/${project.slug}`} open={open} onClose={onClose} />
+          <CoverMeta
+            year={year}
+            title={project.name ?? project.title}
+            readMins={project.readMins}
+            extra={project.group ? ` · ${project.group.items.filter((x) => !x.soon).length} projects` : undefined}
+          />
+        </article>
+      </button>
+      <CaseStudyPanel title={project.title} readMins={project.readMins} href={`/work/${project.slug}`} open={open} onClose={onClose} />
     </>
   )
 }
@@ -312,7 +258,7 @@ function GroupTile({ parent, item, index }: { parent: CaseStudy; item: NonNullab
 function GroupedCaseStudy({ project }: { project: CaseStudy }) {
   const g = project.group!
   return (
-    <div className="sm:col-span-2">
+    <div className="sm:col-span-2 lg:col-span-3">
       <div className="mb-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-foreground/60">
         <span className="font-medium text-foreground">{g.label}</span>
         <span>· {g.meta}</span>
@@ -328,7 +274,7 @@ function GroupedCaseStudy({ project }: { project: CaseStudy }) {
           )}
         </span>
       </div>
-      <div className="grid gap-4 lg:grid-cols-[1.7fr_1fr]">
+      <div className="grid gap-6 lg:grid-cols-[2.1fr_1fr]">
         <CaseStudyCard project={project} inGroup />
         <ol className="grid content-start gap-3 lg:auto-rows-fr lg:content-stretch">
           {g.items.map((item, i) => (
@@ -349,7 +295,7 @@ export function CaseStudyGrid() {
     <section id="work" className="pb-24 pt-6">
       <div className="mx-auto w-full max-w-[1200px] px-4">
         {/* Two-up grid */}
-        <div className="grid grid-cols-1 gap-x-4 gap-y-16 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {homepageProjects.map((project) =>
             project.group ? (
               <GroupedCaseStudy key={project.slug} project={project} />

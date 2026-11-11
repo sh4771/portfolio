@@ -1,52 +1,18 @@
 "use client"
 
-import Image from "next/image"
 import { CaseStudyCard, projects } from "@/components/case-study-grid"
 import { CaseStudyPanel, FunProjectCard, useDeepLinkedPanel, type PanelProject } from "@/components/fun/project-panel"
-import { SNIFFR_URL, SniffrCover, SniffrDemo } from "@/components/fun/sniffr"
-
-function VideoCover({ video, image, title, softSkills }: { video?: string; image: string; title: string; softSkills?: string[] }) {
-  return (
-    <>
-      <div className="absolute inset-0">
-        {video ? (
-          <video autoPlay muted loop playsInline preload="auto" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]">
-            <source src={video} type="video/quicktime" />
-            <source src={video} type="video/mp4" />
-          </video>
-        ) : (
-          <Image src={image} alt={`${title} preview`} fill className="object-cover transition-transform duration-300 group-hover:scale-[1.02]" sizes="450px" />
-        )}
-      </div>
-      {softSkills && softSkills.length > 0 ? (
-        <div className="pointer-events-none absolute inset-0 flex items-end bg-foreground/65 p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
-          <div className="flex flex-wrap gap-1.5">
-            {softSkills.map((skill) => (
-              <span key={skill} className="rounded-full border border-white/30 bg-white/90 px-2.5 py-1 text-xs font-medium text-neutral-900">
-                {skill}
-              </span>
-            ))}
-          </div>
-        </div>
-      ) : null}
-    </>
-  )
-}
+import { SNIFFR_URL, SniffrDemo } from "@/components/fun/sniffr"
+import { CoverMeta, ProjectCover, type CoverSpec } from "@/components/project-cover"
 
 /* A For Fun project with a case study page: the panel is the case study itself. */
-function FunCaseCard({ slug, title, category, cover, readMins }: { slug: string; title: string; category: string; cover: React.ReactNode; readMins: number }) {
+function FunCaseCard({ slug, title, year, cover, readMins }: { slug: string; title: string; year: string; cover: CoverSpec; readMins: number }) {
   const { open, setOpen, onClose } = useDeepLinkedPanel(slug)
   return (
     <>
       <button type="button" onClick={() => setOpen(true)} className="group block w-full text-left" aria-haspopup="dialog">
-        <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/30 bg-muted/30">{cover}</div>
-        <div className="mt-3 flex items-start justify-between gap-4">
-          <h3 className="min-w-0 flex-1 text-sm font-medium leading-snug tracking-tight text-foreground/80 transition-colors group-hover:text-foreground">
-            {title}
-            <span className="mt-1 block text-xs font-normal text-foreground/45">{readMins} min read</span>
-          </h3>
-          <span className="shrink-0 text-right text-[10px] uppercase tracking-[0.08em] text-foreground/45">{category}</span>
-        </div>
+        <ProjectCover spec={cover} alt={`${title} cover`} />
+        <CoverMeta year={year} title={title} readMins={readMins} />
       </button>
       <CaseStudyPanel title={title} readMins={readMins} href={`/work/${slug}`} open={open} onClose={onClose} />
     </>
@@ -85,15 +51,19 @@ export function FunGrid() {
           Course projects and experiments outside of client work, things I build because a question was interesting enough to chase.
         </p>
 
-        <div className="mt-10 grid grid-cols-1 gap-x-4 gap-y-16 sm:grid-cols-2">
+        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           <FunCaseCard
             slug="restaurant-bot"
             title="Restaurant Bot"
-            category="Creative Technology"
+            year="2026"
             readMins={1}
-            cover={<VideoCover video="/videos/restaurant-bot-demo.mov" image="/images/restaurant-bot-cover.png" title="Restaurant Bot" softSkills={["Creative experimentation", "Iterative prototyping", "Technical communication"]} />}
+            cover={{ kind: "desktop", bg: "#f9e3ee", screens: [0, 1, 2].map((i) => `/images/covers/restaurant-bot/${i}.webp`) }}
           />
-          <FunProjectCard project={SNIFFR} cover={<SniffrCover />} preview={(open) => <SniffrDemo playing={open} />} />
+          <FunProjectCard
+            project={SNIFFR}
+            cover={<ProjectCover spec={{ kind: "phone", bg: "#e4e6ea", screens: ["/images/sniffr/swipe.webp"] }} alt="Dating App for Dogs cover" />}
+            preview={(open) => <SniffrDemo playing={open} />}
+          />
           {MOVED.map((p) => (
             <CaseStudyCard key={p.slug} project={p} />
           ))}

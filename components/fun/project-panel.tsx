@@ -1,6 +1,7 @@
 "use client"
 
 import { useCallback, useEffect, useRef, useState } from "react"
+import { CoverMeta } from "@/components/project-cover"
 import { ArrowUpRight, Check, Link2, Maximize2, X } from "lucide-react"
 
 export type PanelAction = { label: string; href: string; external?: boolean; primary?: boolean }
@@ -170,14 +171,8 @@ export function FunProjectCard({
   return (
     <>
       <button type="button" onClick={() => setOpen(true)} className="group block w-full text-left" aria-haspopup="dialog">
-        <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/30 bg-muted/30">{cover}</div>
-        <div className="mt-3 flex items-start justify-between gap-4">
-          <h3 className="min-w-0 flex-1 text-sm font-medium leading-snug tracking-tight text-foreground/80 transition-colors group-hover:text-foreground">
-            {project.title}
-            {project.readMins ? <span className="mt-1 block text-xs font-normal text-foreground/45">{project.readMins} min read</span> : null}
-          </h3>
-          <span className="shrink-0 text-right text-[10px] uppercase tracking-[0.08em] text-foreground/45">{project.category}</span>
-        </div>
+        {cover}
+        <CoverMeta year={project.year ?? ""} title={project.title} readMins={project.readMins} />
       </button>
       <ProjectPanel project={project} open={open} onClose={onClose} preview={preview} />
     </>
