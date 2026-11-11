@@ -97,13 +97,33 @@ const WORD_COLORS: [RegExp, string][] = [
   [/night|moon|dark|coffee|sleep/, "#5b3f86"],
 ]
 
-const GENERA = ["Viola", "Bellis", "Petalia", "Floretta", "Lumina", "Rosella", "Dulcia", "Aurelia"]
+const GENERA = [
+  "Viola", "Bellis", "Petalia", "Floretta", "Lumina", "Rosella", "Dulcia", "Aurelia",
+  "Camellia", "Lilia", "Stellaria", "Nebula", "Mirabella", "Cosmia", "Serena", "Lunaria",
+  "Velutina", "Celesta", "Primula", "Zephyra", "Amaryllis", "Clementia", "Noctua", "Solaria",
+]
 const SUFFIX = ["iflora", "ensis", "ella", "ia", "aris", "ina"]
+/** Epithets for unsigned flowers: a mood, a place, a little joke. */
+const EPITHETS = [
+  "nocturna", "dulcis", "aurora", "lucida", "mirabilis", "festiva", "fugax", "serendipita",
+  "gothamensis", "brooklynensis", "subwayensis", "bodegaria", "matchiflora", "ramenensis",
+  "somnia", "pluvialis", "vespertina", "matutina", "timida", "audax", "gaudens", "errabunda",
+  "pixelata", "figmensis", "kimchiflora", "seoulensis", "solitaria", "amicalis", "curiosa", "tenera",
+]
+const pickFrom = <T,>(arr: readonly T[], r: () => number) => arr[Math.floor(r() * arr.length)]
 
 function speciesName(words: string, r: () => number) {
   const base = words.toLowerCase().replace(/[^a-z]/g, "").slice(0, 9) || "mystica"
   const stem = base.replace(/[aeiouy]+$/, "") || base
-  return `${GENERA[Math.floor(r() * GENERA.length)]} ${stem}${SUFFIX[Math.floor(r() * SUFFIX.length)]}`
+  return `${pickFrom(GENERA, r)} ${stem}${pickFrom(SUFFIX, r)}`
+}
+
+/** Turns a visitor's name into a botanical epithet, the way plants are named after their finders. */
+function finderEpithet(by: string, r: () => number) {
+  const letters = by.normalize("NFD").toLowerCase().replace(/[^a-z]/g, "").slice(0, 10)
+  if (letters.length < 2) return null
+  const stem = letters.replace(/[aeiouy]+$/, "") || letters
+  return stem + pickFrom(["iana", "ii", "iae", "ella", "iflora"], r)
 }
 
 /** Turns any words (a mood, a food, a memory) into a flower and its botanical name. */
@@ -127,9 +147,10 @@ export function growFromWords(words: string): Omit<Flower, "id" | "by" | "at"> {
   }
 }
 
-export function randomName() {
+/** A fresh name every time. With a visitor's name, the flower is named after them. */
+export function randomName(by = "") {
   const r = rng(Math.floor(Math.random() * 1e9))
-  return speciesName(["bloom", "petal", "dream", "sunny", "velvet", "cosmo"][Math.floor(r() * 6)], r)
+  return `${pickFrom(GENERA, r)} ${finderEpithet(by, r) ?? pickFrom(EPITHETS, r)}`
 }
 
 /* ---------- strict validation for anything a visitor sends ---------- */

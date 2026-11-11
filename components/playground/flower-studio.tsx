@@ -1,7 +1,7 @@
 "use client"
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import { Brush, Eraser, Shuffle, Sparkles, SlidersHorizontal, Sprout, Undo2 } from "lucide-react"
+import { Brush, Eraser, Shuffle, Sparkles, SlidersHorizontal, Sprout, Undo2, Dices } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { PALETTE, SEED_FLOWERS, SHAPES, growFromWords, petalOutline, randomName, type Flower, type PetalShape, type Stroke } from "@/lib/flower"
 import { FlowerArt } from "@/components/playground/flower-art"
@@ -49,6 +49,8 @@ function Petals({ value, onChange }: { value: number; onChange: (n: number) => v
 
 /* ---------- the studio ---------- */
 
+const SIGN_EXAMPLES = ["Sam from Brooklyn", "J.K.", "a fellow designer", "🌷", "your recruiter friend", "Mina, Seoul", "someone who liked Reconcile"]
+
 export function FlowerStudio() {
   const [mode, setMode] = useState<Mode>("draw")
   const [petals, setPetals] = useState(8)
@@ -72,17 +74,29 @@ export function FlowerStudio() {
   const drawing = useRef<number[] | null>(null)
   const [live, setLive] = useState<number[] | null>(null)
 
-  useEffect(() => setName(randomName()), [])
-
-  // Grow mode: the same words always grow the same flower.
-  const grown = useMemo(() => growFromWords(words), [words])
+  // The name rerolls on its own until the visitor types one, and takes the visitor's name once they sign.
+  const [nameTouched, setNameTouched] = useState(false)
+  const [nudged, setNudged] = useState(false)
+  const [signHint] = useState(() => SIGN_EXAMPLES[Math.floor(Math.random() * SIGN_EXAMPLES.length)])
+  const reroll = () => {
+    setNameTouched(false)
+    setName(randomName(by))
+  }
   useEffect(() => {
-    if (mode === "grow") setName(grown.name)
-  }, [grown, mode])
+    // Keep the genus while the visitor types; only the epithet follows their name.
+    if (!nameTouched) setName((prev) => {
+      const fresh = randomName(by)
+      return prev ? `${prev.split(" ")[0]} ${fresh.split(" ").slice(1).join(" ")}` : fresh
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [by, mode])
+
+  // Grow mode: the same words always grow the same flower shape.
+  const grown = useMemo(() => growFromWords(words), [words])
 
   const flower: Omit<Flower, "id" | "by" | "at"> =
     mode === "grow"
-      ? grown
+      ? { ...grown, name }
       : { name, mode, petals, shape, layers, color, color2, center, strokes: mode === "draw" ? (live ? [...strokes, { c: brush, w: brushW, p: live }] : strokes) : undefined }
 
   /* load the garden */
@@ -149,6 +163,11 @@ export function FlowerStudio() {
 
   const plant = async () => {
     if (mode === "draw" && strokes.length === 0) return say("Draw something first. One petal is enough.")
+    if (!by.trim() && !nudged) {
+      setNudged(true)
+      document.getElementById("flower-by")?.focus()
+      return
+    }
     setPlanting(true)
     const payload = { ...flower, name: name || flower.name, by, id: Math.random().toString(36).slice(2, 12) }
     let saved: Flower | null = null
@@ -174,7 +193,9 @@ export function FlowerStudio() {
     setPlanting(false)
     say(`${saved.name} is planted 🌱`)
     document.getElementById("garden")?.scrollIntoView({ behavior: "smooth", block: "center" })
-    if (mode !== "grow") setName(randomName())
+    setNameTouched(false)
+    setNudged(false)
+    setName(randomName(by))
   }
 
   const TABS: { id: Mode; label: string; icon: typeof Brush }[] = [
@@ -208,7 +229,7 @@ export function FlowerStudio() {
           {mode === "draw" && strokes.length === 0 && !live && (
             <p className="pointer-events-none absolute inset-x-0 top-6 text-center text-sm text-[#7a5c78]">Draw anywhere. Every stroke repeats around the center.</p>
           )}
-          <p className="absolute bottom-4 left-5 text-sm font-medium italic text-[#6d4f6b]">{mode === "grow" ? grown.name : name}</p>
+          <p className="absolute bottom-4 left-5 text-sm font-medium italic text-[#6d4f6b]">{name}</p>
         </div>
 
         <div className="flex flex-col gap-7">
@@ -320,18 +341,40 @@ export function FlowerStudio() {
           )}
 
           <div className="mt-auto space-y-3 border-t border-border/60 pt-6">
-            <div className="grid grid-cols-2 gap-2">
-              <label className="space-y-1.5">
-                <span className="text-xs font-semibold tracking-[0.12em] text-foreground/50 uppercase">Flower name</span>
-                <input value={mode === "grow" ? grown.name : name} onChange={(e) => setName(e.target.value.slice(0, 32))} readOnly={mode === "grow"} className="w-full rounded-xl border border-border/70 bg-background px-3 py-2.5 text-sm outline-none focus:border-foreground/50 read-only:text-foreground/60" />
-              </label>
-              <label className="space-y-1.5">
-                <span className="text-xs font-semibold tracking-[0.12em] text-foreground/50 uppercase">Your name</span>
-                <input value={by} onChange={(e) => setBy(e.target.value.slice(0, 24))} placeholder="Optional" className="w-full rounded-xl border border-border/70 bg-background px-3 py-2.5 text-sm outline-none focus:border-foreground/50" />
-              </label>
-            </div>
+            <label className="block space-y-1.5">
+              <span className="text-xs font-semibold tracking-[0.12em] text-foreground/50 uppercase">Sign your flower</span>
+              <input
+                id="flower-by"
+                value={by}
+                onChange={(e) => setBy(e.target.value.slice(0, 24))}
+                placeholder={signHint}
+                aria-describedby="flower-by-note"
+                className={cn("w-full rounded-xl border bg-background px-3 py-2.5 text-sm outline-none focus:border-foreground/50", nudged && !by.trim() ? "border-[#b06ad6] ring-2 ring-[#b06ad6]/20" : "border-border/70")}
+              />
+              <span id="flower-by-note" className="block text-xs leading-relaxed text-foreground/55">
+                {nudged && !by.trim()
+                  ? "Leave something before you plant it? A name, initials, a nickname, your city, even an emoji. It stays next to your flower in the garden."
+                  : "Botanists name flowers after whoever finds them. Sign yours and it becomes part of the name."}
+              </span>
+            </label>
+            <label className="block space-y-1.5">
+              <span className="text-xs font-semibold tracking-[0.12em] text-foreground/50 uppercase">Flower name</span>
+              <span className="flex gap-2">
+                <input
+                  value={name}
+                  onChange={(e) => {
+                    setNameTouched(true)
+                    setName(e.target.value.slice(0, 32))
+                  }}
+                  className="min-w-0 flex-1 rounded-xl border border-border/70 bg-background px-3 py-2.5 text-sm italic outline-none focus:border-foreground/50"
+                />
+                <button type="button" onClick={reroll} aria-label="New random name" title="New random name" className="grid h-[42px] w-[42px] shrink-0 place-items-center rounded-xl border border-border/70 bg-background text-foreground/70 transition-colors hover:border-foreground/40 hover:text-foreground">
+                  <Dices className="h-4 w-4" />
+                </button>
+              </span>
+            </label>
             <button type="button" onClick={plant} disabled={planting} className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 py-3.5 text-sm font-semibold text-background transition-opacity hover:opacity-85 disabled:opacity-50">
-              <Sprout className="h-4 w-4" /> {planting ? "Planting…" : "Plant it in the garden"}
+              <Sprout className="h-4 w-4" /> {planting ? "Planting…" : by.trim() ? `Plant it as ${by.trim()}` : nudged ? "Plant it without a name" : "Plant it in the garden"}
             </button>
           </div>
         </div>
@@ -393,7 +436,7 @@ function Garden({ flowers, shared, highlight }: { flowers: Flower[]; shared: boo
             >
               <span className={cn("pointer-events-none absolute bottom-full mb-1 whitespace-nowrap rounded-xl bg-white/95 px-3 py-1.5 text-left text-xs shadow-md transition-opacity", isOpen || fresh ? "opacity-100" : "opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100")}>
                 <span className="block font-semibold italic text-neutral-800">{f.name}</span>
-                <span className="block text-neutral-500">{f.by ? `by ${f.by}` : "by a visitor"}</span>
+                <span className="block text-neutral-500">{f.by ? `found by ${f.by}` : "by a mystery visitor"}</span>
               </span>
               <span className="block origin-bottom motion-safe:animate-[sway_var(--d)_ease-in-out_infinite_alternate]" style={{ ["--d" as string]: `${2.6 + seeded(f.id, 13) * 2}s` }}>
                 <FlowerArt f={f} width={size} height={size} className="block drop-shadow-[0_4px_6px_rgba(60,80,40,.18)] transition-transform group-hover:scale-110" />
