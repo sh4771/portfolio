@@ -246,6 +246,97 @@ function InfoBoxCard({ box, id }: { box: InfoBox; id?: string }) {
             </blockquote>
           )}
 
+          {box.timeline && box.timeline.length > 0 && (
+            <ol className="relative grid gap-4 pt-2 sm:grid-flow-col sm:auto-cols-fr sm:gap-3">
+              <span aria-hidden className="absolute left-[5px] top-3 bottom-3 w-px bg-border sm:left-0 sm:right-0 sm:top-[7px] sm:bottom-auto sm:h-px sm:w-auto" />
+              {box.timeline.map((t, i) => (
+                <li key={i} className="relative pl-6 sm:pl-0 sm:pt-6">
+                  <span aria-hidden className={cn("absolute left-0 top-1 h-[11px] w-[11px] rounded-full border-2 border-background sm:top-[2px]", i === box.timeline!.length - 1 ? "bg-[#4a0e4e]" : "bg-foreground/40")} />
+                  <p className="text-xs font-semibold tabular-nums text-foreground">{t.when}</p>
+                  <p className="mt-0.5 text-xs leading-snug text-foreground/65">{t.what}</p>
+                </li>
+              ))}
+            </ol>
+          )}
+
+          {box.funnel && box.funnel.length > 0 && (
+            <div className="flex flex-wrap items-stretch gap-1.5 pt-1">
+              {box.funnel.map((f, i) => (
+                <div key={i} className="flex items-center gap-1.5">
+                  {i > 0 && <ArrowRight className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />}
+                  <div className={cn("rounded-lg px-3 py-2", f.added ? "border border-dashed border-[#4a0e4e]/60 bg-[#4a0e4e]/[0.06]" : "border border-border/60 bg-foreground/[0.03]")}>
+                    <p className="text-[10px] font-semibold tracking-wide text-muted-foreground uppercase">{f.added ? `New · ${f.label}` : f.label}</p>
+                    <p className="text-base font-semibold tabular-nums text-foreground">{f.value}</p>
+                    {f.note && <p className="text-[11px] text-muted-foreground">{f.note}</p>}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {box.compare && (
+            <div className="space-y-2 pt-1">
+              {box.compare.bars.map((b, i) => {
+                const max = Math.max(...box.compare!.bars.map((x) => x.value))
+                return (
+                  <div key={i} className="grid grid-cols-[minmax(0,140px)_minmax(0,1fr)] items-center gap-3">
+                    <span className="text-xs text-foreground/70">{b.label}</span>
+                    <div className="flex items-center gap-2">
+                      <div className={cn("h-6 rounded-md", b.accent ? "bg-[#4a0e4e]" : "bg-foreground/15")} style={{ width: `${Math.max(6, (b.value / max) * 100)}%` }} />
+                      <span className={cn("shrink-0 text-sm font-semibold tabular-nums", b.accent ? "text-foreground" : "text-foreground/60")}>{b.display}</span>
+                    </div>
+                  </div>
+                )
+              })}
+              {box.compare.caption && <p className="text-xs text-muted-foreground">{box.compare.caption}</p>}
+            </div>
+          )}
+
+          {box.split && box.split.length > 0 && (
+            <div className="grid gap-3 pt-1 sm:grid-cols-2">
+              {box.split.map((col, i) => (
+                <div key={i} className={cn("rounded-lg p-3", col.accent ? "bg-[#4a0e4e] text-white" : "border border-border/60 bg-foreground/[0.03]")}>
+                  <p className={cn("mb-2 text-[10px] font-semibold tracking-wide uppercase", col.accent ? "text-white/70" : "text-muted-foreground")}>{col.title}</p>
+                  <ul className="flex flex-wrap gap-1.5">
+                    {col.items.map((it) => (
+                      <li key={it} className={cn("rounded-md px-2 py-1 text-xs", col.accent ? "bg-white/15" : "border border-border/60 bg-background")}>
+                        {it}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {box.tree && (
+            <div className="space-y-0 pt-1">
+              <div className="mx-auto max-w-md rounded-lg bg-[#4a0e4e] p-3 text-white">
+                <p className="text-sm font-semibold">{box.tree.root}</p>
+                <div className="mt-2 flex flex-wrap gap-1.5">
+                  {box.tree.rootItems.map((it) => (
+                    <span key={it} className="rounded-md bg-white/15 px-2 py-0.5 text-xs">{it}</span>
+                  ))}
+                </div>
+              </div>
+              <div aria-hidden className="mx-auto h-4 w-px bg-border" />
+              <div className="relative grid gap-2 sm:grid-cols-3">
+                <span aria-hidden className="absolute left-[16.6%] right-[16.6%] top-0 hidden h-px bg-border sm:block" />
+                {box.tree.children.map((c) => (
+                  <div key={c.title} className="relative rounded-lg border border-border/60 bg-foreground/[0.03] p-3 sm:mt-4">
+                    <span aria-hidden className="absolute -top-4 left-1/2 hidden h-4 w-px bg-border sm:block" />
+                    <p className="text-sm font-medium text-foreground">{c.title}</p>
+                    <div className="mt-1.5 flex flex-wrap gap-1.5">
+                      {c.items.map((it) => (
+                        <span key={it} className="rounded-md border border-border/60 bg-background px-2 py-0.5 text-xs text-foreground/75">{it}</span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {box.steps && box.steps.length > 0 && (
             <ol className="space-y-1 pl-5 text-sm leading-relaxed text-foreground/80 [&>li]:list-decimal">
               {box.steps.map((step, i) => (

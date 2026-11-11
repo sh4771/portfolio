@@ -26,6 +26,16 @@ export interface InfoBox {
   stat?: { value: string; caption: string }
   barChart?: { bars: { label: string; value: number }[]; summary?: string }
   numberedCards?: { number: string; title: string; description?: string }[]
+  /** Dated milestones drawn as a connected timeline. */
+  timeline?: { when: string; what: string }[]
+  /** Stages left to right; `added` marks a stage the redesign introduced. */
+  funnel?: { label: string; value: string; note?: string; added?: boolean }[]
+  /** Horizontal bars to scale, for a before/after number or two competing figures. */
+  compare?: { bars: { label: string; value: number; display: string; accent?: boolean }[]; caption?: string }
+  /** Side-by-side columns of short chips, e.g. what I decided vs. what a tool did. */
+  split?: { title: string; items: string[]; accent?: boolean }[]
+  /** One parent with children: what's set once vs. what each child owns. */
+  tree?: { root: string; rootItems: string[]; children: { title: string; items: string[] }[] }
 }
 
 export interface VendeluxProject {
@@ -58,13 +68,12 @@ export const vendeluxProjects: VendeluxProject[] = [
     navLabel: "Segments",
     title: "Segments",
     challenge: "Guiding marketers to the right audience",
-    oneLiner:
-      "I kept wondering why organizers were digging through an alphabetical list to do the one thing they always did first. That question led me through three structural directions, and taught me that visual density can't override a system constraint.",
+    oneLiner: "Organizers dug through an alphabetical list to do the one thing they always did first. I reordered the filters around that task.",
     duration: "Mar – May 2026 · Shipped",
-    whatIDid: "UI/UX design, working directly with engineers on handoff (specs, Figma organization, Tailwind components)",
+    whatIDid: "UI/UX design and engineering handoff",
     tools: ["Figma", "Figma MCP Plugin API"],
     intro: {
-      text: "When event organizers plan an event, they need to identify the right people to reach out to from a large pool of attendee data. I worked on redesigning Vendelux's filtering tool, called Segments, to help them build more precise target audiences. As a product intern, I designed the workflow that helps users narrow large sets of attendee data. They then use those filtered outputs for outreach.",
+      text: "Organizers need to find the right people to contact out of tens of thousands of attendees. I redesigned Segments, the filtering tool they use to build those audiences.",
       image: "/images/vendelux/segments-include-exclude-after.png",
       alt: "Vendelux segment builder showing job title and seniority filters with include/exclude toggles",
     },
@@ -79,80 +88,57 @@ export const vendeluxProjects: VendeluxProject[] = [
     beforeShot: {
       image: "/images/vendelux/segments-raw-attendee-table.png",
       alt: "Raw table of confirmed attendees with job title, job function, seniority, and organization columns",
-      label: "Before",
+      label: "Before: a raw table of 40,000 attendees",
     },
-    transition:
-      "When I joined this project, users had access to data, but they did not have a clear path for turning it into an audience list.",
     credit: {
       text: "Product Internship, Vendelux",
       linkText: "view the case study deck",
       url: "https://www.google.com/goto?url=CAESVQHrOzAVS88RVlmY9mMD39AUyefsVkijSEV8TB3EvZcnlB3w67wF-TEZteaFv_zxDj4qFYkO0DfYkfuM6jEyINF1Mm46PeqxTFl8SYUVhVIbrRZFzRM",
     },
-    role: [
-      "I worked closely with my manager (PM) through iterative feedback rounds, and we shaped the new hierarchy together.",
-      "I independently explored multiple structural hierarchies and refined them based on stakeholder feedback across several rounds.",
-    ],
+    role: ["Shaped the hierarchy with my PM over several feedback rounds."],
     boxes: [
       {
         icon: "route",
         label: "Problem",
-        body: [
-          "Users were working with a raw table of attendee data. Customers had to navigate a list of 40,000 attendees.",
-          "They also had to manually rebuild their targeting filters from scratch every time they wanted to narrow down who to reach out to.",
-          "The core question became:",
-        ],
-        quote:
-          "How might we increase filter adoption to drive more precise audience targeting for event organizers?",
+        body: ["Organizers rebuilt the same filters from scratch every time, across a 40,000-row table."],
+        quote: "How might we increase filter adoption to drive more precise audience targeting?",
       },
       {
         icon: "git-branch",
-        label: "Three directions, one real tradeoff each",
-        body: [
-          "So I mapped out three different ways to structure the whole filter hierarchy, and reviewed each with stakeholders since I didn't have direct organizer testing available yet.",
-        ],
+        label: "Three ways to order the filters",
+        body: [],
         optionCards: [
-          {
-            label: "Alphabetical",
-            description: "Kept discoverability with better search, but ignored task order.",
-          },
-          {
-            label: "Audience-attribute-first",
-            description: "Served broad prospecting well, but slowed organizers down on the event follow-up task.",
-          },
-          {
-            label: "Event-first",
-            description: "Prioritized the follow-up task, so I chose it for this workflow while leaving audience attributes available for broader prospecting.",
-            selected: true,
-          },
+          { label: "Alphabetical", description: "Easy to search. Ignores task order." },
+          { label: "Audience first", description: "Good for broad prospecting. Slow for event follow-up." },
+          { label: "Event first", description: "Matches the task organizers always do first.", selected: true },
         ],
-        footer:
-          "The team didn't yet have a dedicated research function or an established organizer research panel, and this project moved within the Organizer MVP launch timeline. I used stakeholder and customer-facing feedback to evaluate the hierarchy, while recognizing that this was proxy feedback and couldn't substitute for direct organizer usability testing.",
+        footer: "I reviewed these with stakeholders and customer-facing teammates. That's proxy feedback, not organizer testing.",
       },
       {
         icon: "bulb",
         label: "The decision: put Event at the top",
         variant: "accent",
-        body: [
-          "Once I saw the pattern, the fix was straightforward: move Event to the top, and group attendance, export, and speaker status right after it, since organizers needed to identify the event before narrowing the attendee list.",
-        ],
+        body: [],
+        stepCompare: {
+          beforeLabel: "Before: A to Z",
+          beforeSteps: ["One alphabetical list", "Event buried mid-list", "Attendance, export and speaker scattered"],
+          afterLabel: "After: decision order",
+          afterSteps: ["Event", "Attendance status", "Already exported", "Speaker", "People: job title, seniority"],
+          highlightAfterIndexes: [0, 1],
+        },
         codeBlocks: [
           {
-            heading: "This changed the interaction from browsing a long menu to constructing an audience in decision order. Here, Event sits at the top with Attendance Status grouped right under it (Confirmed, Predicted, Historical), matching a saved segment against 40,153 attendees.",
+            heading: "Event first, attendance right under it, with live counts against 40,153 attendees.",
             image: "/images/vendelux/segments-after-event-filter.gif",
             imageWidth: 1600,
             imageHeight: 967,
           },
         ],
-        footer:
-          "Organizers often maintained several event audiences. Counts were intended to help them compare saved audience sizes, for example whether \"Spring Summit attendees, not exported\" at 184 people was large enough for follow-up, before they opened or applied a segment.",
       },
       {
         icon: "git-branch",
-        label: "Then I found a second problem: include vs. exclude",
-        body: [
-          "While I was in there, I noticed Job Title and Job Seniority mixed included and excluded values into one list, distinguished only by color. That's an easy state to misread at a glance, especially once an organizer has several values selected across both directions.",
-          "I split each field into an explicit Include and Exclude section, each with its own toggle and its own list, so an organizer excluding a specific role doesn't have to infer exclusion from a color alone.",
-        ],
+        label: "A second fix: include vs. exclude",
+        body: ["Included and excluded values shared one list, told apart only by color. I split them into two labeled sections."],
         inlineBeforeAfter: {
           before: "/images/vendelux/segments-include-exclude-before.png",
           after: "/images/vendelux/segments-include-exclude-after.png",
@@ -160,45 +146,28 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
       {
         icon: "code",
-        label: "How I actually built this",
-        body: [
-          "Once the hierarchy was set, I wanted to see if I could script my way through the repetitive parts. I used the Figma MCP plugin API to build the tooltip system and component library from written specs, instead of building every variant by hand.",
+        label: "How I built it",
+        body: ["I scripted the component library from written specs with the Figma MCP plugin API."],
+        split: [
+          { title: "My calls", accent: true, items: ["Event-first hierarchy", "Filter grouping", "Which counts to show", "Labels and spacing"] },
+          { title: "The tool's work", items: ["Repeating filter patterns", "Generating states", "Layout variants"] },
         ],
         codeBlocks: [
-          {
-            image: "/images/vendelux/segments-tooltip-mcp-spec.png",
-            imageWidth: 8000,
-            imageHeight: 5101,
-          },
-          {
-            heading: "I specced and scripted the rest of the component set the same way: filter toggles, section headers, the selected-count button, save and reset controls, and toast confirmations, each with its own documented states and interaction rules.",
-            image: "/images/vendelux/segments-component-library-mcp-spec.png",
-            imageWidth: 6775,
-            imageHeight: 8000,
-          },
+          { image: "/images/vendelux/segments-tooltip-mcp-spec.png", imageWidth: 8000, imageHeight: 5101 },
+          { image: "/images/vendelux/segments-component-library-mcp-spec.png", imageWidth: 6775, imageHeight: 8000 },
         ],
-        footer:
-          "What was actually mine here: choosing the Event-first hierarchy, grouping attendance, export, and speaker filters around it, deciding which saved-segment counts to surface, and refining labels and spacing within the design system. What the tool did: applying the same filter UI patterns across categories, generating repeated filter states, and producing layout variants.",
       },
       {
         icon: "alert-triangle",
         label: "Where I got it wrong",
         variant: "danger",
-        body: [
-          "In the name of fitting more into the interface, I introduced a sub-12px type size. An engineer caught it in review: it broke the product's type scale and raised readability and accessibility concerns.",
-        ],
-        footer:
-          "I kept the established minimum text size instead, and found density another way, through stronger section labels, shorter filter names, and spacing that separated groups without adding visual noise. Now I check hierarchy changes against design-system tokens before I present anything high-fidelity.",
+        body: ["I used sub-12px text to fit more in. An engineer flagged it as off the type scale and hard to read."],
+        footer: "I kept the minimum size and found density through labels and spacing. Now I check tokens before any high-fidelity review.",
       },
       {
         icon: "chart-line",
         label: "Impact",
-        body: [
-          "Segments is a project I'm proud of for a different reason: the scale of impact it had across the team. After launch, 26 filters were saved in the first week. By the end of the month, that grew to 220. This mattered because creating a saved filter was the core action the redesign was meant to make easier.",
-          "Adoption wasn't driven by one isolated team. As saved segments grew, sales and customer success started talking about it more directly with customers. That helped it spread across the company rather than staying siloed to one function.",
-          "For example, when an event marketer is hosting Dreamforce, which averages around 40,000 attendees, their saved segment can narrow that down to 400 relevant attendees. When they switch to SaaStr, they find 210 relevant attendees using the same segment. This brought impact not only to event marketers, but to sales reps and customer success too, since they all rely on accurate targeting to do their jobs well. And because attendee counts update live as filters change, customers know their targeting is accurate before they commit to outreach, instead of exporting a CSV and finding out too late.",
-          "I was glad to find a point where a small structural change could remove a huge amount of manual work across the firm. One customer even called it \"lifechanging\" and thanked us for making the workflow so much simpler.",
-        ],
+        body: ["Saved segments grew every week after launch, and sales and customer success started using them too."],
         barChart: {
           bars: [
             { label: "Jul 27", value: 26 },
@@ -207,17 +176,18 @@ export const vendeluxProjects: VendeluxProject[] = [
             { label: "Aug 17", value: 133 },
             { label: "Aug 30", value: 220 },
           ],
-          summary: "26 → 52 → 95 → 133 → 220 (+746%)",
+          summary: "26 → 220 saved segments in a month (+746%)",
         },
+        funnel: [
+          { label: "Dreamforce", value: "40,000", note: "attendees" },
+          { label: "One saved segment", value: "400", note: "relevant people" },
+        ],
+        footer: "One customer called it \"lifechanging.\"",
       },
       {
         icon: "bulb",
         label: "What I learned",
-        body: [
-          "Across both projects, I focused on simplifying complex workflows while balancing user needs and technical constraints.",
-          "Working at a growing company has taught me that teams often move quickly and figure things out as they go. There isn't always a strict rule for what can or cannot be done. Because of that, I've learned to take ownership, test ideas early, speak with users, bring forward solutions, and initiate conversations instead of waiting for direction.",
-          "The biggest takeaway for me is that strong product design is about understanding the real problem, making trade-offs visible, and collaborating early enough to turn a solution into something that can actually ship.",
-        ],
+        body: ["At a fast-moving company, I learned to own the problem, test early and start conversations instead of waiting for direction."],
       },
     ],
     media: {},
@@ -227,13 +197,12 @@ export const vendeluxProjects: VendeluxProject[] = [
     navLabel: "Campaign Admin",
     title: "Campaign Admin",
     challenge: "Turning a cut feature into a faster setup flow",
-    oneLiner:
-      "I set out to redesign an internal campaign-launch tool and ended up rethinking the shared-setup model for related sub-campaigns along the way. When backend constraints ruled out my first plan, bulk editing, for the MVP, I had to find another path to the same outcome.",
+    oneLiner: "When backend limits cut bulk editing from the MVP, I found another path to the same outcome.",
     duration: "July 10 – Aug 28, 2026 · In progress",
-    whatIDid: "UI/UX design, structuring an ambiguous workflow into a data model across engineering, FDEs, and product",
+    whatIDid: "UI/UX design across engineering, FDEs and product",
     tools: ["Granola", "Claude Code", "v0"],
     intro: {
-      text: "When forward-deployed engineers at Vendelux set up event marketing campaigns, they have to move through multiple pages. They also have to repeatedly enter similar settings to create and manage related sub-campaigns. The workflow was fragmented and repetitive. That's why we started Campaign Admin: a centralized tool to simplify campaign setup and ongoing management for forward-deployed engineers. At Vendelux, a campaign supports a specific event. A multi-day event, for example, can have several related sub-campaigns across different days, locations, or audiences. This project began with an open-ended brief. There was no fully defined handoff or set of requirements, so I took ownership of building the context myself. I worked closely with my PM, Gina, and partnered directly with the forward-deployed engineers who used the tool daily. As the only designer, I owned the research, flow design, and prioritization myself.",
+      text: "Forward-deployed engineers (FDEs) set up a campaign per event, often with several related sub-campaigns. Setup was spread across pages and full of repeated entry. I owned research, flows and prioritization as the only designer.",
       image: "/images/vendelux/campaign-admin-after-creation.png",
       alt: "Vendelux campaign creation view showing sub-campaign setup",
     },
@@ -246,169 +215,90 @@ export const vendeluxProjects: VendeluxProject[] = [
       { label: "Outcome", value: "MVP in development; duplicate action reduced the tested repeated-setup flow from 9 to 3 steps" },
     ],
     credit: { text: "Product Internship, Vendelux" },
-    role: ["Sole designer on this project, working with a PM, engineer, and data lead through tickets and written specs."],
+    role: [],
     boxes: [
       {
         icon: "route",
-        label: "What was the operator actually trying to do?",
-        body: [
-          "A campaign operator needs to launch several related sub-campaigns that share operational settings, such as status, sender, sending window, and cadence, while each sub-campaign targets a different audience segment.",
-        ],
-        quote:
-          "Create three sub-campaigns for the same event: Enterprise attendees, Mid-market attendees, and SMB attendees. Set each to Draft, use the same sender and cadence settings, then assign the appropriate audience segment.",
+        label: "The task: three sub-campaigns, same settings",
+        body: ["Each sub-campaign targets a different audience but shares the same setup. The old tool treated them as unrelated."],
         flow: [
-          {
-            steps: ["Open sub-campaign", "Set to Draft", "Configure shared settings"],
-            note: "repeated for A, B, and C",
-          },
-          {
-            steps: ["Assign audience segment"],
-            note: "separately, per sub-campaign",
-          },
-          {
-            steps: ["Return to campaign view to verify"],
-          },
+          { steps: ["Open sub-campaign", "Set to Draft", "Enter shared settings"], note: "× 3" },
+          { steps: ["Assign segment"], note: "per sub-campaign" },
+          { steps: ["Go back and verify"] },
         ],
-        footer:
-          "The problem went beyond click count. I realized the structure treated related sub-campaigns as isolated objects, even though the operator managed them as a group.",
+      },
+      {
+        icon: "map",
+        label: "The model they actually think in",
+        body: [],
+        tree: {
+          root: "Campaign: one event",
+          rootItems: ["Status", "Sender", "Sending window", "Cadence"],
+          children: [
+            { title: "Enterprise", items: ["Own segment"] },
+            { title: "Mid-market", items: ["Own segment"] },
+            { title: "SMB", items: ["Own segment"] },
+          ],
+        },
+        footer: "An FDE confirmed this nesting matched how she organized campaigns before I moved into UI.",
       },
       {
         icon: "route",
-        label: "What I heard from the FDEs",
-        body: [
-          "I met with the forward-deployed engineers who were the main users of this product. I wanted to understand how they managed campaigns, where they were losing time, and what parts of the workflow created the most friction.",
-        ],
+        label: "What I heard from FDEs",
+        body: [],
         numberedCards: [
-          {
-            number: "01",
-            title: "Fragmented Setup",
-            description: "Essential setup was split across campaign creation and editing.",
-          },
-          {
-            number: "02",
-            title: "Repeated Work",
-            description: "Related sub-campaigns needed nearly identical settings entered again and again.",
-          },
-          {
-            number: "03",
-            title: "Harder Management",
-            description: "The campaign list was hard to scan, so it wasn't clear what was active, ready to launch, or pending.",
-          },
+          { number: "01", title: "Fragmented setup", description: "Split across creation and editing." },
+          { number: "02", title: "Repeated work", description: "Same settings entered again and again." },
+          { number: "03", title: "Hard to scan", description: "Unclear what was active or pending." },
         ],
-        footer: "From there, I prioritized the highest-impact opportunities with my PM.",
       },
       {
         icon: "git-branch",
-        label: "My first idea: bulk editing",
-        body: [
-          "I designed a bulk-editing workflow that let operators select sub-campaigns with checkboxes and apply shared settings, such as status, sender, and cadence, to the selection. The prototype addressed a high-priority FDE request by reducing repeated setup.",
-          "Riskier actions, like activating or pausing live sub-campaigns, would show a confirmation before they applied, since a bulk action here would affect several live sub-campaigns at once.",
-          "Audience segment stayed a sub-campaign-level field in the same table, since each row targets a different audience, so an operator could compare sizes across sub-campaigns without the bulk action ever applying one segment to all of them.",
-        ],
-        codeBlocks: [
-          {
-            heading: "In this prototype, an operator selected specific sub-campaigns with checkboxes, including a group-level checkbox for an entire outreach type, then applied shared settings to just that selection instead of an all-or-nothing action. An operator could still open an individual sub-campaign to override a value, which took that row out of the bulk action going forward.",
-            image: "/images/vendelux/campaign-admin-bulk-edit.gif",
-            imageWidth: 1280,
-            imageHeight: 1169,
-          },
-        ],
-        footer:
-          "This kept the bulk action limited to fields that were genuinely shared, and kept audience assignment where each sub-campaign actually differs. It didn't ship, though, and the next section is why.",
-      },
-      {
-        icon: "code",
-        label: "What v0 handled, and what I had to decide myself",
-        body: [
-          "Mine: separating shared campaign settings from sub-campaign-specific settings, choosing which controls belonged in bulk actions, defining exception and pause/resume states, and clarifying ambiguous product rules with the PM.",
-          "v0's: generating repeated table rows, applying shared styles, and building out prototype states for confirmations, empty segments, and status variations.",
-        ],
+        label: "First idea: bulk editing",
+        body: ["Select sub-campaigns, apply shared settings once. Segments stayed per row."],
+        codeBlocks: [{ image: "/images/vendelux/campaign-admin-bulk-edit.gif", imageWidth: 1280, imageHeight: 1169 }],
       },
       {
         icon: "alert-triangle",
         variant: "danger",
-        label: "Then I hit a wall: backend couldn't support it",
-        body: [
-          "I didn't communicate early enough about the gap between the requested bulk-editing workflow and backend feasibility within the MVP timeline. Bulk editing required backend support that was unavailable for the first release, so the team removed it from scope.",
-          "I proposed a Duplicate action instead. Operators could copy an existing sub-campaign with its shared configuration, then change the audience segment or any other exception. This preserved a faster setup path without depending on the bulk-editing backend work.",
-        ],
-        codeBlocks: [
-          {
-            image: "/images/vendelux/campaign-admin-duplicate-action.gif",
-            imageWidth: 1280,
-            imageHeight: 850,
-          },
-        ],
-        footer:
-          "What I changed in my process: I now validate backend constraints and release timing before expanding a workflow around a requested capability. When a requested solution is out of scope, I look for an alternative that preserves the user's underlying need.",
-      },
-      {
-        icon: "git-branch",
-        label: "A smaller question: where should saving even happen?",
-        body: [
-          "Beyond the fixed system preset batch (Early Confirmed, Late Confirmed, Predicted), FDEs needed a way to save their own settings as a reusable config. Rather than debate it in the abstract, I built three clickable prototype directions to compare: (A) a save toggle inside the sub-campaign creation drawer, (B) a dedicated presets library, and (C) capturing a preset from a sub-campaign you'd already built.",
-        ],
-        codeBlocks: [
-          {
-            image: "/images/vendelux/campaign-admin-custom-presets-compare.gif",
-            imageWidth: 1208,
-            imageHeight: 1286,
-          },
-          {
-            heading: "Here's the dedicated library live in the product: a Custom Preset entry point sits alongside Saved presets and Compare Segments in the sub-campaign view.",
-            image: "/images/vendelux/campaign-admin-custom-presets-shipped.gif",
-            imageWidth: 1280,
-            imageHeight: 884,
-          },
-        ],
-        footer:
-          "I chose B because a preset saved through a dedicated library works across every sub-campaign and campaign. A and C both tie the preset's origin to a single sub-campaign, which limits reuse exactly where FDEs needed it most.",
+        label: "Backend couldn't support it in time",
+        body: ["I raised the feasibility gap too late, and bulk editing was cut from the MVP. I proposed Duplicate instead: copy a sub-campaign, change only what differs."],
+        codeBlocks: [{ image: "/images/vendelux/campaign-admin-duplicate-action.gif", imageWidth: 1280, imageHeight: 850 }],
       },
       {
         icon: "chart-line",
-        label: "Did duplicate action actually save clicks?",
-        body: [
-          "With duplicate action, engineers start from an existing sub-campaign and edit only what's changed. That took the workflow from nine steps down to three, a 67% reduction.",
-          "While bulk editing wasn't part of the MVP, duplicate action still cut redundant work and got positive feedback from engineers.",
+        label: "Duplicate cut the steps by 67%",
+        body: [],
+        compare: {
+          bars: [
+            { label: "Before", value: 9, display: "9 steps" },
+            { label: "With Duplicate", value: 3, display: "3 steps", accent: true },
+          ],
+          caption: "Steps to configure one related sub-campaign",
+        },
+      },
+      {
+        icon: "git-branch",
+        label: "Where should custom presets live?",
+        body: [],
+        optionCards: [
+          { label: "A. Toggle in the drawer", description: "Tied to one sub-campaign." },
+          { label: "B. Presets library", description: "Reusable across every campaign.", selected: true },
+          { label: "C. Save from existing", description: "Tied to one sub-campaign." },
         ],
-        stat: { value: "9 → 3", caption: "steps to configure a related sub-campaign (a 67% reduction)" },
-        footer: "Beyond these features, I also improved the overall campaign-management experience.",
+        codeBlocks: [
+          { image: "/images/vendelux/campaign-admin-custom-presets-compare.gif", imageWidth: 1208, imageHeight: 1286 },
+          { heading: "Shipped: Custom Preset next to Saved presets.", image: "/images/vendelux/campaign-admin-custom-presets-shipped.gif", imageWidth: 1280, imageHeight: 884 },
+        ],
       },
       {
         icon: "map",
-        label: "Make campaign status easier to scan",
-        body: [
-          "On the campaign list page, FDEs previously struggled to tell at a glance what needed their attention.",
-          "I redesigned the hierarchy in two ways. First, I added tabs so engineers can move directly between recently updated, drafts, and cancelled campaigns, instead of scanning one long list to find what needs action. I initially considered a sidebar to hold these tabs, but decided against it. The page already had a persistent left nav for the app itself, and adding a second sidebar would compete for space and attention on a page whose main job is scanning a dense list at a glance. A top nav bar kept the tabs visible without eating into that width, and it matched how engineers were already scanning left to right across the list.",
-          "Second, I surfaced status tags on the main page itself: active, ready to launch, pending. Now engineers see that information immediately instead of scrolling for it.",
-          "This addressed the third recurring theme from my conversations with engineers: making ongoing campaign management easier to scan and act on. After launch, our FDEs told us the new first view guided users straight into their actual workflow. They'd check overall campaign status first, then either create a new campaign or click into a specific one to manage it. The page now matches the order people actually think in, instead of asking them to hunt for that starting point.",
-        ],
+        label: "Status you can scan",
+        body: ["Tabs for recent, drafts and cancelled, plus status tags on the list. A top bar instead of a second sidebar kept the list wide."],
         inlineBeforeAfter: {
           before: "/images/vendelux/campaign-admin-before-summary.png",
           after: "/images/vendelux/campaign-admin-after-summary.png",
         },
-      },
-      {
-        icon: "flask",
-        label: "Before I touched pixels, I checked the model with someone who does this daily",
-        body: [
-          "Before I moved into detailed UI, I mapped the workflow and reviewed the proposed parent-campaign and sub-campaign structure with someone who does this work regularly.",
-        ],
-        quote:
-          "You're launching three outreach variants for the same initiative. Which settings would you set once? Which would you control separately?",
-        footer:
-          "Her feedback indicated that the nesting matched how she organized related campaigns. I revised parts of the structure where the distinction between shared settings and sub-campaign settings felt unclear.",
-      },
-      {
-        icon: "alert-triangle",
-        label: "An earlier mistake: new UI, same interaction model",
-        variant: "danger",
-        body: [
-          "My first direction was a visual reskin. It kept the original interaction pattern, so each sub-campaign still behaved like a separate setup task, and it looked cleaner without removing any of the repeated work.",
-          "The operator still had to set Draft three times for three related sub-campaigns, exactly the task I was supposed to be fixing.",
-        ],
-        footer:
-          "I restarted from the operator's repeated task, apply the same setup across this group, and introduced bulk actions at the campaign level.",
       },
       {
         icon: "map",
@@ -417,8 +307,7 @@ export const vendeluxProjects: VendeluxProject[] = [
         beforeAfterPairs: [
           {
             label: "Create campaign",
-            description:
-              "The old tool (Vendelux Meetings Management V2) was an unstyled internal form: a flat page with a raw Team ID, plain radio buttons, and no visual hierarchy between required and optional fields. The redesign turns it into a structured modal, grouping Campaign Details, Event Association, and the auto-created Sub-Campaigns into clearly labeled sections.",
+            description: "An unstyled internal form became a structured modal with labeled sections.",
             before: "/images/vendelux/campaign-admin-before-creation.png",
             after: "/images/vendelux/campaign-admin-after-creation.png",
           },
@@ -426,33 +315,19 @@ export const vendeluxProjects: VendeluxProject[] = [
       },
       {
         icon: "git-branch",
-        label: "A question I couldn't answer myself: which date logic applies?",
+        label: "Open question: which date logic applies?",
         badge: "Open question",
-        body: [
-          "During the build, two engineering specs described date behavior differently for a paused sub-campaign: one said it should keep its scheduled start date when it resumes, the other said it should require a new date.",
-          "I didn't design around an assumption. I documented the conflict and handed the product decision to the PM, since this determines what the resume flow should actually show.",
-        ],
-        footer:
-          "This is still open as of this writing. I'm holding the interaction design for the resume flow until the PM decides, so I don't build UI around a rule that might change.",
-      },
-      {
-        icon: "chart-line",
-        label: "Where this stands",
-        body: [
-          "I locked scope on August 24, 2026. By August 28, I'd handed the design to engineering, and I kept refining status display and pause and unpause behavior along the way.",
-          "The feature isn't live yet, so I don't have an adoption or performance outcome to report.",
-        ],
+        body: ["Two specs disagreed on a paused sub-campaign's start date. I documented the conflict and handed the call to the PM before designing the resume flow."],
       },
       {
         icon: "bulb",
-        label: "What this project changed about my process",
-        body: [
-          "I faced an issue earlier where bulk editing needed backend support that hadn't been scoped in time. Because of that, I want to share the key lesson I took from this project now that the MVP has been handed off to engineering.",
-          "The biggest lesson was that cross-functional communication needs to happen early, especially when a design depends on backend support. I could design a solution that solved the user's problem well, like bulk editing, but if the technical foundation wasn't ready, I couldn't deliver it within the MVP. The duplicate action saved the project, but it was a workaround I found late.",
-          "This changed how I approach collaboration going forward. I want to bring engineers in during scoping, and ask what's technically feasible before I design the flow. That way, the team can catch constraints like the bulk editing one before they become a deadline problem.",
-          "One open question I'm still working through: my backend engineer wanted to understand the reasoning behind each decision before starting implementation. I built an HTML walkthrough using static page screenshots from a v0 prototype that steps through the user journey. But I realized it's better at showing what the flow looks like than why we made each decision along the way. I'm exploring a few ways to close that gap. One option is a short narrated walkthrough, since saying the reasoning out loud is easier than fitting it into a caption. Another is a written decision log that documents the constraints behind each choice. I don't have a final answer yet, but I know specifically what's missing now, and I'm testing narration and decision logs to see which works. I was the only designer at Vendelux, so this is also something I'm looking forward to pressure-testing with a larger design team going forward.",
-          "The MVP for this campaign redesign is currently being built by engineering, and duplicate action is what's shipping.",
+        label: "What changed in my process",
+        body: [],
+        split: [
+          { title: "Before", items: ["Design the ideal flow", "Check feasibility at handoff"] },
+          { title: "Now", accent: true, items: ["Bring engineers into scoping", "Check feasibility first", "Try narration or a decision log"] },
         ],
+        footer: "Duplicate is what's shipping in the MVP.",
       },
     ],
     media: {},
@@ -462,13 +337,12 @@ export const vendeluxProjects: VendeluxProject[] = [
     navLabel: "ROI Calculator",
     title: "ROI Calculator",
     challenge: "Turning a guessed budget into a return people can defend",
-    oneLiner:
-      "Planner's budget was a free-text cell, so every number was a guess. I moved the ROI calculation into the event panel, and along the way found the old calculator overstated return by about 2x.",
+    oneLiner: "Planner's budget was a free-text guess. I moved the ROI math into the event panel and found the old calculator overstated return by about 2x.",
     duration: "Sep – Nov 2026 · Live in dev",
-    whatIDid: "Product design as the sole designer, testing nine hypotheses against the live product, the math and reviews with our PM and CEO",
+    whatIDid: "Product design, reviewed with our PM and CEO",
     tools: ["v0", "Claude", "PostHog", "Granola"],
     intro: {
-      text: "Vendelux Planner is where event marketers keep the events they're considering. It couldn't help them decide which ones were worth the money. I redesigned how they plan budget and project return, so the event card shows a forecast built from their own assumptions.",
+      text: "Planner is where event marketers decide which events are worth the money. I redesigned how they plan budget and project return, right on the event card.",
       image: "/images/vendelux/roi-saved-card.jpg",
       alt: "Budget and performance panel with Conversion and Close steps, and a Planner board card showing budget $59k, closed-won $455k and projected ROI 7.7x",
     },
@@ -480,21 +354,16 @@ export const vendeluxProjects: VendeluxProject[] = [
       { label: "User Goal", value: "Decide which events are worth the spend, and defend that call to leadership" },
       { label: "Outcome", value: "Planner redesign live in dev on real data; full ROI reconciliation scoped for a later phase" },
     ],
-    transition:
-      "When I started, budget was whatever someone typed, and the ROI calculator lived on a different page.",
     credit: { text: "Product Design, Vendelux" },
-    role: [
-      "I was the sole designer and reviewed every step with our PM and CEO.",
-      "I treated the redesign as a set of hypotheses and checked each one against the live product, the math or a leadership review.",
-    ],
+    role: [],
     boxes: [
       {
         icon: "route",
         label: "Problem",
-        body: [
-          "Planner's budget field was a free-text cell, so marketers typed a number from memory and nothing calculated it.",
-          "An ROI calculator existed on a separate page. It jumped straight from leads to sales and valued them at lifetime value, so almost every event looked like a strong bet.",
-          "Our CEO's new card design added budget and ROI fields to each event, but nothing produced those numbers.",
+        body: [],
+        split: [
+          { title: "Budget", items: ["Free-text cell", "Typed from memory", "Nothing calculated"] },
+          { title: "ROI calculator", items: ["Separate page", "Leads straight to sales", "Valued at lifetime value"] },
         ],
         quote: "How might we help event marketers project a return they can defend, right where they plan?",
       },
@@ -502,96 +371,65 @@ export const vendeluxProjects: VendeluxProject[] = [
         icon: "map",
         label: "Each review changed the design",
         body: [],
-        steps: [
-          "Sep 25: I shared early ROI explorations with our PM, who asked me to take them to the CEO.",
-          "Oct 1: We compared the live Planner, the CEO's card and the old calculator side by side. Budget was free text, the calculator couldn't fill 6 card fields, and the dashboard link went nowhere.",
-          "Oct 1 – 6: I mapped every calculator input to every card field, re-ran the math under both ROI definitions and built a clickable panel prototype.",
-          "Oct 7: Our PM corrected three assumptions in the v0 build: no prefilled numbers, a wider drawer and no background blur.",
-          "Oct 19: Our CEO liked the live update, called budget and leads redundant and asked me to defer full reconciliation so the redesign could ship sooner.",
-          "Nov 10: I handed off the ROI direction to the incoming engineers.",
+        timeline: [
+          { when: "Sep 25", what: "Early explorations" },
+          { when: "Oct 1", what: "PM review: calculate in the panel" },
+          { when: "Oct 6", what: "Clickable prototype" },
+          { when: "Oct 7", what: "No prefill, wider, no blur" },
+          { when: "Oct 19", what: "CEO: simplify the card" },
+          { when: "Nov 10", what: "Handoff to engineering" },
         ],
       },
       {
         icon: "git-branch",
-        label: "Three ways in, one calculator",
-        body: ["I whiteboarded three entry points live with our PM."],
+        label: "Three ways in",
+        body: [],
         optionCards: [
-          { label: "Link out", description: "Each field links to the separate calculator page. Cheapest, but it leaves the panel and loses context." },
-          { label: "Per-field calculators", description: "Click budget to calculate budget, click ROI to calculate ROI. Granular, but it splits the funnel across fields." },
-          {
-            label: "One calculator in the panel",
-            description: "It runs the whole calculation in the drawer and fills the card fields. Our PM's call: no new page, calculate inside the panel.",
-            selected: true,
-          },
+          { label: "Link out", description: "Cheap, but leaves the panel." },
+          { label: "Per-field calculators", description: "Splits the funnel across fields." },
+          { label: "One calculator in the panel", description: "Fills every card field in place.", selected: true },
         ],
       },
       {
         icon: "alert-triangle",
-        label: "The old calculator overstated return by about 2x",
+        label: "The old math overstated return by 2x",
         variant: "danger",
-        body: [
-          "I re-ran the calculator's own example, Microsoft Ignite 2026 with a $59k budget, under both ROI definitions.",
-          "The calculator also skipped the stage B2B teams report first: opportunities and pipeline. I added it.",
+        body: [],
+        compare: {
+          bars: [
+            { label: "Lifetime value (old)", value: 15.4, display: "15.4x" },
+            { label: "Closed-won (new)", value: 7.7, display: "7.7x", accent: true },
+          ],
+          caption: "Same event, same inputs: Microsoft Ignite 2026, $59k budget",
+        },
+        funnel: [
+          { label: "Budget", value: "$59k" },
+          { label: "Leads", value: "152", note: "15% capture" },
+          { label: "Opportunities", value: "61", note: "40% lead→opp", added: true },
+          { label: "Pipeline", value: "$1.82M", note: "$30k deal", added: true },
+          { label: "Closed-won", value: "$455k", note: "25% win" },
         ],
-        stat: { value: "15.4x vs 7.7x", caption: "same inputs, lifetime value vs closed-won revenue" },
-        flow: [
-          { steps: ["Budget $59k", "1,012 qualified leads", "152 leads", "61 opportunities", "$1.82M pipeline", "$455k closed-won"], note: "15% capture · 40% lead→opp · $30k deal · 25% win" },
-        ],
-        footer:
-          "A 2x gap is enough to change which event a team commits to. Figures are the calculator's own demo inputs, not customer data.",
+        footer: "B2B teams report pipeline first, so I added the missing opportunity stage. Demo inputs, not customer data.",
       },
       {
         icon: "bulb",
         label: "The decision: the panel is the calculator",
         variant: "accent",
-        body: [
-          "The event panel walks Investment → Reach → Conversion → Close, with the headline numbers up top and the card updating beside it.",
-        ],
+        body: ["Investment → Reach → Conversion → Close, with the card updating live."],
         codeBlocks: [
-          {
-            heading: "ROI defaults to closed-won revenue, labelled gross so nobody reads it as net. Budget is the sum of four spend lines, with an override.",
-            image: "/images/vendelux/roi-closed-won.jpg",
-            imageWidth: 1100,
-            imageHeight: 420,
-          },
-          {
-            heading: "The same inputs on lifetime value read 15.4x. That comparison is why lifetime value became an advanced option instead of the default.",
-            image: "/images/vendelux/roi-ltv.jpg",
-            imageWidth: 1100,
-            imageHeight: 420,
-          },
-          {
-            heading: "Saving writes only the decision values to the card: budget, closed-won and ROI, plus a one-line funnel. The assumptions stay in the panel.",
-            image: "/images/vendelux/roi-saved-card.jpg",
-            imageWidth: 1100,
-            imageHeight: 900,
-          },
+          { heading: "Closed-won by default, labelled gross.", image: "/images/vendelux/roi-closed-won.jpg", imageWidth: 1100, imageHeight: 420 },
+          { heading: "Lifetime value moves to an advanced option.", image: "/images/vendelux/roi-ltv.jpg", imageWidth: 1100, imageHeight: 420 },
+          { heading: "The card gets only the decision values.", image: "/images/vendelux/roi-saved-card.jpg", imageWidth: 1100, imageHeight: 900 },
         ],
       },
       {
         icon: "flask",
-        label: "Nine hypotheses: what held up",
-        body: [
-          "I checked each one against product data, the math or stakeholder review. These weren't moderated user tests.",
+        label: "Nine hypotheses",
+        body: ["Checked against product data, the math or leadership review, not moderated user tests."],
+        split: [
+          { title: "Held up", accent: true, items: ["Budget needs a source", "Calculate in the panel", "Add an opportunity stage", "Lifetime value overstates", "Live updates build trust"] },
+          { title: "Overturned in review", items: ["Prefilled numbers", "Blurred modal", "Every field on the card", "Card aggregates (deferred)"] },
         ],
-        steps: [
-          "Budget numbers are guesses because nothing calculates them. Budget now comes from four spend lines.",
-          "The calculation belongs inside the event panel. Linking out breaks the planning flow.",
-          "The funnel is missing a stage. I added lead → opportunity rate and average deal size.",
-          "Lifetime value overstates the return. Closed-won is now the default.",
-          "Live recalculation builds trust. Values update on the card as you edit, with an explicit save.",
-        ],
-      },
-      {
-        icon: "alert-triangle",
-        label: "What review overturned",
-        body: ["Three of my assumptions didn't survive review, and each change made the design better."],
-        numberedCards: [
-          { number: "Prefill", title: "Example numbers would be fiction", description: "Teams don't have this data while planning. Only lifetime value and close rate carry over between events." },
-          { number: "Blur", title: "A focused modal hid other events", description: "Marketers compare events side by side, so the drawer got wider and the page behind stays visible." },
-          { number: "Fields", title: "Every field on the card was redundant", description: "Budget and leads said the same thing. Assumptions moved behind progressive disclosure." },
-        ],
-        footer: "Card aggregates like owner and saved-by were deferred too. They looked good in mockups but caused scope creep without reliable data.",
       },
       {
         icon: "map",
@@ -599,39 +437,21 @@ export const vendeluxProjects: VendeluxProject[] = [
         body: [],
         stepCompare: {
           beforeLabel: "Before",
-          beforeSteps: [
-            "Budget: a free-text cell",
-            "ROI: a separate page, based on lifetime value",
-            "Opportunities and pipeline: no source",
-            "Lifetime value and close rate: re-entered every time",
-            "Post-event actuals: a dead dashboard link",
-          ],
+          beforeSteps: ["Budget: free text", "ROI: separate page", "Pipeline: no source", "Rates: re-entered each time"],
           afterLabel: "After",
-          afterSteps: [
-            "Budget: on the card, summed from spend lines and overridable",
-            "ROI: on the card, closed-won by default and labelled gross",
-            "Rates and deal size: in the panel, as assumptions",
-            "Lifetime value and close rate: remembered across events",
-            "Dashboard link: removed until the dashboard exists",
-          ],
+          afterSteps: ["Budget: summed from spend lines", "ROI: on the card, closed-won", "Rates: in the panel", "LTV and close rate: remembered"],
           highlightAfterIndexes: [0, 1],
         },
       },
       {
         icon: "chart-line",
         label: "Where this stands",
-        body: [
-          "The Planner redesign this work fed into is live in dev on real data. The ROI direction is documented for the engineers joining to build out ROI features.",
-          "To keep the release small, we deferred full reconciliation of the old calculator with the new panel.",
-        ],
+        body: ["The Planner redesign is live in dev on real data. Full calculator reconciliation is scoped for a later phase."],
       },
       {
         icon: "bulb",
-        label: "What I'd do next",
-        body: [
-          "Validate the funnel with a handful of event marketers using their real numbers, and check which rates they actually know before an event.",
-          "Then connect projected values to post-event actuals, so the forecast gets better with every event.",
-        ],
+        label: "Next",
+        body: ["Test the funnel with event marketers using their real numbers, then connect forecasts to post-event actuals."],
       },
     ],
     media: {},
@@ -641,13 +461,12 @@ export const vendeluxProjects: VendeluxProject[] = [
     navLabel: "Meeting Planner",
     title: "Meeting Planner",
     challenge: "Making a forecast people can trust",
-    oneLiner:
-      "The product told customers \"Expected Meetings: 36\" like it was a fact, when it was really an estimate built on a handful of assumptions. I redesigned the panel to show its work.",
+    oneLiner: "The product showed \"Expected Meetings: 36\" like a fact. I redesigned the panel to show its work.",
     duration: "July 21 – Aug 26, 2026 · Ongoing",
-    whatIDid: "UI/UX design, running customer interviews to separate understanding from trust in a probabilistic estimate",
+    whatIDid: "UI/UX design and customer interviews",
     tools: ["Granola", "Claude Code", "v0"],
     intro: {
-      text: "Before committing to an event campaign, customers want to know: how many actual sales meetings should I expect? Vendelux shows that as an \"Expected Meetings\" estimate, presented like a fact when it's really built on a handful of assumptions. I got curious about why customers kept pushing back on that number, so I redesigned the panel to show its work.",
+      text: "Before committing to a campaign, customers want to know how many sales meetings to expect. The estimate looked exact but hid its assumptions, and customers kept pushing back.",
       image: "/images/vendelux/mp-after-mainpage.png",
       alt: "Vendelux Meetings dashboard showing campaigns and their status",
     },
@@ -660,209 +479,95 @@ export const vendeluxProjects: VendeluxProject[] = [
       { label: "Outcome", value: "In design review; not yet shipped to engineering or tested with customers" },
     ],
     credit: { text: "Product Internship, Vendelux" },
-    role: [
-      "I worked as the sole designer, mainly with customer-facing team members who brought recurring customer questions and objections into the design process.",
-      "My feedback loop focused on customer-proxy insight: what the team repeatedly had to explain, and which parts of the estimate customers reportedly distrusted.",
-    ],
+    role: [],
     boxes: [
       {
         icon: "route",
-        label: "The question customers were actually asking",
-        body: [
-          "A customer plans outreach for an event and needs to decide whether a target audience is large enough to produce a useful number of meetings.",
-          "They need this estimate to plan sales-team capacity, outreach volume, event goals, and follow-up expectations.",
-        ],
-        quote:
-          "If I invite 2,500 people from these segments, how many meetings should I expect my team to book?",
-        codeBlocks: [
-          {
-            heading: "The old experience showed one value, with none of the reasoning behind it.",
-            content: "Expected Meetings: 36",
-          },
-        ],
-        footer:
-          "Customer-facing teammates reported that customers often asked how the estimate was calculated and struggled to understand what drove it. The team also changed the underlying rate five times over about 13 months, which made the estimate hard to explain consistently.",
+        label: "The question customers were asking",
+        body: [],
+        quote: "If I invite 2,500 people from these segments, how many meetings should I expect?",
+        codeBlocks: [{ heading: "What they got:", content: "Expected Meetings: 36" }],
+        footer: "The underlying rate changed five times in 13 months, so even teammates struggled to explain it.",
       },
       {
         icon: "map",
-        label: "Watching the old flow break down",
+        label: "Where the old flow broke down",
         body: [],
         journey: [
-          { actor: "customer", text: "Selects one or more audience segments." },
-          { actor: "system", text: "Shows an Expected Meetings number." },
-          { actor: "customer", text: "36 meetings.", isQuote: true },
+          { actor: "customer", text: "Selects audience segments." },
+          { actor: "system", text: "Shows Expected Meetings: 36." },
           { actor: "customer", text: "Where did 36 come from?", isQuote: true },
-          { actor: "system", text: "A teammate manually explains the calculation — if they know the current rate." },
-          { actor: "customer", text: "Changes the segment selection." },
-          { actor: "customer", text: "Can't tell whether the estimate changed because of audience size, rate assumptions, or both." },
+          { actor: "system", text: "A teammate explains it by hand, if they know the current rate." },
+          { actor: "customer", text: "Changes segments, can't tell what moved the number." },
         ],
-        footer:
-          "The issue went beyond unclear copy. The UI presented an estimate as a precise answer while it hid the assumptions that created it.",
       },
       {
         icon: "bulb",
-        label: "The decision: make the calculation inspectable",
+        label: "The decision: make the math inspectable",
         variant: "accent",
-        body: [
-          "An estimate should show its assumptions, its uncertainty, and the action that changes it.",
-          "I designed the panel around three questions a customer would naturally ask: what result should I expect, what assumptions created it, and what happens if I change my audience?",
+        body: [],
+        funnel: [
+          { label: "Matched prospects", value: "2,500" },
+          { label: "Rate", value: "1.4%", note: "yours, or 0.6% baseline" },
+          { label: "Expected meetings", value: "28 to 44", note: "a range, not a point", added: true },
         ],
         codeBlocks: [
           {
-            heading: "The real formula is a single deterministic calculation: matched prospects times a rate, where the rate is a 0.6% baseline for a customer's first campaign, or their own historical rate if it's higher on later campaigns.",
-            content:
-              "Expected meetings = Matched prospects × rate\nFirst campaign: rate = 0.6% baseline\nLater campaigns: rate = MAX(0.6%, customer's own historical rate)",
-          },
-          {
-            heading: "Since the formula returns one exact number, I chose to present it as a range instead of a false-precision point estimate.",
-            content:
-              "Expected meetings: 28 to 44\nBased on:\n2,500 matched prospects\n1.4% (your own historical rate, above the 0.6% baseline)",
-          },
-          {
-            heading: "The rate applies once to the whole audience. It doesn't break out by segment, and it doesn't compare against similar campaigns from other customers or events, so I kept the panel copy limited to what the formula actually does.",
-            content:
-              "Your expected meetings are calculated using your own historical conversion rate (or a baseline rate if you're new), applied to the number of matched prospects at this event.",
-          },
-          {
-            heading: "Add an expandable \"Why this estimate?\" for customers who want confidence before they act.",
-            content:
-              "Why this estimate?\nThis range uses:\n• Your matched prospect count for this event\n• Your own historical conversion rate, or a 0.6% baseline if you're new\n• A range instead of one number, since the formula shouldn't be read as more precise than it is",
-          },
-          {
-            heading: "In the real Create Campaign flow, the forecast panel updates live as an FDE sets the event, timing, and audience, matched leads, the expected meeting range, the conversion rate, and price per meeting all update together, with a \"Why this estimate?\" link for more detail.",
+            heading: "The forecast updates live as you set the event, timing and audience, with a \"Why this estimate?\" link.",
             image: "/images/vendelux/meeting-planner-create-campaign-flow.gif",
             imageWidth: 1280,
             imageHeight: 1488,
           },
         ],
-        footer:
-          "The baseline rate has moved more than once as the team recalibrated it against real campaign performance. That told me the team actively monitors and adjusts this simplification, which shaped how much confidence I gave the estimate in the copy.",
-      },
-      {
-        icon: "code",
-        label: "Splitting the work: my calls vs. v0's",
-        body: [
-          "Mine: choosing to replace a single forecast with a range, determining which inputs needed to be visible, writing the \"Why this estimate?\" explanation, and deciding how a segment change should affect the displayed estimate.",
-          "v0's: laying out the panel, generating alternate display states, and implementing live recalculation once the underlying formula and rules were defined.",
-        ],
       },
       {
         icon: "git-branch",
-        label: "Three ways to show this, each with a real tradeoff",
-        body: [
-          "I considered three directions before landing on the final design and wrote out an actual tradeoff for each one.",
-        ],
+        label: "Three ways to show it",
+        body: [],
         optionCards: [
-          {
-            label: "Single number + tooltip",
-            description: "Benefit: fast, compact planning view. Risk: keeps the estimate looking exact, so customers have to dig for the calculation.",
-            example: "Expected Meetings: 36 (i)",
-          },
-          {
-            label: "Rate only",
-            description: "Benefit: makes the assumption visible. Risk: pushes the planning math back onto the customer.",
-            example: "Historical conversion rate: 1.4%",
-          },
-          {
-            label: "Outcome + visible inputs",
-            description: "Benefit: supports planning while keeping the main assumption inspectable. Risk: still depends on whether customers trust the underlying data for their case.",
-            example: "Expected meetings: 28 to 44\n2,500 contacts × 1.4% historical rate",
-            selected: true,
-          },
+          { label: "Number + tooltip", description: "Compact, but still looks exact.", example: "Expected Meetings: 36 (i)" },
+          { label: "Rate only", description: "Pushes the math onto the customer.", example: "Historical rate: 1.4%" },
+          { label: "Outcome + inputs", description: "Supports planning, keeps the assumption visible.", example: "28 to 44\n2,500 × 1.4%", selected: true },
+        ],
+      },
+      {
+        icon: "code",
+        label: "My calls vs. v0's",
+        body: [],
+        split: [
+          { title: "My calls", accent: true, items: ["Range instead of a number", "Which inputs to show", "\"Why this estimate?\" copy", "How segment changes update it"] },
+          { title: "v0's work", items: ["Panel layout", "Display states", "Live recalculation"] },
         ],
       },
       {
         icon: "flask",
-        label: "How I plan to find out if this actually works",
-        body: [
-          "I will test understanding and trust separately, since a customer can correctly explain the estimate and still say they wouldn't use it to set a goal.",
-        ],
-        quote:
-          "You have 2,500 contacts across three segments. You need to decide whether this audience can support a goal of 30 meetings.",
-        questionCards: [
-          "What do you think this estimate means?",
-          "What information is driving it?",
-          "How confident are you in using this estimate to plan your outreach, and what makes you confident or skeptical?",
-          "Does the range change how you would set your goal?",
-          "Would you prefer a conservative estimate, a likely estimate, or a best-case estimate?",
-        ],
-        codeBlocks: [
-          {
-            heading: "Success criteria",
-            content:
-              "Understanding: participants identify audience size and the rate as inputs.\nTrust: participants treat the estimate as a planning signal and know it isn't a guarantee.\nDecision support: participants can use the panel to decide whether to add audience, change their goal, or adjust outreach effort.",
-          },
-        ],
-        footer:
-          "I will compare answers against the previous single-number version to see whether customers understand the calculation and whether the range feels useful.",
-      },
-      {
-        icon: "bulb",
-        label: "The principles I wrote down before touching Figma",
-        body: [
-          "The estimate helps customers plan, so it must support decisions without presenting a guarantee.",
-          "Customers need to understand the selected audience, the rate definition, and the source of uncertainty.",
-          "The interface must show when data is insufficient. It shouldn't force a prediction.",
-          "Changing a segment should update the forecast and explain which input changed.",
-        ],
+        label: "How I'll test it",
+        body: ["Understanding and trust separately: someone can explain the estimate and still not plan with it."],
+        questionCards: ["What does this estimate mean?", "What's driving it?", "Would you set a goal with it?", "Does the range change your goal?"],
       },
       {
         icon: "route",
-        label: "Design reviews across the whole Meetings App",
-        body: [
-          "This work sat inside a broader Meetings App effort, so I ran structured reviews with Customer Success and cross-functional stakeholders on the surrounding flows: the campaign builder, the segment builder, and campaign summary and launch validation.",
-        ],
-        thumbnailImages: [
-          "/images/vendelux/meeting-planner-design-review-cs.png",
-          "/images/vendelux/meeting-planner-design-review-notes.png",
-        ],
+        label: "Design reviews across the Meetings app",
+        body: ["Structured reviews with Customer Success on the campaign builder, segment builder and launch checks."],
+        thumbnailImages: ["/images/vendelux/meeting-planner-design-review-cs.png", "/images/vendelux/meeting-planner-design-review-notes.png"],
       },
       {
         icon: "chart-line",
         label: "Where this stands",
-        body: [
-          "Design reviews continued through August 26, 2026. I haven't tested the panel with customers yet.",
-          "The next milestone is customer validation: confirm whether customers understand the estimate, identify its inputs, and use it with more confidence when they plan outreach.",
-        ],
+        body: ["In design review through Aug 26, 2026. Next: validate with customers."],
       },
       {
         icon: "bulb",
         label: "What I learned",
-        body: [
-          "Writing down my validation plan and design principles before I opened Figma kept me honest about what the panel actually needed to prove. What I'd do differently: get in front of customers earlier, even with a rough prototype, instead of finishing the full design first. This project's biggest open question, whether people actually trust the estimate, still doesn't have an answer, and I want that answer before I call this done.",
-        ],
+        body: ["Writing the validation plan before Figma kept me honest. Next time I'd put a rough prototype in front of customers sooner."],
       },
     ],
     media: {
       beforeAfterSet: [
-        {
-          label: "Main page",
-          description:
-            "The old view was a flat data table with no way to see what needed attention. The redesign adds a \"Needs attention\" panel that surfaces missing booking links, missing on-site contacts, and pending approvals up front, then lists campaigns as cards with status and connection counts.",
-          before: "/images/vendelux/mp-before-mainpage.png",
-          after: "/images/vendelux/mp-after-mainpage.png",
-        },
-        {
-          label: "Create campaign flow",
-          description:
-            "The old flow was one long single-page form covering event details, audience targeting, and goals all at once. The redesign breaks it into a guided four-step wizard (Goal & Audience, Persona & Sequences, Booking & Integrations, Review & Launch) with a live forecast panel alongside it.",
-          before: "/images/vendelux/mp-before-creationflow.png",
-          after: "/images/vendelux/mp-after-creationflow.png",
-        },
-        {
-          label: "Email sequences",
-          description:
-            "The old view showed all four email steps fully expanded with their full copy visible at once. The redesign collapses them into a labeled, expandable list and adds cold-call and LinkedIn or networking-app scripts alongside it.",
-          before: "/images/vendelux/mp-before-emailsequence.png",
-          after: "/images/vendelux/mp-after-emailsequence.png",
-        },
-        {
-          label: "Event detail",
-          description:
-            "The old page listed every field as flat text, including a hardcoded \"Expected Meetings: 27, 2.5% conversion rate\" with no explanation. The redesign organizes the same information into clear sections and adds a \"Fix to launch\" checklist that flags what's missing before a campaign can go live.",
-          before: "/images/vendelux/mp-before-eventdetail.png",
-          after: "/images/vendelux/mp-after-eventdetail.png",
-        },
+        { label: "Main page", description: "A flat table became a \"Needs attention\" panel plus campaign cards.", before: "/images/vendelux/mp-before-mainpage.png", after: "/images/vendelux/mp-after-mainpage.png" },
+        { label: "Create campaign", description: "One long form became a four-step wizard with a live forecast.", before: "/images/vendelux/mp-before-creationflow.png", after: "/images/vendelux/mp-after-creationflow.png" },
+        { label: "Email sequences", description: "Fully expanded emails became a collapsible list with call and LinkedIn scripts.", before: "/images/vendelux/mp-before-emailsequence.png", after: "/images/vendelux/mp-after-emailsequence.png" },
+        { label: "Event detail", description: "Flat text became sections plus a \"Fix to launch\" checklist.", before: "/images/vendelux/mp-before-eventdetail.png", after: "/images/vendelux/mp-after-eventdetail.png" },
       ],
     },
   },
