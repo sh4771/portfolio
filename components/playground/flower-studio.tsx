@@ -5,6 +5,8 @@ import { Brush, Eraser, Shuffle, Sparkles, SlidersHorizontal, Sprout, Undo2, Dic
 import { cn } from "@/lib/utils"
 import { PALETTE, SEED_FLOWERS, SHAPES, growFromWords, petalOutline, randomName, type Flower, type PetalShape, type Stroke } from "@/lib/flower"
 import { FlowerArt } from "@/components/playground/flower-art"
+import { Garden } from "@/components/playground/garden"
+import type { Care, CareKind } from "@/lib/garden-care"
 
 type Mode = Flower["mode"]
 const LOCAL_KEY = "vh-garden-v1"
@@ -67,6 +69,7 @@ export function FlowerStudio() {
   const [by, setBy] = useState("")
   const [garden, setGarden] = useState<Flower[]>(SEED_FLOWERS)
   const [shared, setShared] = useState(false)
+  const [care, setCare] = useState<Record<string, Care>>({})
   const [planting, setPlanting] = useState(false)
   const [justPlanted, setJustPlanted] = useState<string | null>(null)
   const [toast, setToast] = useState("")
@@ -104,10 +107,11 @@ export function FlowerStudio() {
     let alive = true
     fetch("/api/garden")
       .then((r) => r.json())
-      .then((d: { shared: boolean; flowers: Flower[] }) => {
+      .then((d: { shared: boolean; flowers: Flower[]; care?: Record<string, Care> }) => {
         if (!alive) return
         if (d.shared) {
           setShared(true)
+          setCare(d.care ?? {})
           setGarden([...d.flowers, ...SEED_FLOWERS])
         } else throw new Error("local")
       })
@@ -115,6 +119,7 @@ export function FlowerStudio() {
         try {
           const mine = JSON.parse(localStorage.getItem(LOCAL_KEY) || "[]") as Flower[]
           if (alive) setGarden([...mine, ...SEED_FLOWERS])
+          if (alive) setCare(JSON.parse(localStorage.getItem("vh-garden-care-counts-v1") || "{}"))
         } catch {
           /* private mode: seeds only */
         }
@@ -159,6 +164,20 @@ export function FlowerStudio() {
     if (!p) return
     if (p.length === 2) p.push(p[0] + 0.001, p[1] + 0.001) // a tap leaves a dot
     setStrokes((s) => [...s, { c: brush, w: brushW, p }].slice(-60))
+  }
+
+  // Counts go up right away; the shared garden records them in the background.
+  const giveCare = (id: string, kind: CareKind) => {
+    setCare((c) => ({ ...c, [id]: { ...c[id], [kind]: (c[id]?.[kind] ?? 0) + 1 } }))
+    if (shared) void fetch("/api/garden/care", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ id, kind }) }).catch(() => {})
+    else
+      try {
+        const local = JSON.parse(localStorage.getItem("vh-garden-care-counts-v1") || "{}") as Record<string, Care>
+        local[id] = { ...local[id], [kind]: (local[id]?.[kind] ?? 0) + 1 }
+        localStorage.setItem("vh-garden-care-counts-v1", JSON.stringify(local))
+      } catch {
+        /* this visit only */
+      }
   }
 
   const plant = async () => {
@@ -380,75 +399,11 @@ export function FlowerStudio() {
         </div>
       </section>
 
-      <Garden flowers={garden} shared={shared} highlight={justPlanted} />
+      <Garden flowers={garden} shared={shared} highlight={justPlanted} care={care} onCare={giveCare} />
 
       <div role="status" aria-live="polite" className={cn("fixed bottom-24 left-1/2 z-50 -translate-x-1/2 rounded-full bg-foreground px-5 py-2.5 text-sm text-background shadow-lg transition-all", toast ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-2 opacity-0")}>
         {toast}
       </div>
     </div>
-  )
-}
-
-/* ---------- the garden ---------- */
-
-function seeded(id: string, salt: number) {
-  let h = salt
-  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0
-  return (h % 1000) / 1000
-}
-
-function Garden({ flowers, shared, highlight }: { flowers: Flower[]; shared: boolean; highlight: string | null }) {
-  const shown = flowers.slice(0, 36)
-  const [open, setOpen] = useState<string | null>(null)
-  return (
-    <section id="garden" className="scroll-mt-24 space-y-6">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div className="space-y-2">
-          <p className="text-xs font-medium tracking-[0.16em] text-foreground/50 uppercase">The garden</p>
-          <h2 className="text-3xl font-semibold tracking-tight">{flowers.length} flowers and counting</h2>
-        </div>
-        <p className="max-w-sm text-sm text-foreground/55">
-          {shared ? "Every flower here was made by someone who visited. Tap one to see who planted it." : "Flowers you plant stay in this browser. Tap one to see its name."}
-        </p>
-      </div>
-      <div className="relative h-[420px] overflow-hidden rounded-3xl sm:h-[460px]" style={{ background: "linear-gradient(#eaf5ff 0%, #f4f9ee 55%, #d9ecc6 56%, #c4e0ab 100%)" }}>
-        {/* hills */}
-        <svg aria-hidden viewBox="0 0 100 40" preserveAspectRatio="none" className="absolute inset-x-0 bottom-0 h-[52%] w-full">
-          <path d="M0 14 C18 4 34 10 50 12 C68 14 82 4 100 10 L100 40 L0 40Z" fill="#cfe6b6" />
-          <path d="M0 24 C20 16 40 26 60 22 C78 18 90 24 100 20 L100 40 L0 40Z" fill="#b9da9b" />
-        </svg>
-        {shown.map((f, i) => {
-          const row = i % 3
-          const x = 4 + ((seeded(f.id, 7) * 0.8 + (i * 0.37) % 1 * 0.2) * 92)
-          const bottom = 6 + row * 14 + seeded(f.id, 3) * 6
-          const size = 62 + (2 - row) * 16 + seeded(f.id, 5) * 14
-          const stem = 50 + seeded(f.id, 11) * 60
-          const isOpen = open === f.id
-          const fresh = highlight === f.id
-          return (
-            <button
-              key={f.id}
-              type="button"
-              onClick={() => setOpen(isOpen ? null : f.id)}
-              className={cn("group absolute flex -translate-x-1/2 flex-col items-center focus-visible:outline-none", fresh && "motion-safe:animate-[bloom_.9s_cubic-bezier(.2,.9,.3,1.3)]")}
-              style={{ left: `${x}%`, bottom: `${bottom}%`, zIndex: isOpen ? 40 : 10 - row }}
-              aria-label={`${f.name}${f.by ? `, planted by ${f.by}` : ""}`}
-            >
-              <span className={cn("pointer-events-none absolute bottom-full mb-1 whitespace-nowrap rounded-xl bg-white/95 px-3 py-1.5 text-left text-xs shadow-md transition-opacity", isOpen || fresh ? "opacity-100" : "opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100")}>
-                <span className="block font-semibold italic text-neutral-800">{f.name}</span>
-                <span className="block text-neutral-500">{f.by ? `found by ${f.by}` : "by a mystery visitor"}</span>
-              </span>
-              <span className="block origin-bottom motion-safe:animate-[sway_var(--d)_ease-in-out_infinite_alternate]" style={{ ["--d" as string]: `${2.6 + seeded(f.id, 13) * 2}s` }}>
-                <FlowerArt f={f} width={size} height={size} className="block drop-shadow-[0_4px_6px_rgba(60,80,40,.18)] transition-transform group-hover:scale-110" />
-                <svg aria-hidden width={20} height={stem} viewBox={`0 0 20 ${stem}`} className="mx-auto -mt-2 block">
-                  <path d={`M10 0 C12 ${stem * 0.4} 8 ${stem * 0.6} 10 ${stem}`} stroke="#6f9c5a" strokeWidth={2.2} fill="none" />
-                  <path d={`M10 ${stem * 0.55} C16 ${stem * 0.45} 19 ${stem * 0.5} 19 ${stem * 0.42} C14 ${stem * 0.38} 11 ${stem * 0.45} 10 ${stem * 0.55}Z`} fill="#8bbf6d" />
-                </svg>
-              </span>
-            </button>
-          )
-        })}
-      </div>
-    </section>
   )
 }

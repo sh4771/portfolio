@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import { get, list, put } from "@vercel/blob"
 import { sanitizeFlower, type Flower } from "@/lib/flower"
+import { CARE_PREFIX, tallyCare } from "@/lib/garden-care"
 
 /**
  * The shared garden. Each planted flower is one small JSON file in the site's Vercel
@@ -29,7 +30,7 @@ export async function GET() {
         }),
       )
     ).filter((f): f is Flower => !!f)
-    return NextResponse.json({ shared: true, flowers }, { headers: { "Cache-Control": "s-maxage=15, stale-while-revalidate=60" } })
+    return NextResponse.json({ shared: true, flowers, care: await readCare() }, { headers: { "Cache-Control": "s-maxage=15, stale-while-revalidate=60" } })
   } catch (err) {
     console.error("[garden] read failed", err)
     return NextResponse.json({ shared: false, flowers: [] })
@@ -59,4 +60,21 @@ export async function POST(request: Request) {
     console.error("[garden] save failed", err)
     return NextResponse.json({ error: "Couldn't plant it right now." }, { status: 500 })
   }
+}
+
+/** Counts every act of care from the marker files; a few pages is plenty for a portfolio garden. */
+async function readCare() {
+  const paths: string[] = []
+  try {
+    let cursor: string | undefined
+    for (let i = 0; i < 5; i++) {
+      const page = await list({ prefix: CARE_PREFIX, limit: 1000, cursor })
+      paths.push(...page.blobs.map((b) => b.pathname))
+      if (!page.hasMore) break
+      cursor = page.cursor
+    }
+  } catch (err) {
+    console.error("[garden] care read failed", err)
+  }
+  return tallyCare(paths)
 }

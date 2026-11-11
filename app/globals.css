@@ -476,3 +476,13 @@ html.embed main {
 /* Mini Violet's chat bar takes the dock's place while it's open. */
 nav[aria-label="Main"] { transition: opacity .25s ease, transform .35s cubic-bezier(.2,.8,.2,1); }
 html.mini-open nav[aria-label="Main"] { opacity: 0; pointer-events: none; transform: translate(-50%, 12px) scale(.96); }
+
+/* Garden care */
+@keyframes dance { from { transform: rotate(-7deg) } to { transform: rotate(7deg) translateY(-3px) } }
+@keyframes flutter { from { transform: rotate(-12deg) scaleX(1) } to { transform: rotate(8deg) scaleX(.7) translateY(-2px) } }
+@keyframes drip { 0% { opacity: 0; transform: translateY(0) } 15% { opacity: 1 } 100% { opacity: 0; transform: translateY(60px) } }
+@keyframes tilt { 0% { opacity: 0; transform: rotate(0) } 15% { opacity: 1 } 40%, 80% { opacity: 1; transform: rotate(-28deg) } 100% { opacity: 0; transform: rotate(0) } }
+@keyframes sunburst { 0% { opacity: 0; transform: scale(.4) } 30% { opacity: 1 } 100% { opacity: 0; transform: scale(1.3) } }
+@keyframes floatup { 0% { opacity: 0; transform: translateY(0) } 20% { opacity: 1 } 100% { opacity: 0; transform: translateY(-70px) rotate(12deg) } }
+@keyframes flyin { 0% { opacity: 0; transform: translate(-120px, -80px) rotate(-20deg) } 20% { opacity: 1 } 60% { transform: translate(20px, -30px) rotate(10deg) } 100% { opacity: 1; transform: translate(calc(var(--w, 70px)), 10px) rotate(0) } }
+@keyframes rainfall { from { transform: translateY(0) } to { transform: translateY(520px) } }
