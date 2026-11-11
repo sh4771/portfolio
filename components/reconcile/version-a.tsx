@@ -102,9 +102,9 @@ export function VersionA() {
       <header className="space-y-6 pt-4">
         <p className="cs-eyebrow">Fintech product design · Solo · 2026</p>
         <h1 className="max-w-3xl text-4xl font-semibold leading-[1.05] tracking-tight text-balance sm:text-6xl">
-          A seller got paid less than expected. <span style={{ color: C.accent }}>Nobody knows why.</span>
+          Marketplace finance teams <span style={{ color: C.accent }}>can&apos;t tell why a seller&apos;s payout comes in short.</span>
         </h1>
-        <p className="max-w-xl text-base text-foreground/65">Today, finance teams dig through spreadsheets to find out. Reconcile shows them the reason, down to the cent.</p>
+        <p className="max-w-xl text-base text-foreground/65">Saltmarsh Candles expected $1,192.87 and received $1,141.25. Finance rebuilds a spreadsheet every payout cycle to explain gaps like this. I designed Reconcile to name each cause, down to the cent.</p>
         <div className="flex items-center gap-2 text-xs text-foreground/45">
           <span className="inline-block h-6 w-[2px] animate-pulse rounded-full bg-foreground/30" /> Scroll
         </div>
