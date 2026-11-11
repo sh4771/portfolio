@@ -453,3 +453,7 @@ html.embed main {
 /* Along case study: step progress bar */
 @keyframes along-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
+
+@keyframes cover-push-in { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes cover-push-out { from { transform: translateX(0); filter: brightness(1); } to { transform: translateX(-28%); filter: brightness(.82); } }
+@keyframes cover-fade-in { from { opacity: 0; } to { opacity: 1; } }

@@ -57,7 +57,7 @@ export function FunGrid() {
             title="Restaurant Bot"
             year="2026"
             readMins={1}
-            cover={{ kind: "desktop", bg: "#f9e3ee", screens: [0, 1, 2].map((i) => `/images/covers/restaurant-bot/${i}.webp`) }}
+            cover={{ kind: "desktop", bg: "#f9e3ee", video: "/videos/covers/restaurant-bot.mp4", screens: ["/images/covers/posters/covers-restaurant-bot-poster.jpg"] }}
           />
           <FunProjectCard
             project={SNIFFR}

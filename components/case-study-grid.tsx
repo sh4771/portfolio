@@ -45,7 +45,7 @@ const projects: CaseStudy[] = [
   {
     slug: "vendelux",
     name: "Vendelux: How event teams target, plan, and connect",
-    cover: { kind: "desktop", bg: "#e7ebf2", screens: [0, 1, 2, 3].map((i) => `/images/covers/vendelux/${i}.webp`) },
+    cover: { kind: "video", bg: "#e7ebf2", video: "/videos/vendelux-cover.mp4", screens: ["/images/vendelux-cover-poster.jpg"] },
     readMins: 24,
     title: "Designing How Event Teams Target, Plan, and Connect",
     description:
@@ -72,7 +72,7 @@ const projects: CaseStudy[] = [
   {
     slug: "passiton",
     name: "PASSIT ON: Traceable garment lifecycles",
-    cover: { kind: "phone", bg: "#ece6dd", screens: [0, 1, 2, 3].map((i) => `/images/covers/passiton/${i}.webp`) },
+    cover: { kind: "phone", bg: "#ece6dd", video: "/videos/covers/passiton.mp4", screens: ["/images/covers/posters/covers-passiton-poster.jpg"] },
     readMins: 8,
     title: "PASSIT ON: Designing Traceable Garment Lifecycles",
     description:
@@ -87,7 +87,19 @@ const projects: CaseStudy[] = [
   {
     slug: "greener-routes",
     name: "Greener Walking Routes",
-    cover: { kind: "phone", bg: "#dde8da", screens: [0, 1, 2, 3].map((i) => `/images/covers/greener-routes/${i}.webp`) },
+    cover: {
+      kind: "phone",
+      bg: "#dde8da",
+      screens: ["/images/covers/greener-routes/p1.webp"],
+      flow: [
+        { src: "/images/covers/greener-routes/p1.webp", tap: [50, 92] },
+        { src: "/images/covers/greener-routes/p2.webp", tap: [50, 92] },
+        { src: "/images/covers/greener-routes/p3.webp", tap: [50, 63], next: "none", hold: 900 },
+        { src: "/images/covers/greener-routes/p3.webp", tap: [50, 92], hold: 500 },
+        { src: "/images/covers/greener-routes/p4.webp", tap: [50, 92], hold: 1300 },
+        { src: "/images/covers/greener-routes/p5.webp", hold: 1600 },
+      ],
+    },
     readMins: 5,
     title: "Greener Walking Routes",
     description:
@@ -101,7 +113,19 @@ const projects: CaseStudy[] = [
   {
     slug: "along",
     name: "Along: Sidequests on your everyday walk",
-    cover: { kind: "phone", bg: "#f7dc6f", screens: [0, 1, 2, 3, 4].map((i) => `/images/covers/along/${i}.webp`) },
+    cover: {
+      kind: "phone",
+      bg: "#f7dc6f",
+      screens: ["/images/covers/along/0.webp"],
+      flow: [
+        { src: "/images/covers/along/0.webp", tap: [50, 85] },
+        { src: "/images/covers/along/1.webp", tap: [86, 57], next: "none", hold: 900 },
+        { src: "/images/covers/along/1.webp", tap: [86, 68], hold: 450 },
+        { src: "/images/covers/along/2.webp", tap: [39, 94], hold: 1300 },
+        { src: "/images/covers/along/3.webp", tap: [62, 95], next: "fade", hold: 1400 },
+        { src: "/images/covers/along/4.webp", hold: 1600 },
+      ],
+    },
     readMins: 3,
     title: "Along: Making the Everyday Walk Worth Taking the Long Way",
     description:
@@ -115,7 +139,7 @@ const projects: CaseStudy[] = [
   {
     slug: "reconcile",
     name: "Reconcile: Explaining seller payouts",
-    cover: { kind: "phone", bg: "#e6e0fb", screens: [1, 2, 3, 4, 0].map((i) => `/images/covers/reconcile/${i}.webp`) },
+    cover: { kind: "phone", bg: "#e6e0fb", video: "/videos/covers/reconcile.mp4", screens: ["/images/covers/posters/covers-reconcile-poster.jpg"] },
     readMins: 4,
     title: "Reconcile: Explaining Why a Seller Payout Doesn't Match",
     description:
@@ -129,7 +153,7 @@ const projects: CaseStudy[] = [
   {
     slug: "games4peace",
     name: "Games4Peace: Casual play for social impact",
-    cover: { kind: "phone", bg: "#a3c2bb", screens: [0, 1, 2, 3].map((i) => `/images/covers/games4peace/${i}.webp`) },
+    cover: { kind: "phone", bg: "#a3c2bb", video: "/videos/covers/games4peace.mp4", screens: ["/images/covers/posters/covers-games4peace-poster.jpg"] },
     readMins: 4,
     title: "Turning Casual Play into Measurable Social Impact",
     description:
@@ -144,7 +168,20 @@ const projects: CaseStudy[] = [
   {
     slug: "schedulink",
     name: "Schedulink: Real-time plans with friends",
-    cover: { kind: "phone", bg: "#111111", dark: true, screens: [0, 1, 2, 3, 4, 5].map((i) => `/images/covers/schedulink/${i}.webp`) },
+    cover: {
+      kind: "phone",
+      bg: "#111111",
+      dark: true,
+      screens: ["/images/covers/schedulink/t2.webp"],
+      flow: [
+        { src: "/images/covers/schedulink/t2.webp", tap: [65, 12], next: "fade" },
+        { src: "/images/covers/schedulink/t3.webp", next: "fade", hold: 1300 },
+        { src: "/images/covers/schedulink/t4.webp", tap: [65, 12], next: "fade", hold: 900 },
+        { src: "/images/covers/schedulink/t5.webp", next: "fade", hold: 1300 },
+        { src: "/images/covers/schedulink/t6.webp", tap: [65, 12], next: "fade", hold: 900 },
+        { src: "/images/covers/schedulink/t7.webp", hold: 1300 },
+      ],
+    },
     readMins: 4,
     title: "Real-Time Availability for Social Planning",
     description:
@@ -173,7 +210,7 @@ const projects: CaseStudy[] = [
   {
     slug: "clinical-trials",
     name: "Decision Clarity in Clinical Trials",
-    cover: { kind: "desktop", bg: "#eceef3", screens: [0, 1, 2, 3].map((i) => `/images/covers/clinical-trials/${i}.webp`) },
+    cover: { kind: "desktop", bg: "#eceef3", video: "/videos/covers/clinical-trials.mp4", screens: ["/images/covers/posters/covers-clinical-trials-poster.jpg"] },
     readMins: 5,
     showOnHomepage: false, // shown in For Fun
     title: "Designing Decision Clarity in Clinical Trial Systems",
