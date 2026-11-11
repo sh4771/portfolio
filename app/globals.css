@@ -473,11 +473,6 @@ html.embed main {
 @keyframes bloom { from { transform: scale(.6) rotate(-20deg); opacity: 0; } to { transform: none; opacity: 1; } }
 @keyframes sway { from { transform: rotate(-3deg); } to { transform: rotate(3deg); } }
 
-/* Mini Violet's chat bar takes the dock's place while it's open. */
-nav[aria-label="Main"] { transition: opacity .3s ease, transform .45s cubic-bezier(.2,.8,.2,1); }
-html.mini-open nav[aria-label="Main"] { opacity: 0; pointer-events: none; transform: scale(1.12, 1); }
-@media (prefers-reduced-motion: reduce) { nav[aria-label="Main"] { transition: none; } }
-
 /* Garden care */
 @keyframes dance { from { transform: rotate(-7deg) } to { transform: rotate(7deg) translateY(-3px) } }
 @keyframes flutter { from { transform: rotate(-12deg) scaleX(1) } to { transform: rotate(8deg) scaleX(.7) translateY(-2px) } }

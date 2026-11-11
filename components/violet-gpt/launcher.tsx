@@ -20,10 +20,11 @@ export function VioletGPTLauncher() {
 
   // Mini Violet lives in the dock now; the dock asks to open her and shows an unread dot.
   const setUnread = (v: boolean) => window.dispatchEvent(new CustomEvent(MINI_UNREAD_EVENT, { detail: v }))
+  // Mini's dock button toggles the corner card, since the dock now stays in view.
   const openChat = useCallback(() => {
     setHint(null)
     setLoaded(true)
-    setOpen(true)
+    setOpen((o) => !o)
     setUnread(false)
   }, [])
   useEffect(() => {

@@ -114,10 +114,6 @@ export default function VioletChat({ open, onClose }: { open: boolean; onClose: 
     }
   }, [open])
 
-  useEffect(() => {
-    document.documentElement.classList.toggle("mini-open", shown && compact)
-    return () => document.documentElement.classList.remove("mini-open")
-  }, [shown, compact])
 
   useEffect(() => {
     if (!open) {
@@ -321,20 +317,21 @@ export default function VioletChat({ open, onClose }: { open: boolean; onClose: 
         aria-hidden={!open}
         inert={!open}
         className={cn(
-          "fixed bottom-[calc(24px+env(safe-area-inset-bottom,0px))] left-1/2 z-[60] w-[min(560px,calc(100vw-32px))] -translate-x-1/2 text-foreground",
+          // A corner card: clear of the reading column, and above the dock on narrower screens.
+          "fixed right-6 bottom-[calc(96px+env(safe-area-inset-bottom,0px))] z-[60] w-[min(400px,calc(100vw-48px))] text-foreground min-[1180px]:bottom-[calc(24px+env(safe-area-inset-bottom,0px))]",
           !open && "pointer-events-none",
         )}
       >
         {/* One solid card grows out of the dock: the bar first, then the conversation unfolds above it. */}
         <div
           className={cn(
-            "flex origin-bottom flex-col overflow-hidden rounded-[28px] bg-white shadow-[0_24px_60px_-16px_rgba(0,0,0,0.3)] ring-1 ring-black/5 transition-[opacity,transform,visibility] duration-[450ms] ease-[cubic-bezier(.2,.8,.2,1)] motion-reduce:transition-none dark:bg-neutral-900 dark:ring-white/10",
-            shown ? "visible translate-y-0 scale-100 opacity-100 delay-75" : "invisible translate-y-3 scale-x-[0.72] scale-y-[0.9] opacity-0",
+            "flex origin-bottom-right flex-col overflow-hidden rounded-[28px] bg-white shadow-[0_24px_60px_-16px_rgba(0,0,0,0.3)] ring-1 ring-black/5 transition-[opacity,transform,visibility] duration-[450ms] ease-[cubic-bezier(.2,.8,.2,1)] motion-reduce:transition-none dark:bg-neutral-900 dark:ring-white/10",
+            shown ? "visible translate-y-0 scale-100 opacity-100" : "invisible translate-y-3 scale-[0.9] opacity-0",
           )}
         >
           <div className={cn("grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(.2,.8,.2,1)] motion-reduce:transition-none", shown ? "grid-rows-[1fr] delay-150" : "grid-rows-[0fr]")}>
             <div className="min-h-0 overflow-hidden">
-              <div ref={stackRef} className="max-h-[min(48vh,460px)] space-y-4 overflow-y-auto overscroll-contain px-4 pt-4 pb-3">
+              <div ref={stackRef} className="max-h-[min(58vh,520px)] space-y-4 overflow-y-auto overscroll-contain px-4 pt-4 pb-3">
                 <p className="text-center text-[11px] text-muted-foreground">Typed questions are answered by Google Gemini. Please don&apos;t share personal info.</p>
                 {thread(false)}
               </div>
