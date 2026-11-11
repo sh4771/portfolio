@@ -41,7 +41,7 @@ const REFLECTION = [
     body: (
       <>
         <p>
-          Writing out <strong className={B}>45 edge cases</strong> changed the design more than any screen review did. Three of them,
+          Writing out <strong className={B}>45 edge cases</strong> did more than catch bugs. Three of them,
           causes that don&apos;t add up, overdue timing and two people assigning at once, made me <strong className={B}>rework a decision</strong>.
         </p>
         <p>
