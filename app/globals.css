@@ -453,6 +453,3 @@ html.embed main {
 /* Along case study: step progress bar */
 @keyframes along-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
-@keyframes board-dash {
-  to { stroke-dashoffset: -12; }
-}
