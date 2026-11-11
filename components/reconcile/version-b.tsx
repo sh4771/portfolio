@@ -63,7 +63,7 @@ function Choice({ label, onClick, state }: { label: string; onClick: () => void;
 /* 1 · Is it lost? */
 function One({ onDone }: { onDone: () => void }) {
   const [pick, setPick] = useState<string | null>(null)
-  const opts = ["All $51.62 is lost", "Most of it is just late", "It's a bank error"]
+  const opts = ["Saltmarsh lost all $51.62", "Most of it is just late", "It's a bank error"]
   const right = opts[1]
   return (
     <Level n={1} done={pick === right} title="Saltmarsh expected $1,192.87 and got $1,141.25. How much of the $51.62 is really gone?">
@@ -238,7 +238,7 @@ function Four({ onDone }: { onDone: () => void }) {
                 </button>
               ) : (
                 <div className="mt-4 rounded-xl px-3 py-3 text-sm motion-safe:animate-[sniffr-fade_.3s]" style={{ background: "#fef3ec", color: C.under }}>
-                  Daniel took this case a moment ago. Nothing you did was lost.
+                  Daniel took this case a moment ago. You didn&apos;t lose any of your work.
                 </div>
               )
             ) : (
@@ -328,12 +328,12 @@ export function VersionB() {
 
       <section className="space-y-6">
         <p className="cs-eyebrow">Where the research came from</p>
-        <h2 className="cs-h2">6 products. Matching is solved. Explaining isn&apos;t.</h2>
+        <h2 className="cs-h2">I studied 6 products. Competitors solved matching, but nobody explains the gap.</h2>
         <PositionMap />
       </section>
       <section className="space-y-6">
-        <p className="cs-eyebrow">All 45 edge cases</p>
-        <h2 className="cs-h2">Tap any dot.</h2>
+        <p className="cs-eyebrow">Edge cases</p>
+        <h2 className="cs-h2">I mapped 45 edge cases. Tap any dot.</h2>
         <EdgeCaseGrid />
       </section>
       <section className="space-y-6">

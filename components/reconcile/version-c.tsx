@@ -255,7 +255,7 @@ export function DesignBoard() {
             </div>
             <p className="text-lg font-semibold leading-snug">{node.label}</p>
             {node.id.startsWith("S") ? null : <p className="text-sm text-foreground/65">{node.detail}</p>}
-            {node.id.startsWith("H") && <p className="text-xs text-foreground/45">Each hypothesis is written with the signal that would prove it wrong.</p>}
+            {node.id.startsWith("H") && <p className="text-xs text-foreground/45">I wrote each hypothesis with the signal that would prove it wrong.</p>}
             {decision && (
               <div className="space-y-2 rounded-xl p-3 text-sm" style={{ background: C.accent50 }}>
                 <p className="text-xs font-semibold" style={{ color: C.accent }}>{decision.id} · {decision.title}</p>
@@ -305,12 +305,12 @@ export function VersionC() {
 
       <section className="space-y-6">
         <p className="cs-eyebrow">Zoom in · the core screen</p>
-        <h2 className="cs-h2">A bridge that adds up to the cent.</h2>
+        <h2 className="cs-h2">The bridge explains the gap down to the cent.</h2>
         <Bridge />
       </section>
       <section className="space-y-6">
         <p className="cs-eyebrow">Zoom in · 45 edge cases</p>
-        <h2 className="cs-h2">In finance, an edge case is a trust problem.</h2>
+        <h2 className="cs-h2">I mapped 45 edge cases, because one wrong number sends finance back to Excel.</h2>
         <EdgeCaseGrid />
       </section>
       <section className="space-y-6">

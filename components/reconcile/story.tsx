@@ -122,8 +122,8 @@ export type Node = { id: string; label: string; detail: string }
 export const R: Node[] = [
   { id: "R1", label: "Matching is table stakes", detail: "The fight is over the exceptions left after automation." },
   { id: "R2", label: "The “why” is still manual", detail: "Tools list what's in a payout, not why it differs." },
-  { id: "R3", label: "Trust needs visible reasoning", detail: "Leading tools show why a match was made." },
-  { id: "R4", label: "Timing is hidden, not explained", detail: "Absorbing timing also hides when money arrives." },
+  { id: "R3", label: "Trust needs visible reasoning", detail: "Leading tools show why they made a match." },
+  { id: "R4", label: "Tools hide timing instead of explaining it", detail: "Absorbing timing also hides when money arrives." },
   { id: "G", label: "Nobody works per seller payout", detail: "Tools work per bank line, GL entry or period." },
 ]
 export const HY: Node[] = [
@@ -139,7 +139,7 @@ export const DE: Node[] = [
   { id: "D2", label: "A bridge that adds up", detail: "Expected → one row per cause → recorded, with a check." },
   { id: "D3", label: "Timing apart from loss", detail: "Grey clock tag and a clear date. Late timing turns amber." },
   { id: "D4", label: "Say how sure", detail: "Confirmed, Likely, Hypothesis. No record needs a note." },
-  { id: "D5", label: "Read-only, said out loud", detail: "No edit controls. Connect sheets say what we can't do." },
+  { id: "D5", label: "Say out loud that it's read-only", detail: "No edit controls. Connect sheets say what we can't do." },
   { id: "D6", label: "Rules, with a preview", detail: "After 3 repeats, suggest a rule for future payouts only." },
 ]
 export const SC: Node[] = [
@@ -408,7 +408,7 @@ export const DECISIONS = [
   { id: "D2", title: "Explain the difference as a bridge", from: "H1 · R2", rejected: "A transaction list, or a one-line AI summary", chose: "Expected, one row per cause, recorded, and a check that it adds up", shot: "/images/reconcile/why.webp" },
   { id: "D3", title: "Keep timing apart from loss", from: "H2 · R4", rejected: "Hiding timing gaps like Ledge does", chose: "Grey clock tag with the date it clears. Late timing turns amber", shot: "/images/reconcile/home-timing.webp" },
   { id: "D4", title: "Say how sure every explanation is", from: "H3 · R3", rejected: "A confidence percentage", chose: "Confirmed, Likely, Hypothesis. No record needs a note", shot: "/images/reconcile/atlas.webp" },
-  { id: "D5", title: "Read-only, said out loud", from: "H6", rejected: "Inline “fix” or “adjust” buttons", chose: "No edit controls. Say what Reconcile can't do before each connection", shot: "/images/reconcile/connect.webp" },
+  { id: "D5", title: "Say out loud that Reconcile is read-only", from: "H6", rejected: "Inline “fix” or “adjust” buttons", chose: "No edit controls. Say what Reconcile can't do before each connection", shot: "/images/reconcile/connect.webp" },
   { id: "D6", title: "Turn repeats into rules, with a preview", from: "H5 · R1", rejected: "Silent auto-learning", chose: "After 3 repeats, preview the rule. It only touches future payouts", shot: "/images/reconcile/rule.webp" },
 ]
 
@@ -478,7 +478,7 @@ const AREAS: { name: string; rule: string; cases: Edge[] }[] = [
       { t: "Expected payout never arrived", r: "“Missing record” with a contact-the-processor action" },
       { t: "Payout with no ledger entry", r: "“Unexpected payout”. Fix the ledger in the ledger" },
       { t: "Same payout ID twice", r: "Group with a warning, count it once" },
-      { t: "One expected payout split in two", r: "Allow 1-to-many matches, say it was split" },
+      { t: "One expected payout split in two", r: "Allow 1-to-many matches, say the processor split it" },
       { t: "Exactly at the $0.50 tolerance", r: "Say whether the edge counts. Log auto-matches" },
       { t: "$0.01 or $1,250,000.00", r: "Wide tabular numbers. Never abbreviate or hide a cent" },
     ],
@@ -487,7 +487,7 @@ const AREAS: { name: string; rule: string; cases: Edge[] }[] = [
     name: "Timing",
     rule: "When a timing guess is wrong, it's the riskiest moment.",
     cases: [
-      { t: "Timing money misses its date", r: "Next day it turns Overdue (amber) and the owner is told", built: true, changed: true, next: true },
+      { t: "Timing money misses its date", r: "Next day it turns Overdue (amber) and Reconcile alerts the owner", built: true, changed: true, next: true },
       { t: "Only part of it arrives", r: "Count what arrived, split the rest out as delayed" },
       { t: "11:59 PM ET is tomorrow in UTC", r: "Name the cutoff time zone in the cause" },
       { t: "Friday payout lands Monday", r: "Business days in the due date. Weekends aren't delays" },
@@ -499,25 +499,25 @@ const AREAS: { name: string; rule: string; cases: Edge[] }[] = [
     name: "Evidence",
     rule: "Less proof needs more human judgment. Only Confirmed closes itself.",
     cases: [
-      { t: "Only a Hypothesis", r: "A note is required, logged as closed on a guess" },
-      { t: "Two causes explain the same amount", r: "Show both, the person picks, the reason is logged" },
+      { t: "Only a Hypothesis", r: "Require a note, and log it as closed on a guess" },
+      { t: "Two causes explain the same amount", r: "Show both, let the person pick, log the reason" },
       { t: "No cause found", r: "“Cause unknown” plus a processor inquiry template" },
       { t: "Data changes after closing", r: "Reopen automatically, keep the old explanation", next: true },
-      { t: "Reopened by hand", r: "Ask for a reason, log who and when" },
-      { t: "Someone tries to edit an amount", r: "Not allowed. Fix the source in NetSuite, with a link", built: true },
+      { t: "Someone reopens a case by hand", r: "Ask for a reason, log who and when" },
+      { t: "Someone tries to edit an amount", r: "Block the edit and link to the source in NetSuite", built: true },
     ],
   },
   {
     name: "Cases & teamwork",
-    rule: "Ownership is always clear, and nothing unowned disappears.",
+    rule: "Everyone sees who owns what, and nothing unowned disappears.",
     cases: [
       { t: "Two people assign at once", r: "First tap wins. The other sees who took it", built: true, changed: true, next: true },
-      { t: "Owner leaves the company", r: "Back to Triage, admin is told, notes stay" },
+      { t: "Owner leaves the company", r: "Move cases back to Triage, alert the admin, keep the notes" },
       { t: "Can't finish a case", r: "Unassign or hand off with a note" },
       { t: "Mine is empty", r: "“Nothing assigned” with a way to Triage" },
       { t: "Triage is empty", r: "A calm “everything has an owner”, no confetti", built: true },
       { t: "View-only role", r: "“View only” instead of the button, plus request access" },
-      { t: "Fixing a note", r: "Editable, marked edited, history kept, never deleted" },
+      { t: "Fixing a note", r: "Allow edits, mark them as edited, keep the history, never delete" },
       { t: "One person holds 30 cases", r: "Flag cases older than 7 days, show workload to admins" },
     ],
   },
@@ -525,10 +525,10 @@ const AREAS: { name: string; rule: string; cases: Edge[] }[] = [
     name: "Connecting",
     rule: "Stale or missing data leads to wrong calls, even when the numbers match.",
     cases: [
-      { t: "Cancelled at the processor login", r: "“Not connected” and retry, without looking like an error" },
-      { t: "Only some permissions granted", r: "List what's missing and what that breaks", built: true },
+      { t: "User cancels at the processor login", r: "“Not connected” and retry, without looking like an error" },
+      { t: "User grants only some permissions", r: "List what's missing and what that breaks", built: true },
       { t: "Token expired", r: "“Last synced 3 days ago” banner on every screen", next: true },
-      { t: "API outage, 90 of 144 imported", r: "Say so, retry, and don't compute a match rate yet" },
+      { t: "An API outage stops the import at 90 of 144", r: "Say so, retry, and don't compute a match rate yet" },
       { t: "Broken CSV", r: "Show which rows and why, import the good ones" },
       { t: "Brand-new account", r: "“We'll tell you when the first payout lands” plus sample data" },
       { t: "Huge first sync", r: "Run in the background, browse what's done" },
@@ -538,7 +538,7 @@ const AREAS: { name: string; rule: string; cases: Edge[] }[] = [
   },
   {
     name: "Screens & access",
-    rule: "Readable at any size, by anyone.",
+    rule: "Anyone can read it, at any size.",
     cases: [
       { t: "Very long seller names", r: "Truncate in lists, wrap in detail, amounts on one line" },
       { t: "No search results", r: "Empty state plus clear filters, keep the query", built: true },

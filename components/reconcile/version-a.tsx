@@ -21,13 +21,13 @@ type Step = {
 }
 
 const STEPS: Step[] = [
-  { chain: ["The question"], kicker: "A Tuesday morning", title: "Saltmarsh expected $1,192.87. It got $1,141.25.", body: "Finance has to explain the −$51.62. Today that means a spreadsheet, rebuilt every payout.", shot: "/images/reconcile/splash.webp", visual: "question" },
-  { chain: ["R2", "H1", "D2"], kicker: "Tools say what. Nobody says why.", title: "So the core screen is a bridge that adds up.", body: "Expected, one row per cause, recorded. A check line proves the causes net to the gap.", shot: "/images/reconcile/why.webp", visual: "split" },
+  { chain: ["The question"], kicker: "A Tuesday morning", title: "Saltmarsh expected $1,192.87. It got $1,141.25.", body: "Finance has to explain the −$51.62. Today, they rebuild a spreadsheet every payout to do it.", shot: "/images/reconcile/splash.webp", visual: "question" },
+  { chain: ["R2", "H1", "D2"], kicker: "Tools say what. Nobody says why.", title: "So I made the core screen a bridge that adds up.", body: "Expected, one row per cause, recorded. A check line proves the causes net to the gap.", shot: "/images/reconcile/why.webp", visual: "split" },
   { chain: ["Gap", "H4", "D1"], kicker: "Tools work per bank line or period", title: "Marketplaces think in sellers, so every screen does too.", body: "Every list, case and number hangs off one seller payout.", shot: "/images/reconcile/payouts.webp", visual: "gap" },
-  { chain: ["R4", "H2", "D3"], kicker: "Timing gets hidden", title: "Timing gets a grey clock and a date, never a red flag.", body: "When timing misses its date, it turns amber and moves to Needs you.", shot: "/images/reconcile/ondine.webp" },
+  { chain: ["R4", "H2", "D3"], kicker: "Tools hide timing", title: "I gave timing a grey clock and a date, never a red flag.", body: "When timing misses its date, it turns amber and moves to Needs you.", shot: "/images/reconcile/ondine.webp" },
   { chain: ["R3", "H3", "D4"], kicker: "Trust comes from visible reasoning", title: "Every cause says how sure it is.", body: "Confirmed closes itself. Anything without a record needs a written reason.", shot: "/images/reconcile/atlas.webp", visual: "ladder" },
   { chain: ["R3", "H6", "D5"], kicker: "Connecting books is scary", title: "Say what it can't do, before asking for access.", body: "No edit controls anywhere. Closing a case confirms no amounts change.", shot: "/images/reconcile/connect.webp", visual: "lock" },
-  { chain: ["R1", "H5", "D6"], kicker: "The same fee, every week", title: "Repeats become rules, but only with a preview.", body: "After three repeats, Reconcile suggests a rule that only touches future payouts.", shot: "/images/reconcile/rule.webp", visual: "rule" },
+  { chain: ["R1", "H5", "D6"], kicker: "The same fee, every week", title: "Reconcile turns repeats into rules, but only with a preview.", body: "After three repeats, Reconcile suggests a rule that only touches future payouts.", shot: "/images/reconcile/rule.webp", visual: "rule" },
   { chain: ["Edge case"], kicker: "Two people, one case", title: "First tap wins, and the other person sees who.", body: "One of 45 edge cases. Three of them changed the design.", shot: "/images/reconcile/conflict.webp", visual: "race" },
 ]
 
@@ -155,7 +155,7 @@ export function VersionA() {
 
       <section className="space-y-6">
         <p className="cs-eyebrow">Where it sits</p>
-        <h2 className="cs-h2">Matching is solved. Explaining isn&apos;t.</h2>
+        <h2 className="cs-h2">Competitors solved matching. Nobody explains the gap.</h2>
         <PositionMap />
       </section>
       <section className="space-y-6">
@@ -164,8 +164,8 @@ export function VersionA() {
         <Bridge />
       </section>
       <section className="space-y-6">
-        <p className="cs-eyebrow">45 edge cases</p>
-        <h2 className="cs-h2">Tap any dot.</h2>
+        <p className="cs-eyebrow">Edge cases</p>
+        <h2 className="cs-h2">I mapped 45 edge cases. Tap any dot.</h2>
         <EdgeCaseGrid />
       </section>
       <section className="space-y-6">

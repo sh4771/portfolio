@@ -28,7 +28,7 @@ function Section({ id, eyebrow, title, lead, children }: { id: string; eyebrow: 
 const GAPS = [
   { k: "Per seller payout", v: "Tools work per bank line, GL entry or period. Marketplaces think in sellers." },
   { k: "How sure", v: "Some tools show reasoning. None labels a cause as proven or inferred." },
-  { k: "When it arrives", v: "Timing gaps get hidden, but that's exactly what finance gets asked." },
+  { k: "When it arrives", v: "Tools hide timing gaps, but that's exactly what people ask finance about." },
 ]
 
 export default function Page() {
@@ -62,12 +62,12 @@ export default function Page() {
           </header>
 
           {/* The question */}
-          <Section id="question" eyebrow="The question" title="Every tool matches records. None answers the question finance actually gets asked." lead="Today that answer lives in a spreadsheet, rebuilt by hand every payout cycle.">
+          <Section id="question" eyebrow="The question" title="Every tool matches records, but none tells finance why a payout differs." lead="Today, finance rebuilds that answer by hand in a spreadsheet every payout cycle.">
             <TheQuestion />
           </Section>
 
           {/* Research */}
-          <Section id="research" eyebrow="Research · 6 products, 1 practitioner thread" title="Matching is solved. Explaining isn't.">
+          <Section id="research" eyebrow="Research · 6 products, 1 practitioner thread" title="Competitors solved matching. Nobody explains the gap.">
             <PositionMap />
             <div className="grid gap-3 sm:grid-cols-3">
               {GAPS.map((g, i) => (
@@ -81,35 +81,35 @@ export default function Page() {
           </Section>
 
           {/* Traceability */}
-          <Section id="trace" eyebrow="From research to screen" title="Every screen traces back to something I learned." lead="Four findings and one gap became six hypotheses, each written with the signal that would prove it wrong. Each hypothesis became one decision and one screen.">
+          <Section id="trace" eyebrow="From research to screen" title="Every screen traces back to something I learned." lead="I turned four findings and one gap into six hypotheses, and wrote each with the signal that would prove it wrong. Each hypothesis then became one decision and one screen.">
             <TraceMap />
           </Section>
 
           {/* Bridge */}
-          <Section id="bridge" eyebrow="Decision 2 · The core screen" title="A bridge that adds up to the cent." lead="Toggle to see what's really lost. Most of the gap is timing that clears on its own.">
+          <Section id="bridge" eyebrow="Decision 2 · The core screen" title="The bridge explains the gap down to the cent." lead="Toggle to see what's really lost. Most of the gap is timing that clears on its own.">
             <Bridge />
           </Section>
 
           {/* Evidence */}
-          <Section id="evidence" eyebrow="Decision 4" title="Every cause says how sure it is.">
+          <Section id="evidence" eyebrow="Decision 4" title="Every cause tells you how sure Reconcile is.">
             <EvidenceLadder />
           </Section>
 
           {/* Decisions */}
-          <Section id="decisions" eyebrow="Six decisions" title="What I rejected, and what I chose instead." lead="The rejected option is usually what a competitor already ships.">
+          <Section id="decisions" eyebrow="Six decisions" title="For each decision, I rejected what competitors ship and chose a clearer option." lead="Use the arrows to compare what I rejected with what I chose.">
             <Decisions />
           </Section>
 
           {/* Edge cases */}
-          <Section id="edge-cases" eyebrow="Edge cases · 45 across 6 areas" title="In finance, an edge case is a trust problem." lead="One wrong-looking number and people go back to Excel. Tap a dot to see the case and the design response.">
+          <Section id="edge-cases" eyebrow="Edge cases · 45 across 6 areas" title="I mapped 45 edge cases, because one wrong number sends finance back to Excel." lead="Tap a dot to see the case and how the design responds.">
             <EdgeCaseGrid />
           </Section>
 
           {/* Prototype */}
-          <Section id="prototype" eyebrow="Prototype" title="Three rounds, three questions." >
+          <Section id="prototype" eyebrow="Prototype" title="I built three rounds, each to answer one question.">
             <Versions />
             <div className="flex flex-wrap items-baseline gap-x-6 gap-y-1 text-sm">
-              <span className="text-foreground/55">Reconciliation as cases close</span>
+              <span className="text-foreground/55">Reconciliation rises as cases close</span>
               <span className="font-semibold tabular-nums">90.3% → 91.0% → 91.7%</span>
               <span className="text-xs text-foreground/45">130, 131, then 132 of 144 payouts</span>
             </div>
@@ -117,7 +117,7 @@ export default function Page() {
           </Section>
 
           {/* Next */}
-          <Section id="next" eyebrow="Next" title="Give every hypothesis a chance to fail." lead="Five moderated sessions with marketplace finance and payment ops people, on their own phones. None have run yet.">
+          <Section id="next" eyebrow="Next" title="Next, I'll give every hypothesis a chance to fail." lead="I'll run five moderated sessions with marketplace finance and payment ops people, on their own phones. I haven't run them yet.">
             <div className="grid gap-3 sm:grid-cols-3">
               {[
                 ["H2", "“How much is really missing this week?”", "Separates the $516.28 timing from real gaps"],
