@@ -20,7 +20,6 @@ const PROJECT_NAMES: Record<string, string> = {
   "campaign-admin": "Campaign Admin",
   "meeting-planner": "Meeting Planner",
   "roi-calculator": "ROI Calculator",
-  planner: "Planner",
 }
 
 function projectOf(page: string | null) {

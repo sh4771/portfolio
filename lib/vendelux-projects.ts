@@ -458,6 +458,185 @@ export const vendeluxProjects: VendeluxProject[] = [
     media: {},
   },
   {
+    slug: "roi-calculator",
+    navLabel: "ROI Calculator",
+    title: "ROI Calculator",
+    challenge: "Turning a guessed budget into a return people can defend",
+    oneLiner:
+      "Planner's budget was a free-text cell, so every number was a guess. I moved the ROI calculation into the event panel, and along the way found the old calculator overstated return by about 2x.",
+    duration: "Sep – Nov 2026 · Live in dev",
+    whatIDid: "Product design as the sole designer, testing nine hypotheses against the live product, the math and reviews with our PM and CEO",
+    tools: ["v0", "Claude", "PostHog", "Granola"],
+    intro: {
+      text: "Vendelux Planner is where event marketers keep the events they're considering. It couldn't help them decide which ones were worth the money. I redesigned how they plan budget and project return, so the event card shows a forecast built from their own assumptions.",
+      image: "/images/vendelux/roi-saved-card.jpg",
+      alt: "Budget and performance panel with Conversion and Close steps, and a Planner board card showing budget $59k, closed-won $455k and projected ROI 7.7x",
+    },
+    quickFacts: [
+      { label: "My Role", value: "Product Designer (sole designer)" },
+      { label: "Timeline", value: "Sep – Nov 2026" },
+      { label: "Team", value: "PM, CEO and engineering" },
+      { label: "Users", value: "Event marketers and budget owners" },
+      { label: "User Goal", value: "Decide which events are worth the spend, and defend that call to leadership" },
+      { label: "Outcome", value: "Planner redesign live in dev on real data; full ROI reconciliation scoped for a later phase" },
+    ],
+    transition:
+      "When I started, budget was whatever someone typed, and the ROI calculator lived on a different page.",
+    credit: { text: "Product Design, Vendelux" },
+    role: [
+      "I was the sole designer and reviewed every step with our PM and CEO.",
+      "I treated the redesign as a set of hypotheses and checked each one against the live product, the math or a leadership review.",
+    ],
+    boxes: [
+      {
+        icon: "route",
+        label: "Problem",
+        body: [
+          "Planner's budget field was a free-text cell, so marketers typed a number from memory and nothing calculated it.",
+          "An ROI calculator existed on a separate page. It jumped straight from leads to sales and valued them at lifetime value, so almost every event looked like a strong bet.",
+          "Our CEO's new card design added budget and ROI fields to each event, but nothing produced those numbers.",
+        ],
+        quote: "How might we help event marketers project a return they can defend, right where they plan?",
+      },
+      {
+        icon: "map",
+        label: "Each review changed the design",
+        body: [],
+        steps: [
+          "Sep 25: I shared early ROI explorations with our PM, who asked me to take them to the CEO.",
+          "Oct 1: We compared the live Planner, the CEO's card and the old calculator side by side. Budget was free text, the calculator couldn't fill 6 card fields, and the dashboard link went nowhere.",
+          "Oct 1 – 6: I mapped every calculator input to every card field, re-ran the math under both ROI definitions and built a clickable panel prototype.",
+          "Oct 7: Our PM corrected three assumptions in the v0 build: no prefilled numbers, a wider drawer and no background blur.",
+          "Oct 19: Our CEO liked the live update, called budget and leads redundant and asked me to defer full reconciliation so the redesign could ship sooner.",
+          "Nov 10: I handed off the ROI direction to the incoming engineers.",
+        ],
+      },
+      {
+        icon: "git-branch",
+        label: "Three ways in, one calculator",
+        body: ["I whiteboarded three entry points live with our PM."],
+        optionCards: [
+          { label: "Link out", description: "Each field links to the separate calculator page. Cheapest, but it leaves the panel and loses context." },
+          { label: "Per-field calculators", description: "Click budget to calculate budget, click ROI to calculate ROI. Granular, but it splits the funnel across fields." },
+          {
+            label: "One calculator in the panel",
+            description: "It runs the whole calculation in the drawer and fills the card fields. Our PM's call: no new page, calculate inside the panel.",
+            selected: true,
+          },
+        ],
+      },
+      {
+        icon: "alert-triangle",
+        label: "The old calculator overstated return by about 2x",
+        variant: "danger",
+        body: [
+          "I re-ran the calculator's own example, Microsoft Ignite 2026 with a $59k budget, under both ROI definitions.",
+          "The calculator also skipped the stage B2B teams report first: opportunities and pipeline. I added it.",
+        ],
+        stat: { value: "15.4x vs 7.7x", caption: "same inputs, lifetime value vs closed-won revenue" },
+        flow: [
+          { steps: ["Budget $59k", "1,012 qualified leads", "152 leads", "61 opportunities", "$1.82M pipeline", "$455k closed-won"], note: "15% capture · 40% lead→opp · $30k deal · 25% win" },
+        ],
+        footer:
+          "A 2x gap is enough to change which event a team commits to. Figures are the calculator's own demo inputs, not customer data.",
+      },
+      {
+        icon: "bulb",
+        label: "The decision: the panel is the calculator",
+        variant: "accent",
+        body: [
+          "The event panel walks Investment → Reach → Conversion → Close, with the headline numbers up top and the card updating beside it.",
+        ],
+        codeBlocks: [
+          {
+            heading: "ROI defaults to closed-won revenue, labelled gross so nobody reads it as net. Budget is the sum of four spend lines, with an override.",
+            image: "/images/vendelux/roi-closed-won.jpg",
+            imageWidth: 1100,
+            imageHeight: 420,
+          },
+          {
+            heading: "The same inputs on lifetime value read 15.4x. That comparison is why lifetime value became an advanced option instead of the default.",
+            image: "/images/vendelux/roi-ltv.jpg",
+            imageWidth: 1100,
+            imageHeight: 420,
+          },
+          {
+            heading: "Saving writes only the decision values to the card: budget, closed-won and ROI, plus a one-line funnel. The assumptions stay in the panel.",
+            image: "/images/vendelux/roi-saved-card.jpg",
+            imageWidth: 1100,
+            imageHeight: 900,
+          },
+        ],
+      },
+      {
+        icon: "flask",
+        label: "Nine hypotheses: what held up",
+        body: [
+          "I checked each one against product data, the math or stakeholder review. These weren't moderated user tests.",
+        ],
+        steps: [
+          "Budget numbers are guesses because nothing calculates them. Budget now comes from four spend lines.",
+          "The calculation belongs inside the event panel. Linking out breaks the planning flow.",
+          "The funnel is missing a stage. I added lead → opportunity rate and average deal size.",
+          "Lifetime value overstates the return. Closed-won is now the default.",
+          "Live recalculation builds trust. Values update on the card as you edit, with an explicit save.",
+        ],
+      },
+      {
+        icon: "alert-triangle",
+        label: "What review overturned",
+        body: ["Three of my assumptions didn't survive review, and each change made the design better."],
+        numberedCards: [
+          { number: "Prefill", title: "Example numbers would be fiction", description: "Teams don't have this data while planning. Only lifetime value and close rate carry over between events." },
+          { number: "Blur", title: "A focused modal hid other events", description: "Marketers compare events side by side, so the drawer got wider and the page behind stays visible." },
+          { number: "Fields", title: "Every field on the card was redundant", description: "Budget and leads said the same thing. Assumptions moved behind progressive disclosure." },
+        ],
+        footer: "Card aggregates like owner and saved-by were deferred too. They looked good in mockups but caused scope creep without reliable data.",
+      },
+      {
+        icon: "map",
+        label: "Where each value lives",
+        body: [],
+        stepCompare: {
+          beforeLabel: "Before",
+          beforeSteps: [
+            "Budget: a free-text cell",
+            "ROI: a separate page, based on lifetime value",
+            "Opportunities and pipeline: no source",
+            "Lifetime value and close rate: re-entered every time",
+            "Post-event actuals: a dead dashboard link",
+          ],
+          afterLabel: "After",
+          afterSteps: [
+            "Budget: on the card, summed from spend lines and overridable",
+            "ROI: on the card, closed-won by default and labelled gross",
+            "Rates and deal size: in the panel, as assumptions",
+            "Lifetime value and close rate: remembered across events",
+            "Dashboard link: removed until the dashboard exists",
+          ],
+          highlightAfterIndexes: [0, 1],
+        },
+      },
+      {
+        icon: "chart-line",
+        label: "Where this stands",
+        body: [
+          "The Planner redesign this work fed into is live in dev on real data. The ROI direction is documented for the engineers joining to build out ROI features.",
+          "To keep the release small, we deferred full reconciliation of the old calculator with the new panel.",
+        ],
+      },
+      {
+        icon: "bulb",
+        label: "What I'd do next",
+        body: [
+          "Validate the funnel with a handful of event marketers using their real numbers, and check which rates they actually know before an event.",
+          "Then connect projected values to post-event actuals, so the forecast gets better with every event.",
+        ],
+      },
+    ],
+    media: {},
+  },
+  {
     slug: "meeting-planner",
     navLabel: "Meeting Planner",
     title: "Meeting Planner",
@@ -686,199 +865,5 @@ export const vendeluxProjects: VendeluxProject[] = [
         },
       ],
     },
-  },
-  {
-    slug: "roi-calculator",
-    navLabel: "ROI Calculator",
-    title: "ROI Calculator",
-    challenge: "Turning a guessed budget into a return people can defend",
-    oneLiner:
-      "Planner's budget was a free-text cell, so every number was a guess. I moved the ROI calculation into the event panel, and along the way found the old calculator overstated return by about 2x.",
-    duration: "Sep – Nov 2026 · Live in dev",
-    whatIDid: "Product design as the sole designer, testing nine hypotheses against the live product, the math and reviews with our PM and CEO",
-    tools: ["v0", "Claude", "PostHog", "Granola"],
-    intro: {
-      text: "Vendelux Planner is where event marketers keep the events they're considering. It couldn't help them decide which ones were worth the money. I redesigned how they plan budget and project return, so the event card shows a forecast built from their own assumptions.",
-      image: "/images/vendelux/roi-saved-card.jpg",
-      alt: "Budget and performance panel with Conversion and Close steps, and a Planner board card showing budget $59k, closed-won $455k and projected ROI 7.7x",
-    },
-    quickFacts: [
-      { label: "My Role", value: "Product Designer (sole designer)" },
-      { label: "Timeline", value: "Sep – Nov 2026" },
-      { label: "Team", value: "PM, CEO and engineering" },
-      { label: "Users", value: "Event marketers and budget owners" },
-      { label: "User Goal", value: "Decide which events are worth the spend, and defend that call to leadership" },
-      { label: "Outcome", value: "Planner redesign live in dev on real data; full ROI reconciliation scoped for a later phase" },
-    ],
-    transition:
-      "When I started, budget was whatever someone typed, and the ROI calculator lived on a different page.",
-    credit: { text: "Product Design, Vendelux" },
-    role: [
-      "I was the sole designer and reviewed every step with our PM and CEO.",
-      "I treated the redesign as a set of hypotheses and checked each one against the live product, the math or a leadership review.",
-    ],
-    boxes: [
-      {
-        icon: "route",
-        label: "Problem",
-        body: [
-          "Planner's budget field was a free-text cell, so marketers typed a number from memory and nothing calculated it.",
-          "An ROI calculator existed on a separate page. It jumped straight from leads to sales and valued them at lifetime value, so almost every event looked like a strong bet.",
-          "Our CEO's new card design added budget and ROI fields to each event, but nothing produced those numbers.",
-        ],
-        quote: "How might we help event marketers project a return they can defend, right where they plan?",
-      },
-      {
-        icon: "map",
-        label: "Each review changed the design",
-        body: [],
-        steps: [
-          "Sep 25: I shared early ROI explorations with our PM, who asked me to take them to the CEO.",
-          "Oct 1: We compared the live Planner, the CEO's card and the old calculator side by side. Budget was free text, the calculator couldn't fill 6 card fields, and the dashboard link went nowhere.",
-          "Oct 1 – 6: I mapped every calculator input to every card field, re-ran the math under both ROI definitions and built a clickable panel prototype.",
-          "Oct 7: Our PM corrected three assumptions in the v0 build: no prefilled numbers, a wider drawer and no background blur.",
-          "Oct 19: Our CEO liked the live update, called budget and leads redundant and asked me to defer full reconciliation so the redesign could ship sooner.",
-          "Nov 10: I handed off the ROI direction to the incoming engineers.",
-        ],
-      },
-      {
-        icon: "git-branch",
-        label: "Three ways in, one calculator",
-        body: ["I whiteboarded three entry points live with our PM."],
-        optionCards: [
-          { label: "Link out", description: "Each field links to the separate calculator page. Cheapest, but it leaves the panel and loses context." },
-          { label: "Per-field calculators", description: "Click budget to calculate budget, click ROI to calculate ROI. Granular, but it splits the funnel across fields." },
-          {
-            label: "One calculator in the panel",
-            description: "It runs the whole calculation in the drawer and fills the card fields. Our PM's call: no new page, calculate inside the panel.",
-            selected: true,
-          },
-        ],
-      },
-      {
-        icon: "alert-triangle",
-        label: "The old calculator overstated return by about 2x",
-        variant: "danger",
-        body: [
-          "I re-ran the calculator's own example, Microsoft Ignite 2026 with a $59k budget, under both ROI definitions.",
-          "The calculator also skipped the stage B2B teams report first: opportunities and pipeline. I added it.",
-        ],
-        stat: { value: "15.4x vs 7.7x", caption: "same inputs, lifetime value vs closed-won revenue" },
-        flow: [
-          { steps: ["Budget $59k", "1,012 qualified leads", "152 leads", "61 opportunities", "$1.82M pipeline", "$455k closed-won"], note: "15% capture · 40% lead→opp · $30k deal · 25% win" },
-        ],
-        footer:
-          "A 2x gap is enough to change which event a team commits to. Figures are the calculator's own demo inputs, not customer data.",
-      },
-      {
-        icon: "bulb",
-        label: "The decision: the panel is the calculator",
-        variant: "accent",
-        body: [
-          "The event panel walks Investment → Reach → Conversion → Close, with the headline numbers up top and the card updating beside it.",
-        ],
-        codeBlocks: [
-          {
-            heading: "ROI defaults to closed-won revenue, labelled gross so nobody reads it as net. Budget is the sum of four spend lines, with an override.",
-            image: "/images/vendelux/roi-closed-won.jpg",
-            imageWidth: 1100,
-            imageHeight: 420,
-          },
-          {
-            heading: "The same inputs on lifetime value read 15.4x. That comparison is why lifetime value became an advanced option instead of the default.",
-            image: "/images/vendelux/roi-ltv.jpg",
-            imageWidth: 1100,
-            imageHeight: 420,
-          },
-          {
-            heading: "Saving writes only the decision values to the card: budget, closed-won and ROI, plus a one-line funnel. The assumptions stay in the panel.",
-            image: "/images/vendelux/roi-saved-card.jpg",
-            imageWidth: 1100,
-            imageHeight: 900,
-          },
-        ],
-      },
-      {
-        icon: "flask",
-        label: "Nine hypotheses: what held up",
-        body: [
-          "I checked each one against product data, the math or stakeholder review. These weren't moderated user tests.",
-        ],
-        steps: [
-          "Budget numbers are guesses because nothing calculates them. Budget now comes from four spend lines.",
-          "The calculation belongs inside the event panel. Linking out breaks the planning flow.",
-          "The funnel is missing a stage. I added lead → opportunity rate and average deal size.",
-          "Lifetime value overstates the return. Closed-won is now the default.",
-          "Live recalculation builds trust. Values update on the card as you edit, with an explicit save.",
-        ],
-      },
-      {
-        icon: "alert-triangle",
-        label: "What review overturned",
-        body: ["Three of my assumptions didn't survive review, and each change made the design better."],
-        numberedCards: [
-          { number: "Prefill", title: "Example numbers would be fiction", description: "Teams don't have this data while planning. Only lifetime value and close rate carry over between events." },
-          { number: "Blur", title: "A focused modal hid other events", description: "Marketers compare events side by side, so the drawer got wider and the page behind stays visible." },
-          { number: "Fields", title: "Every field on the card was redundant", description: "Budget and leads said the same thing. Assumptions moved behind progressive disclosure." },
-        ],
-        footer: "Card aggregates like owner and saved-by were deferred too. They looked good in mockups but caused scope creep without reliable data.",
-      },
-      {
-        icon: "map",
-        label: "Where each value lives",
-        body: [],
-        stepCompare: {
-          beforeLabel: "Before",
-          beforeSteps: [
-            "Budget: a free-text cell",
-            "ROI: a separate page, based on lifetime value",
-            "Opportunities and pipeline: no source",
-            "Lifetime value and close rate: re-entered every time",
-            "Post-event actuals: a dead dashboard link",
-          ],
-          afterLabel: "After",
-          afterSteps: [
-            "Budget: on the card, summed from spend lines and overridable",
-            "ROI: on the card, closed-won by default and labelled gross",
-            "Rates and deal size: in the panel, as assumptions",
-            "Lifetime value and close rate: remembered across events",
-            "Dashboard link: removed until the dashboard exists",
-          ],
-          highlightAfterIndexes: [0, 1],
-        },
-      },
-      {
-        icon: "chart-line",
-        label: "Where this stands",
-        body: [
-          "The Planner redesign this work fed into is live in dev on real data. The ROI direction is documented for the engineers joining to build out ROI features.",
-          "To keep the release small, we deferred full reconciliation of the old calculator with the new panel.",
-        ],
-      },
-      {
-        icon: "bulb",
-        label: "What I'd do next",
-        body: [
-          "Validate the funnel with a handful of event marketers using their real numbers, and check which rates they actually know before an event.",
-          "Then connect projected values to post-event actuals, so the forecast gets better with every event.",
-        ],
-      },
-    ],
-    media: {},
-  },
-  {
-    slug: "planner",
-    navLabel: "Planner",
-    title: "Planner",
-    challenge: "Making dense event data easy to scan",
-    oneLiner: "Planner is where event teams build an ROI case for each event.",
-    duration: "2026 · In progress",
-    whatIDid: "Product design",
-    tools: [],
-    intro: { text: "", image: "", alt: "" },
-    role: [],
-    boxes: [],
-    media: {},
-    comingSoon: true,
   },
 ]
