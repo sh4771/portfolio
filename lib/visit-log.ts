@@ -19,7 +19,8 @@ export type Visit = {
 
 const PREFIX = "visits/"
 
-export const logStorageReady = () => !!process.env.BLOB_READ_WRITE_TOKEN
+// A store connects either with a read-write token or, on newer projects, a store ID plus Vercel's OIDC token.
+export const logStorageReady = () => !!(process.env.BLOB_READ_WRITE_TOKEN || process.env.BLOB_STORE_ID)
 
 function describeDevice(ua: string | null) {
   if (!ua) return null

@@ -4,11 +4,11 @@ import { sanitizeFlower, type Flower } from "@/lib/flower"
 
 /**
  * The shared garden. Each planted flower is one small JSON file in the site's Vercel
- * Blob store. Until a store is connected (BLOB_READ_WRITE_TOKEN), GET answers
+ * Blob store. Until a store is connected (BLOB_READ_WRITE_TOKEN or BLOB_STORE_ID), GET answers
  * shared: false and the page keeps flowers in the visitor's own browser instead.
  */
 const PREFIX = "garden/"
-const ready = () => !!process.env.BLOB_READ_WRITE_TOKEN
+const ready = () => !!(process.env.BLOB_READ_WRITE_TOKEN || process.env.BLOB_STORE_ID)
 
 export async function GET() {
   if (!ready()) return NextResponse.json({ shared: false, flowers: [] })
