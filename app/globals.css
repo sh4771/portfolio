@@ -457,3 +457,21 @@ html.embed main {
 @keyframes cover-push-in { from { transform: translateX(100%); } to { transform: translateX(0); } }
 @keyframes cover-push-out { from { transform: translateX(0); filter: brightness(1); } to { transform: translateX(-28%); filter: brightness(.82); } }
 @keyframes cover-fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+/*
+ * One content column for every page. On wide screens it sits right of a 180px lane
+ * for the sidebar, and the pair is centered together, so the menu always stays next
+ * to the content. components/navigation.tsx uses the same numbers.
+ */
+.site-col {
+  width: 100%;
+  max-width: calc(1080px + 48px);
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+@media (min-width: 1280px) {
+  .site-col {
+    margin-left: calc(max(200px, (100vw - 1260px) / 2 + 180px) - 24px);
+    margin-right: auto;
+  }
+}

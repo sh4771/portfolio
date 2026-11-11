@@ -157,7 +157,7 @@ export function ProjectCover({ spec, alt, large = false, hero = false, className
     )
 
   return (
-    <div ref={ref} className={cn("relative w-full overflow-hidden rounded-2xl", hero ? "aspect-[4/3] sm:aspect-[16/10]" : large ? "aspect-[4/3] sm:aspect-[16/9]" : "aspect-[3/2]", className)} style={{ background: spec.bg }}>
+    <div ref={ref} className={cn("relative w-full overflow-hidden rounded-2xl", hero ? "aspect-[4/3] sm:aspect-[16/10]" : "aspect-[3/2]", className)} style={{ background: spec.bg }}>
       {spec.kind === "video" && spec.video && (
         <video ref={videoRef} muted loop playsInline preload="metadata" poster={spec.screens[0]} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]">
           <source src={spec.video} type="video/mp4" />

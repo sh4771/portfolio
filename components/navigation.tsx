@@ -4,7 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
-import { FileText, LayoutGrid } from "lucide-react"
+import { Coffee, FileText, Hand, LayoutGrid, Sparkles } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 /**
@@ -26,10 +26,17 @@ const ITEMS: Item[] = [
     ),
   },
   { key: "work", label: "Work", href: "/#work", icon: <LayoutGrid className="h-[19px] w-[19px]" strokeWidth={2} /> },
-  { key: "resume", label: "Resume", href: "/resume", icon: <FileText className="h-[19px] w-[19px]" strokeWidth={2} /> },
+  { key: "resume", label: "Resume", href: "/about#resume", icon: <FileText className="h-[19px] w-[19px]" strokeWidth={2} /> },
 ]
 
-const SIDE_X = 28
+/** On /about the sidebar also lists the page's sections under About, and stays put as an index. */
+const ABOUT_SUBS = [
+  { id: "hello", label: "Hello", icon: Hand },
+  { id: "off-the-clock", label: "Off the clock", icon: Coffee },
+  { id: "fun-fact", label: "Fun fact", icon: Sparkles },
+]
+const SUB_GAP = 36
+
 const SIDE_Y = 96
 const SIDE_GAP = 44
 const SLOT = 48
@@ -43,13 +50,26 @@ export function Navigation() {
   const [vw, setVw] = useState(0)
   const [vh, setVh] = useState(0)
   const [ready, setReady] = useState(false)
+  const [section, setSection] = useState<string>("hello")
+  const onAbout = pathname === "/about"
 
   useEffect(() => {
     const measure = () => {
       setVw(window.innerWidth)
       setVh(window.innerHeight)
     }
-    const onScroll = () => setDocked(window.scrollY > 120)
+    const onScroll = () => {
+      setDocked(window.scrollY > 120)
+      // Which About section crosses a line a third of the way down the screen.
+      if (window.location.pathname === "/about") {
+        let cur = "hello"
+        for (const id of ["hello", "off-the-clock", "fun-fact", "resume"]) {
+          const el = document.getElementById(id)
+          if (el && el.getBoundingClientRect().top <= window.innerHeight * 0.35) cur = id
+        }
+        setSection(cur)
+      }
+    }
     measure()
     onScroll()
     // let the first paint land before animating anything
@@ -62,9 +82,13 @@ export function Navigation() {
     }
   }, [])
 
-  // the sidebar needs a clear left margin; narrower screens always get the dock
-  const mobile = vw > 0 && vw < 1360
-  const asDock = docked || mobile
+  // Below 1280px there is no lane for the sidebar, so the dock is always on.
+  const mobile = vw > 0 && vw < 1280
+  // Same math as .site-col in globals.css: the sidebar starts 176px left of the content.
+  const contentLeft = Math.max(200, (vw - 1260) / 2 + 180)
+  const sideX = contentLeft - 176
+  const asDock = mobile || (docked && !onAbout)
+  const showSubs = onAbout && !asDock
   const dockW = ITEMS.length * SLOT + PAD * 2
   const dockLeft = vw / 2 - dockW / 2
   const dockTop = vh - DOCK_BOTTOM - DOCK_H
@@ -72,7 +96,7 @@ export function Navigation() {
   return (
     <div data-site-nav className={cn(!vw && "invisible")}>
       {/* Logo */}
-      <Link href="/" aria-label="Home" className="fixed left-6 top-6 z-50 block transition-opacity duration-300 hover:opacity-70">
+      <Link href="/" aria-label="Home" className="fixed top-6 z-50 block transition-opacity duration-300 hover:opacity-70" style={{ left: mobile || !vw ? 24 : sideX + 4 }}>
         <Image src="/vh_logo.png" alt="VH logo" width={32} height={32} className="h-8 w-8 object-contain" priority />
       </Link>
 
@@ -95,9 +119,10 @@ export function Navigation() {
       <nav aria-label="Main">
         <ul>
           {ITEMS.map((it, i) => {
-            const x = asDock ? dockLeft + PAD + i * SLOT : SIDE_X
-            const y = asDock ? dockTop + (DOCK_H - 40) / 2 : SIDE_Y + i * SIDE_GAP
-            const active = it.href === pathname
+            const x = asDock ? dockLeft + PAD + i * SLOT : sideX
+            const shift = showSubs && i > 0 ? ABOUT_SUBS.length * SUB_GAP + 6 : 0
+            const y = asDock ? dockTop + (DOCK_H - 40) / 2 : SIDE_Y + i * SIDE_GAP + shift
+            const active = onAbout ? (it.key === "resume" ? section === "resume" : it.key === "about" && section !== "resume") : it.href === pathname
             return (
               <li
                 key={it.key}
@@ -134,6 +159,31 @@ export function Navigation() {
                     </span>
                   )}
                 </Link>
+              </li>
+            )
+          })}
+          {ABOUT_SUBS.map((sub, k) => {
+            const Icon = sub.icon
+            const on = section === sub.id
+            return (
+              <li
+                key={sub.id}
+                className="fixed left-0 top-0 z-50 transition-opacity duration-300"
+                style={{
+                  transform: `translate3d(${sideX + 18}px, ${SIDE_Y + SIDE_GAP + k * SUB_GAP}px, 0)`,
+                  opacity: showSubs ? 1 : 0,
+                  pointerEvents: showSubs ? "auto" : "none",
+                }}
+              >
+                <a
+                  href={`#${sub.id}`}
+                  aria-current={on ? "location" : undefined}
+                  tabIndex={showSubs ? 0 : -1}
+                  className={cn("flex h-9 items-center gap-2.5 text-sm font-medium transition-colors", on ? "text-foreground" : "text-foreground/45 hover:text-foreground/80")}
+                >
+                  <Icon aria-hidden className="h-4 w-4" strokeWidth={2} />
+                  {sub.label}
+                </a>
               </li>
             )
           })}

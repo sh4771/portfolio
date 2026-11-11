@@ -2,10 +2,13 @@
 
 import { useCallback, useEffect, useRef, useState } from "react"
 import Image from "next/image"
+import Link from "next/link"
+import { COURSEWORK, EARLIER, EDUCATION, EXPERIENCE, LEADERSHIP, PROJECTS, RESUME_PDF, SKILLS, type ResumeEntry } from "@/lib/resume"
 import {
   ArrowUpRight,
   Briefcase,
   Coffee,
+  Download,
   FileText,
   GraduationCap,
   Hand,
@@ -17,32 +20,17 @@ import {
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-const NAV: { id: string; label: string; icon: LucideIcon }[] = [
+export const ABOUT_NAV: { id: string; label: string; icon: LucideIcon }[] = [
   { id: "hello", label: "Hello", icon: Hand },
-  { id: "at-a-glance", label: "At a glance", icon: Eye },
   { id: "off-the-clock", label: "Off the clock", icon: Coffee },
   { id: "fun-fact", label: "Fun fact", icon: Sparkles },
+  { id: "resume", label: "Resume", icon: FileText },
 ]
+const NAV = ABOUT_NAV
 
 const INTRO = [
   "I'm Violet Hyun, a product designer in New York drawn to complex problems, because they usually hide the most important human needs.",
 ]
-
-const EXPERIENCE = [
-  { org: "Vendelux", role: "Product Intern", when: "Apr 2026 – Present", logo: "/images/logos/vendelux.png", href: "https://www.vendelux.com/", now: true },
-  { org: "Stealth AI startup", role: "UX Designer", when: "Nov 2025 – Jan 2026" },
-  { org: "Columbia University, ROAR Lab", role: "Graduate Student Researcher", when: "Jun 2025 – Mar 2026", logo: "/images/logos/columbia.png", href: "https://roar.me.columbia.edu/" },
-  { org: "Chloé (Richemont)", role: "Merchandising Assistant", when: "Aug 2023 – Jan 2024", logo: "/images/logos/richemont.png", href: "https://www.chloe.com/" },
-  { org: "Miss K Cosmetics", role: "Product Designer", when: "Jul – Sep 2023", logo: "/images/logos/miss-k.png", href: "https://misskcosmetics.com/" },
-  { org: "K Museum of Contemporary Art", role: "Creative Intern", when: "Jun – Sep 2022", logo: "/images/logos/kmca.png", href: "https://www.kmcaseoul.org/" },
-]
-
-const EDUCATION = [
-  { org: "Columbia University GSAPP", degree: "M.S. Computational Design Practices", when: "May 2026", domain: "columbia.edu", logo: "/images/logos/columbia.png" },
-  { org: "NYU Tisch School of the Arts", degree: "B.F.A. Interactive Media Arts, CS minor", when: "Dec 2024", domain: "nyu.edu" },
-]
-
-const TOOLS = ["Figma", "Claude Code", "Cursor", "Figma MCP", "v0", "Framer", "HTML/CSS", "Python", "Rhino + Grasshopper"]
 
 /* ---------- small pieces ---------- */
 
@@ -166,12 +154,24 @@ function useIntroFlight(slotRef: React.RefObject<HTMLDivElement | null>) {
       ],
       { duration: 1500, delay: 380, easing: "cubic-bezier(.45,.05,.25,1)", fill: "forwards" },
     )
-    fig.onfinish = () => {
+    const land = () => {
       setPhase("landed")
       setOverlay(null)
       document.documentElement.classList.remove("mv-intro")
     }
+    fig.onfinish = land
+    // The flying figure is pinned to the screen, so scrolling mid-flight would leave it
+    // stranded over other content. Skip straight to the landed state instead.
+    const startY = window.scrollY
+    const onScroll = () => {
+      if (Math.abs(window.scrollY - startY) < 8) return
+      disc.cancel()
+      fig.cancel()
+      land()
+    }
+    window.addEventListener("scroll", onScroll, { passive: true })
     return () => {
+      window.removeEventListener("scroll", onScroll)
       disc.cancel()
       fig.cancel()
     }
@@ -309,106 +309,150 @@ function Hello() {
   )
 }
 
-function Glance() {
-  const card = "rounded-2xl border border-border/60 bg-card p-4 shadow-[0_8px_24px_rgba(28,26,22,0.05)]"
+/* Numbers in **double stars** render bold, matching the PDF. */
+function Rich({ text }: { text: string }) {
   return (
-    <div className="w-full space-y-5">
-      <SectionHeader eyebrow="At a glance" title="Work and contact" />
-      <div className="grid gap-3 lg:grid-cols-[1.35fr_1fr_1fr]">
-        {/* Experience */}
-        <section className={cn(card, "lg:row-span-2")} aria-labelledby="exp-h">
-          <h3 id="exp-h" className="mb-3 flex items-center gap-2 text-sm font-semibold text-foreground">
-            <Briefcase className="h-4 w-4 text-foreground/50" /> Experience
-          </h3>
-          <ol className="space-y-1">
-            {EXPERIENCE.map((e) => {
-              const body = (
-                <>
-                  <Logo domain={"domain" in e ? (e.domain as string) : undefined} logo={"logo" in e ? e.logo : undefined} label={e.org} />
-                  <span className="min-w-0 flex-1">
-                    <span className="flex items-center gap-2 text-sm font-medium text-foreground">
-                      {e.org}
-                      {e.now && <span className="rounded-full bg-emerald-500/15 px-1.5 py-px text-[10px] font-semibold text-emerald-700 dark:text-emerald-300">Now</span>}
-                    </span>
-                    <span className="block text-xs text-foreground/60">
-                      {e.role}
-                      {e.when && <> · {e.when}</>}
-                    </span>
-                  </span>
-                </>
-              )
-              return (
-                <li key={e.org}>
-                  {e.href ? (
-                    <a href={e.href} target="_blank" rel="noreferrer" className="flex items-center gap-3 rounded-xl px-2 py-1.5 transition-colors hover:bg-muted/60">
-                      {body}
-                    </a>
-                  ) : (
-                    <div className="flex items-center gap-3 px-2 py-1.5">{body}</div>
-                  )}
-                </li>
-              )
-            })}
-          </ol>
-        </section>
+    <>
+      {text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
+        part.startsWith("**") ? (
+          <strong key={i} className="font-semibold text-foreground">
+            {part.slice(2, -2)}
+          </strong>
+        ) : (
+          <span key={i}>{part}</span>
+        ),
+      )}
+    </>
+  )
+}
 
-        {/* Résumé */}
-        <a href="/resume" className={cn(card, "group flex flex-col justify-between gap-6 transition-colors hover:border-foreground/30")}>
-          <span className="flex items-center justify-between">
-            <FileText className="h-6 w-6 text-foreground/70" />
-            <ArrowUpRight className="h-4 w-4 text-foreground/40 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-          </span>
-          <span>
-            <span className="block text-lg font-semibold text-foreground">Résumé, PDF</span>
-            <span className="text-xs text-foreground/55">Updated 2026</span>
-          </span>
+function ResumeGroup({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <section className="space-y-7">
+      <h3 className="border-b border-border/60 pb-3 text-xs font-semibold tracking-[0.14em] text-foreground/55 uppercase">{title}</h3>
+      {children}
+    </section>
+  )
+}
+
+function EntryBlock({ e }: { e: ResumeEntry }) {
+  const name = e.link ? (
+    <Link href={e.link} className="group/l inline-flex items-center gap-1 hover:underline hover:decoration-foreground/30 hover:underline-offset-4">
+      {e.name}
+      <ArrowUpRight className="h-4 w-4 text-foreground/40 transition-colors group-hover/l:text-foreground" />
+    </Link>
+  ) : (
+    e.name
+  )
+  return (
+    <article className="grid grid-cols-[36px_minmax(0,1fr)] gap-x-4">
+      <Logo logo={e.logo} domain={e.domain} label={e.name} />
+      <div className="space-y-2">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5">
+          <h4 className="text-base font-semibold tracking-tight text-foreground">{name}</h4>
+          {e.when ? <span className="text-sm tabular-nums text-foreground/50">{e.when}</span> : null}
+        </div>
+        <p className="text-sm text-foreground/55">{e.role}</p>
+        <ul className="space-y-1.5 pt-1">
+          {e.bullets.map((b) => (
+            <li key={b} className="relative pl-4 text-[15px] leading-relaxed text-foreground/70 text-pretty before:absolute before:left-0 before:top-[0.8em] before:h-px before:w-2 before:bg-foreground/40">
+              <Rich text={b} />
+            </li>
+          ))}
+        </ul>
+      </div>
+    </article>
+  )
+}
+
+function Resume() {
+  return (
+    <div className="w-full space-y-10">
+      <div className="flex flex-wrap items-end justify-between gap-6">
+        <SectionHeader eyebrow="Resume" title="Experience and education" />
+        <a href={RESUME_PDF} download className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-85">
+          <Download className="h-4 w-4" />
+          Download PDF
         </a>
+      </div>
 
-        {/* Contact */}
-        <div className="grid gap-3">
-          <a href="mailto:violethyun@nyu.edu" className={cn(card, "flex items-center gap-3 transition-colors hover:border-foreground/30")}>
-            <Mail className="h-5 w-5 text-foreground/60" />
-            <span className="min-w-0">
-              <span className="block text-sm font-semibold text-foreground">Email</span>
-              <span className="block truncate text-xs text-foreground/55">violethyun@nyu.edu</span>
-            </span>
-          </a>
-          <a href="https://www.linkedin.com/in/violet-hyun/" target="_blank" rel="noreferrer" className={cn(card, "flex items-center gap-3 transition-colors hover:border-foreground/30")}>
-            <Linkedin className="h-5 w-5 text-foreground/60" />
-            <span>
-              <span className="block text-sm font-semibold text-foreground">LinkedIn</span>
-              <span className="block text-xs text-foreground/55">violet-hyun</span>
-            </span>
-          </a>
+      <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-16">
+        <div className="space-y-14">
+          <ResumeGroup title="Experience">
+            {EXPERIENCE.map((e) => (
+              <EntryBlock key={e.name} e={e} />
+            ))}
+            <div className="space-y-2 pt-2">
+              <p className="text-xs font-medium text-foreground/45">Earlier</p>
+              <ul className="space-y-1">
+                {EARLIER.map((e) => (
+                  <li key={e.name}>
+                    <a href={e.href} target="_blank" rel="noreferrer" className="-mx-2 flex items-center gap-4 rounded-xl px-2 py-1.5 transition-colors hover:bg-muted/60">
+                      <Logo logo={e.logo} label={e.name} />
+                      <span className="min-w-0 flex-1">
+                        <span className="block text-sm font-medium text-foreground">{e.name}</span>
+                        <span className="block text-xs text-foreground/55">{e.role}</span>
+                      </span>
+                      <span className="text-xs tabular-nums text-foreground/45">{e.when}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </ResumeGroup>
+          <ResumeGroup title="Projects">
+            {PROJECTS.map((e) => (
+              <EntryBlock key={e.name} e={e} />
+            ))}
+          </ResumeGroup>
+          <ResumeGroup title="Leadership">
+            {LEADERSHIP.map((e) => (
+              <EntryBlock key={e.name} e={e} />
+            ))}
+          </ResumeGroup>
         </div>
 
-        {/* Education */}
-        <section className={cn(card, "lg:col-span-2")} aria-labelledby="edu-h">
-          <h3 id="edu-h" className="mb-3 flex items-center gap-2 text-sm font-semibold text-foreground">
-            <GraduationCap className="h-4 w-4 text-foreground/50" /> Education
-          </h3>
-          <ul className="grid gap-2 sm:grid-cols-2">
-            {EDUCATION.map((e) => (
-              <li key={e.org} className="flex items-center gap-3">
-                <Logo domain={e.domain} logo={"logo" in e ? e.logo : undefined} label={e.org} />
-                <span>
-                  <span className="block text-sm font-medium text-foreground">{e.org}</span>
-                  <span className="block text-xs text-foreground/60">{e.degree} · {e.when}</span>
-                </span>
-              </li>
+        <aside className="space-y-12">
+          <ResumeGroup title="Education">
+            {EDUCATION.map((ed) => (
+              <div key={ed.school} className="grid grid-cols-[36px_minmax(0,1fr)] gap-x-4">
+                <Logo logo={"logo" in ed ? ed.logo : undefined} domain={"domain" in ed ? ed.domain : undefined} label={ed.school} />
+                <div className="space-y-0.5">
+                  <p className="text-sm tabular-nums text-foreground/50">{ed.when}</p>
+                  <p className="font-semibold tracking-tight text-foreground">{ed.school}</p>
+                  <p className="text-sm text-foreground/60">{ed.degree}</p>
+                </div>
+              </div>
             ))}
-          </ul>
-        </section>
-
-        {/* Toolkit */}
-        <section className={cn(card, "lg:col-span-3")} aria-labelledby="tools-h">
-          <h3 id="tools-h" className="mb-2 text-sm font-semibold text-foreground">Toolkit</h3>
-          <ul className="flex flex-wrap gap-1.5">
-            {TOOLS.map((t) => (
-              <li key={t} className="rounded-full border border-border/70 px-3 py-1 text-xs text-foreground/75">{t}</li>
+          </ResumeGroup>
+          <ResumeGroup title="Coursework">
+            <ul className="flex flex-wrap gap-2">
+              {COURSEWORK.map((c) => (
+                <li key={c} className="rounded-full border border-border/70 px-3 py-1 text-sm text-foreground/70">
+                  {c}
+                </li>
+              ))}
+            </ul>
+          </ResumeGroup>
+          <ResumeGroup title="Skills">
+            {SKILLS.map((sk) => (
+              <div key={sk.k} className="space-y-1">
+                <p className="text-sm font-semibold text-foreground">{sk.k}</p>
+                <p className="text-sm text-foreground/60">{sk.v}</p>
+              </div>
             ))}
-          </ul>
-        </section>
+          </ResumeGroup>
+          <ResumeGroup title="Contact">
+            <div className="space-y-1 text-sm text-foreground/70">
+              <a href="mailto:violethyun@nyu.edu" className="flex items-center gap-2.5 py-1 hover:text-foreground">
+                <Mail className="h-4 w-4" /> violethyun@nyu.edu
+              </a>
+              <a href="https://www.linkedin.com/in/violet-hyun/" target="_blank" rel="noreferrer" className="flex items-center gap-2.5 py-1 hover:text-foreground">
+                <Linkedin className="h-4 w-4" /> linkedin.com/in/violet-hyun <ArrowUpRight className="h-3.5 w-3.5" />
+              </a>
+            </div>
+          </ResumeGroup>
+        </aside>
       </div>
     </div>
   )
@@ -465,15 +509,20 @@ function OffTheClock() {
 
 function FunFact() {
   return (
-    <div className="grid w-full items-center gap-10 lg:grid-cols-[minmax(0,320px)_minmax(0,1fr)] lg:gap-16">
-      <figure className="mx-auto w-full max-w-[300px] space-y-2.5 lg:max-w-none">
+    <div className="grid w-full items-center gap-10 sm:grid-cols-[minmax(0,220px)_minmax(0,1fr)] lg:gap-14">
+      <figure className="mx-auto w-full max-w-[220px]">
         <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-muted/50">
-          <Image src="/images/about-chunhyang.jpg" alt="Violet backstage at the Global Miss Chunhyang pageant, holding a violin" fill className="object-cover" sizes="320px" />
+          <Image src="/images/about-chunhyang.jpg" alt="Violet backstage at the Global Miss Chunhyang pageant, holding a violin" fill className="object-cover" sizes="220px" />
         </div>
       </figure>
-      <SectionHeader eyebrow="Fun fact"
-        title="As Global Miss Chunhyang, I learned to carry my roots with confidence and grace."
-      />
+      <div className="max-w-[560px] space-y-4">
+        <Eyebrow>Fun fact</Eyebrow>
+        <h2 className="text-2xl font-semibold leading-snug tracking-tight text-foreground sm:text-[1.75rem]">I care about stories that make people care.</h2>
+        <p className="text-[15px] leading-relaxed text-foreground/65">
+          I was Global Miss Chunhyang, a title named after a classic Korean folk tale, and I performed on violin on that stage. It taught me
+          how a story can move a room from knowing something to caring about it, the same gap I try to close in design.
+        </p>
+      </div>
     </div>
   )
 }
@@ -482,9 +531,9 @@ function FunFact() {
 
 const SECTIONS: [string, () => React.JSX.Element][] = [
   ["hello", Hello],
-  ["at-a-glance", Glance],
   ["off-the-clock", OffTheClock],
   ["fun-fact", FunFact],
+  ["resume", Resume],
 ]
 
 export function AboutExperience() {
@@ -534,59 +583,10 @@ export function AboutExperience() {
   }, [])
 
   return (
-    <div className="mx-auto w-full max-w-[1200px] px-6 pb-28 pt-24 lg:grid lg:grid-cols-[210px_minmax(0,1fr)] lg:gap-16 lg:px-10 lg:pt-32">
-      {/* Desktop: sticky index */}
-      <aside className="hidden lg:block">
-        <div className="sticky top-32 space-y-10">
-          <div className="space-y-1">
-            <p className="text-base font-semibold text-foreground">Violet Hyun</p>
-            <p className="text-sm text-foreground/55">Product designer, New York</p>
-          </div>
-          <nav aria-label="On this page">
-            <ol>
-              {NAV.map((n) => {
-                const on = active === n.id
-                const Icon = n.icon
-                return (
-                  <li key={n.id}>
-                    <a
-                      href={`#${n.id}`}
-                      onClick={(e) => goTo(e, n.id)}
-                      aria-current={on ? "location" : undefined}
-                      className={cn(
-                        "group flex h-11 items-center gap-3 text-[15px] font-medium transition-colors",
-                        on ? "text-foreground" : "text-foreground/45 hover:text-foreground/80",
-                      )}
-                    >
-                      <Icon aria-hidden className="h-[19px] w-[19px] shrink-0" strokeWidth={2} />
-                      {n.label}
-                    </a>
-                  </li>
-                )
-              })}
-            </ol>
-          </nav>
-          <div className="border-t border-border/60 pt-4 text-[15px] font-medium text-foreground/45">
-            <a href="/resume" className="flex h-11 items-center gap-3 transition-colors hover:text-foreground/80">
-              <FileText aria-hidden className="h-[19px] w-[19px] shrink-0" strokeWidth={2} />
-              Resume
-            </a>
-            <a href="mailto:violethyun@nyu.edu" className="flex h-11 items-center gap-3 transition-colors hover:text-foreground/80">
-              <Mail aria-hidden className="h-[19px] w-[19px] shrink-0" strokeWidth={2} />
-              Email
-            </a>
-            <a href="https://www.linkedin.com/in/violet-hyun/" target="_blank" rel="noreferrer" className="flex h-11 items-center gap-3 transition-colors hover:text-foreground/80">
-              <Linkedin aria-hidden className="h-[19px] w-[19px] shrink-0" strokeWidth={2} />
-              LinkedIn
-              <ArrowUpRight className="h-3.5 w-3.5" />
-            </a>
-          </div>
-        </div>
-      </aside>
-
+    <div className="site-col pb-28 pt-24 min-[1280px]:pt-32">
       <div className="min-w-0">
         {/* Mobile: sticky chip bar */}
-        <nav ref={chipsRef} aria-label="On this page" className="sticky top-16 z-30 -mx-6 mb-10 flex gap-1 overflow-x-auto border-b border-border/60 bg-background/90 px-6 py-2.5 backdrop-blur [scrollbar-width:none] lg:hidden">
+        <nav ref={chipsRef} aria-label="On this page" className="sticky top-0 z-30 -mx-6 mb-10 flex gap-1 overflow-x-auto border-b border-border/60 bg-background/90 py-4 pl-[72px] pr-6 backdrop-blur [scrollbar-width:none] min-[1280px]:hidden">
           {NAV.map((n) => (
             <a
               key={n.id}

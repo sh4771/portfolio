@@ -39,7 +39,7 @@ export default async function CaseStudyPage({
     <>
       <Navigation />
       <main className="pt-32 pb-12">
-        <div className="mx-auto w-full max-w-[900px] px-6">
+        <div className="site-col">
           {/* Back link */}
           <Link
             href="/#work"

@@ -43,7 +43,7 @@ const MOVED = ["clinical-trials", "cast"]
 export function FunGrid() {
   return (
     <section id="fun" className="pb-24">
-      <div className="mx-auto w-full max-w-[1200px] px-4">
+      <div className="site-col">
         <h2 className="text-2xl md:text-3xl font-normal tracking-tight text-foreground">For Fun</h2>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-foreground/60">
           Course projects and experiments outside of client work, things I build because a question was interesting enough to chase.

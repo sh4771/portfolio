@@ -15,7 +15,7 @@ export default function Page() {
     <>
       <Navigation />
       <main className="pt-32 pb-24">
-        <div className="mx-auto w-full max-w-[1040px] space-y-16 px-6">
+        <div className="site-col space-y-16 ">
           <Link href="/#work" className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
             <ArrowLeft className="h-4 w-4" />
             Back to Portfolio

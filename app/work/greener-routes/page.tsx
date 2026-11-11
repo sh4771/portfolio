@@ -45,7 +45,7 @@ export default function Page() {
       <Navigation />
       <main className="pt-32 pb-24">
         <div
-          className="mx-auto w-full max-w-[900px] px-6 space-y-24 [--park-fill:#cfe0c3] [--park-ink:#2f4d38] [--park-tree:#9cc28a] [--route-green:#3f7a52] dark:[--park-fill:#2f4436] dark:[--park-ink:#cfe0c3] dark:[--park-tree:#3f5e48] dark:[--route-green:#86c29a]"
+          className="site-col  space-y-24 [--park-fill:#cfe0c3] [--park-ink:#2f4d38] [--park-tree:#9cc28a] [--route-green:#3f7a52] dark:[--park-fill:#2f4436] dark:[--park-ink:#cfe0c3] dark:[--park-tree:#3f5e48] dark:[--route-green:#86c29a]"
         >
           <Link
             href="/#work"

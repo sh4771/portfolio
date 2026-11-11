@@ -12,7 +12,7 @@ export default function Page() {
     <>
     <Navigation />
       <main className="pt-32 pb-24">
-      <div className="mx-auto w-full max-w-[900px] px-6 space-y-24">
+      <div className="site-col  space-y-24">
 
         {/* Back Button */}
         <Link 

@@ -269,15 +269,26 @@ function GroupedCaseStudy({ project }: { project: CaseStudy }) {
           )}
         </span>
       </div>
-      <div className="grid gap-6 lg:grid-cols-[2.1fr_1fr]">
-        <CaseStudyCard project={project} inGroup />
-        <ol className="grid content-start gap-3 lg:auto-rows-fr lg:content-stretch">
+      {/* The cover spans two grid columns and the tiles fill the third, so both share one height and the grid's edges. */}
+      <div className="grid gap-6 lg:grid-cols-3">
+        <Link href={`/work/${project.slug}`} className="group block lg:col-span-2">
+          <ProjectCover spec={project.cover!} alt={`${project.name ?? project.title} cover`} large className="h-full" />
+        </Link>
+        <ol className="flex flex-col gap-3">
           {g.items.map((item, i) => (
-            <li key={item.slug} className="lg:h-full">
+            <li key={item.slug} className="lg:flex-1">
               <GroupTile parent={project} item={item} index={i} />
             </li>
           ))}
         </ol>
+        <Link href={`/work/${project.slug}`} className="group -mt-3 block lg:col-span-2">
+          <CoverMeta
+            year={project.tags[0] ?? ""}
+            title={project.name ?? project.title}
+            readMins={project.readMins}
+            extra={` · ${g.items.filter((x) => !x.soon).length} projects`}
+          />
+        </Link>
       </div>
     </div>
   )
@@ -297,7 +308,7 @@ export function CaseStudyGrid() {
 
   return (
     <section id="work" className="pb-24 pt-6">
-      <div className="mx-auto w-full max-w-[1200px] px-4">
+      <div className="site-col">
         {/* Two-up grid */}
         <div className="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {homepageProjects.map((project) =>
