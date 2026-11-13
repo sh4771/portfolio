@@ -129,8 +129,16 @@ export const randomGenus = () => GENERA[Math.floor(Math.random() * GENERA.length
 export const randomInspiration = () => ALL_INSPIRATION[Math.floor(Math.random() * ALL_INSPIRATION.length)]
 
 /** Names a flower after a mood, a food or a memory. */
-export function nameFrom(words: string, genus = randomGenus()) {
-  return `${genus} ${epithetFrom(words)}`
+/** The flower is simply named after its mood, food or memory: "matcha latte" becomes "Matcha Latte". */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function nameFrom(words: string, _genus?: string) {
+  const clean = words.replace(/\s+/g, " ").trim().slice(0, 32)
+  if (!clean) return "Unnamed bloom"
+  const small = new Set(["a", "an", "and", "at", "by", "for", "in", "of", "on", "or", "the", "to", "with"])
+  return clean
+    .split(" ")
+    .map((w, i) => (i > 0 && small.has(w.toLowerCase()) ? w.toLowerCase() : w.charAt(0).toUpperCase() + w.slice(1)))
+    .join(" ")
 }
 
 /** Turns any words (a mood, a food, a memory) into a flower and its botanical name. */
@@ -143,7 +151,7 @@ export function growFromWords(words: string): Omit<Flower, "id" | "by" | "at"> {
   let color2 = pick()
   if (color2 === color) color2 = PALETTE[(PALETTE.indexOf(color) + 3) % 11]
   return {
-    name: `${pickFrom(GENERA, r)} ${epithetFrom(text)}`,
+    name: nameFrom(words),
     mode: "grow",
     petals: 5 + Math.floor(r() * 9),
     shape: SHAPES[Math.floor(r() * SHAPES.length)],
@@ -213,9 +221,9 @@ export function sanitizeFlower(input: unknown): Flower | null {
 
 /** A few flowers so the garden never starts empty. */
 export const SEED_FLOWERS: Flower[] = [
-  { id: "seed-violet", name: "Viola hyunensis", by: "Violet", mode: "build", petals: 10, shape: "round", layers: 2, color: "#e9a4c7", color2: "#d98ae0", center: "#a3174a", at: "2026-11-11T00:00:00Z" },
-  { id: "seed-mini", name: "Bellis minivioletta", by: "Mini Violet", mode: "build", petals: 6, shape: "heart", layers: 1, color: "#b48ef0", color2: "#e9a4c7", center: "#3b2a6b", at: "2026-11-11T00:00:00Z" },
-  { id: "seed-matcha", name: "Petalia matchiflora", by: "Violet", mode: "grow", petals: 8, shape: "pointed", layers: 2, color: "#a6d46e", color2: "#f4d35e", center: "#5b3f86", at: "2026-11-11T00:00:00Z" },
-  { id: "seed-sunday", name: "Lumina sundayella", by: "Violet", mode: "grow", petals: 12, shape: "spoon", layers: 1, color: "#f4d35e", color2: "#f7a35c", center: "#a3174a", at: "2026-11-11T00:00:00Z" },
-  { id: "seed-subway", name: "Rosella subwayaris", by: "Violet", mode: "grow", petals: 5, shape: "frill", layers: 2, color: "#8fa8f5", color2: "#b48ef0", center: "#3b2a6b", at: "2026-11-11T00:00:00Z" },
+  { id: "seed-violet", name: "Violet", by: "Violet", mode: "build", petals: 10, shape: "round", layers: 2, color: "#e9a4c7", color2: "#d98ae0", center: "#a3174a", at: "2026-11-11T00:00:00Z" },
+  { id: "seed-mini", name: "Mini Violet", by: "Mini Violet", mode: "build", petals: 6, shape: "heart", layers: 1, color: "#b48ef0", color2: "#e9a4c7", center: "#3b2a6b", at: "2026-11-11T00:00:00Z" },
+  { id: "seed-matcha", name: "Matcha Latte", by: "Violet", mode: "grow", petals: 8, shape: "pointed", layers: 2, color: "#a6d46e", color2: "#f4d35e", center: "#5b3f86", at: "2026-11-11T00:00:00Z" },
+  { id: "seed-sunday", name: "Lazy Sunday", by: "Violet", mode: "grow", petals: 12, shape: "spoon", layers: 1, color: "#f4d35e", color2: "#f7a35c", center: "#a3174a", at: "2026-11-11T00:00:00Z" },
+  { id: "seed-subway", name: "Late Subway", by: "Violet", mode: "grow", petals: 5, shape: "frill", layers: 2, color: "#8fa8f5", color2: "#b48ef0", center: "#3b2a6b", at: "2026-11-11T00:00:00Z" },
 ]
