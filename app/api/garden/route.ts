@@ -88,6 +88,9 @@ export async function POST(request: Request) {
   const flower = sanitizeFlower(body)
   if (!flower) return NextResponse.json({ error: "Draw or build a flower first." }, { status: 400 })
   try {
+    // A device catching up may resend a flower; keep one copy per flower id.
+    const existing = await list({ prefix: PREFIX, limit: 1000 })
+    if (existing.blobs.some((b) => b.pathname.endsWith(`-${flower.id}.json`))) return NextResponse.json({ flower })
     await save(`${PREFIX}${flower.at.replace(/[:.]/g, "-")}-${flower.id}.json`, JSON.stringify(flower), "application/json")
     return NextResponse.json({ flower })
   } catch (err) {
