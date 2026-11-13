@@ -192,7 +192,34 @@ export function RoiCaseStudy() {
       </Section>
 
       {/* 2. Why the workflow failed */}
-      <Section eyebrow="02 · Why the workflow failed" title="The number lived in one place, the math in another">
+      <Section eyebrow="02 · Why the workflow failed" title="No customer ever used the old calculator">
+        <div className="grid gap-3 md:grid-cols-[1.4fr_1fr]">
+          <div className="space-y-4 rounded-2xl border border-border/60 bg-card p-5">
+            <div className="flex items-baseline gap-3">
+              <p className="text-5xl font-semibold tracking-tight tabular-nums text-foreground">258</p>
+              <p className="text-sm text-foreground/60">calculator events in 90 days</p>
+            </div>
+            <div className="space-y-1.5">
+              <div className="flex h-3 overflow-hidden rounded-full bg-muted">
+                <div className="h-full w-full rounded-full" style={{ backgroundColor: PLUM }} />
+              </div>
+              <div className="flex justify-between text-xs">
+                <span className="text-foreground/75">
+                  <b className="text-foreground">7</b> Vendelux staff: all 258
+                </span>
+                <span className="text-foreground/75">
+                  Customers: <b className="text-red-700 dark:text-red-400">0</b>
+                </span>
+              </div>
+            </div>
+            <p className="text-sm text-foreground/65">That gap is why the calculator moved into Planner, where customers already plan events.</p>
+          </div>
+          <div className="space-y-3 rounded-2xl bg-muted/40 p-5">
+            <span className="inline-block rounded-full bg-amber-500/15 px-2.5 py-0.5 text-[11px] font-semibold text-amber-800 dark:text-amber-300">Demand, not impact</span>
+            <p className="text-5xl font-semibold tracking-tight tabular-nums text-foreground">5</p>
+            <p className="text-sm text-foreground/65">renewal conversations in the week of Nov 2 depended on proof of ROI.</p>
+          </div>
+        </div>
         <div className="grid gap-4 md:grid-cols-[1fr_auto_1fr] md:items-center">
           {/* before */}
           <div className="space-y-3 rounded-2xl border border-border/60 bg-card p-4">
@@ -244,7 +271,7 @@ export function RoiCaseStudy() {
           </div>
         </div>
         <ul className="grid gap-2 sm:grid-cols-4">
-          {["Disconnected calculator", "Budget typed from memory", "No opportunity stage", "Nothing filled the card"].map((t) => (
+          {["Disconnected calculator", "Budget typed from memory", "No opportunity stage", "Card had 6 fields, math filled 5"].map((t) => (
             <li key={t} className="flex items-center gap-2 rounded-lg bg-muted/40 px-3 py-2.5 text-sm text-foreground/80">
               <X className="h-4 w-4 shrink-0 text-red-700/70 dark:text-red-400" /> {t}
             </li>
@@ -314,7 +341,7 @@ export function RoiCaseStudy() {
       </Section>
 
       {/* 4. The forecast */}
-      <Section eyebrow="04 · A forecast you can defend" title="Change an assumption, watch what moves" id="results">
+      <Section eyebrow="04 · A forecast you can defend" title="Change an assumption, watch what moves">
         <div className="flex flex-wrap items-center gap-1.5 text-xs">
           {["1,012 qualified attendees", "152 captured leads", "61 opportunities", "$1.82M pipeline", "$455k closed-won"].map((s, i) => (
             <span key={s} className="flex items-center gap-1.5">
@@ -386,7 +413,7 @@ export function RoiCaseStudy() {
           {[
             { t: "No made-up numbers", before: "Prefilled $212 per lead", after: "Empty fields. Lifetime value and close rate remembered." },
             { t: "Keep the board visible", before: "Narrow drawer, blurred page", after: "Wider drawer, no blur" },
-            { t: "Fewer card fields", before: "6 plan fields on the card", after: "3 decision values" },
+            { t: "Lead with the decision", before: "Budget and leads repeated on the card", after: "Decision values first, the funnel in one line" },
           ].map((c) => (
             <div key={c.t} className="space-y-3 rounded-2xl border border-border/60 bg-card p-4">
               <p className="text-sm font-semibold text-foreground">{c.t}</p>
@@ -417,8 +444,56 @@ export function RoiCaseStudy() {
         </div>
       </Section>
 
-      {/* 8. Outcome */}
-      <Section eyebrow="08 · Outcome" title="Where it stands">
+      <Section eyebrow="08 · Impact" title="What changed for the calculator" id="results">
+        <div className="grid gap-3 sm:grid-cols-3">
+          {[
+            { big: "15.4x → 7.7x", t: "Projected return cut in half", d: "Closed-won instead of lifetime value removed about a 2x overstatement, on the calculator's own example inputs." },
+            { big: "5 → 6", t: "Every plan field filled", d: "The card shows six plan values. Adding the opportunity step lets the calculator produce pipeline too." },
+            { big: "2 inputs", t: "Entered once, not every event", d: "Lifetime value and close rate carry over to the next event." },
+          ].map((c) => (
+            <div key={c.t} className="space-y-2 rounded-2xl border border-border/60 bg-card p-5">
+              <p className={cn("text-3xl font-semibold tracking-tight tabular-nums", PLUM_TEXT)}>{c.big}</p>
+              <p className="text-sm font-semibold text-foreground">{c.t}</p>
+              <p className="text-xs leading-relaxed text-foreground/60">{c.d}</p>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section eyebrow="09 · Across the Planner redesign" title="Fewer steps, fewer conflicting numbers">
+        <div className="overflow-hidden rounded-2xl border border-border/60">
+          <div className="hidden grid-cols-[1.1fr_2fr_1.4fr_auto] gap-4 bg-muted/40 px-4 py-2.5 text-[11px] font-semibold tracking-wide text-foreground/55 uppercase md:grid">
+            <span>Area</span>
+            <span>Before → After</span>
+            <span>Impact</span>
+            <span>Type</span>
+          </div>
+          {[
+            { a: "Ways to add an event", before: "2 buttons, 2 windows", after: "1 button, 1 window", impact: "50% fewer entry points", type: "Counted" },
+            { a: "Adding an event that isn't on Vendelux", before: "~8 steps: search, cancel, reopen, retype the name", after: "~5: search, pick “Add as private”, fill the link, submit", impact: "~35–40% fewer steps", type: "Estimated" },
+            { a: "Wrong files uploaded to Import", before: "2 of 5 real customer files weren't event lists, and nothing said so", after: "A clear error before anything is created", impact: "40% of sample uploads now caught", type: "Counted" },
+            { a: "Board space above the fold", before: "Summary tiles plus a separate Columns row (~200px)", after: "Removed", impact: "~20% more board on a typical laptop", type: "Estimated" },
+            { a: "ROI headline accuracy", before: "Showed 22.3x as ROI", after: "21.3x, the correct figure", impact: "~5% overstatement removed", type: "Counted" },
+            { a: "Conflicting counts on the board", before: "Tiles said 3 and 2; columns showed 4 and 5", after: "One source for every count", impact: "2 conflicts → 0", type: "Counted" },
+            { a: "Header actions", before: "Add event, Add private event, Import, Export", after: "3 buttons", impact: "25% fewer header buttons", type: "Counted" },
+          ].map((r, i) => (
+            <div key={r.a} className={cn("grid gap-2 px-4 py-4 md:grid-cols-[1.1fr_2fr_1.4fr_auto] md:items-center md:gap-4", i && "border-t border-border/60")}>
+              <p className="text-sm font-semibold text-foreground">{r.a}</p>
+              <div className="flex flex-wrap items-center gap-1.5 text-xs">
+                <span className="rounded-md bg-muted/60 px-2 py-1 text-foreground/55 line-through decoration-foreground/25">{r.before}</span>
+                <ArrowRight className="h-3 w-3 shrink-0 text-muted-foreground" />
+                <span className="rounded-md bg-[#4a0e4e]/[0.07] px-2 py-1 text-foreground/85">{r.after}</span>
+              </div>
+              <p className={cn("text-sm font-semibold", PLUM_TEXT)}>{r.impact}</p>
+              <span className={cn("w-fit rounded-full px-2.5 py-0.5 text-[11px] font-semibold", r.type === "Counted" ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300" : "bg-foreground/10 text-foreground/65")}>{r.type}</span>
+            </div>
+          ))}
+        </div>
+        <p className="cs-caption">Counted: measured in the product or from real files. Estimated: step counts and screen space, not usage data.</p>
+      </Section>
+
+      {/* 10. Outcome */}
+      <Section eyebrow="10 · Outcome" title="Where it stands">
         <div className="grid gap-3 sm:grid-cols-3">
           {[
             { tag: "Live in dev", tone: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300", body: "Planner redesign, on real data" },
