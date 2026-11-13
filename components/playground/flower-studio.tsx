@@ -122,6 +122,12 @@ export function FlowerStudio() {
           }
           const ids = new Set(d.flowers.map((f) => f.id))
           setGarden([...mine.filter((f) => !ids.has(f.id)), ...d.flowers, ...SEED_FLOWERS])
+          // Catch up: anything this device planted that never reached the shared garden goes up now,
+          // so it shows on every other computer and phone too.
+          const missing = mine.filter((f) => !ids.has(f.id) && !f.id.startsWith("seed-"))
+          for (const f of missing) {
+            fetch("/api/garden", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(f) }).catch(() => {})
+          }
         } else throw new Error("local")
       })
       .catch(() => {
@@ -194,12 +200,14 @@ export function FlowerStudio() {
     setPlanting(true)
     const payload = { ...flower, name: name || flower.name, by, id: Math.random().toString(36).slice(2, 12) }
     let saved: Flower | null = null
+    let shareFailed = false
     if (shared) {
       try {
         const r = await fetch("/api/garden", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) })
         if (r.ok) saved = (await r.json()).flower
+        else shareFailed = true
       } catch {
-        /* falls through */
+        shareFailed = true
       }
     }
     if (!saved) saved = { ...payload, at: new Date().toISOString() } as Flower
@@ -215,7 +223,7 @@ export function FlowerStudio() {
     setGarden((g) => [saved!, ...g])
     setJustPlanted(saved.id)
     setPlanting(false)
-    say(`${saved.name} is planted 🌱`)
+    say(shareFailed ? `${saved.name} is planted here. The shared garden didn't answer, so it'll try again next visit.` : `${saved.name} is planted 🌱`)
     document.getElementById("garden")?.scrollIntoView({ behavior: "smooth", block: "center" })
     reroll()
   }

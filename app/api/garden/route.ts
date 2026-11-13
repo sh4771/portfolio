@@ -21,21 +21,35 @@ async function save(path: string, body: string, contentType: string) {
   }
 }
 
+let lastReadError = ""
+
 async function read(b: { pathname: string; url: string }) {
   try {
     const res = await get(b.pathname, { access: "private" })
     if (res && res.statusCode === 200) return await new Response(res.stream).text()
-  } catch {
-    /* public store */
+    lastReadError = `get status ${res?.statusCode ?? "none"}`
+  } catch (err) {
+    lastReadError = `get threw: ${err instanceof Error ? err.message.slice(0, 160) : "unknown"}`
   }
   const r = await fetch(b.url, { cache: "no-store" })
-  return r.ok ? await r.text() : null
+  if (!r.ok) {
+    lastReadError += ` · url ${r.status}`
+    console.error("[garden] read failed", b.pathname, lastReadError)
+    return null
+  }
+  return await r.text()
 }
 
-export async function GET() {
+export async function GET(request: Request) {
   if (!ready()) return NextResponse.json({ shared: false, flowers: [] })
   try {
     const page = await list({ prefix: PREFIX, limit: 1000 })
+    // Temporary: counts only, no flower data, to see whether saving or reading is failing.
+    if (new URL(request.url).searchParams.get("debug") === "1") {
+      const sample = page.blobs[0]
+      const ok = sample ? !!(await read(sample)) : null
+      return NextResponse.json({ listed: page.blobs.length, sampleReadable: ok, readError: ok ? "" : lastReadError }, { headers: { "Cache-Control": "no-store" } })
+    }
     // File names start with the timestamp, so sorting by name sorts by time.
     const newest = page.blobs.sort((a, b) => (a.pathname < b.pathname ? 1 : -1)).slice(0, 300)
     const flowers = (
