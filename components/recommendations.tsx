@@ -28,13 +28,20 @@ function Recommendation({ r, i }: { r: (typeof RECOMMENDATIONS)[number]; i: numb
   const id = `rec-${r.initials}`
   return (
     <figure
-      className="m-0 flex flex-col gap-4 rounded-2xl border border-border/60 bg-card p-5 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2 motion-safe:fill-mode-both"
+      onClick={(e) => {
+        // The whole card toggles, so a tap anywhere works; text selection and the button handle themselves.
+        if ((e.target as HTMLElement).closest("button") || window.getSelection()?.toString()) return
+        setOpen((o) => !o)
+      }}
+      className="m-0 flex cursor-pointer flex-col gap-4 rounded-2xl border border-border/60 bg-card p-5 transition-colors hover:border-foreground/25 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2 motion-safe:fill-mode-both"
       style={{ animationDelay: `${i * 80}ms` }}
     >
       <blockquote className="m-0 text-lg font-medium leading-snug tracking-tight text-foreground text-balance">&ldquo;{r.pull}&rdquo;</blockquote>
-      <div id={id} className={cn("grid transition-[grid-template-rows,opacity] duration-500 ease-[cubic-bezier(.2,.8,.2,1)]", open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0")}>
-        <p className="min-h-0 overflow-hidden text-sm leading-relaxed text-foreground/65 text-pretty">{r.full}</p>
-      </div>
+      {open && (
+        <p id={id} className="m-0 text-sm leading-relaxed text-foreground/65 text-pretty motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-top-1 motion-safe:duration-300">
+          {r.full}
+        </p>
+      )}
       <figcaption className="mt-auto flex items-center justify-between gap-3">
         <span className="flex items-center gap-2.5">
           <span aria-hidden className={cn("grid h-9 w-9 shrink-0 place-items-center rounded-full text-xs font-semibold text-white", r.tone)}>
@@ -45,7 +52,7 @@ function Recommendation({ r, i }: { r: (typeof RECOMMENDATIONS)[number]; i: numb
             <span className="block text-xs text-foreground/55">{r.role}</span>
           </span>
         </span>
-        <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-controls={id} className="shrink-0 text-xs font-semibold text-foreground/60 transition-colors hover:text-foreground">
+        <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-controls={open ? id : undefined} className="relative z-10 -m-2 shrink-0 p-2 text-xs font-semibold text-foreground/60 transition-colors hover:text-foreground">
           {open ? "Show less" : "Read full note"}
         </button>
       </figcaption>
