@@ -15,9 +15,18 @@ const manrope = Manrope({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://violethyun.com'),
   title: 'Violet Hyun — Product Designer',
   description:
     'Product designer exploring how technology, art, and storytelling can shape human behavior and social systems.',
+  openGraph: {
+    type: 'website',
+    url: 'https://violethyun.com',
+    siteName: 'Violet Hyun',
+    title: 'Violet Hyun, Product Designer',
+    description: 'I make complex information more approachable for everyone.',
+  },
+  twitter: { card: 'summary_large_image' },
 }
 
 export default function RootLayout({
