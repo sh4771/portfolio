@@ -16,8 +16,8 @@ const RECOMMENDATIONS = [
   {
     initials: "EL",
     tone: "bg-[#4a0e4e]",
-    name: "Eddie Li",
-    role: "Full-Stack Engineer, Vendelux",
+    name: "Eddie Lin",
+    role: "Staff Engineer, Vendelux",
     pull: "Delivering handoffs that made building her work a pleasure.",
     full: "Violet was a fantastic collaborator on Segments and our design system. She was detail-oriented, took initiative, and brought a great attitude to every conversation, communicating design decisions clearly and delivering handoffs that made building her work a pleasure. I’d happily work with Violet again.",
   },
