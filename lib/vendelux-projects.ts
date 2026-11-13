@@ -198,7 +198,7 @@ export const vendeluxProjects: VendeluxProject[] = [
     title: "Campaign Admin",
     challenge: "Turning a cut feature into a faster setup flow",
     oneLiner: "When backend limits cut bulk editing from the MVP, I found another path to the same outcome.",
-    duration: "July 10 – Aug 28, 2026 · In progress",
+    duration: "July 10 – Aug 28, 2026 · Shipped",
     whatIDid: "UI/UX design across engineering, FDEs and product",
     tools: ["Granola", "Claude Code", "v0"],
     intro: {
@@ -212,7 +212,7 @@ export const vendeluxProjects: VendeluxProject[] = [
       { label: "Team", value: "5-person team · 1 lead, 1 PM, 2 engineers" },
       { label: "Users", value: "Forward-deployed engineers" },
       { label: "User Goal", value: "Set up campaigns and related sub-campaigns for event teams" },
-      { label: "Outcome", value: "MVP in development; duplicate action reduced the tested repeated-setup flow from 9 to 3 steps" },
+      { label: "Outcome", value: "Shipped; Duplicate cut repeated setup from 9 to 3 steps, and weekly sub-campaign edits rose 83% vs. the old tool" },
     ],
     credit: { text: "Product Internship, Vendelux" },
     role: [],

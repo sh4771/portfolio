@@ -67,7 +67,7 @@ const TONES = {
 
 export function StatusCards({ items }: { items: { tag: string; tone: keyof typeof TONES; body: string }[] }) {
   return (
-    <div className="grid gap-3 sm:grid-cols-3">
+    <div className={cn("grid gap-3", items.length === 2 ? "sm:grid-cols-2" : "sm:grid-cols-3")}>
       {items.map((c) => (
         <div key={c.tag} className="space-y-2 rounded-2xl border border-border/60 bg-card p-4">
           <span className={cn("inline-block rounded-full px-2.5 py-0.5 text-[11px] font-semibold", TONES[c.tone])}>{c.tag}</span>
@@ -148,5 +148,23 @@ export function BeforeAfter({ pairs }: { pairs: { label: string; note: string; b
       </div>
       <p className="cs-caption">{p.note}</p>
     </div>
+  )
+}
+
+/** A recommendation from someone who used or built the work. */
+export function TeamQuote({ quote, name, role, initials, tone }: { quote: string; name: string; role: string; initials: string; tone: string }) {
+  return (
+    <figure className="m-0 space-y-4 rounded-2xl border border-border/60 bg-card p-5">
+      <blockquote className="m-0 text-lg font-medium leading-snug tracking-tight text-foreground text-balance">&ldquo;{quote}&rdquo;</blockquote>
+      <figcaption className="flex items-center gap-2.5">
+        <span aria-hidden className={cn("grid h-9 w-9 shrink-0 place-items-center rounded-full text-xs font-semibold text-white", tone)}>
+          {initials}
+        </span>
+        <span>
+          <span className="block text-sm font-medium text-foreground">{name}</span>
+          <span className="block text-xs text-foreground/55">{role}</span>
+        </span>
+      </figcaption>
+    </figure>
   )
 }

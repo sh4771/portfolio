@@ -21,6 +21,14 @@ const RECOMMENDATIONS = [
     pull: "Delivering handoffs that made building her work a pleasure.",
     full: "Violet was a fantastic collaborator on Segments and our design system. She was detail-oriented, took initiative, and brought a great attitude to every conversation, communicating design decisions clearly and delivering handoffs that made building her work a pleasure. I’d happily work with Violet again.",
   },
+  {
+    initials: "LP",
+    tone: "bg-[#9a5b2f]",
+    name: "Lu Primorac",
+    role: "Forward Deployed Engineer, Vendelux",
+    pull: "Working with Violet was one of the best cross-functional experiences our team has had.",
+    full: "Violet has a real talent for turning messy workflows and operational feedback into clean, usable design. She dug into the underlying processes and highlighted areas for optimization, took every piece of feedback seriously, and consistently translated it into concrete improvements, even when that meant creatively working around technical constraints. Working with Violet was one of the best cross-functional experiences our team has had, and I’m confident she would be an amazing asset to any team.",
+  },
 ]
 
 function Recommendation({ r, i }: { r: (typeof RECOMMENDATIONS)[number]; i: number }) {
@@ -64,7 +72,7 @@ export function Recommendations() {
   return (
     <div className="space-y-3">
       <p className="cs-eyebrow">What my team says</p>
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid gap-3 md:grid-cols-3">
         {RECOMMENDATIONS.map((r, i) => (
           <Recommendation key={r.name} r={r} i={i} />
         ))}

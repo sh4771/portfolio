@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Check, Copy, MousePointer2, Repeat, Scissors, X } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { BeforeAfter, CaseHeader, Live, PLUM, PLUM_TEXT, Section, Shot, SplitTags, StatusCards } from "./kit"
+import { BeforeAfter, CaseHeader, Live, PLUM, PLUM_TEXT, Section, Shot, SplitTags, StatusCards, TeamQuote } from "./kit"
 
 const SHARED = ["Status", "Sender", "Sending window", "Cadence"]
 const SUBS = ["Enterprise", "Mid-market", "SMB"]
@@ -62,8 +62,8 @@ export function CampaignAdminCaseStudy() {
       <CaseHeader
         eyebrow="Vendelux · Campaign Admin"
         title="Turning a cut feature into a faster setup flow"
-        lead="Bulk editing was cut. Duplicate took setup from 9 steps to 3."
-        meta="Jul – Aug 2026 · Product Intern · MVP in development"
+        lead="Bulk editing was cut. Duplicate took setup from 9 steps to 3, and weekly edits rose 83%."
+        meta="Jul – Aug 2026 · Product Intern · Shipped"
         facts={[
           ["Role", "Product Intern, sole designer"],
           ["Team", "PM, engineers, data lead"],
@@ -150,11 +150,49 @@ export function CampaignAdminCaseStudy() {
         <p className="text-sm text-foreground/70">Backend support for bulk editing wasn&apos;t ready for the MVP, and I raised the gap too late. Duplicate kept the faster path without it.</p>
       </Section>
 
-      <Section eyebrow="05 · Result" title="9 steps down to 3" id="results">
+      <Section eyebrow="05 · Result" title="9 steps down to 3">
         <StepCounter />
       </Section>
 
-      <Section eyebrow="06 · Custom presets" title="A library beats a one-off save">
+      <Section eyebrow="06 · Impact" title="FDEs manage campaigns far more often in the new tool" id="results">
+        <div className="space-y-3 rounded-2xl border border-border/60 bg-card p-5">
+          {[
+            { k: "Pause and resume actions", old: 7, now: 53, oldL: "7", nowL: "53", delta: "~7.6x" },
+            { k: "Sub-campaign saves (edits)", old: 88, now: 161, oldL: "88", nowL: "161", delta: "+83%" },
+            { k: "People pausing or resuming", old: 3.5, now: 5, oldL: "3–4", nowL: "4–6", delta: "More people" },
+          ].map((m, i) => {
+            const max = Math.max(m.old, m.now)
+            return (
+              <div key={m.k} className={cn("grid gap-3 pt-3 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)_auto] sm:items-center", i && "border-t border-border/60")}>
+                <p className="text-sm font-medium text-foreground">{m.k}</p>
+                <div className="space-y-1.5">
+                  <div className="flex items-center gap-2">
+                    <span className="w-10 shrink-0 text-[10px] text-foreground/50">Old</span>
+                    <div className="h-4 rounded bg-foreground/15" style={{ width: `${Math.max(4, (m.old / max) * 100)}%` }} />
+                    <span className="whitespace-nowrap text-xs tabular-nums text-foreground/60">{m.oldL}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-10 shrink-0 text-[10px] text-foreground/50">New</span>
+                    <div className="h-4 rounded" style={{ width: `${(m.now / max) * 100}%`, backgroundColor: PLUM }} />
+                    <span className="whitespace-nowrap text-xs font-semibold tabular-nums text-foreground">{m.nowL}</span>
+                  </div>
+                </div>
+                <p className={cn("text-lg font-semibold tabular-nums sm:text-right", PLUM_TEXT)}>{m.delta}</p>
+              </div>
+            )
+          })}
+        </div>
+        <p className="cs-caption">Weekly averages, the old VMM tool vs. the new Campaign Admin. Bars are scaled within each row.</p>
+        <TeamQuote
+          quote="Working with Violet was one of the best cross-functional experiences our team has had."
+          name="Lu Primorac"
+          role="Forward Deployed Engineer, Vendelux"
+          initials="LP"
+          tone="bg-[#9a5b2f]"
+        />
+      </Section>
+
+      <Section eyebrow="07 · Custom presets" title="A library beats a one-off save">
         <div className="grid gap-3 sm:grid-cols-3">
           {[
             { k: "A", t: "Toggle in the drawer", d: "Tied to one sub-campaign" },
@@ -176,7 +214,7 @@ export function CampaignAdminCaseStudy() {
         </div>
       </Section>
 
-      <Section eyebrow="07 · Across the tool" title="Before and after">
+      <Section eyebrow="08 · Across the tool" title="Before and after">
         <BeforeAfter
           pairs={[
             { label: "Campaign list", note: "Tabs for recent, drafts and cancelled, plus status tags. A top bar kept the list wide.", before: "/images/vendelux/campaign-admin-before-summary.png", after: "/images/vendelux/campaign-admin-after-summary.png" },
@@ -185,7 +223,7 @@ export function CampaignAdminCaseStudy() {
         />
       </Section>
 
-      <Section eyebrow="08 · What changed in my process" title="Feasibility first, not at handoff">
+      <Section eyebrow="09 · What changed in my process" title="Feasibility first, not at handoff">
         <SplitTags
           cols={[
             { title: "Before", items: ["Design the ideal flow", "Check feasibility at handoff"] },
@@ -194,12 +232,11 @@ export function CampaignAdminCaseStudy() {
         />
       </Section>
 
-      <Section eyebrow="09 · Where it stands" title="In development">
+      <Section eyebrow="10 · Where it stands" title="Shipped and in use">
         <StatusCards
           items={[
-            { tag: "In development", tone: "done", body: "MVP handed off Aug 28, 2026, with Duplicate" },
+            { tag: "Shipped", tone: "done", body: "Live for forward-deployed engineers, replacing the old VMM, with Duplicate and custom presets" },
             { tag: "Open question", tone: "open", body: "Paused sub-campaign start date: two specs disagree. Handed to the PM." },
-            { tag: "Not yet", tone: "muted", body: "Not live yet, so no adoption data to report" },
           ]}
         />
       </Section>
