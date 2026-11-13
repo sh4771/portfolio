@@ -193,7 +193,7 @@ export function RoiCaseStudy() {
 
       {/* 2. Why the workflow failed */}
       <Section eyebrow="02 · Why the workflow failed" title="No customer ever used the old calculator">
-        <div className="grid gap-3 md:grid-cols-[1.4fr_1fr]">
+        <div className="grid gap-3 md:grid-cols-2">
           <div className="space-y-4 rounded-2xl border border-border/60 bg-card p-5">
             <div className="flex items-baseline gap-3">
               <p className="text-5xl font-semibold tracking-tight tabular-nums text-foreground">258</p>

@@ -77,6 +77,7 @@ function Shot({
   h,
   caption,
   className,
+  frame,
 }: {
   src: string
   alt: string
@@ -84,11 +85,17 @@ function Shot({
   h: number
   caption?: string
   className?: string
+  /** An aspect class shared by paired images, so they line up. */
+  frame?: string
 }) {
   return (
     <figure className={cn("space-y-2", className)}>
-      <div className="overflow-hidden rounded-xl border border-border/50 bg-white">
-        <Image src={src} alt={alt} width={w} height={h} className="h-auto w-full" sizes="(min-width: 900px) 800px, 100vw" />
+      <div className={cn("overflow-hidden rounded-xl border border-border/50 bg-white", frame && "relative", frame)}>
+        {frame ? (
+          <Image src={src} alt={alt} fill className="object-contain" sizes="(min-width: 900px) 400px, 100vw" />
+        ) : (
+          <Image src={src} alt={alt} width={w} height={h} className="h-auto w-full" sizes="(min-width: 900px) 800px, 100vw" />
+        )}
       </div>
       {caption && <figcaption className="cs-caption">{caption}</figcaption>}
     </figure>
@@ -309,7 +316,7 @@ export function SegmentsCaseStudy() {
           <Eyebrow>My role</Eyebrow>
           <h2 className="cs-h2">I owned the design, end to end</h2>
         </div>
-        <div className="grid gap-3 sm:grid-cols-[1.4fr_1fr]">
+        <div className="grid gap-3 sm:grid-cols-2">
           <div className="rounded-xl border-2 p-4" style={{ borderColor: PLUM }}>
             <p className="cs-eyebrow mb-2">I designed</p>
             <ul className="grid gap-1.5 text-sm text-foreground/85 sm:grid-cols-2">
@@ -409,11 +416,11 @@ export function SegmentsCaseStudy() {
           <div className="grid max-w-[560px] gap-3 sm:grid-cols-2">
             <div className="space-y-1.5">
               <span className="cs-eyebrow">Before</span>
-              <Shot src="/images/vendelux/segments-include-exclude-before.png" alt="Included and excluded values mixed in one list, distinguished only by color" w={4843} h={7892} />
+              <Shot src="/images/vendelux/segments-include-exclude-before.png" alt="Included and excluded values mixed in one list, distinguished only by color" w={4843} h={7892} frame="aspect-[4/5]" />
             </div>
             <div className="space-y-1.5">
               <span className="cs-eyebrow">After</span>
-              <Shot src="/images/vendelux/segments-include-exclude-after.png" alt="Separate Include and Exclude modes with search, and plus or minus values with counts" w={6947} h={7892} />
+              <Shot src="/images/vendelux/segments-include-exclude-after.png" alt="Separate Include and Exclude modes with search, and plus or minus values with counts" w={6947} h={7892} frame="aspect-[4/5]" />
             </div>
           </div>
         </div>

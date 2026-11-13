@@ -214,7 +214,7 @@ export function ResumeDeck() {
             </button>
           </div>
         </div>
-        <div ref={deckRef} className="-mx-6 flex snap-x snap-mandatory scroll-px-6 items-start gap-3 overflow-x-auto px-6 pb-3 pt-1 [scrollbar-width:none]">
+        <div ref={deckRef} className="-mx-6 flex snap-x snap-mandatory scroll-px-6 items-stretch gap-3 overflow-x-auto px-6 pb-3 pt-1 [scrollbar-width:none]">
           {cards.map((e, i) => (
             <DeckCard key={e.name} e={e} i={i} />
           ))}

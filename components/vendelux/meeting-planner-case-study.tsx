@@ -166,7 +166,7 @@ export function MeetingPlannerCaseStudy() {
       </header>
 
       <Section eyebrow="01 · The question" title="Customers asked for a plan and got a bare number">
-        <div className="grid gap-3 md:grid-cols-[1.3fr_1fr]">
+        <div className="grid gap-3 md:grid-cols-2">
           <div className="flex flex-col justify-center rounded-2xl bg-muted/40 p-5">
             <p className="text-lg leading-snug text-foreground">&ldquo;If I invite 2,500 people from these segments, how many meetings should I expect?&rdquo;</p>
             <p className="mt-2 text-xs text-foreground/50">The customer&apos;s question</p>

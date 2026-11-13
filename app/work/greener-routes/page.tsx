@@ -178,25 +178,25 @@ export default function Page() {
 
             <div className="grid gap-6 sm:grid-cols-2">
               <figure className="space-y-3">
-                <div className="overflow-hidden rounded-2xl border border-foreground/10 bg-muted/30">
+                <div className="relative aspect-[5/4] overflow-hidden rounded-2xl border border-border/60 bg-muted/30">
                   <Image
                     src="/images/greener-routes/rhino-perspective.png"
                     alt="Rhino viewport showing route geometry against park boundaries"
-                    width={558}
-                    height={524}
-                    className="h-auto w-full"
+                    fill
+                    sizes="(min-width: 640px) 520px, 100vw"
+                    className="object-contain"
                   />
                 </div>
                 <figcaption className="cs-caption">Rhino: route geometry against park boundaries</figcaption>
               </figure>
               <figure className="space-y-3">
-                <div className="overflow-hidden rounded-2xl border border-foreground/10 bg-muted/30">
+                <div className="relative aspect-[5/4] overflow-hidden rounded-2xl border border-border/60 bg-muted/30">
                   <Image
                     src="/images/greener-routes/grasshopper-script.png"
                     alt="Grasshopper definition that samples routes and measures distance to green space"
-                    width={592}
-                    height={438}
-                    className="h-auto w-full"
+                    fill
+                    sizes="(min-width: 640px) 520px, 100vw"
+                    className="object-contain"
                   />
                 </div>
                 <figcaption className="cs-caption">Grasshopper: sampling and scoring each route</figcaption>

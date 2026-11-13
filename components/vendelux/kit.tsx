@@ -42,11 +42,16 @@ export function CaseHeader({ eyebrow, title, lead, meta, facts }: { eyebrow: str
   )
 }
 
-export function Shot({ src, alt, w, h, caption, gif, className }: { src: string; alt: string; w: number; h: number; caption?: string; gif?: boolean; className?: string }) {
+/** `frame` (an aspect class) gives paired images one shared shape; the image fits inside it. */
+export function Shot({ src, alt, w, h, caption, gif, className, frame }: { src: string; alt: string; w: number; h: number; caption?: string; gif?: boolean; className?: string; frame?: string }) {
   return (
     <figure className={cn("space-y-2", className)}>
-      <div className="overflow-hidden rounded-xl border border-border/50 bg-white">
-        <Image src={src} alt={alt} width={w} height={h} unoptimized={gif} className="h-auto w-full" sizes="(min-width: 900px) 800px, 100vw" />
+      <div className={cn("overflow-hidden rounded-xl border border-border/50 bg-white", frame && "relative", frame)}>
+        {frame ? (
+          <Image src={src} alt={alt} fill unoptimized={gif} className="object-contain" sizes="(min-width: 900px) 600px, 100vw" />
+        ) : (
+          <Image src={src} alt={alt} width={w} height={h} unoptimized={gif} className="h-auto w-full" sizes="(min-width: 900px) 800px, 100vw" />
+        )}
       </div>
       {caption && <figcaption className="cs-caption">{caption}</figcaption>}
     </figure>

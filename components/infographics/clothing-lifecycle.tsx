@@ -71,7 +71,7 @@ export default function ClothingLifecycle() {
   return (
     <div className="w-full select-none">
       {/* Horizontal stage track */}
-      <div className="relative flex items-start justify-between gap-0">
+      <div className="relative flex items-stretch justify-between gap-0">
         {stages.map((stage, i) => {
           const isActive = i === activeStage
           const isPast = i < activeStage
@@ -86,7 +86,7 @@ export default function ClothingLifecycle() {
             >
               {/* Card border wraps icon + label when active or hovered */}
               <div
-                className="flex flex-col items-center gap-3 rounded-xl px-2 pt-3 pb-2 w-full transition-all duration-300"
+                className="flex flex-1 flex-col items-center gap-3 rounded-xl px-2 pt-3 pb-2 w-full transition-all duration-300"
                 style={{
                   border: isActive
                     ? "1px solid var(--foreground)"

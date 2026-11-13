@@ -64,7 +64,7 @@ export function Recommendations() {
   return (
     <div className="space-y-3">
       <p className="cs-eyebrow">What my team says</p>
-      <div className="grid items-start gap-3 sm:grid-cols-2">
+      <div className="grid gap-3 sm:grid-cols-2">
         {RECOMMENDATIONS.map((r, i) => (
           <Recommendation key={r.name} r={r} i={i} />
         ))}

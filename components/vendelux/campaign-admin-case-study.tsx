@@ -137,14 +137,14 @@ export function CampaignAdminCaseStudy() {
               <Scissors className="h-4 w-4 text-red-700 dark:text-red-400" /> Bulk editing
               <span className="rounded-full bg-red-500/10 px-2 py-0.5 text-[10px] font-semibold text-red-700 dark:text-red-400">Cut from MVP</span>
             </p>
-            <Shot src="/images/vendelux/campaign-admin-bulk-edit.gif" alt="Selecting sub-campaigns with checkboxes and applying shared settings once" w={1280} h={1169} gif caption="Select rows, apply shared settings once." />
+            <Shot src="/images/vendelux/campaign-admin-bulk-edit.gif" alt="Selecting sub-campaigns with checkboxes and applying shared settings once" w={1280} h={1169} gif frame="aspect-[6/5]" caption="Select rows, apply shared settings once." />
           </div>
           <div className="space-y-2">
             <p className="flex items-center gap-1.5 text-sm font-semibold text-foreground">
               <Copy className={cn("h-4 w-4", PLUM_TEXT)} /> Duplicate
               <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 dark:text-emerald-300">Shipping</span>
             </p>
-            <Shot src="/images/vendelux/campaign-admin-duplicate-action.gif" alt="Duplicating a sub-campaign and changing only its segment" w={1280} h={850} gif caption="Copy a sub-campaign, change only what differs." />
+            <Shot src="/images/vendelux/campaign-admin-duplicate-action.gif" alt="Duplicating a sub-campaign and changing only its segment" w={1280} h={850} gif frame="aspect-[6/5]" caption="Copy a sub-campaign, change only what differs." />
           </div>
         </div>
         <p className="text-sm text-foreground/70">Backend support for bulk editing wasn&apos;t ready for the MVP, and I raised the gap too late. Duplicate kept the faster path without it.</p>
@@ -171,8 +171,8 @@ export function CampaignAdminCaseStudy() {
           ))}
         </div>
         <div className="grid gap-4 md:grid-cols-2">
-          <Shot src="/images/vendelux/campaign-admin-custom-presets-compare.gif" alt="Three clickable directions for saving a custom preset" w={1208} h={1286} gif caption="The three directions, prototyped." />
-          <Shot src="/images/vendelux/campaign-admin-custom-presets-shipped.gif" alt="Custom Preset entry point next to Saved presets in the product" w={1280} h={884} gif caption="Shipped: Custom Preset next to Saved presets." />
+          <Shot src="/images/vendelux/campaign-admin-custom-presets-compare.gif" alt="Three clickable directions for saving a custom preset" w={1208} h={1286} gif frame="aspect-[6/5]" caption="The three directions, prototyped." />
+          <Shot src="/images/vendelux/campaign-admin-custom-presets-shipped.gif" alt="Custom Preset entry point next to Saved presets in the product" w={1280} h={884} gif frame="aspect-[6/5]" caption="Shipped: Custom Preset next to Saved presets." />
         </div>
       </Section>
 
