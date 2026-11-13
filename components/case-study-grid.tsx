@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
+import { Recommendations } from "@/components/recommendations"
 import { Hourglass, Lock } from "lucide-react"
 import { useEffect } from "react"
 import { CoverMeta, ProjectCover, type CoverSpec } from "@/components/project-cover"
@@ -290,6 +291,11 @@ function GroupedCaseStudy({ project }: { project: CaseStudy }) {
           />
         </Link>
       </div>
+      {project.slug === "vendelux" && (
+        <div className="mt-8">
+          <Recommendations />
+        </div>
+      )}
     </div>
   )
 }
