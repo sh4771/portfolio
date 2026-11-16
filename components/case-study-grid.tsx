@@ -116,10 +116,10 @@ const projects: CaseStudy[] = [
   },
   {
     slug: "adhd-planner",
-    name: "Dump It, Don't Plan It: an ADHD planner",
+    name: "ADHD Planner: from brain dump to a planned day",
     cover: COVERS["adhd-planner"],
     readMins: 6,
-    title: "Dump It, Don't Plan It: An ADHD Planner Where Capture Costs One Sentence",
+    title: "Designing a Day Planner for ADHD Brains",
     description:
       "An ADHD day planner that turns a messy brain dump into a scheduled, reminded day, so saving a task costs one sentence instead of six decisions.",
     tags: ["2026", "Product Design", "Concept"],

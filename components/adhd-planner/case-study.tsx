@@ -202,7 +202,7 @@ export function AdhdPlannerCaseStudy() {
     <div className="space-y-24">
       <CaseHero
         slug="adhd-planner"
-        title="Dump It, Don't Plan It"
+        title="Designing a Day Planner for ADHD Brains"
         roles={["Product designer, solo"]}
         tagline="An ADHD day planner that turns a messy brain dump into a scheduled, reminded day. Saving a task costs one sentence instead of six decisions."
         when="Concept sprint, Nov 2026"

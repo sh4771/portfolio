@@ -133,7 +133,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "adhd-planner",
-    title: "Dump It, Don't Plan It",
+    title: "ADHD Planner",
     summary: "An ADHD day planner where capturing a task costs one sentence",
     evidence:
       "Solo concept: research on ADHD and time, an audit of six planners, and four working prototypes. The final direction turns a messy brain dump into proposed times and reminders that you approve on the timeline.",

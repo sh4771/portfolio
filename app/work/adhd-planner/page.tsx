@@ -6,7 +6,7 @@ import { ContinueLink } from "@/components/continue-link"
 import { AdhdPlannerCaseStudy } from "@/components/adhd-planner/case-study"
 
 export const metadata = {
-  title: "Dump It, Don't Plan It · Violet Hyun",
+  title: "ADHD Planner · Violet Hyun",
   description: "An ADHD day planner that turns a messy brain dump into a scheduled, reminded day.",
 }
 
