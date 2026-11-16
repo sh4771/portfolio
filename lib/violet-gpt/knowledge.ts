@@ -131,6 +131,16 @@ export const PROJECTS: Project[] = [
     href: "/work/schedulink",
     priority: 7,
   },
+  {
+    id: "adhd-planner",
+    title: "Dump It, Don't Plan It",
+    summary: "An ADHD day planner where capturing a task costs one sentence",
+    evidence:
+      "Solo concept: research on ADHD and time, an audit of six planners, and four working prototypes. The final direction turns a messy brain dump into proposed times and reminders that you approve on the timeline.",
+    skills: ["research", "interaction", "accessibility"],
+    href: "/work/adhd-planner",
+    priority: 8,
+  },
 ]
 
 export const SKILL_LABELS: Record<Skill, string> = {

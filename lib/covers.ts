@@ -30,6 +30,17 @@ export const COVERS: Record<string, CoverSpec> = {
       { src: "/images/covers/along/4.webp", hold: 1600 },
     ],
   },
+  "adhd-planner": {
+    kind: "phone",
+    bg: "#ECEAF9",
+    screens: ["/images/covers/adhd-planner/0.webp"],
+    flow: [
+      { src: "/images/covers/adhd-planner/0.webp", tap: [23, 90], hold: 1100 },
+      { src: "/images/covers/adhd-planner/1.webp", tap: [18, 84], hold: 1600 },
+      { src: "/images/covers/adhd-planner/2.webp", tap: [90, 59], hold: 1200 },
+      { src: "/images/covers/adhd-planner/3.webp", hold: 1800 },
+    ],
+  },
   "reconcile": { kind: "phone", bg: "#e6e0fb", video: "/videos/covers/reconcile.mp4", screens: ["/images/covers/posters/covers-reconcile-poster.jpg"] },
   "games4peace": { kind: "phone", bg: "#a3c2bb", video: "/videos/covers/games4peace.mp4", screens: ["/images/covers/posters/covers-games4peace-poster.jpg"] },
   "schedulink": {
