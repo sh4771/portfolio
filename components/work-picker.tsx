@@ -5,7 +5,7 @@ import { ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 /** Order of the work grid below Vendelux when nothing is picked. */
-export const DEFAULT_ORDER = ["reconcile", "adhd-planner", "greener-routes", "along", "passiton", "games4peace", "schedulink"]
+export const DEFAULT_ORDER = ["reconcile", "mini-violet", "adhd-planner", "greener-routes", "along", "passiton", "games4peace", "schedulink"]
 
 /** Fields a visitor can pick. Picked projects move to the front with a short reason. */
 export const FIELDS: { label: string; top: { slug: string; why: string }[] }[] = [
@@ -15,6 +15,13 @@ export const FIELDS: { label: string; top: { slug: string; why: string }[] }[] =
     top: [
       { slug: "reconcile", why: "Finance ops workflow" },
       { slug: "clinical-trials", why: "Enterprise data screens" },
+    ],
+  },
+  {
+    label: "AI products",
+    top: [
+      { slug: "mini-violet", why: "A guardrailed AI guide, live on this site" },
+      { slug: "clinical-trials", why: "Making AI signals trustworthy" },
     ],
   },
   { label: "Fintech", top: [{ slug: "reconcile", why: "Payout reconciliation, 45 edge cases" }] },

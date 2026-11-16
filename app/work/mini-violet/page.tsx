@@ -1,0 +1,30 @@
+import Link from "next/link"
+import { ArrowLeft } from "lucide-react"
+import { Navigation } from "@/components/navigation"
+import { Footer } from "@/components/footer"
+import { ContinueLink } from "@/components/continue-link"
+import { MiniVioletCaseStudy } from "@/components/mini-violet/case-study"
+
+export const metadata = {
+  title: "Mini Violet · Violet Hyun",
+  description: "How I designed Mini Violet, a guardrailed AI guide that answers questions about my portfolio.",
+}
+
+export default function Page() {
+  return (
+    <>
+      <Navigation />
+      <main className="pt-32 pb-24">
+        <div className="site-col space-y-16">
+          <Link href="/#work" className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
+            <ArrowLeft className="h-4 w-4" />
+            Back to Portfolio
+          </Link>
+          <MiniVioletCaseStudy />
+          <ContinueLink />
+        </div>
+      </main>
+      <Footer />
+    </>
+  )
+}

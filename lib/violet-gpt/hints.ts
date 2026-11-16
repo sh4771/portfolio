@@ -20,6 +20,8 @@ export const PAGE_HINTS: Record<string, string> = {
     "Schedulink is Violet's startup work. She led design on a 4-person team and took the MVP from concept to shipped in 2 weeks.",
   "/work/reconcile":
     "Reconcile is Violet's fintech project. She mapped 45 edge cases so every dollar in a seller payout could be explained.",
+  "/work/mini-violet":
+    "Hi, that's me! 🤭 This is how Violet designed me. Want to try asking me something?",
   "/work/adhd-planner":
     "This is Violet's ADHD planner. Try the phone: dump a messy list and watch it land on the timeline.",
   "/work/along":

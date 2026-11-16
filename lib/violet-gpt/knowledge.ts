@@ -132,6 +132,16 @@ export const PROJECTS: Project[] = [
     priority: 7,
   },
   {
+    id: "mini-violet",
+    title: "Mini Violet",
+    summary: "Designing the AI guide on this portfolio",
+    evidence:
+      "Violet designed and built Mini Violet: answers come only from facts on her site, private questions never leave the browser, replies are checked before showing, and a built-in answer takes over if the AI is slow.",
+    skills: ["ai", "interaction", "ownership"],
+    href: "/work/mini-violet",
+    priority: 9,
+  },
+  {
     id: "adhd-planner",
     title: "ADHD Planner",
     summary: "An ADHD day planner where capturing a task costs one sentence",
