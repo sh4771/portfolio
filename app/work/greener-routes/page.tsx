@@ -45,7 +45,7 @@ export default function Page() {
       <Navigation />
       <main className="pt-32 pb-24">
         <div
-          className="site-col  space-y-24 [--park-fill:#cfe0c3] [--park-ink:#2f4d38] [--park-tree:#9cc28a] [--route-green:#3f7a52] dark:[--park-fill:#2f4436] dark:[--park-ink:#cfe0c3] dark:[--park-tree:#3f5e48] dark:[--route-green:#86c29a]"
+          className="site-col  space-y-24 [--park-fill:#cfe0c3] [--park-ink:#2f4d38] [--park-tree:#9cc28a] [--route-green:#3f7a52] dark:[--park-fill:#2f4436] dark:[--park-ink:#cfe0c3] dark:[--park-tree:#3f5e48] dark:[--route-green:#86c29a] [--map-land:#ece8df] [--map-bldg:#dcd5c6] [--map-road:#fbfaf6] [--map-avenue:#ffffff] [--map-water:#b7d3e3] [--map-label:#7a7466] [--map-path:#e9e3cf] dark:[--map-land:#1b1b19] dark:[--map-bldg:#2a2a27] dark:[--map-road:#34332f] dark:[--map-avenue:#403f3a] dark:[--map-water:#1d3341] dark:[--map-label:#8f8b82] dark:[--map-path:#4a5a4d]"
         >
           <Link
             href="/#work"

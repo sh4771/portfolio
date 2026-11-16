@@ -63,13 +63,13 @@ export function PhonePrototype() {
   return (
     <div className="mx-auto w-full max-w-[340px]">
       <div className="overflow-hidden rounded-[2.75rem] border-[10px] border-foreground bg-background shadow-[0_24px_60px_rgba(0,0,0,0.14)]">
-        <div className="flex h-8 items-center justify-between px-6 text-[11px] font-semibold text-foreground">
+        <div className="flex h-12 items-end justify-between px-7 pb-1 text-[11px] font-semibold text-foreground">
           <span>9:41</span>
           <span className="h-4 w-16 rounded-full bg-foreground" aria-hidden="true" />
           <span className="w-7" />
         </div>
 
-        <div key={step} className="vendelux-step-in flex h-[600px] flex-col gap-4 px-5 pb-6 pt-3" aria-live="polite">
+        <div key={step} className="vendelux-step-in flex h-[600px] flex-col gap-4 px-5 pb-6 pt-6" aria-live="polite">
           {step === "home" && (
             <>
               <div>
