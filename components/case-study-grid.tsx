@@ -368,7 +368,8 @@ export function CaseStudyGrid() {
   const vendelux = bySlug("vendelux")!
   const top = FIELDS[field].top
   const rest = DEFAULT_ORDER.filter((slug) => !top.some((t) => t.slug === slug))
-  const ordered = [...top.map((t, i) => ({ slug: t.slug, rank: i + 1, why: t.why })), ...rest.map((slug) => ({ slug, rank: 0, why: "" }))]
+  // A picked field shows only its own work; "all my work" shows the full list.
+  const ordered = field === 0 ? rest.map((slug) => ({ slug, rank: 0, why: "" })) : top.map((t) => ({ slug: t.slug, rank: 0, why: t.why }))
 
   return (
     <section id="work" className="pb-24 pt-6">
@@ -392,6 +393,13 @@ export function CaseStudyGrid() {
               </div>
             )
           })}
+          {field !== 0 && (
+            <div style={{ order: 998 }} className="flex items-center sm:col-span-2 lg:col-span-3">
+              <button type="button" onClick={() => pick(0)} className="text-sm text-foreground/60 underline decoration-foreground/25 underline-offset-4 transition-colors hover:text-foreground">
+                Show me all my work
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </section>

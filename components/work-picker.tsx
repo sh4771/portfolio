@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils"
 /** Order of the work grid below Vendelux when nothing is picked. */
 export const DEFAULT_ORDER = ["reconcile", "mini-violet", "adhd-planner", "greener-routes", "along", "passiton", "games4peace", "schedulink"]
 
-/** Fields a visitor can pick. Picked projects move to the front with a short reason. */
+/** Fields a visitor can pick. Picking one shows only that field's work, each with a short reason. */
 export const FIELDS: { label: string; top: { slug: string; why: string }[] }[] = [
   { label: "all my work", top: [] },
   {
