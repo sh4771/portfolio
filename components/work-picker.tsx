@@ -8,6 +8,17 @@ import { cn } from "@/lib/utils"
 export const DEFAULT_ORDER = ["reconcile", "mini-violet", "adhd-planner", "greener-routes", "along", "passiton", "games4peace", "schedulink"]
 
 /** Fields a visitor can pick. Picking one shows only that field's work, each with a short reason. */
+/** Vendelux projects (pinned above the picker) that also belong to a field. */
+export const VENDELUX_ALSO: Record<string, { slug: string; title: string; why: string }[]> = {
+  Fintech: [{ slug: "roi-calculator", title: "ROI Calculator", why: "Forecasting return on event spend" }],
+  "B2B / SaaS": [
+    { slug: "segments", title: "Segments", why: "Audience targeting" },
+    { slug: "campaign-admin", title: "Campaign Admin", why: "Outreach setup" },
+    { slug: "roi-calculator", title: "ROI Calculator", why: "Event ROI forecasts" },
+    { slug: "meeting-planner", title: "Meeting Planner", why: "Meeting forecasts" },
+  ],
+}
+
 export const FIELDS: { label: string; top: { slug: string; why: string }[] }[] = [
   { label: "all my work", top: [] },
   {

@@ -5,7 +5,8 @@ import Link from "next/link"
 import { Recommendations } from "@/components/recommendations"
 import { Hourglass, Lock } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
-import { DEFAULT_ORDER, FIELDS, WorkPicker, useFlip } from "@/components/work-picker"
+import { DEFAULT_ORDER, FIELDS, VENDELUX_ALSO, WorkPicker, useFlip } from "@/components/work-picker"
+import { ArrowUp } from "lucide-react"
 import { CoverMeta, ProjectCover, type CoverSpec } from "@/components/project-cover"
 import { COVERS } from "@/lib/covers"
 
@@ -388,11 +389,31 @@ export function CaseStudyGrid() {
             const pos = ordered.findIndex((o) => o.slug === slug)
             const o = ordered[pos]
             return (
-              <div key={slug} data-flip={slug} hidden={pos < 0} style={{ order: pos < 0 ? 999 : pos + 2 }}>
+              <div key={slug} data-flip={slug} hidden={pos < 0} style={{ order: pos < 0 ? 999 : pos + 3 }}>
                 <RankedCard project={project} rank={o?.rank || undefined} why={o?.why || undefined} />
               </div>
             )
           })}
+          {field !== 0 && VENDELUX_ALSO[FIELDS[field].label] && (
+            <div style={{ order: 2 }} className="-mt-4 space-y-2 sm:col-span-2 lg:col-span-3">
+              <p className="flex items-center gap-1.5 text-xs font-semibold tracking-wide text-foreground/50 uppercase">
+                <ArrowUp className="h-3.5 w-3.5" aria-hidden /> Also at Vendelux
+              </p>
+              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+                {VENDELUX_ALSO[FIELDS[field].label].map((v) => (
+                  <Link key={v.slug} href={`/work/vendelux?project=${v.slug}`} className="group flex items-center gap-3 rounded-2xl border border-border/60 bg-card p-2.5 transition-colors hover:border-foreground/25 motion-safe:animate-in motion-safe:fade-in">
+                    <span className="relative block h-12 w-16 shrink-0 overflow-hidden rounded-lg border border-border/50 bg-white">
+                      <Image src={`/images/vendelux/thumbs/${v.slug}.jpg`} alt="" fill sizes="64px" className="object-cover object-left-top" />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block text-sm font-medium text-foreground group-hover:underline">{v.title}</span>
+                      <span className="block text-xs text-[#4a0e4e] dark:text-[#d9a6dd]">{v.why}</span>
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
           {field !== 0 && (
             <div style={{ order: 998 }} className="flex items-center sm:col-span-2 lg:col-span-3">
               <button type="button" onClick={() => pick(0)} className="text-sm text-foreground/60 underline decoration-foreground/25 underline-offset-4 transition-colors hover:text-foreground">
