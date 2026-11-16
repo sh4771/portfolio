@@ -31,8 +31,7 @@ const RECOMMENDATIONS = [
   },
 ]
 
-function Recommendation({ r, i }: { r: (typeof RECOMMENDATIONS)[number]; i: number }) {
-  const [open, setOpen] = useState(false)
+function Recommendation({ r, i, open, setOpen }: { r: (typeof RECOMMENDATIONS)[number]; i: number; open: boolean; setOpen: (f: (o: boolean) => boolean) => void }) {
   const id = `rec-${r.initials}`
   return (
     <figure
@@ -41,7 +40,7 @@ function Recommendation({ r, i }: { r: (typeof RECOMMENDATIONS)[number]; i: numb
         if ((e.target as HTMLElement).closest("button") || window.getSelection()?.toString()) return
         setOpen((o) => !o)
       }}
-      className="m-0 flex cursor-pointer flex-col gap-4 rounded-2xl border border-border/60 bg-card p-5 transition-colors hover:border-foreground/25 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2 motion-safe:fill-mode-both"
+      className={cn("m-0 flex cursor-pointer flex-col gap-4 md:grid md:grid-rows-subgrid", open ? "md:row-span-3" : "md:row-span-2", "rounded-2xl border border-border/60 bg-card p-5 transition-colors hover:border-foreground/25 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2 motion-safe:fill-mode-both")}
       style={{ animationDelay: `${i * 80}ms` }}
     >
       <blockquote className="m-0 text-lg font-medium leading-snug tracking-tight text-foreground text-balance">&ldquo;{r.pull}&rdquo;</blockquote>
@@ -50,7 +49,7 @@ function Recommendation({ r, i }: { r: (typeof RECOMMENDATIONS)[number]; i: numb
           {r.full}
         </p>
       )}
-      <figcaption className="mt-auto flex items-center justify-between gap-3">
+      <figcaption className={cn("mt-auto flex items-center", open ? "md:row-start-3" : "md:row-start-2", "justify-between gap-3")}>
         <span className="flex items-center gap-2.5">
           <span aria-hidden className={cn("grid h-9 w-9 shrink-0 place-items-center rounded-full text-xs font-semibold text-white", r.tone)}>
             {r.initials}
@@ -69,12 +68,14 @@ function Recommendation({ r, i }: { r: (typeof RECOMMENDATIONS)[number]; i: numb
 }
 
 export function Recommendations() {
+  // One switch for all three, so expanded cards stay the same height and line up row by row.
+  const [open, setOpen] = useState(false)
   return (
     <div className="space-y-3">
       <p className="cs-eyebrow">What my team says</p>
-      <div className="grid gap-3 md:grid-cols-3">
+      <div className="grid gap-3 md:grid-cols-3 md:gap-y-0">
         {RECOMMENDATIONS.map((r, i) => (
-          <Recommendation key={r.name} r={r} i={i} />
+          <Recommendation key={r.name} r={r} i={i} open={open} setOpen={setOpen} />
         ))}
       </div>
     </div>
