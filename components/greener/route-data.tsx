@@ -129,7 +129,7 @@ function Subway({ x, y }: { x: number; y: number }) {
 }
 
 /** Simplified Upper West Side map with Riverside Park along the west edge and three candidate routes. */
-export function RouteMap({ active, className }: { active: RouteId; className?: string }) {
+export function RouteMap({ active, className, walker = false }: { active: RouteId; className?: string; walker?: boolean }) {
   return (
     <svg
       viewBox="0 0 600 360"
@@ -228,6 +228,16 @@ export function RouteMap({ active, className }: { active: RouteId; className?: s
         />
       ))}
       <circle cx="510" cy="320" r="10" fill="var(--background)" stroke="var(--foreground)" strokeWidth="4" />
+      {walker && (
+        <g>
+          <circle r="16" fill="#3b82f6" opacity="0.2">
+            <animateMotion dur="9s" repeatCount="indefinite" path={ROUTES.find((r) => r.id === active)!.path} />
+          </circle>
+          <circle r="8" fill="#3b82f6" stroke="#fff" strokeWidth="3">
+            <animateMotion dur="9s" repeatCount="indefinite" path={ROUTES.find((r) => r.id === active)!.path} />
+          </circle>
+        </g>
+      )}
       <circle cx="170" cy="50" r="10" fill="var(--foreground)" />
     </svg>
   )
