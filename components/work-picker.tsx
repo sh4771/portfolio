@@ -113,25 +113,42 @@ export function WorkPicker({ value, onChange }: { value: number; onChange: (i: n
   )
 }
 
-/** Slides grid items from their old spot to the new one when the order changes. */
+/**
+ * Smooth reordering without moving DOM nodes (videos keep playing).
+ * Call `capture()` right before the order changes; the layout effect then
+ * animates every item from where it was on screen to where it lands.
+ */
 export function useFlip(container: React.RefObject<HTMLElement | null>, key: unknown) {
-  const last = useRef<Map<string, DOMRect>>(new Map())
-  useLayoutEffect(() => {
+  const before = useRef<Map<string, DOMRect> | null>(null)
+
+  const capture = () => {
     const el = container.current
     if (!el) return
-    const items = Array.from(el.querySelectorAll<HTMLElement>("[data-flip]"))
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    // Positions as currently drawn, including any animation still in flight.
+    before.current = new Map(Array.from(el.querySelectorAll<HTMLElement>("[data-flip]")).map((i) => [i.dataset.flip!, i.getBoundingClientRect()]))
+  }
+
+  useLayoutEffect(() => {
+    const el = container.current
+    const prev = before.current
+    before.current = null
+    if (!el || !prev) return
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    const items = Array.from(el.querySelectorAll<HTMLElement>("[data-flip]")).filter((i) => !i.hidden)
+    items.forEach((i) => i.getAnimations().forEach((a) => a.cancel()))
     items.forEach((item) => {
-      const prev = last.current.get(item.dataset.flip!)
-      const now = item.getBoundingClientRect()
-      if (prev && !reduce) {
-        const dx = prev.left - now.left
-        const dy = prev.top - now.top
-        if (dx || dy) item.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: "none" }], { duration: 450, easing: "cubic-bezier(.2,.7,.2,1)" })
-      } else if (!prev && last.current.size && !reduce) {
-        item.animate([{ opacity: 0, transform: "translateY(12px)" }, { opacity: 1, transform: "none" }], { duration: 350, easing: "ease-out" })
+      const from = prev.get(item.dataset.flip!)
+      const to = item.getBoundingClientRect()
+      if (from && from.width > 0) {
+        const dx = from.left - to.left
+        const dy = from.top - to.top
+        if (Math.abs(dx) < 1 && Math.abs(dy) < 1) return
+        item.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: "translate(0, 0)" }], { duration: 480, easing: "cubic-bezier(.22,.8,.24,1)" })
+      } else {
+        item.animate([{ opacity: 0, transform: "scale(.97)" }, { opacity: 1, transform: "none" }], { duration: 320, delay: 120, easing: "ease-out", fill: "backwards" })
       }
     })
-    last.current = new Map(items.map((i) => [i.dataset.flip!, i.getBoundingClientRect()]))
   }, [container, key])
+
+  return capture
 }

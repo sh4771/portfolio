@@ -329,6 +329,7 @@ function GroupedCaseStudy({ project }: { project: CaseStudy }) {
 }
 
 const bySlug = (slug: string) => projects.find((p) => p.slug === slug)
+const ALL_SLUGS = [...new Set([...DEFAULT_ORDER, ...FIELDS.flatMap((f) => f.top.map((t) => t.slug))])]
 
 /** A work card that can carry a rank and a short reason when a field is picked. */
 function RankedCard({ project, rank, why }: { project: CaseStudy; rank?: number; why?: string }) {
@@ -348,7 +349,12 @@ function RankedCard({ project, rank, why }: { project: CaseStudy; rank?: number;
 export function CaseStudyGrid() {
   const [field, setField] = useState(0)
   const gridRef = useRef<HTMLDivElement>(null)
-  useFlip(gridRef, field)
+  const capture = useFlip(gridRef, field)
+  const pick = (i: number) => {
+    if (i === field) return
+    capture()
+    setField(i)
+  }
 
   // Old shared links pointed at a panel (#p-slug). Send them to the case study page.
   useEffect(() => {
@@ -368,16 +374,21 @@ export function CaseStudyGrid() {
     <section id="work" className="pb-24 pt-6">
       <div className="site-col">
         <div ref={gridRef} className="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-          <GroupedCaseStudy project={vendelux} />
-          <div className="-mb-4 sm:col-span-2 lg:col-span-3">
-            <WorkPicker value={field} onChange={setField} />
+          <div style={{ order: 0 }} className="sm:col-span-2 lg:col-span-3">
+            <GroupedCaseStudy project={vendelux} />
           </div>
-          {ordered.map(({ slug, rank, why }) => {
+          <div style={{ order: 1 }} className="-mb-4 sm:col-span-2 lg:col-span-3">
+            <WorkPicker value={field} onChange={pick} />
+          </div>
+          {/* Every card stays mounted in one fixed DOM order; only CSS order changes, so covers never reload. */}
+          {ALL_SLUGS.map((slug) => {
             const project = bySlug(slug)
             if (!project) return null
+            const pos = ordered.findIndex((o) => o.slug === slug)
+            const o = ordered[pos]
             return (
-              <div key={slug} data-flip={slug}>
-                <RankedCard project={project} rank={rank || undefined} why={why || undefined} />
+              <div key={slug} data-flip={slug} hidden={pos < 0} style={{ order: pos < 0 ? 999 : pos + 2 }}>
+                <RankedCard project={project} rank={o?.rank || undefined} why={o?.why || undefined} />
               </div>
             )
           })}
