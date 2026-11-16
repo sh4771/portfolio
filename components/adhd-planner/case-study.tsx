@@ -1,16 +1,31 @@
 "use client"
 
 import { useState } from "react"
+import { Hand, Lightbulb, ThumbsDown, ThumbsUp } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { CaseHero } from "@/components/case-hero"
-import { Section, StatusCards } from "@/components/vendelux/kit"
-
-import { INK, INK_BG, Ref, ResearchJourney, HypothesisMap, DraftMerge, CapturePipeline, TestPlan } from "@/components/adhd-planner/diagrams"
+import { Section } from "@/components/vendelux/kit"
+import {
+  INK,
+  INK_BG,
+  CapturePipeline,
+  CompetitorGrid,
+  DecisionChain,
+  DraftMerge,
+  EffortMap,
+  FinalDecisions,
+  HowMightWe,
+  HypothesisMap,
+  NextSteps,
+  ProblemStats,
+  ResearchJourney,
+  TestPlan,
+} from "@/components/adhd-planner/diagrams"
 
 /** One working phone. The prototype lives in a static page so the same code runs here and on its own. */
 function Phone({ v, label, className }: { v: "final" | "a" | "b" | "c"; label: string; className?: string }) {
   return (
-    <div className={cn("mx-auto w-full max-w-[330px]", className)}>
+    <div className={cn("mx-auto w-full max-w-[300px]", className)}>
       <div className="aspect-[390/844] w-full">
         <iframe src={`/prototypes/adhd-planner.html?v=${v}`} title={label} loading="lazy" className="h-full w-full border-0 bg-transparent" />
       </div>
@@ -18,91 +33,10 @@ function Phone({ v, label, className }: { v: "final" | "a" | "b" | "c"; label: s
   )
 }
 
-const DECISIONS = ["Open app", "Title", "Date", "Time", "Duration", "Reminder"]
-
-function SixDecisions() {
-  return (
-    <div className="space-y-4 rounded-2xl border border-border/60 bg-card p-5">
-      <p className="cs-eyebrow">Saving one reminder, most apps</p>
-      <ol className="flex flex-wrap items-center gap-1.5">
-        {DECISIONS.map((d, i) => (
-          <li key={d} className="flex items-center gap-1.5">
-            <span className={cn("rounded-lg border px-2.5 py-1.5 text-xs", i >= 3 ? "border-dashed border-foreground/25 text-foreground/45 line-through decoration-foreground/30" : "border-border/70 text-foreground/80")}>{d}</span>
-            {i < DECISIONS.length - 1 && <span aria-hidden className="text-foreground/30">→</span>}
-          </li>
-        ))}
-      </ol>
-      <p className="text-sm text-foreground/60">Somewhere around decision three, the task dies.</p>
-      <div className="border-t border-border/60 pt-4">
-        <p className="cs-eyebrow mb-2">Saving it here</p>
-        <span className={cn("inline-block rounded-lg px-2.5 py-1.5 text-xs font-medium", INK_BG)}>&ldquo;laundry tonight, email prof at 3, renew passport sometime&rdquo;</span>
-      </div>
-    </div>
-  )
-}
-
-const STATS: { n: string; body: React.ReactNode }[] = [
-  { n: "16.7%", body: <>of people with ADHD still use their planner after 3 months, per a Brazilian study cited by SingularityApp.<Ref n={2} /></> },
-  { n: "6", body: <>decisions to save one reminder in most apps. Each one taxes the executive function ADHD impairs.</> },
-  { n: "10.8%", body: <>of the variance in adult ADHD quality of life came from organization-in-time factors, including how people feel about time failures.<Ref n={1} /></> },
-]
-
-const COMPETITORS: { name: string; model: string; love: React.ReactNode; hate: React.ReactNode }[] = [
-  { name: "Tiimo", model: "Clock blocks with icons and a live timer", love: <>Visual timeline, transition reminders. iPhone App of the Year 2025<Ref n={8} /></>, hate: <>Price, timer bugs<Ref n={9} />. Setup takes the executive function users lack<Ref n={8} /></> },
-  { name: "Structured", model: "Vertical clock line, inbox drawer", love: <>Gaps show as real space; calm first launch<Ref n={10} /></>, hate: <>Recurring tasks and Replan behind Pro<Ref n={10} />; fiddly drag placement</> },
-  { name: "Llama Life", model: "Ordered queue, a timer per task", love: <>The projected finish time helps with time blindness<Ref n={11} /></>, hate: <>No fixed anchors; users ask for routines at set times<Ref n={11} /></> },
-  { name: "Sunsama", model: "Day columns plus calendar, guided ritual", love: "Calm daily planning ritual", hate: <>Price; the daily ritual is hard to sustain<Ref n={12} /></> },
-  { name: "Clever Fox", model: "Paper page with hourly rows", love: "Prompts remove decision fatigue", hate: "One fixed layout; paper can't remind you" },
-  { name: "Goblin Tools", model: "Single task, nested AI breakdown", love: "Instant task breakdown; nothing to fall behind on", hate: "A utility, not a planner" },
-]
-
-/** Where the audited products compete, and the empty column this planner takes. */
-function EffortMap() {
-  return (
-    <div className="grid grid-cols-2 gap-3 rounded-2xl border border-border/60 bg-card p-5">
-      <div className="space-y-2">
-        <p className="cs-eyebrow">How the day looks</p>
-        {COMPETITORS.map((c) => (
-          <span key={c.name} className="block rounded-lg border border-border/70 px-2.5 py-1.5 text-xs text-foreground/75">{c.name}</span>
-        ))}
-      </div>
-      <div className="flex flex-col gap-2">
-        <p className="cs-eyebrow">How tasks get in</p>
-        <span className="block flex-1 rounded-lg border border-dashed border-foreground/25 px-2.5 py-1.5 text-xs text-foreground/45">No one, from the six I audited</span>
-        <span className="block rounded-lg px-2.5 py-1.5 text-xs font-semibold text-white" style={{ background: INK }}>This planner</span>
-      </div>
-    </div>
-  )
-}
-
 const DRAFTS = {
-  a: {
-    tab: "A · Clock timeline",
-    from: "Inspired by Structured and Tiimo. Every task sits at a clock time, gaps show as free space, and an inbox holds tasks without a time.",
-    bet: "Seeing the whole day on a clock makes time feel real.",
-    added: "A one-tap “Running late +15m” that shifts flexible tasks and leaves fixed events alone.",
-    tryIt: "Tap “Time passes” three times without doing anything, then look at the day.",
-    tradeoff: "Strong sense of the day. But drift turns tasks into “Missed” and “Overlaps” warnings, which rebuilds the shame loop I wanted to remove.",
-    verdict: "Kept the clock as the frame: fixed commitments need fixed positions. Changed capture and drift so they stop costing effort.",
-  },
-  b: {
-    tab: "B · Queue with finish time",
-    from: "Inspired by Llama Life. No clock grid: one task at a time with a countdown, what's next, and a live “You'll finish around…” line.",
-    bet: "A projected finish time shows time without slots you can fall behind on.",
-    added: "Quick add with a duration at the end (“Call mom 10”) and a Not now list.",
-    tryIt: "Start the timer, tap Not now, and watch the finish time update.",
-    tradeoff: "The calmest draft. But the 11:00 meeting becomes just another task in the list, and I lost the shape of my day.",
-    verdict: "Kept the finish-time idea and one-line quick add, which became the brain dump. Dropped the clock-free list.",
-  },
-  c: {
-    tab: "C · Anchors and flow",
-    from: "A hybrid: pinned events stay at fixed times, and flexible tasks reflow around them on their own.",
-    bet: "Auto-reflow means a late start never breaks the plan.",
-    added: "A fresh-start banner, “Break it down” steps, a heads-up when a timer will run into a meeting, and “won't fit today, rest in Later.”",
-    tryIt: "Tap “Time passes” and watch flexible tasks slide around the pinned ones.",
-    tradeoff: "The most forgiving draft, but also the busiest. Tasks moving on their own can feel like losing control.",
-    verdict: "Kept “nothing goes overdue” and the fresh-start tone. Changed it so the app proposes moves and the user approves them.",
-  },
+  a: { tab: "A · Clock", bet: "A clock makes time feel real", up: "Strong sense of the day", down: "Drift turns red: “Missed”", tryIt: "Tap “Time passes” 3 times" },
+  b: { tab: "B · Queue", bet: "A finish time, no slots to miss", up: "The calmest draft", down: "Meetings lose their fixed time", tryIt: "Start the timer, then Not now" },
+  c: { tab: "C · Anchors", bet: "Auto-reflow around fixed events", up: "The most forgiving", down: "Tasks moving alone feels out of control", tryIt: "Tap “Time passes” and watch tasks slide" },
 } as const
 
 function Drafts() {
@@ -117,42 +51,32 @@ function Drafts() {
           </button>
         ))}
       </div>
-      <div className="grid items-start gap-8 md:grid-cols-[300px_minmax(0,1fr)]">
-        <Phone key={k} v={k} label={`Interactive prototype, draft ${k.toUpperCase()}`} className="md:max-w-[300px]" />
+      <div className="grid items-center gap-8 md:grid-cols-[280px_minmax(0,1fr)]">
+        <Phone key={k} v={k} label={`Interactive prototype, draft ${k.toUpperCase()}`} className="md:max-w-[280px]" />
         <div className="space-y-3">
-          <p className="text-base text-foreground/75">{d.from}</p>
-          <dl className="grid gap-3 sm:grid-cols-2">
-            {(
-              [
-                ["The bet", d.bet],
-                ["What I added", d.added],
-                ["Try this", d.tryIt],
-                ["Tradeoff", d.tradeoff],
-              ] as const
-            ).map(([t, b]) => (
-              <div key={t} className="rounded-2xl border border-border/60 bg-card p-4">
-                <dt className="cs-eyebrow mb-1.5">{t}</dt>
-                <dd className="text-sm text-foreground/75">{b}</dd>
+          {(
+            [
+              [Lightbulb, "Bet", d.bet, INK_BG],
+              [ThumbsUp, "Worked", d.up, "bg-emerald-500/15 text-emerald-800 dark:text-emerald-300"],
+              [ThumbsDown, "Broke", d.down, "bg-red-500/10 text-red-700 dark:text-red-300"],
+              [Hand, "Try", d.tryIt, "bg-foreground/[0.06] text-foreground/70"],
+            ] as const
+          ).map(([Icon, t, body, tone]) => (
+            <div key={t} className="flex items-center gap-3 rounded-2xl border border-border/60 bg-card p-3.5">
+              <span className={cn("grid h-9 w-9 shrink-0 place-items-center rounded-xl", tone)}>
+                <Icon className="h-4 w-4" aria-hidden />
+              </span>
+              <div>
+                <p className="cs-eyebrow">{t}</p>
+                <p className="text-sm">{body}</p>
               </div>
-            ))}
-          </dl>
-          <p className="rounded-2xl bg-amber-500/15 p-4 text-sm text-amber-900 dark:text-amber-200">{d.verdict}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   )
 }
-
-const FINAL: { title: string; body: string; h?: string }[] = [
-  { title: "The chat sits under the timeline", body: "You watch tasks land in your day while you type, so you never wonder where something went.", h: "H2" },
-  { title: "Text is the only required field", body: "Time, duration and reminder come from the sentence or from defaults: laundry 40 min, a call 15 min. A number at the end overrides it.", h: "H1" },
-  { title: "Fuzzy words map to windows", body: "“Tonight” means after 6pm, “at 3” pins 3:00, and “sometime” goes to tomorrow. People talk in windows, not timestamps.", h: "H1" },
-  { title: "Proposals look different until you approve them", body: "Dashed border and a New tag. One tap approves the batch, the X removes one, and Undo clears everything.", h: "H2" },
-  { title: "Reminders are on by default", body: "The bell shows only after approval, so it reads as a promise, not a setting.", h: "H3" },
-  { title: "The app adds the step you forget", body: "“Laundry” also schedules “Move laundry to dryer” 45 minutes later. ADHD brains drop the second step, not the first.", h: "H6" },
-  { title: "Overflow rests in Tomorrow, never overdue", body: "Anything that doesn't fit today becomes a soft chip for tomorrow. No red counts.", h: "H5" },
-  { title: "Calm by default", body: "One accent color, no streaks, and a short “Nice one” instead of confetti. 44px touch targets throughout.", h: "H5" },
-]
 
 const SOURCES: [string, string][] = [
   ["Grinblat & Rosenblum (2025), Organization in Time, Executive Functions, and Quality of Life in Adult ADHD. Summary: Simply Psychology", "https://www.simplypsychology.org/how-time-management-struggles-impact-adult-adhd-happiness.html"],
@@ -169,6 +93,8 @@ const SOURCES: [string, string][] = [
   ["NeuroLaunch: Tiimo and alternatives", "https://neurolaunch.com/tiimo-app-adhd/"],
 ]
 
+const lead = "max-w-[60ch] text-base text-foreground/75"
+
 export function AdhdPlannerCaseStudy() {
   return (
     <div className="space-y-24">
@@ -176,125 +102,64 @@ export function AdhdPlannerCaseStudy() {
         slug="adhd-planner"
         title="Designing a Day Planner for ADHD Brains"
         roles={["Product designer, solo"]}
-        tagline="An ADHD day planner that turns a messy brain dump into a scheduled, reminded day. Saving a task costs one sentence instead of six decisions."
+        tagline="Turn a messy brain dump into a planned, reminded day. One sentence instead of six decisions."
         when="Concept sprint, Nov 2026"
         forWhom="Adults with ADHD who drop small tasks"
-        summary="User research, a competitive audit of six planners, and four working prototypes. Status: concept, usability testing next."
+        summary="Research, a 6-app audit, 4 working prototypes. Usability testing next."
       />
 
       <Section eyebrow="Try it" title="Interactive prototype: final direction (A+)">
         <div className="grid items-center gap-8 md:grid-cols-[300px_minmax(0,1fr)]">
           <Phone v="final" label="Interactive prototype, final A+ direction" className="md:max-w-[300px]" />
           <div className="space-y-3">
-            <p className="text-base text-foreground/75">Tap &ldquo;Try a sample dump,&rdquo; or type your own, like:</p>
+            <p className="flex items-center gap-2 text-sm text-foreground/70">
+              <Hand className="h-4 w-4" style={{ color: INK }} aria-hidden /> Tap &ldquo;Try a sample dump,&rdquo; or type:
+            </p>
             <p className={cn("inline-block rounded-xl px-3 py-2 text-sm font-medium", INK_BG)}>laundry tonight, email prof at 3, renew passport sometime</p>
-            <p className="cs-caption">Proposals land on the timeline with a dashed border. &ldquo;Looks good&rdquo; saves them with reminders on.</p>
           </div>
         </div>
       </Section>
 
       <Section eyebrow="01 · The problem" title="Most people with ADHD stop using their planner within 3 months">
-        <p className="max-w-[65ch] text-base text-foreground/75">I kept losing small tasks: laundry, a text back, an email to a professor. I knew they mattered. I just couldn&rsquo;t make myself open an app, type a title, pick a day, pick a time, guess a duration and set a reminder. That chain of tiny decisions is where the task dies. Research says I&rsquo;m not alone.</p>
+        <p className={lead}>I kept losing laundry, texts and emails. Not because I forgot they mattered, but because saving them took too many steps.</p>
         <div className="grid items-stretch gap-3 md:grid-cols-2">
-          <SixDecisions />
-          <div className="grid gap-3">
-            {STATS.map((s) => (
-              <div key={s.n} className="flex items-start gap-4 rounded-2xl border border-border/60 bg-card p-4">
-                <span className="w-16 shrink-0 text-2xl font-semibold tracking-tight tabular-nums" style={{ color: INK }}>{s.n}</span>
-                <p className="text-sm text-foreground/70">{s.body}</p>
-              </div>
-            ))}
-          </div>
+          <DecisionChain />
+          <ProblemStats />
         </div>
       </Section>
 
       <Section eyebrow="02 · Research" title="What ADHD research says about planning">
-        <p className="max-w-[65ch] text-base text-foreground/75">I reviewed clinical research, ADHD coaching literature and community writing. Each insight became a rule I held every screen to.</p>
         <ResearchJourney />
       </Section>
 
       <Section eyebrow="03 · Competitive landscape" title="6 planners audited across 4 layout models">
-        <p className="max-w-[65ch] text-base text-foreground/75">I audited six products across four layout models and read their app store and community reviews.</p>
-        <div className="overflow-x-auto rounded-2xl border border-border/60 bg-card">
-          <table className="w-full min-w-[720px] text-left text-sm">
-            <thead>
-              <tr className="border-b border-border/60 text-xs text-foreground/50">
-                {["Product", "Layout model", "What users love", "What users complain about"].map((h) => (
-                  <th key={h} className="px-4 py-3 font-semibold">{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {COMPETITORS.map((c) => (
-                <tr key={c.name} className="border-b border-border/40 align-top last:border-0">
-                  <td className="px-4 py-3 font-medium">{c.name}</td>
-                  <td className="px-4 py-3 text-foreground/70">{c.model}</td>
-                  <td className="px-4 py-3 text-foreground/70">{c.love}</td>
-                  <td className="px-4 py-3 text-foreground/70">{c.hate}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div className="grid items-stretch gap-3 sm:grid-cols-3">
-          {[
-            ["Users stay for visible time", "The timeline and the finish time get the strongest praise."],
-            ["Users leave over setup", "Building the plan is the hard part, and most apps put it on day one."],
-            ["Users leave over bad days", "Repair comes as a paid add-on or a manual chore, never as part of the layout."],
-          ].map(([t, b]) => (
-            <div key={t} className="rounded-2xl border border-border/60 bg-card p-4">
-              <h3 className="cs-h3 mb-1.5">{t}</h3>
-              <p className="text-sm text-foreground/70">{b}</p>
-            </div>
-          ))}
-        </div>
+        <CompetitorGrid />
       </Section>
 
       <Section eyebrow="04 · Opportunity" title="The gap: every planner assumes tasks get entered properly">
         <div className="grid items-stretch gap-3 md:grid-cols-2">
-          <div className="flex flex-col justify-between gap-6 rounded-3xl p-6 text-white" style={{ background: INK }}>
-            <p className="text-lg leading-snug font-medium text-balance">Every product I audited assumes the user will enter tasks properly. For ADHD users, that entry step is exactly where things fall apart.</p>
-            <p className="text-sm text-white/75">If capture costs one sentence and the app makes the small decisions, the timeline finally has something to show.</p>
+          <div className="flex flex-col justify-center rounded-3xl p-6 text-white" style={{ background: INK }}>
+            <p className="text-xl leading-snug font-medium text-balance">Everyone designs how the day looks. Nobody designs how tasks get in.</p>
           </div>
           <EffortMap />
         </div>
-        <div className="grid items-stretch gap-3 sm:grid-cols-3">
-          {["How might we make capturing a task cost one sentence?", "How might we let the app decide when, without taking away control?", "How might a plan bend on a bad day without turning red?"].map((q) => (
-            <p key={q} className="rounded-2xl border border-border/60 bg-card p-4 text-base font-medium leading-snug">{q}</p>
-          ))}
-        </div>
+        <HowMightWe />
       </Section>
 
       <Section eyebrow="05 · Hypotheses" title="6 hypotheses to test">
-        <p className="max-w-[65ch] text-base text-foreground/75">These are bets, not findings. Each one has a metric for the next round of testing.</p>
         <HypothesisMap />
       </Section>
 
       <Section eyebrow="06 · Explorations" title="3 layout prototypes: clock, queue, and anchors">
-        <p className="max-w-[65ch] text-base text-foreground/75">I built each layout as a working prototype with the same tasks, colors and celebration, so only the layout changes. Each one has a &ldquo;Time passes&rdquo; control to simulate a slipping day.</p>
         <Drafts />
         <DraftMerge />
       </Section>
 
       <Section eyebrow="07 · Final direction" title="A+: clock timeline with brain-dump capture">
-        <p className="max-w-[65ch] text-base text-foreground/75">A+ keeps draft A&rsquo;s clock and moves the effort into capture. You dump everything in one message. The app proposes times, durations and reminders, and shows them on the timeline before anything is saved.</p>
         <CapturePipeline />
-        <div className="grid items-start gap-8 md:grid-cols-[300px_minmax(0,1fr)]">
-          <Phone v="final" label="Interactive prototype, final A+ direction" className="md:sticky md:top-28 md:max-w-[300px]" />
-          <ol className="space-y-2.5">
-            {FINAL.map((f, i) => (
-              <li key={f.title} className="flex gap-3 rounded-2xl border border-border/60 bg-card p-4">
-                <span className={cn("grid h-7 w-7 shrink-0 place-items-center rounded-full text-xs font-semibold", INK_BG)}>{i + 1}</span>
-                <div className="min-w-0 flex-1 space-y-1">
-                  <div className="flex items-start justify-between gap-3">
-                    <h3 className="cs-h3">{f.title}</h3>
-                    {f.h && <span className="shrink-0 text-[11px] font-semibold" style={{ color: INK }}>{f.h}</span>}
-                  </div>
-                  <p className="text-sm text-foreground/70">{f.body}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
+        <div className="grid items-start gap-8 md:grid-cols-[280px_minmax(0,1fr)]">
+          <Phone v="final" label="Interactive prototype, final A+ direction" className="md:sticky md:top-28 md:max-w-[280px]" />
+          <FinalDecisions />
         </div>
       </Section>
 
@@ -303,13 +168,7 @@ export function AdhdPlannerCaseStudy() {
       </Section>
 
       <Section eyebrow="09 · Limits and next steps" title="Prototype limits and next steps">
-        <StatusCards
-          items={[
-            { tag: "What the prototype fakes", tone: "open", body: "Simple keyword rules stand in for a language model. The mic drops in a scripted example. Data resets on reload." },
-            { tag: "Next: capture outside the app", tone: "next", body: "A lock-screen widget, Siri or the Action Button, and a share-sheet option for texts and screenshots." },
-            { tag: "Next: onboarding as the first dump", tone: "next", body: "The first screen is the chat: “What's on your mind?” The first plan builds itself, with no setup wizard." },
-          ]}
-        />
+        <NextSteps />
       </Section>
 
       <section className="space-y-3">
