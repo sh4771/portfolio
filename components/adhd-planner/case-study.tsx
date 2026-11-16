@@ -5,17 +5,7 @@ import { cn } from "@/lib/utils"
 import { CaseHero } from "@/components/case-hero"
 import { Section, StatusCards } from "@/components/vendelux/kit"
 
-/** The prototype's own accent, used sparingly so the planner screens and the page read as one story. */
-const INK = "#4B47C9"
-const INK_BG = "bg-[#ECEAF9] text-[#3A3591] dark:bg-[#4B47C9]/25 dark:text-[#c9c6ff]"
-
-function Ref({ n }: { n: number }) {
-  return (
-    <a href={`#src-${n}`} className="ml-0.5 align-super text-[10px] font-semibold text-foreground/45 no-underline hover:text-foreground">
-      [{n}]
-    </a>
-  )
-}
+import { INK, INK_BG, Ref, ResearchJourney, HypothesisMap, DraftMerge, CapturePipeline, TestPlan } from "@/components/adhd-planner/diagrams"
 
 /** One working phone. The prototype lives in a static page so the same code runs here and on its own. */
 function Phone({ v, label, className }: { v: "final" | "a" | "b" | "c"; label: string; className?: string }) {
@@ -57,15 +47,6 @@ const STATS: { n: string; body: React.ReactNode }[] = [
   { n: "10.8%", body: <>of the variance in adult ADHD quality of life came from organization-in-time factors, including how people feel about time failures.<Ref n={1} /></> },
 ]
 
-const INSIGHTS: { title: string; body: React.ReactNode; rule: string }[] = [
-  { title: "Time is invisible", body: <>Barkley frames ADHD as a disorder of self-regulation across time. A deadline weeks away doesn&rsquo;t feel real until it&rsquo;s hours away.<Ref n={3} /></>, rule: "Show time as space you can see." },
-  { title: "A closed planner is a forgotten planner", body: <>Prospective memory struggles mean the planner can&rsquo;t help if you forget to open it.<Ref n={4} /></>, rule: "The app comes to you. Reminders on by default." },
-  { title: "The undone list is where systems die", body: <>Yesterday&rsquo;s unfinished tasks pile up as overdue debt, and people quit rather than face them.<Ref n={5} /></>, rule: "Nothing goes overdue. It rests until tomorrow." },
-  { title: "Shame is part of the problem", body: <>How people feel about time failures predicts well-being, beyond the diagnosis itself.<Ref n={1} /></>, rule: "No red walls, no broken streaks." },
-  { title: "Novelty starts, friction stops", body: <>Attention runs on interest, novelty, challenge and urgency. New planners get a burst of attention, then fade.<Ref n={6} /></>, rule: "Zero setup on day one." },
-  { title: "One place, few steps", body: <>Coaches and community writers agree: ADHD-friendly tools are visible, simple and forgiving.<Ref n={7} /></>, rule: "One input for everything." },
-]
-
 const COMPETITORS: { name: string; model: string; love: React.ReactNode; hate: React.ReactNode }[] = [
   { name: "Tiimo", model: "Clock blocks with icons and a live timer", love: <>Visual timeline, transition reminders. iPhone App of the Year 2025<Ref n={8} /></>, hate: <>Price, timer bugs<Ref n={9} />. Setup takes the executive function users lack<Ref n={8} /></> },
   { name: "Structured", model: "Vertical clock line, inbox drawer", love: <>Gaps show as real space; calm first launch<Ref n={10} /></>, hate: <>Recurring tasks and Replan behind Pro<Ref n={10} />; fiddly drag placement</> },
@@ -93,15 +74,6 @@ function EffortMap() {
     </div>
   )
 }
-
-const HYPOTHESES = [
-  { tag: "H1 · Capture", bet: "If people can dump tasks in plain language and the app picks the times, they'll capture more of what's in their head.", measure: "Tasks captured per day, seconds per task, vs. manual entry." },
-  { tag: "H2 · Approve, don't build", bet: "Showing proposals as dashed blocks on the timeline before saving will earn more trust than silent auto-scheduling.", measure: "Batch acceptance rate, edits per batch, self-reported trust." },
-  { tag: "H3 · Default reminders", bet: "Reminders on by default, with no setup, will lower the number of forgotten tasks.", measure: "Completion rate of captured tasks within their day." },
-  { tag: "H4 · Clock as the frame", bet: "People with fixed commitments will prefer a clock timeline to a pure queue, as long as drift doesn't punish them.", measure: "Preference ranking across drafts A, B, C and A+." },
-  { tag: "H5 · No overdue", bet: "Moving unfinished work to Tomorrow instead of marking it overdue will bring more people back after a bad day.", measure: "Next-day return rate after a low-completion day." },
-  { tag: "H6 · The forgotten step", bet: "Adding the second step people forget, like moving laundry to the dryer, will feel helpful, not intrusive.", measure: "Removal rate of auto-added steps." },
-]
 
 const DRAFTS = {
   a: {
@@ -238,15 +210,7 @@ export function AdhdPlannerCaseStudy() {
 
       <Section eyebrow="02 · Research" title="What ADHD research says about planning">
         <p className="max-w-[65ch] text-base text-foreground/75">I reviewed clinical research, ADHD coaching literature and community writing. Each insight became a rule I held every screen to.</p>
-        <div className="grid items-stretch gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {INSIGHTS.map((x) => (
-            <div key={x.title} className="flex flex-col gap-3 rounded-2xl border border-border/60 bg-card p-4">
-              <h3 className="cs-h3">{x.title}</h3>
-              <p className="flex-1 text-sm text-foreground/70">{x.body}</p>
-              <p className={cn("rounded-lg px-3 py-2 text-xs font-medium", INK_BG)}>Rule: {x.rule}</p>
-            </div>
-          ))}
-        </div>
+        <ResearchJourney />
       </Section>
 
       <Section eyebrow="03 · Competitive landscape" title="6 planners audited across 4 layout models">
@@ -303,24 +267,18 @@ export function AdhdPlannerCaseStudy() {
 
       <Section eyebrow="05 · Hypotheses" title="6 hypotheses to test">
         <p className="max-w-[65ch] text-base text-foreground/75">These are bets, not findings. Each one has a metric for the next round of testing.</p>
-        <div className="grid items-stretch gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {HYPOTHESES.map((h) => (
-            <div key={h.tag} className="flex flex-col gap-2.5 rounded-2xl border border-border/60 bg-card p-4">
-              <span className={cn("self-start rounded-full px-2.5 py-0.5 text-[11px] font-semibold", INK_BG)}>{h.tag}</span>
-              <p className="flex-1 text-sm text-foreground/80">{h.bet}</p>
-              <p className="text-xs text-foreground/50">Measure: {h.measure}</p>
-            </div>
-          ))}
-        </div>
+        <HypothesisMap />
       </Section>
 
       <Section eyebrow="06 · Explorations" title="3 layout prototypes: clock, queue, and anchors">
         <p className="max-w-[65ch] text-base text-foreground/75">I built each layout as a working prototype with the same tasks, colors and celebration, so only the layout changes. Each one has a &ldquo;Time passes&rdquo; control to simulate a slipping day.</p>
         <Drafts />
+        <DraftMerge />
       </Section>
 
       <Section eyebrow="07 · Final direction" title="A+: clock timeline with brain-dump capture">
         <p className="max-w-[65ch] text-base text-foreground/75">A+ keeps draft A&rsquo;s clock and moves the effort into capture. You dump everything in one message. The app proposes times, durations and reminders, and shows them on the timeline before anything is saved.</p>
+        <CapturePipeline />
         <div className="grid items-start gap-8 md:grid-cols-[300px_minmax(0,1fr)]">
           <Phone v="final" label="Interactive prototype, final A+ direction" className="md:sticky md:top-28 md:max-w-[300px]" />
           <ol className="space-y-2.5">
@@ -341,19 +299,7 @@ export function AdhdPlannerCaseStudy() {
       </Section>
 
       <Section eyebrow="08 · Test plan" title="Usability test plan">
-        <div className="grid items-stretch gap-3 sm:grid-cols-2">
-          {[
-            ["Who and how", "5 to 8 adults who self-identify as having ADHD. 30-minute moderated remote sessions, think-aloud. Each person tries A, B, C and A+ in a rotated order."],
-            ["Tasks", "Add the five things on your mind right now. Tap “Time passes” three times, then fix your day. Find what's happening tomorrow. Rank the four versions."],
-            ["Metrics", "Seconds to capture five tasks. Batch acceptance and edit rate. Preference ranking. One-word feeling after a slipped day."],
-            ["Success looks like", "A+ captures five tasks in under 30 seconds, most batches get approved with at most one edit, and nobody describes a slipped day as “failed” or “behind.”"],
-          ].map(([t, b]) => (
-            <div key={t} className="rounded-2xl border border-border/60 bg-card p-4">
-              <p className="cs-eyebrow mb-1.5">{t}</p>
-              <p className="text-sm text-foreground/75">{b}</p>
-            </div>
-          ))}
-        </div>
+        <TestPlan />
       </Section>
 
       <Section eyebrow="09 · Limits and next steps" title="Prototype limits and next steps">
