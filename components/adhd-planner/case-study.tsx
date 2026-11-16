@@ -210,7 +210,7 @@ export function AdhdPlannerCaseStudy() {
         summary="User research, a competitive audit of six planners, and four working prototypes. Status: concept, usability testing next."
       />
 
-      <Section eyebrow="Try it" title="The phone works. Dump a messy list into the chat.">
+      <Section eyebrow="Try it" title="Interactive prototype: final direction (A+)">
         <div className="grid items-center gap-8 md:grid-cols-[300px_minmax(0,1fr)]">
           <Phone v="final" label="Interactive prototype, final A+ direction" className="md:max-w-[300px]" />
           <div className="space-y-3">
@@ -221,7 +221,7 @@ export function AdhdPlannerCaseStudy() {
         </div>
       </Section>
 
-      <Section eyebrow="01 · The problem" title="Planners fail people with ADHD before the planning starts, and again after the plan breaks.">
+      <Section eyebrow="01 · The problem" title="Most people with ADHD stop using their planner within 3 months">
         <p className="max-w-[65ch] text-base text-foreground/75">I kept losing small tasks: laundry, a text back, an email to a professor. I knew they mattered. I just couldn&rsquo;t make myself open an app, type a title, pick a day, pick a time, guess a duration and set a reminder. That chain of tiny decisions is where the task dies. Research says I&rsquo;m not alone.</p>
         <div className="grid items-stretch gap-3 md:grid-cols-2">
           <SixDecisions />
@@ -236,7 +236,7 @@ export function AdhdPlannerCaseStudy() {
         </div>
       </Section>
 
-      <Section eyebrow="02 · Research" title="Six insights, six design rules.">
+      <Section eyebrow="02 · Research" title="What ADHD research says about planning">
         <p className="max-w-[65ch] text-base text-foreground/75">I reviewed clinical research, ADHD coaching literature and community writing. Each insight became a rule I held every screen to.</p>
         <div className="grid items-stretch gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {INSIGHTS.map((x) => (
@@ -249,7 +249,7 @@ export function AdhdPlannerCaseStudy() {
         </div>
       </Section>
 
-      <Section eyebrow="03 · Competitive landscape" title="Everyone competes on how the day looks.">
+      <Section eyebrow="03 · Competitive landscape" title="6 planners audited across 4 layout models">
         <p className="max-w-[65ch] text-base text-foreground/75">I audited six products across four layout models and read their app store and community reviews.</p>
         <div className="overflow-x-auto rounded-2xl border border-border/60 bg-card">
           <table className="w-full min-w-[720px] text-left text-sm">
@@ -286,7 +286,7 @@ export function AdhdPlannerCaseStudy() {
         </div>
       </Section>
 
-      <Section eyebrow="04 · Opportunity" title="Nobody competes on how things get into the day.">
+      <Section eyebrow="04 · Opportunity" title="The gap: every planner assumes tasks get entered properly">
         <div className="grid items-stretch gap-3 md:grid-cols-2">
           <div className="flex flex-col justify-between gap-6 rounded-3xl p-6 text-white" style={{ background: INK }}>
             <p className="text-lg leading-snug font-medium text-balance">Every product I audited assumes the user will enter tasks properly. For ADHD users, that entry step is exactly where things fall apart.</p>
@@ -301,7 +301,7 @@ export function AdhdPlannerCaseStudy() {
         </div>
       </Section>
 
-      <Section eyebrow="05 · Hypotheses" title="What I believe, and how I'll find out.">
+      <Section eyebrow="05 · Hypotheses" title="6 hypotheses to test">
         <p className="max-w-[65ch] text-base text-foreground/75">These are bets, not findings. Each one has a metric for the next round of testing.</p>
         <div className="grid items-stretch gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {HYPOTHESES.map((h) => (
@@ -314,12 +314,12 @@ export function AdhdPlannerCaseStudy() {
         </div>
       </Section>
 
-      <Section eyebrow="06 · Explorations" title="Three drafts, three ways to organize a day.">
+      <Section eyebrow="06 · Explorations" title="3 layout prototypes: clock, queue, and anchors">
         <p className="max-w-[65ch] text-base text-foreground/75">I built each layout as a working prototype with the same tasks, colors and celebration, so only the layout changes. Each one has a &ldquo;Time passes&rdquo; control to simulate a slipping day.</p>
         <Drafts />
       </Section>
 
-      <Section eyebrow="07 · Final direction" title="A+ · The clock you can talk to.">
+      <Section eyebrow="07 · Final direction" title="A+: clock timeline with brain-dump capture">
         <p className="max-w-[65ch] text-base text-foreground/75">A+ keeps draft A&rsquo;s clock and moves the effort into capture. You dump everything in one message. The app proposes times, durations and reminders, and shows them on the timeline before anything is saved.</p>
         <div className="grid items-start gap-8 md:grid-cols-[300px_minmax(0,1fr)]">
           <Phone v="final" label="Interactive prototype, final A+ direction" className="md:sticky md:top-28 md:max-w-[300px]" />
@@ -340,7 +340,7 @@ export function AdhdPlannerCaseStudy() {
         </div>
       </Section>
 
-      <Section eyebrow="08 · Test plan" title="How I'll validate it.">
+      <Section eyebrow="08 · Test plan" title="Usability test plan">
         <div className="grid items-stretch gap-3 sm:grid-cols-2">
           {[
             ["Who and how", "5 to 8 adults who self-identify as having ADHD. 30-minute moderated remote sessions, think-aloud. Each person tries A, B, C and A+ in a rotated order."],
@@ -356,7 +356,7 @@ export function AdhdPlannerCaseStudy() {
         </div>
       </Section>
 
-      <Section eyebrow="09 · Limits and next steps" title="What's real, and what's next.">
+      <Section eyebrow="09 · Limits and next steps" title="Prototype limits and next steps">
         <StatusCards
           items={[
             { tag: "What the prototype fakes", tone: "open", body: "Simple keyword rules stand in for a language model. The mic drops in a scripted example. Data resets on reload." },
