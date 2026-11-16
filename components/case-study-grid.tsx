@@ -4,7 +4,8 @@ import Image from "next/image"
 import Link from "next/link"
 import { Recommendations } from "@/components/recommendations"
 import { Hourglass, Lock } from "lucide-react"
-import { useEffect } from "react"
+import { useEffect, useRef, useState } from "react"
+import { DEFAULT_ORDER, FIELDS, WorkPicker, useFlip } from "@/components/work-picker"
 import { CoverMeta, ProjectCover, type CoverSpec } from "@/components/project-cover"
 import { COVERS } from "@/lib/covers"
 
@@ -314,9 +315,28 @@ function GroupedCaseStudy({ project }: { project: CaseStudy }) {
   )
 }
 
-const homepageProjects = projects.filter((p) => p.showOnHomepage !== false)
+const bySlug = (slug: string) => projects.find((p) => p.slug === slug)
+
+/** A work card that can carry a rank and a short reason when a field is picked. */
+function RankedCard({ project, rank, why }: { project: CaseStudy; rank?: number; why?: string }) {
+  return (
+    <div className="relative">
+      {rank ? (
+        <span aria-hidden className="pointer-events-none absolute top-3 left-3 z-10 grid h-7 w-7 place-items-center rounded-full bg-[#4a0e4e] text-xs font-bold text-white shadow-sm dark:bg-[#d9a6dd] dark:text-[#1c1a16]">
+          {rank}
+        </span>
+      ) : null}
+      <CaseStudyCard project={project} />
+      {why ? <p className="mt-1 text-sm font-medium text-[#4a0e4e] dark:text-[#d9a6dd]">{why}</p> : null}
+    </div>
+  )
+}
 
 export function CaseStudyGrid() {
+  const [field, setField] = useState(0)
+  const gridRef = useRef<HTMLDivElement>(null)
+  useFlip(gridRef, field)
+
   // Old shared links pointed at a panel (#p-slug). Send them to the case study page.
   useEffect(() => {
     const m = window.location.hash.match(/^#p-(.+)$/)
@@ -326,18 +346,28 @@ export function CaseStudyGrid() {
     window.location.replace(sub ? `/work/vendelux?project=${sub[1]}` : `/work/${slug}`)
   }, [])
 
+  const vendelux = bySlug("vendelux")!
+  const top = FIELDS[field].top
+  const rest = DEFAULT_ORDER.filter((slug) => !top.some((t) => t.slug === slug))
+  const ordered = [...top.map((t, i) => ({ slug: t.slug, rank: i + 1, why: t.why })), ...rest.map((slug) => ({ slug, rank: 0, why: "" }))]
+
   return (
     <section id="work" className="pb-24 pt-6">
       <div className="site-col">
-        {/* Two-up grid */}
-        <div className="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-          {homepageProjects.map((project) =>
-            project.group ? (
-              <GroupedCaseStudy key={project.slug} project={project} />
-            ) : (
-              <CaseStudyCard key={project.slug} project={project} />
-            ),
-          )}
+        <div ref={gridRef} className="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          <GroupedCaseStudy project={vendelux} />
+          <div className="-mb-4 sm:col-span-2 lg:col-span-3">
+            <WorkPicker value={field} onChange={setField} />
+          </div>
+          {ordered.map(({ slug, rank, why }) => {
+            const project = bySlug(slug)
+            if (!project) return null
+            return (
+              <div key={slug} data-flip={slug}>
+                <RankedCard project={project} rank={rank || undefined} why={why || undefined} />
+              </div>
+            )
+          })}
         </div>
       </div>
     </section>
