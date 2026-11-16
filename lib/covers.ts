@@ -69,7 +69,16 @@ export const COVERS: Record<string, CoverSpec> = {
     ],
   },
   "cast": { kind: "image", fit: "cover", bg: "#eef1f4", screens: ["/images/cast.jpg"] },
-  "clinical-trials": { kind: "desktop", bg: "#eceef3", video: "/videos/covers/clinical-trials.mp4", screens: ["/images/covers/posters/covers-clinical-trials-poster.jpg"] },
+  "clinical-trials": {
+    kind: "desktop",
+    bg: "#e3ecec",
+    screens: ["/images/covers/altrovia/0.webp"],
+    flow: [
+      { src: "/images/covers/altrovia/0.webp", tap: [4, 26], hold: 1500 },
+      { src: "/images/covers/altrovia/1.webp", tap: [5, 19], hold: 2000 },
+      { src: "/images/covers/altrovia/2.webp", hold: 1800 },
+    ],
+  },
   "restaurant-bot": { kind: "desktop", bg: "#f9e3ee", video: "/videos/covers/restaurant-bot.mp4", screens: ["/images/covers/posters/covers-restaurant-bot-poster.jpg"] },
   "dating-app-for-dogs": { kind: "phone", bg: "#e4e6ea", screens: ["/images/sniffr/swipe.webp"] },
 }

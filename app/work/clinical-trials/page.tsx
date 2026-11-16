@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
-import { ClinicalTrialsVisualCaseStudy } from "@/components/clinical-trials/clinical-trials-visual-case-study"
+import { AltroviaCaseStudy } from "@/components/clinical-trials/altrovia-case-study"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { ContinueLink } from "@/components/continue-link"
@@ -20,7 +20,7 @@ export default function Page() {
           Back to Portfolio
         </Link>
 
-        <ClinicalTrialsVisualCaseStudy prototypeVideoSrc="/videos/clinical-trials-prototype.mov#t=3" />
+        <AltroviaCaseStudy prototypeVideoSrc="/videos/clinical-trials-prototype.mov#t=3" />
 
         <div className="mt-24">
           <ContinueLink />

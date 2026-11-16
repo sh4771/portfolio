@@ -13,7 +13,7 @@ export const PAGE_HINTS: Record<string, string> = {
   "/work/greener-routes":
     "Greener Walking Routes is Violet's data visualization work. She turned NYC Parks data into a green score you can compare at a glance.",
   "/work/clinical-trials":
-    "Altrovia was a 10-hour sprint. With no time for everything, Violet bet on what mattered most: making AI signals trustworthy.",
+    "Altrovia started as a 10-hour sprint. Violet is coming back to it now to finish the design system and test it with trial teams.",
   "/work/cast":
     "C.A.S.T is Violet's accessibility work: she designed alongside researchers and people with spinal cord injuries at Columbia's ROAR Lab.",
   "/work/schedulink":

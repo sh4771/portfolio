@@ -202,11 +202,11 @@ const projects: CaseStudy[] = [
   },
   {
     slug: "clinical-trials",
-    name: "Decision Clarity in Clinical Trials",
+    name: "Altrovia: Trustworthy AI signals for clinical trials",
     cover: COVERS["clinical-trials"],
     readMins: 5,
     showOnHomepage: false, // shown in For Fun
-    title: "Designing Decision Clarity in Clinical Trial Systems",
+    title: "Altrovia: Trustworthy AI Signals for Clinical Trial Teams",
     description:
       "Adobe Designathon: clinical trial intelligence platform for clearer decisions, transparent AI recommendations, and actionable dashboards.",
     tags: ["2026", "UI/UX Design", "Case Study"],
